@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eduooz | Premier Healthcare Academy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+    --brand-dark: #0a0514;
+    --brand-purple: #5b21b6;
+    --brand-magenta: #c026d3;
+    --brand-cyan: #06b6d4;
+    --text-main: #ffffff;
+    --text-muted: #cbd5e1;
+    --font-main: 'Plus Jakarta Sans', sans-serif;
+    
+    /* Iridescent Glass Variables */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-highlight: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+    --glass-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--brand-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* --- 1. Animated Gradient Mesh Background --- */
+.gradient-mesh-bg {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -2; overflow: hidden; background: var(--brand-dark);
+    filter: blur(100px); /* Massive blur creates the aurora effect */
+}
+.mesh-blob { position: absolute; border-radius: 50%; opacity: 0.6; animation: fluid 20s infinite alternate ease-in-out; }
+.blob-purple { width: 70vw; height: 70vw; background: var(--brand-purple); top: -20%; left: -10%; }
+.blob-cyan { width: 50vw; height: 50vw; background: var(--brand-cyan); bottom: -10%; right: -10%; animation-delay: -5s; opacity: 0.4; }
+.blob-magenta { width: 60vw; height: 60vw; background: var(--brand-magenta); top: 20%; left: 40%; animation-delay: -10s; opacity: 0.3; }
+
+@keyframes fluid {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(10vw, 10vh) scale(1.2); }
+}
+
+/* --- 2. Cinematic Canvas --- */
+#cinematic-canvas {
+    position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1; pointer-events: none;
+}
+
+/* --- 3. Iridescent Glass Header --- */
+.glass-header {
+    position: fixed; top: 20px; left: 5%; width: 90%;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 30px; z-index: 100;
+    background: rgba(10, 5, 20, 0.4);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid rgba(255,255,255,0.3); /* Edge highlight */
+    border-radius: 100px; box-shadow: var(--glass-shadow);
+}
+.logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; }
+.nav-links { display: flex; gap: 40px; }
+.hover-underline { position: relative; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
+.hover-underline:hover { color: #fff; }
+.btn-glass-sm {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; padding: 10px 24px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+}
+
+/* --- 4. Hero Layout --- */
+.hero-premium {
+    min-height: 100vh; display: flex; align-items: center; padding-top: 80px;
+}
+.container {
+    max-width: 1400px; margin: 0 auto; padding: 0 5%;
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center;
+}
+
+/* Typography */
+.glass-pill {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 50px;
+    font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 2rem;
+}
+.glowing-dot { width: 8px; height: 8px; background: #22d3ee; border-radius: 50%; box-shadow: 0 0 15px #22d3ee; }
+
+.hero-title {
+    font-size: clamp(3.5rem, 5vw, 5.5rem); font-weight: 800; line-height: 1.05;
+    letter-spacing: -2px; margin-bottom: 1.5rem;
+}
+.text-gradient-fluid {
+    background: linear-gradient(to right, #fff, var(--brand-cyan), var(--brand-magenta));
+    background-size: 200% auto;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+}
+@keyframes shine { to { background-position: 200% center; } }
+
+.hero-subtitle { font-size: 1.2rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 3rem; max-width: 600px; font-weight: 400; }
+
+/* CTAs */
+.cta-cluster { display: flex; align-items: center; gap: 20px; margin-bottom: 4rem; }
+.btn-primary-magnetic {
+    background: #fff; color: var(--brand-dark); text-decoration: none;
+    padding: 18px 40px; border-radius: 100px; font-weight: 700; font-size: 1.05rem;
+    box-shadow: 0 10px 30px rgba(255,255,255,0.2); transition: transform 0.2s; display: inline-block;
+}
+.btn-glass-outline {
+    background: var(--glass-bg); color: #fff; text-decoration: none;
+    padding: 18px 30px; border-radius: 100px; font-weight: 600; font-size: 1.05rem;
+    border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); display: inline-flex; align-items: center; gap: 10px;
+}
+
+/* Glass Stat Bar */
+.glass-stat-bar {
+    display: inline-flex; align-items: center; gap: 40px;
+    background: rgba(255,255,255,0.03); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08); padding: 20px 40px; border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+.stat h4 { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 5px; }
+.stat p { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
+
+/* --- Right Visual: Multi-Layer Glass --- */
+.hero-visual-zone { position: relative; height: 650px; display: flex; align-items: center; justify-content: center; perspective: 1000px; }
+
+.main-glass-card {
+    position: relative; width: 85%; height: 90%;
+    border-radius: 30px; overflow: hidden;
+    background: var(--glass-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 2px 20px rgba(255,255,255,0.15);
+    transform-style: preserve-3d;
+}
+.card-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; mix-blend-mode: luminosity; }
+.card-glass-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 40%, rgba(6, 182, 212, 0.1) 100%);
+    pointer-events: none;
+}
+
+/* Floating Badges */
+.floating-glass-badge {
+    position: absolute; z-index: 10;
+    background: rgba(10, 5, 20, 0.6); backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.15); border-top: 1px solid rgba(255,255,255,0.4);
+    padding: 15px 25px; border-radius: 20px; display: flex; align-items: center; gap: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 2px 10px rgba(255,255,255,0.05);
+}
+.badge-top { top: 10%; left: -15%; }
+.badge-bottom { bottom: 15%; right: -15%; }
+.icon-sphere { font-size: 1.5rem; background: rgba(255,255,255,0.1); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); }
+.badge-content h5 { font-size: 1rem; color: #fff; margin-bottom: 2px; }
+.badge-content span { font-size: 0.8rem; color: var(--text-muted); }
+
+/* GSAP Hiding */
+.g-reveal, .g-visual { visibility: hidden; }
+
+@media (max-width: 1024px) {
+    .container { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .hero-text-zone { display: flex; flex-direction: column; align-items: center; }
+    .hero-visual-zone { height: 450px; }
+    .badge-top { left: 5%; } .badge-bottom { right: 5%; }
+}
+    </style>
+</head>
+<body>
+
+    <div class="gradient-mesh-bg">
+        <div class="mesh-blob blob-purple"></div>
+        <div class="mesh-blob blob-cyan"></div>
+        <div class="mesh-blob blob-magenta"></div>
+    </div>
+
+    <div id="cinematic-canvas"></div>
+
+    <header class="glass-header">
+        <div class="logo">EDUOOZ.</div>
+        <nav class="nav-links">
+            <a href="#courses" class="hover-underline">Courses</a>
+            <a href="#results" class="hover-underline">Results</a>
+            <a href="#about" class="hover-underline">About Us</a>
+        </nav>
+        <a href="#demo" class="btn-glass-sm magnetic-btn">Free Demo</a>
+    </header>
+
+    <section class="hero-premium">
+        <div class="container">
+            
+            <div class="hero-text-zone">
+                <div class="glass-pill g-reveal">
+                    <div class="glowing-dot"></div>
+                    <span>Rank 1 Coaching Ecosystem</span>
+                </div>
+                
+                <h1 class="hero-title g-reveal">
+                    Dominate Healthcare <br>
+                    Exams with <span class="text-gradient-fluid">Precision.</span>
+                </h1>
+                
+                <p class="hero-subtitle g-reveal">
+                    India's most advanced coaching platform for Nurses, Pharmacists, and Lab Technicians. Secure your future in Central, State, or International healthcare.
+                </p>
+                
+                <div class="cta-cluster g-reveal">
+                    <a href="#enroll" class="btn-primary-magnetic magnetic-btn">Start Your Journey</a>
+                    <a href="#demo" class="btn-glass-outline magnetic-btn">Watch Demo <span class="arrow">↗</span></a>
+                </div>
+
+                <div class="glass-stat-bar g-reveal">
+                    <div class="stat">
+                        <h4>12+</h4>
+                        <p>First Ranks</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="stat">
+                        <h4>1000+</h4>
+                        <p>Rank Holders</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="stat">
+                        <h4>95%</h4>
+                        <p>Success Rate</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual-zone">
+                <div class="main-glass-card g-visual" data-speed="0.05">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173ff9e9e9c?auto=format&fit=crop&q=80&w=800" alt="Medical Student" class="card-img">
+                    <div class="card-glass-overlay"></div>
+                    
+                    <div class="floating-glass-badge badge-top" data-speed="0.08">
+                        <div class="icon-sphere">🎯</div>
+                        <div class="badge-content">
+                            <h5>Kerala PSC & AIIMS</h5>
+                            <span>Targeted Batches</span>
+                        </div>
+                    </div>
+                    
+                    <div class="floating-glass-badge badge-bottom" data-speed="-0.04">
+                        <div class="icon-sphere">🌐</div>
+                        <div class="badge-content">
+                            <h5>International</h5>
+                            <span>DHA, HAAD, Prometric</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        
+    </script>
+</body>
+</html>

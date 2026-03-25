@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eduooz | Premier Healthcare Academy</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --brand-purple: #4c127e;
+            --brand-light: #f3e8ff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --bg-base: #f8fafc;
+
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+
+            /* Liquid Glass Variables for Grid */
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --glass-shadow: 0 10px 30px rgba(76, 18, 126, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-base);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Subtle Academy Background */
+        /* .academy-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at top right, #f3e8ff 0%, #f8fafc 40%);
+        } */
+
+        /* --- Academy Navbar --- */
+        .academy-nav {
+            position: fixed;
+            top: 20px;
+            left: 5%;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .color-mesh {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -2; filter: blur(80px); opacity: 0.6;
+}
+.blob { position: absolute; border-radius: 50%; animation: drift 15s infinite alternate ease-in-out; }
+.purple-blob { width: 50vw; height: 50vw; background: #e9d5ff; top: -10%; left: -10%; }
+.mint-blob { width: 40vw; height: 40vw; background: #ccfbf1; bottom: 0; right: -10%; animation-delay: -5s; }
+.peach-blob { width: 45vw; height: 45vw; background: #ffedd5; top: 30%; left: 30%; animation-delay: -10s; }
+
+@keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(10vw, 5vh) scale(1.1); }
+}
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-purple);
+        }
+
+        .btn-nav-solid {
+            background: var(--brand-purple);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-nav-solid:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 18, 126, 0.3);
+        }
+
+        /* --- Hero Section & Grid --- */
+        .hero-bento {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* Left Content */
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            border: 1px solid rgba(76, 18, 126, 0.1);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--brand-purple);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 4.5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .text-purple {
+            color: var(--brand-purple);
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background: var(--brand-purple);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 10px 20px rgba(76, 18, 126, 0.2);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(76, 18, 126, 0.3);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--brand-purple);
+            color: var(--brand-purple);
+        }
+
+        .trusted-by p {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .exam-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .exam-tags span {
+            background: rgba(76, 18, 126, 0.05);
+            color: var(--brand-purple);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 8px;
+        }
+
+        /* Right Content: Premium Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 250px 150px;
+            gap: 20px;
+        }
+
+        .bento-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Card 1: Main Image */
+        .card-large {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+        }
+
+        .bento-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .glass-overlay-label {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #fff;
+        }
+
+        .glass-overlay-label .icon {
+            font-size: 1.5rem;
+        }
+
+        .glass-overlay-label .text strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .glass-overlay-label .text span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Card 2: 3D Canvas Container */
+        .card-3d {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            background: #fff;
+        }
+
+        /* Solid white to make 3D pop */
+        .glass-label {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        /* Cards 3 & 4: Stats */
+        .card-stat {
+            padding: 25px;
+            align-items: flex-start;
+        }
+
+        .primary-stat {
+            background: var(--brand-purple);
+            color: #fff;
+        }
+
+        .primary-stat h3 {
+            color: #fff;
+        }
+
+        .primary-stat p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .card-stat h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 8px;
+            color: var(--brand-purple);
+        }
+
+        .card-stat p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* GSAP Defaults */
+        .g-slide,
+        .g-pop {
+            visibility: hidden;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-content {
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .cta-group {
+                justify-content: center;
+            }
+
+            .trusted-by {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .bento-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: 300px 250px auto auto;
+            }
+
+            .card-large {
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+            }
+
+            .card-3d {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="academy-bg"></div>
+
+    <div class="color-mesh">
+        <div class="blob purple-blob"></div>
+        <div class="blob mint-blob"></div>
+        <div class="blob peach-blob"></div>
+    </div>
+
+    <header class="academy-nav">
+        <div class="logo">
+            <svg width="30" height="30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" rx="20" fill="#4c127e" />
+                <path d="M30 70V30L70 50L30 70Z" fill="white" />
+            </svg>
+            Eduooz
+        </div>
+        <nav class="nav-links">
+            <a href="#courses">Programs</a>
+            <a href="#results">Results</a>
+            <a href="#faculty">Faculty</a>
+        </nav>
+        <a href="#demo" class="btn-nav-solid">Get Free Demo</a>
+    </header>
+
+    <section class="hero-bento">
+        <div class="container">
+
+            <div class="hero-content">
+                <div class="trust-badge g-slide">
+                    <span class="pulse-dot"></span> Admissions Open 2026
+                </div>
+
+                <h1 class="hero-title g-slide">
+                    Crack Healthcare Exams with <span class="text-purple">Expert Coaching.</span>
+                </h1>
+
+                <p class="hero-subtitle g-slide">
+                    Join India's premier coaching institute for Nurses, Pharmacists, and Lab Technicians. Structured
+                    syllabus, expert faculty, and proven results.
+                </p>
+
+                <div class="cta-group g-slide">
+                    <a href="#enroll" class="btn-primary">Enroll Now</a>
+                    <a href="#demo" class="btn-secondary">View Syllabus <span class="arrow">→</span></a>
+                </div>
+
+                <div class="trusted-by g-slide">
+                    <p>Preparing students for top exams:</p>
+                    <div class="exam-tags">
+                        <span>Kerala PSC</span>
+                        <span>AIIMS</span>
+                        <span>RRB Nursing</span>
+                        <span>DHA / Prometric</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-grid">
+
+                <div class="bento-card card-large g-pop">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173ff9e9e9c?auto=format&fit=crop&q=80&w=800"
+                        alt="Nursing Student" class="bento-img">
+                    <div class="glass-overlay-label">
+                        <div class="icon">🎓</div>
+                        <div class="text">
+                            <strong>Top Tier Faculty</strong>
+                            <span>Learn from Rank Holders</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-card card-3d g-pop" id="dna-container">
+                    <div class="glass-label">Biological Sciences</div>
+                </div>
+
+                <div class="bento-card card-stat primary-stat g-pop">
+                    <h3>12+</h3>
+                    <p>First Ranks</p>
+                </div>
+
+                <div class="bento-card card-stat secondary-stat g-pop">
+                    <h3>1000+</h3>
+                    <p>Verified Rank Holders</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // --- 1. GSAP Professional Reveal ---
+            const tl = gsap.timeline();
+            gsap.set([".g-slide", ".g-pop"], { autoAlpha: 1 });
+
+            // Text slides up cleanly
+            tl.from(".g-slide", {
+                y: 30, opacity: 0,
+                duration: 0.8, stagger: 0.15,
+                ease: "power3.out", delay: 0.1
+            })
+                // Bento Grid Cards pop in securely
+                .from(".g-pop", {
+                    scale: 0.9, y: 20, opacity: 0,
+                    duration: 0.8, stagger: 0.1,
+                    ease: "back.out(1.2)"
+                }, "-=0.6");
+
+            // --- 2. Three.js: Clean Frosted DNA in Bento Card ---
+            const container = document.getElementById('dna-container');
+            const scene = new THREE.Scene();
+
+            // Fit camera precisely to the card dimensions
+            const camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.set(0, 0, 18);
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+
+            const dnaGroup = new THREE.Group();
+            scene.add(dnaGroup);
+
+            // Clean, Clinical Frosted Glass Material
+            const frostedMat = new THREE.MeshPhysicalMaterial({
+                color: 0xffffff,
+                transmission: 0.95,
+                opacity: 1,
+                metalness: 0.1,
+                roughness: 0.3, // Soft frosted look
+                ior: 1.5,
+                thickness: 1.0,
+                clearcoat: 0.5,
+                clearcoatRoughness: 0.2
+            });
+
+            const purpleMat = new THREE.MeshStandardMaterial({
+                color: 0x4c127e, roughness: 0.2, metalness: 0.1
+            });
+
+            // Build a compact, perfect helix to fit the card
+            const numNodes = 30;
+            const radius = 2.5;
+            const heightStep = 0.5;
+
+            const sphereGeo = new THREE.SphereGeometry(0.6, 32, 32);
+            const rungGeo = new THREE.CylinderGeometry(0.15, 0.15, radius * 2, 16);
+
+            for (let i = 0; i < numNodes; i++) {
+                const angle = i * 0.4;
+                const y = (i - numNodes / 2) * heightStep;
+
+                const x1 = Math.cos(angle) * radius; const z1 = Math.sin(angle) * radius;
+                const x2 = Math.cos(angle + Math.PI) * radius; const z2 = Math.sin(angle + Math.PI) * radius;
+
+                const node1 = new THREE.Mesh(sphereGeo, frostedMat);
+                node1.position.set(x1, y, z1);
+                node1.castShadow = true; node1.receiveShadow = true;
+                dnaGroup.add(node1);
+
+                const node2 = new THREE.Mesh(sphereGeo, frostedMat);
+                node2.position.set(x2, y, z2);
+                node2.castShadow = true; node2.receiveShadow = true;
+                dnaGroup.add(node2);
+
+                if (i % 2 === 0) {
+                    const rung = new THREE.Mesh(rungGeo, purpleMat);
+                    rung.position.set(0, y, 0);
+                    rung.rotation.y = -angle; rung.rotation.z = Math.PI / 2;
+                    rung.castShadow = true; rung.receiveShadow = true;
+                    dnaGroup.add(rung);
+                }
+            }
+
+            // Tilt for a dynamic showcase angle
+            dnaGroup.rotation.z = Math.PI / 6;
+
+            // Crisp Studio Lighting for the Card
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+
+            const spotLight = new THREE.SpotLight(0xffffff, 3);
+            spotLight.position.set(10, 10, 10);
+            spotLight.castShadow = true;
+            spotLight.shadow.bias = -0.001;
+            scene.add(spotLight);
+
+            const fillLight = new THREE.PointLight(0x4c127e, 4, 30);
+            fillLight.position.set(-5, -5, 5);
+            scene.add(fillLight);
+
+            // --- 3. Animation Loop ---
+            const clock = new THREE.Clock();
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const time = clock.getElapsedTime();
+
+                // Slow, professional rotation
+                dnaGroup.rotation.y = time * 0.3;
+                dnaGroup.position.y = Math.sin(time * 1.5) * 0.3;
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Responsive resize specific to the card
+            window.addEventListener('resize', () => {
+                if (!container) return;
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+        });
+    </script>
+</body>
+
+</html>
