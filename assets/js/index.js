@@ -623,32 +623,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const playCursor = document.querySelector('.magnetic-play-cursor');
 
     if(mainPortal && playCursor) {
-        // 1. Hover Entrance: Turn out the lights
-        mainPortal.addEventListener('mouseenter', () => {
-            document.body.classList.add('lights-out');
+        // 1. Hover Entrance: Snap cursor to mouse entry
+        mainPortal.addEventListener('mouseenter', (e) => {
+            const rect = mainPortal.getBoundingClientRect();
+            const x = (e.clientX - rect.left) - (rect.width / 2);
+            const y = (e.clientY - rect.top) - (rect.height / 2);
+            
+            gsap.set(playCursor, { x: x, y: y, xPercent: -50, yPercent: -50, scale: 0.5 });
         });
 
-        // 2. Hover Exit: Turn lights back on
+        // 2. Hover Exit
         mainPortal.addEventListener('mouseleave', () => {
-            document.body.classList.remove('lights-out');
-            // Hide custom cursor
             gsap.to(playCursor, { opacity: 0, scale: 0.5, duration: 0.3 });
         });
 
-        // 3. Mouse Move: Magnetic Tracking
+        // 3. Mouse Move: Magnetic Tracking using separated coordinates and percentages
         mainPortal.addEventListener('mousemove', (e) => {
             const rect = mainPortal.getBoundingClientRect();
-            // Calculate mouse position relative to the portal
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            const x = (e.clientX - rect.left) - (rect.width / 2);
+            const y = (e.clientY - rect.top) - (rect.height / 2);
 
-            // Animate the custom cursor to follow the mouse with a slight, smooth delay
             gsap.to(playCursor, {
                 x: x, 
                 y: y,
+                xPercent: -50,
+                yPercent: -50,
                 scale: 1,
                 opacity: 1,
-                duration: 0.2, // Gives it that heavy, expensive "liquid" feel
+                duration: 0.2, 
                 ease: "sine.out"
             });
         });
@@ -665,23 +667,146 @@ document.addEventListener("DOMContentLoaded", () => {
     let isAnimating = false;
     window.lastDragDist = 0;
 
-    // Initialization: Force the 2nd child in the DOM to be the initially active, centered card
-    if (playlistTrack && playlistTrack.children.length > 1) {
+    // Initialization: Force the 3rd child in the DOM to be the initially active, centered card
+    if (playlistTrack && playlistTrack.children.length > 2) {
         playlistCards.forEach(c => c.classList.remove('active'));
-        playlistTrack.children[1].classList.add('active');
+        playlistTrack.children[2].classList.add('active');
         
         // Sync the main portal
-        const initialImg = playlistTrack.children[1].getAttribute('data-img');
-        const initialTitle = playlistTrack.children[1].getAttribute('data-title');
-        const initialDesc = playlistTrack.children[1].getAttribute('data-desc');
-        const initialStats = playlistTrack.children[1].getAttribute('data-stats');
+        const initialImg = playlistTrack.children[2].getAttribute('data-img');
+        const initialTitle = playlistTrack.children[2].getAttribute('data-title');
+        const initialDesc = playlistTrack.children[2].getAttribute('data-desc');
+        const initialStats = playlistTrack.children[2].getAttribute('data-stats');
+        const initialUrl = playlistTrack.children[2].getAttribute('data-url');
         
         if (activeVidImg) activeVidImg.src = initialImg;
         if (activeVidTitle) activeVidTitle.innerText = initialTitle;
         if (activeVidDesc) activeVidDesc.innerText = initialDesc;
         const statsEl = document.getElementById('active-vid-stats');
         if (statsEl && initialStats) statsEl.innerText = initialStats;
+        const linkEl = document.querySelector('.yt-badge');
+        if (linkEl && initialUrl) linkEl.href = initialUrl;
     }
+
+    // --- 7. YouTube Data API v3 Dynamic Fetcher ---
+    const YOUTUBE_API_KEY = ""; // PASTE YOUR YOUTUBE DATA API V3 KEY HERE
+    
+    const extractYTId = (url) => {
+        const match = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+        return match ? match[1] : null;
+    };
+
+    const formatViews = (views) => {
+        if (views >= 1000000) return (views / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        if (views >= 1000) return (views / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+        return views;
+    };
+
+    const formatDuration = (pt) => {
+        const match = pt.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+        if (!match) return "00:00";
+        const h = (parseInt(match[1]) || 0);
+        const m = (parseInt(match[2]) || 0);
+        const s = (parseInt(match[3]) || 0);
+        let str = "";
+        if (h > 0) str += h + ":";
+        str += (m < 10 && h > 0 ? "0" : "") + m + ":";
+        str += (s < 10 ? "0" : "") + s;
+        return str;
+    };
+
+    const fetchYTMetadataRealtime = async (card) => {
+        if (!YOUTUBE_API_KEY) return; // Silent fallback to static HTML attributes if no key is provided
+        
+        const ytUrl = card.getAttribute('data-url');
+        const videoId = extractYTId(ytUrl);
+        if (!videoId) return;
+
+        try {
+            const apiEndpoint = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${YOUTUBE_API_KEY}`;
+            const response = await fetch(apiEndpoint);
+            const data = await response.json();
+            
+            if (data.items && data.items.length > 0) {
+                const vid = data.items[0];
+                const cleanTitle = vid.snippet.title;
+                const viewsStr = `${formatViews(vid.statistics.viewCount)} views`;
+                
+                const publishedAt = new Date(vid.snippet.publishedAt);
+                const monthsAgo = Math.floor((new Date() - publishedAt) / (1000 * 60 * 60 * 24 * 30));
+                let dateStr = monthsAgo > 11 ? `${Math.floor(monthsAgo / 12)} years ago` : `${monthsAgo} months ago`;
+                if (monthsAgo === 0) dateStr = 'recently';
+                
+                const statsStr = `${viewsStr} • ${dateStr}`;
+                const rawDesc = vid.snippet.description.split('\n')[0].substring(0, 80) + "..."; 
+                const durationStr = formatDuration(vid.contentDetails.duration);
+                
+                card.setAttribute('data-title', cleanTitle);
+                card.setAttribute('data-desc', rawDesc);
+                card.setAttribute('data-stats', statsStr);
+                
+                const durEl = card.querySelector('.playlist-duration');
+                if (durEl) durEl.innerText = durationStr;
+                
+                if (card.classList.contains('active')) {
+                    const activeVidTitle = document.getElementById('active-vid-title');
+                    const activeVidDesc = document.getElementById('active-vid-desc');
+                    const activeVidStats = document.getElementById('active-vid-stats');
+                    
+                    if (activeVidTitle) activeVidTitle.innerText = cleanTitle;
+                    if (activeVidDesc) activeVidDesc.innerText = rawDesc;
+                    if (activeVidStats) activeVidStats.innerText = statsStr;
+                }
+            }
+        } catch (error) {
+            console.warn("YouTube API Fetch Failed: ", error); // Fails gracefully
+        }
+    };
+
+    // Trigger background fetch for all localized cards on load
+    playlistCards.forEach(card => fetchYTMetadataRealtime(card));
+
+    let mainPortalSyncTL = null;
+    
+    const syncMainPortal = (card) => {
+        if (!card) return;
+        
+        // Enforce DOM level Active CSS swapping
+        playlistCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+
+        const newImg = card.getAttribute('data-img');
+        const newTitle = card.getAttribute('data-title');
+        const newDesc = card.getAttribute('data-desc');
+        const newStats = card.getAttribute('data-stats');
+        const newUrl = card.getAttribute('data-url');
+        
+        // Prevent GSAP timeline collision if swiping incredibly fast
+        if (mainPortalSyncTL) mainPortalSyncTL.kill();
+
+        mainPortalSyncTL = gsap.timeline();
+        mainPortalSyncTL.to([activeVidImg, ".active-video-meta"], {
+            opacity: 0, filter: "blur(15px)", scale: 1.05, duration: 0.25, ease: "power2.in",
+            onComplete: () => {
+                // Destroy iframe to stop audio
+                const existingIframe = document.querySelector('.main-video-portal iframe');
+                if (existingIframe) existingIframe.remove();
+                const playCursor = document.querySelector('.main-video-portal .magnetic-play-cursor');
+                if (playCursor) playCursor.style.display = '';
+
+                if(activeVidImg) activeVidImg.src = newImg;
+                if(activeVidTitle) activeVidTitle.innerText = newTitle;
+                if(activeVidDesc) activeVidDesc.innerText = newDesc;
+                const statsEl = document.getElementById('active-vid-stats');
+                if (statsEl && newStats) statsEl.innerText = newStats;
+                const linkEl = document.querySelector('.yt-badge');
+                if (linkEl && newUrl) linkEl.href = newUrl;
+            }
+        })
+        .to([activeVidImg, ".active-video-meta"], {
+            opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.35, ease: "power3.out"
+        });
+    };
 
     playlistCards.forEach(card => {
         card.addEventListener('click', (e) => {
@@ -689,70 +814,76 @@ document.addEventListener("DOMContentLoaded", () => {
             if(isAnimating) return;
 
             const index = Array.from(playlistTrack.children).indexOf(card);
-            
-            // If already clicking the center card, just safely play the morph transition 
-            if (index === 1 && card.classList.contains('active')) {
-                // Ignore repeat clicks on the active center to save power
-                return;
-            }
+            if (index === 2 && card.classList.contains('active')) return;
 
-            // Enforce DOM level Active CSS swapping
-            playlistCards.forEach(c => c.classList.remove('active'));
-            card.classList.add('active');
+            syncMainPortal(card);
 
-            // Slide physics mapping (CSS scaling happens automatically based on the active class)
-            if (index === 0) {
-                // Clicked left card -> Slide Right to force it into center slot
+            const dist = index - 2;
+            if (dist !== 0) {
                 isAnimating = true;
-                playlistTrack.prepend(playlistTrack.lastElementChild);
-                gsap.set(playlistTrack, { x: -280 });
-                gsap.to(playlistTrack, { x: 0, duration: 0.5, ease: "power2.out", onComplete: () => isAnimating = false });
-            } else if (index === 2) {
-                // Clicked right card -> Slide Left to force it into center slot
-                isAnimating = true;
-                gsap.to(playlistTrack, { x: -280, duration: 0.5, ease: "power2.out", onComplete: () => {
-                    playlistTrack.appendChild(playlistTrack.firstElementChild);
-                    gsap.set(playlistTrack, { x: 0 });
-                    isAnimating = false;
-                }});
-            }
-
-            // Sync the main glass portal data 
-            const newImg = card.getAttribute('data-img');
-            const newTitle = card.getAttribute('data-title');
-            const newDesc = card.getAttribute('data-desc');
-            const newStats = card.getAttribute('data-stats');
-
-            const tl = gsap.timeline();
-            tl.to([activeVidImg, ".active-video-meta"], {
-                opacity: 0, filter: "blur(15px)", scale: 1.05, duration: 0.4, ease: "power2.in",
-                onComplete: () => {
-                    if(activeVidImg) activeVidImg.src = newImg;
-                    if(activeVidTitle) activeVidTitle.innerText = newTitle;
-                    if(activeVidDesc) activeVidDesc.innerText = newDesc;
-                    const statsEl = document.getElementById('active-vid-stats');
-                    if (statsEl && newStats) statsEl.innerText = newStats;
+                if (dist > 0) {
+                    gsap.to(playlistTrack, { x: -280 * dist, duration: 0.5, ease: "power2.out", onComplete: () => {
+                        for(let i=0; i<dist; i++) playlistTrack.appendChild(playlistTrack.firstElementChild);
+                        gsap.set(playlistTrack, { x: 0 });
+                        isAnimating = false;
+                    }});
+                } else {
+                    const absDist = Math.abs(dist);
+                    for(let i=0; i<absDist; i++) playlistTrack.prepend(playlistTrack.lastElementChild);
+                    gsap.set(playlistTrack, { x: -280 * absDist });
+                    gsap.to(playlistTrack, { x: 0, duration: 0.5, ease: "power2.out", onComplete: () => isAnimating = false });
                 }
-            })
-            .to([activeVidImg, ".active-video-meta"], {
-                opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.6, ease: "power3.out"
-            });
+            }
         });
     });
+
+    // --- 7.5 Inline YouTube Iframe Player ---
+    const playerPortal = document.getElementById('main-portal');
+    if (playerPortal) {
+        playerPortal.addEventListener('click', (e) => {
+            if (e.target.closest('.yt-badge')) return; 
+
+            const linkEl = document.querySelector('.yt-badge');
+            if (!linkEl) return;
+
+            const ytUrl = linkEl.href;
+            const match = ytUrl.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
+            if (match && match[1]) {
+                const videoId = match[1];
+                const frameContainer = playerPortal.querySelector('.video-glass-frame');
+                
+                if (!frameContainer.querySelector('iframe')) {
+                    const iframe = document.createElement('iframe');
+                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                    iframe.setAttribute('frameborder', '0');
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                    iframe.setAttribute('allowfullscreen', 'true');
+                    iframe.style.position = 'absolute'; iframe.style.top = '0'; iframe.style.left = '0';
+                    iframe.style.width = '100%'; iframe.style.height = '100%';
+                    iframe.style.zIndex = '15'; iframe.style.borderRadius = 'inherit'; 
+                    frameContainer.appendChild(iframe);
+                    
+                    const cursor = playerPortal.querySelector('.magnetic-play-cursor');
+                    if (cursor) cursor.style.display = 'none';
+                    if (autoSlideInterval) clearInterval(autoSlideInterval);
+                }
+            }
+        });
+    }
 
     const startAutoSlide = () => {
         if (!playlistTrack) return;
         autoSlideInterval = setInterval(() => {
             if (isAnimating) return;
-            const rightCard = playlistTrack.children[2];
-            // Clicking the right card inherently triggers the slide left, curve scaling, and glass morphing!
+            const rightCard = playlistTrack.children[3]; 
             if (rightCard) rightCard.click();
         }, 3000); 
     };
 
-    // --- 8. Grab and Swipe Logic ---
+    // --- 8. Seamless Infinite Grab & Swipe Logic ---
     let isDragging = false;
     let startX = 0;
+    const cardWidth = 280; 
 
     const pointerDown = (e) => {
         if (isAnimating || !playlistTrack) return;
@@ -766,8 +897,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const pointerMove = (e) => {
         if (!isDragging || isAnimating) return;
         const x = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-        const walk = x - startX;
-        window.lastDragDist = Math.abs(walk);
+        let walk = x - startX;
+        
+        // True infinite loop DOM manipulation during active Drag
+        if (walk <= -cardWidth) {
+            playlistTrack.appendChild(playlistTrack.firstElementChild);
+            startX -= cardWidth; walk += cardWidth;
+            syncMainPortal(playlistTrack.children[2]);
+        } else if (walk >= cardWidth) {
+            playlistTrack.prepend(playlistTrack.lastElementChild);
+            startX += cardWidth; walk -= cardWidth;
+            syncMainPortal(playlistTrack.children[2]);
+        }
+        
+        window.lastDragDist += Math.abs(walk); // Ensure clicks disable gracefully
         gsap.set(playlistTrack, { x: walk });
     };
 
@@ -780,15 +923,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const walk = endX - startX;
 
         if (walk < -50 && !isAnimating) {
-            // Swiped Left -> Simulate clicking the right thumb
-            if(playlistTrack.children[2]) playlistTrack.children[2].click();
-            else gsap.to(playlistTrack, { x: 0, duration: 0.3 });
+            isAnimating = true;
+            gsap.to(playlistTrack, { x: -cardWidth, duration: 0.35, ease: "power2.out", onComplete: () => {
+                playlistTrack.appendChild(playlistTrack.firstElementChild);
+                gsap.set(playlistTrack, { x: 0 });
+                syncMainPortal(playlistTrack.children[2]);
+                isAnimating = false;
+            }});
         } else if (walk > 50 && !isAnimating) {
-            // Swiped Right -> Simulate clicking the left thumb
-            if(playlistTrack.children[0]) playlistTrack.children[0].click();
-            else gsap.to(playlistTrack, { x: 0, duration: 0.3 });
+            isAnimating = true;
+            gsap.to(playlistTrack, { x: cardWidth, duration: 0.35, ease: "power2.out", onComplete: () => {
+                playlistTrack.prepend(playlistTrack.lastElementChild);
+                gsap.set(playlistTrack, { x: 0 });
+                syncMainPortal(playlistTrack.children[2]);
+                isAnimating = false;
+            }});
         } else {
-            gsap.to(playlistTrack, { x: 0, duration: 0.3 });
+            // Snap back to precise center if lazy swipe
+            gsap.to(playlistTrack, { x: 0, duration: 0.3, ease: "power2.out" });
         }
         startAutoSlide();
     };
@@ -804,12 +956,230 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener('touchend', pointerUp);
     }
 
-    const ecosystem = document.querySelector('.video-ecosystem');
-    if(ecosystem) {
-        ecosystem.addEventListener('mouseenter', () => { if(autoSlideInterval) clearInterval(autoSlideInterval); });
-        ecosystem.addEventListener('mouseleave', () => { if(!isDragging) startAutoSlide(); });
-    }
+    // Removed ecosystem hover pause functionality at user request
 
     startAutoSlide();
 
+    // --- 8. GSAP Cinematic Courses & Cursor Portal ---
+
+    // Scroll Reveal for Courses
+    gsap.set(".g-course-rev", { autoAlpha: 1 });
+    gsap.from(".g-course-rev", {
+        scrollTrigger: {
+            trigger: ".luxury-courses-section",
+            start: "top 75%"
+        },
+        y: 50, opacity: 0, filter: "blur(10px)", 
+        duration: 1, stagger: 0.15, ease: "power3.out"
+    });
+
+    // Hover & Accordion Logic
+    const courseRows = document.querySelectorAll('.course-row');
+    
+    courseRows.forEach(row => {
+        // Click to expand Accordion
+        row.addEventListener('click', () => {
+            // Close others
+            courseRows.forEach(r => {
+                if(r !== row) r.classList.remove('active');
+            });
+            // Toggle clicked
+            row.classList.toggle('active');
+        });
+    });
+
+    // Floating Cursor Portal Logic
+    const portal = document.querySelector('.cursor-portal');
+    const trackList = document.querySelector('.course-track-list');
+    const portalImages = document.querySelectorAll('.portal-img');
+
+    if (portal && trackList && window.innerWidth > 1024) {
+        // GSAP quickTo for highly performant mouse trailing (Spring physics)
+        const xTo = gsap.quickTo(portal, "x", {duration: 0.6, ease: "power3"});
+        const yTo = gsap.quickTo(portal, "y", {duration: 0.6, ease: "power3"});
+
+        // 1. Move portal on mousemove anywhere over the track list
+        trackList.addEventListener("mousemove", (e) => {
+            // Center the portal on the cursor (320px wide, 450px high -> offset by half)
+            xTo(e.clientX - 160);
+            yTo(e.clientY - 225);
+        });
+
+        // 2. Show portal when entering the list area
+        trackList.addEventListener("mouseenter", () => {
+            gsap.to(portal, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.5)" });
+        });
+
+        // 3. Hide portal when leaving the list area
+        trackList.addEventListener("mouseleave", () => {
+            gsap.to(portal, { scale: 0.5, opacity: 0, duration: 0.4, ease: "power2.in" });
+        });
+
+        // 4. Swap images dynamically based on which row is hovered
+        courseRows.forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                const targetImgId = row.getAttribute('data-image');
+                
+                // Remove active class from all images
+                portalImages.forEach(img => img.classList.remove('active'));
+                
+                // Add active class to the specific target image
+                const activeImg = document.getElementById(targetImgId);
+                if(activeImg) activeImg.classList.add('active');
+            });
+        });
+    }
+    // --- 7. GSAP Z-Axis Spatial Scroll (Why Eduooz) ---
+    let mmSpatial = gsap.matchMedia();
+    
+    mmSpatial.add("(min-width: 320px)", () => {
+        // Pin the section for 400vh to allow a long, smooth scrub through the cards
+        const spatialTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".why-spatial-section",
+                pin: true,
+                scrub: 1, // Smooth dragging effect linked to scrollbar
+                start: "top top",
+                end: "+=400%" // User scrolls for 4 screen heights to finish the animation
+            }
+        });
+
+        // The Fly-Through Sequence
+        // Transition 1: Card 1 leaves, Card 2 enters
+        spatialTl.to(".z-card-1", { scale: 2, opacity: 0, filter: "blur(20px)", duration: 1 })
+                 .fromTo(".z-card-2", { scale: 0.3, opacity: 0, filter: "blur(20px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1 }, "<");
+                 
+        // Transition 2: Card 2 leaves, Card 3 enters
+        spatialTl.to(".z-card-2", { scale: 2, opacity: 0, filter: "blur(20px)", duration: 1 })
+                 .fromTo(".z-card-3", { scale: 0.3, opacity: 0, filter: "blur(20px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1 }, "<");
+
+        // Transition 3: Card 3 leaves, Card 4 enters
+        spatialTl.to(".z-card-3", { scale: 2, opacity: 0, filter: "blur(20px)", duration: 1 })
+                 .fromTo(".z-card-4", { scale: 0.3, opacity: 0, filter: "blur(20px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1 }, "<");
+                 
+        // Hold Card 4 for a moment before unpinning
+        spatialTl.to(".z-card-4", { scale: 1.05, duration: 0.5 });
+    });
+
+    // --- 8. Three.js: The Background Astrolabe (Gyroscope) ---
+    const gyroContainer = document.getElementById('gyro-canvas');
+    if(gyroContainer) {
+        const gyroScene = new THREE.Scene();
+        
+        const gyroCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        gyroCamera.position.set(0, 0, 25);
+
+        const gyroRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        gyroRenderer.setSize(window.innerWidth, window.innerHeight);
+        gyroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        gyroContainer.appendChild(gyroRenderer.domElement);
+
+        const gyroGroup = new THREE.Group();
+        gyroScene.add(gyroGroup);
+
+        // Premium Glass Material for the Rings
+        const ringMat = new THREE.MeshPhysicalMaterial({
+            color: 0xffffff, transmission: 0.9, opacity: 1, metalness: 0.1, roughness: 0.3,
+            ior: 1.5, thickness: 1.0, clearcoat: 0.8, clearcoatRoughness: 0.1
+        });
+
+        // Create 3 interlocking rings to form the Astrolabe
+        const ringGeo1 = new THREE.TorusGeometry(8, 0.15, 16, 100);
+        const ringGeo2 = new THREE.TorusGeometry(6.5, 0.2, 16, 100);
+        const ringGeo3 = new THREE.TorusGeometry(5, 0.3, 16, 100);
+
+        const meshRing1 = new THREE.Mesh(ringGeo1, ringMat);
+        const meshRing2 = new THREE.Mesh(ringGeo2, ringMat);
+        const meshRing3 = new THREE.Mesh(ringGeo3, ringMat);
+
+        // Rotate them differently to create the gyroscope shape
+        meshRing1.rotation.x = Math.PI / 2;
+        meshRing2.rotation.y = Math.PI / 3;
+        meshRing3.rotation.z = Math.PI / 4;
+
+        gyroGroup.add(meshRing1, meshRing2, meshRing3);
+
+        // A glowing core in the center representing the student/knowledge
+        const coreGeo = new THREE.SphereGeometry(1.5, 32, 32);
+        const coreMat = new THREE.MeshStandardMaterial({ color: 0x4c127e, emissive: 0x4c127e, emissiveIntensity: 0.5 });
+        const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+        gyroGroup.add(coreMesh);
+
+        // Studio Lighting
+        const gAmbient = new THREE.AmbientLight(0xffffff, 0.6); gyroScene.add(gAmbient);
+        const gLight1 = new THREE.PointLight(0x06b6d4, 5, 50); gLight1.position.set(10, 10, 10); gyroScene.add(gLight1);
+        const gLight2 = new THREE.PointLight(0xc026d3, 5, 50); gLight2.position.set(-10, -10, 10); gyroScene.add(gLight2);
+
+        // Animate the Gyroscope
+        const gClock = new THREE.Clock();
+        function animateGyro() {
+            requestAnimationFrame(animateGyro);
+            const time = gClock.getElapsedTime();
+
+            // Interlocking multi-axis rotation
+            meshRing1.rotation.y = time * 0.2;
+            meshRing1.rotation.z = Math.sin(time * 0.1) * 0.5;
+            
+            meshRing2.rotation.x = time * 0.3;
+            meshRing2.rotation.z = Math.cos(time * 0.2) * 0.5;
+            
+            meshRing3.rotation.y = -time * 0.4;
+            meshRing3.rotation.x = Math.sin(time * 0.3) * 0.5;
+
+            // Core pulses slightly
+            coreMesh.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
+
+            gyroRenderer.render(gyroScene, gyroCamera);
+        }
+        animateGyro();
+
+        // Tie the master group rotation to the scrollbar for absolute immersion
+        gsap.to(gyroGroup.rotation, {
+            scrollTrigger: {
+                trigger: ".why-spatial-section",
+                start: "top top",
+                end: "+=400%",
+                scrub: 1
+            },
+            x: Math.PI * 2, // Does a full backflip as user scrolls through the 4 cards
+            y: Math.PI,
+            ease: "none"
+        });
+
+        window.addEventListener('resize', () => {
+            gyroCamera.aspect = window.innerWidth / window.innerHeight;
+            gyroCamera.updateProjectionMatrix();
+            gyroRenderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    }
+
+    // --- 5. GSAP Z-Axis Stacking Cards (Courses Section) ---
+    
+    // Apply depth effect only on desktop where sticky height is defined
+    let mmCards = gsap.matchMedia();
+    
+    mmCards.add("(min-width: 1025px)", () => {
+        const wrappers = gsap.utils.toArray('.card-sticky-wrapper');
+        
+        wrappers.forEach((wrapper, index) => {
+            // Don't apply the push-back animation to the last card
+            if (index === wrappers.length - 1) return;
+            
+            const panel = wrapper.querySelector('.card-glass-panel');
+            const nextWrapper = wrappers[index + 1];
+
+            gsap.to(panel, {
+                scale: 0.9,           // Shrink it into the background
+                opacity: 0.4,         // Darken it
+                y: -30,               // Shift it slightly up
+                filter: "blur(8px)",  // Depth of field blur
+                scrollTrigger: {
+                    trigger: nextWrapper,
+                    start: "top 85%", // Starts animating when the next card enters view
+                    end: "top 25%",   // Finishes animating when next card is fully overlapping it
+                    scrub: 1          // Tied smoothly to the scrollbar
+                }
+            });
+        });
+    });
 });

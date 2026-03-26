@@ -1648,19 +1648,8 @@ body {
 .glowing-dot-purple { width: 8px; height: 8px; background: var(--brand-purple); border-radius: 50%; box-shadow: 0 0 15px var(--brand-purple); }
 .text-italic-purple { font-weight: 600; color: var(--brand-purple); }
 
-/* Cinematic Lights Out Overlay */
-.cinematic-overlay {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(7, 3, 14, 0.85); /* Deep dark brand color */
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    z-index: 50; pointer-events: none;
-    opacity: 0; transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-}
-/* Triggered by JS when hovering over the main video */
-body.lights-out .cinematic-overlay { opacity: 1; }
-
 .video-ecosystem {
-    position: relative; z-index: 55; /* Stays above the cinematic overlay */
+    position: relative; z-index: 55;
     margin-top: 50px;
     display: flex; flex-direction: column; align-items: center;
 }
@@ -1673,9 +1662,10 @@ body.lights-out .cinematic-overlay { opacity: 1; }
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease;
 }
 
-body.lights-out .main-video-portal {
+.main-video-portal:hover {
     transform: scale(1.02);
     box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 60px rgba(107, 33, 168, 0.3);
+    z-index: 60;
 }
 
 .video-glass-frame {
@@ -1736,7 +1726,7 @@ body.lights-out .main-video-portal {
 
 /* Overlapping Playlist Track Viewport */
 .playlist-viewport {
-    width: 820px;
+    width: 1380px; /* Supports exactly 5 260px thumbnails + 4 20px gaps */
     margin: 0 auto;
     margin-top: -60px; /* Overlap main video */
     padding: 30px 0 40px 0; /* Padding to prevent vertical clipping of shadows & scales */
@@ -1838,12 +1828,403 @@ body.lights-out .main-video-portal {
 
 .g-vid-reveal { visibility: hidden; }
 
+.video-luxury-section .section-header {
+    position: relative;
+    z-index: 60; /* Keeps the heading brightly lit above the cinematic overlay */
+}
+
 @media (max-width: 1024px) {
     .main-video-portal { aspect-ratio: 16 / 9; }
-    .playlist-track { flex-wrap: wrap; margin-top: 20px; }
-    .playlist-card { width: 45%; height: 120px; }
+    
+    /* Responsive Slider Scale to preserve JS math bounds (1380px viewport) */
+    .playlist-viewport {
+        transform: scale(0.7);
+        transform-origin: top center;
+        margin-bottom: -100px;
+    }
+
     .magnetic-play-cursor { display: none; } /* Standard cursor on mobile */
     .main-video-portal { cursor: pointer; }
     .active-video-meta { bottom: 20px; left: 20px; right: 20px; }
     .active-video-meta h3 { font-size: 1.4rem; }
+}
+
+@media (max-width: 768px) {
+    .playlist-viewport {
+        transform: scale(0.53);
+        margin-bottom: -150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .playlist-viewport {
+        transform: scale(0.26); /* Fits a 5-card width (1380px) proportionally onto tiny ~360px phones */
+        margin-bottom: -220px;
+    }
+}
+
+/* =========================================
+   4. WHY EDUOOZ (Z-AXIS SPATIAL SCROLL)
+   ========================================= */
+.why-spatial-section {
+    position: relative;
+    background-color: var(--bg-light); /* Continues the light theme */
+    z-index: 10;
+}
+
+.spatial-sticky-container {
+    position: relative;
+    height: 100vh; /* Will be pinned by GSAP */
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* The 3D Canvas Background */
+#gyro-canvas {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1; pointer-events: none;
+    /* Soft radial fade so it blends perfectly into the white page */
+    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+}
+
+/* Header */
+.spatial-header {
+    position: absolute; top: 8%; left: 50%; transform: translateX(-50%);
+    text-align: center; z-index: 10; width: 100%;
+}
+.spatial-header .frost-pill {
+    background: #fff; border: 1px solid rgba(76, 18, 126, 0.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.03); margin-bottom: 20px;
+}
+.glowing-dot-purple { width: 8px; height: 8px; background: var(--brand-purple); border-radius: 50%; box-shadow: 0 0 10px var(--brand-purple); }
+.spatial-header h2 {
+    font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 800; letter-spacing: -1.5px;
+    color: var(--brand-dark); line-height: 1.1;
+}
+.text-gradient-purple {
+    background: linear-gradient(135deg, var(--brand-purple) 0%, #06b6d4 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+/* The Z-Axis Cards */
+.z-cards-container {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%);
+    width: 100%; max-width: 600px; height: 400px;
+    perspective: 1000px; z-index: 5;
+}
+
+.z-card {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.9); border-top: 1px solid #ffffff;
+    border-radius: 30px; padding: 50px 40px; text-align: center;
+    box-shadow: 0 30px 60px rgba(76, 18, 126, 0.08), inset 0 0 30px rgba(255, 255, 255, 0.6);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    
+    /* GSAP will control these, but we set initial hidden states */
+    opacity: 0; transform: scale(0.5) translateZ(-500px); filter: blur(10px);
+    will-change: transform, opacity, filter;
+}
+
+/* Ensure the first card is visible immediately before scrolling starts */
+.z-card-1 { opacity: 1; transform: scale(1) translateZ(0); filter: blur(0px); }
+
+.card-glow {
+    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle at 50% 0%, rgba(107, 33, 168, 0.05), transparent 60%);
+    pointer-events: none; z-index: 0;
+}
+
+.icon-sphere-large {
+    position: relative; z-index: 2;
+    font-size: 2.5rem; width: 80px; height: 80px;
+    background: #f3e8ff; color: var(--brand-purple);
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; margin-bottom: 25px;
+    box-shadow: 0 15px 30px rgba(91, 33, 182, 0.15), inset 0 0 10px #fff;
+    border: 1px solid #fff;
+}
+
+.z-card h3 { position: relative; z-index: 2; font-size: 2rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 15px; letter-spacing: -0.5px; }
+.z-card p { position: relative; z-index: 2; font-size: 1.1rem; color: var(--text-muted-light); line-height: 1.6; font-weight: 500; }
+
+/* Scroll Indicator */
+.spatial-scroll-indicator {
+    position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 10;
+}
+.spatial-scroll-indicator span { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted-light); }
+.mouse-icon { width: 24px; height: 36px; border: 2px solid var(--text-muted-light); border-radius: 20px; position: relative; }
+.wheel { width: 4px; height: 8px; background: var(--brand-purple); border-radius: 4px; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); animation: scrollMouse 1.5s infinite; }
+@keyframes scrollMouse { 0% { top: 6px; opacity: 1; } 100% { top: 18px; opacity: 0; } }
+
+@media (max-width: 768px) {
+    .z-cards-container { max-width: 90%; height: 450px; transform: translate(-50%, -30%); }
+    .z-card { padding: 40px 20px; }
+    .z-card h3 { font-size: 1.6rem; }
+    .z-card p { font-size: 0.95rem; }
+    .spatial-header h2 { font-size: 2.2rem; }
+}
+
+/* =========================================
+   3. COURSES SECTION (Z-AXIS STACKING)
+   ========================================= */
+.stack-courses-section {
+    padding: 50px 0 10px 0;
+    position: relative;
+    z-index: 10;
+}
+
+.text-center { text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+.courses-intro { margin-bottom: 80px; }
+.courses-intro h2 {
+    font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800;
+    letter-spacing: -1.5px; color: var(--brand-dark);
+}
+.text-italic-purple { font-family: var(--font-serif); font-style: italic; font-weight: 600; color: var(--brand-purple); }
+
+.frost-pill {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #fff; border: 1px solid rgba(76, 18, 126, 0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    padding: 8px 20px; border-radius: 50px;
+    font-size: 0.9rem; font-weight: 700; color: var(--brand-purple); margin-bottom: 1.5rem;
+}
+.glowing-dot-purple { width: 8px; height: 8px; background: var(--brand-purple); border-radius: 50%; box-shadow: 0 0 10px rgba(91, 33, 182, 0.4); }
+
+/* The Stacking Wrapper */
+.stack-cards-wrapper {
+    /* max-width: 1300px; */
+    margin: 0 auto;
+    padding: 0 5%;
+    position: relative;
+    padding-bottom: 10vh; /* Allows scrolling past the final card */
+}
+
+.card-sticky-wrapper {
+    position: sticky;
+    top: 15vh; /* Offset to clear the glass header */
+    height: 70vh; /* Takes up most of the screen */
+    min-height: 500px;
+    margin-bottom: 50px; /* Space between cards before they stack */
+    display: flex;
+    align-items: center;
+    transform-origin: top center;
+}
+
+/* Progressive Top Offsets to create the visual stack overlay effect */
+.card-sticky-wrapper:nth-child(1) { top: 12vh; z-index: 10; }
+.card-sticky-wrapper:nth-child(2) { top: 15vh; z-index: 20; }
+.card-sticky-wrapper:nth-child(3) { top: 18vh; z-index: 30; }
+
+/* The Liquid Glass Panel */
+.card-glass-panel {
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.9); border-top: 1px solid #fff;
+    border-radius: 40px;
+    box-shadow: 0 30px 60px rgba(76, 18, 126, 0.08), inset 0 0 30px rgba(255, 255, 255, 0.8);
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    overflow: hidden;
+    transform-origin: top center; /* Crucial for the 3D GSAP scale effect */
+    will-change: transform, opacity, filter;
+}
+
+/* Left Content */
+.panel-left {
+    padding: 60px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; z-index: 2;
+}
+
+.bg-watermark {
+    position: absolute; top: 20px; right: 40px;
+    font-family: var(--font-serif); font-size: 15rem; font-weight: 600; font-style: italic;
+    color: rgba(76, 18, 126, 0.02); line-height: 0.8; pointer-events: none; z-index: 0;
+}
+
+.course-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 55px; height: 55px; background: var(--brand-purple); color: #fff;
+    border-radius: 50%; font-size: 1.5rem; margin-bottom: 20px;
+    box-shadow: 0 10px 20px rgba(91, 33, 182, 0.25);
+    position: relative; z-index: 2;
+}
+
+.panel-left h3 { position: relative; z-index: 2; font-size: 2.5rem; font-weight: 800; color: var(--brand-dark); line-height: 1.1; margin-bottom: 5px; letter-spacing: -1px; }
+.panel-left h4 { position: relative; z-index: 2; font-family: var(--font-serif); font-size: 1.3rem; font-style: italic; color: var(--brand-purple); margin-bottom: 20px; }
+.panel-left p { position: relative; z-index: 2; font-size: 1.05rem; color: var(--text-muted-light); line-height: 1.6; margin-bottom: 30px; font-weight: 500; }
+
+.course-features { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
+.course-features span { font-size: 0.95rem; font-weight: 700; color: var(--brand-dark); display: flex; align-items: center; gap: 8px; }
+
+.btn-course-luxury {
+    position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 8px;
+    background: var(--brand-purple); color: #fff; text-decoration: none;
+    padding: 16px 36px; border-radius: 100px; font-weight: 700; font-size: 1.05rem;
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.15); transition: all 0.3s;
+    align-self: flex-start;
+}
+.btn-course-luxury:hover { background: var(--brand-purple); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(91, 33, 182, 0.3); }
+
+/* Right Visual */
+.panel-right {
+    padding: 20px;
+    height: 100%;
+}
+.liquid-image-mask {
+    width: 100%; height: 100%;
+    border-radius: 24px; overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+.liquid-image-mask img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.8s ease;
+}
+.glass-photo-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(107, 33, 168, 0.15) 100%);
+    pointer-events: none; z-index: 2;
+}
+
+.card-glass-panel:hover .liquid-image-mask img { transform: scale(1.05); }
+
+@media (max-width: 1024px) {
+    .card-sticky-wrapper { height: auto; position: relative; top: 0; margin-bottom: 60px; }
+    .card-glass-panel { grid-template-columns: 1fr; }
+    .panel-left { padding: 40px 30px; text-align: center; align-items: center; }
+    .panel-right { height: 350px; padding: 0 20px 20px 20px; }
+    .bg-watermark { right: 50%; transform: translateX(50%); top: 10px; font-size: 10rem; }
+    .course-features { align-items: center; }
+    .btn-course-luxury { align-self: center; }
+}
+
+/* =========================================
+   HERO ORBITAL SEQUENCE (APP TO COURSES)
+   ========================================= */
+.hero-visual-zone {
+    position: relative;
+    height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.orbit-container {
+    position: absolute;
+    width: 0; height: 0;
+    display: flex; align-items: center; justify-content: center;
+    visibility: hidden; /* GSAP will reveal this */
+    z-index: 15;
+}
+
+.orbit-core-glow {
+    position: absolute;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(107, 33, 168, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulseCore 4s infinite alternate;
+}
+
+@keyframes pulseCore {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(1.2); opacity: 1; }
+}
+
+.orbit-node {
+    position: absolute;
+    width: 130px; height: 130px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1);
+    transition: box-shadow 0.3s, border-color 0.3s;
+    /* Starting position for the explosion effect */
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.orbit-node:hover {
+    border-color: var(--brand-cyan);
+    box-shadow: 0 20px 40px rgba(6, 182, 212, 0.3), inset 0 0 20px rgba(255,255,255,0.2);
+}
+
+.node-icon {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+}
+
+.node-label {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   HYPER-REALISTIC CSS iPHONE MOCKUP
+   ========================================= */
+.iphone-mockup {
+    position: relative;
+    width: 280px;
+    height: 580px;
+    border-radius: 45px;
+    background: #000;
+    box-shadow: 
+        inset 0 0 2px 2px #555, 
+        inset 0 0 10px 5px #111,
+        0 40px 80px rgba(0,0,0,0.8),
+        0 0 0 10px #222, 
+        0 0 0 12px #4a4a4a;
+    transform-style: preserve-3d;
+    z-index: 20;
+    overflow: hidden; 
+    border: 4px solid #000;
+    /* GSAP Initial State */
+    opacity: 0;
+    transform: translateY(100px) rotateX(25deg) rotateY(-15deg);
+}
+
+.dynamic-island {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 25px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 30;
+    box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
+}
+
+.iphone-screen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 35px;
+    display: block;
+}
+
+.iphone-glare {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%);
+    pointer-events: none;
+    z-index: 25;
+    border-radius: 35px;
 }
