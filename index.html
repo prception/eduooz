@@ -23,14 +23,22 @@
 </head>
 
 <body>
+    <div class="site-wrapper">
     <header id="navbar" class="glass-header">
         <div class="logo">EDUOOZ.</div>
+        
+        <div class="mobile-menu-toggle" id="menu-toggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
         <nav class="nav-links">
             <a href="#courses" class="hover-underline">Courses</a>
             <a href="#results" class="hover-underline">Results</a>
             <a href="#about" class="hover-underline">About Us</a>
         </nav>
-        <a href="#demo" class="btn-glass-sm magnetic-btn">Free Demo</a>
+        <a href="#demo" class="btn-glass-sm magnetic-btn header-cta">Free Demo</a>
     </header>
 
 
@@ -45,32 +53,67 @@
         <div id="cinematic-canvas"></div>
 
         <section class="hero-premium">
-            <div class="container">
-                <div class="hero-text-zone">
-                    <div class="glass-pill g-reveal">
-                        <div class="glowing-dot"></div>
-                        <span>Rank 1 Coaching Ecosystem</span>
+            <div class="container position-relative">
+                <div class="row align-items-center">
+                    
+                    <!-- Left Hemisphere: Core Hero Text -->
+                    <div class="col-md-6 col-lg-6">
+                        <div class="hero-text-zone">
+                            <div class="glass-pill g-reveal">
+                                <div class="glowing-dot"></div>
+                                <span>Rank 1 Coaching Ecosystem</span>
+                            </div>
+
+                            <h1 class="hero-title g-reveal">
+                                Dominate Healthcare <br>
+                                Exams with <span class="text-gradient-fluid">Precision.</span>
+                            </h1>
+
+                            <p class="hero-subtitle g-reveal">
+                                India's most advanced coaching platform for Nurses, Pharmacists, and Lab Technicians. Secure
+                                your future in Central, State, or International healthcare.
+                            </p>
+
+                            <div class="cta-cluster g-reveal">
+                                <a href="#enroll" class="btn-liquid-primary magnetic-btn">Start Your Journey</a>
+                                <a href="#demo" class="btn-glass-outline magnetic-btn">Watch Demo <span class="arrow">↗</span></a>
+                            </div>
+                        </div>
                     </div>
 
-                    <h1 class="hero-title g-reveal">
-                        Dominate Healthcare <br>
-                        Exams with <span class="text-gradient-fluid">Precision.</span>
-                    </h1>
+                    <!-- Right Hemisphere: Dynamic Smartphone Interface -->
+                    <div class="col-md-6 col-lg-6">
+                        <div class="hero-visual-zone">
+                            <div class="iphone-mockup">
+                                <div class="iphone-glare"></div>
+                                <div class="dynamic-island"></div>
+                                <img src="assets/images/app-mockup.png" alt="Eduooz App" class="iphone-screen">
+                            </div>
 
-                    <p class="hero-subtitle g-reveal">
-                        India's most advanced coaching platform for Nurses, Pharmacists, and Lab Technicians. Secure
-                        your future in Central, State, or International healthcare.
-                    </p>
+                            <div class="orbit-container" id="master-orbit">
+                                <a href="#nursing" class="orbit-node" id="node-nursing">
+                                    <div class="node-icon">🩺</div>
+                                    <span class="node-label">Nursing</span>
+                                </a>
 
-                    <div class="cta-cluster g-reveal">
-                        <a href="#enroll" class="btn-liquid-primary magnetic-btn">Start Your Journey</a>
-                        <a href="#demo" class="btn-glass-outline magnetic-btn">Watch Demo <span
-                                class="arrow">↗</span></a>
+                                <a href="#pharma" class="orbit-node" id="node-pharma">
+                                    <div class="node-icon">💊</div>
+                                    <span class="node-label">Pharmacist</span>
+                                </a>
+
+                                <a href="#lab" class="orbit-node" id="node-lab">
+                                    <div class="node-icon">🔬</div>
+                                    <span class="node-label">Lab Tech</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
     </div>
+
 
     <section class="theme-blend-zone">
         <div class="trust-glass-panel">
@@ -108,7 +151,7 @@
             <div class="frost-pill g-reveal">
                 <span class="glowing-dot-purple"></span> Elite Pathways
             </div>
-            <h2 class="g-reveal">Master Your <br><span class="text-italic-purple">Discipline.</span></h2>
+            <h2 class="g-reveal">Master Your <br><span class="text-italic-gold">Discipline.</span></h2>
         </div>
 
         <div class="stack-cards-wrapper">
@@ -402,6 +445,52 @@
             </div>
         </div>
     </section>
+    <section class="why-spatial-section" id="why-us-2">
+        <div class="spatial-sticky-container">
+            
+            <div id="gyro-canvas"></div>
+
+            <div class="spatial-header">
+                <!-- <div class="frost-pill">
+                    <span class="glowing-dot-purple"></span> The Eduooz Advantage
+                </div> -->
+                <h2>Engineered for <br> <span class="text-gradient-purple">Absolute Success.</span></h2>
+            </div>
+
+            <div class="z-cards-container">
+                
+                <div class="z-card z-card-1" data-num="01">
+                    <div class="card-glow"></div>
+                    <div class="icon-sphere-large">📚</div>
+                    <h3>Structured Syllabus</h3>
+                    <p>Meticulously crafted curriculum aligned perfectly with the latest central and state government exam patterns. Study smart, with high-yield topics prioritized to maximize your scoring potential.</p>
+                </div>
+
+                <div class="z-card z-card-2" data-num="02">
+                    <div class="card-glow"></div>
+                    <div class="icon-sphere-large">👨‍🏫</div>
+                    <h3>Experienced Faculty</h3>
+                    <p>Learn directly from professionals who have successfully cracked these exact exams. Our instructors bring unparalleled insider strategies, practical knowledge, and proven methodologies.</p>
+                </div>
+
+                <div class="z-card z-card-3" data-num="03">
+                    <div class="card-glow"></div>
+                    <div class="icon-sphere-large">🎯</div>
+                    <h3>Advanced Mock Tests</h3>
+                    <p>Simulate the real exam environment with our high-frequency test series. Gain a competitive edge with deep performance tracking, customized evaluations, and all-India rank analysis.</p>
+                </div>
+
+                <div class="z-card z-card-4" data-num="04">
+                    <div class="card-glow"></div>
+                    <div class="icon-sphere-large">🤝</div>
+                    <h3>Personal Guidance</h3>
+                    <p>Benefit from 1-on-1 mentorship, intensive doubt-clearing sessions, and dedicated career counseling tailored for lucrative healthcare opportunities in India and abroad.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
 
     <section class="video-luxury-section" id="media">
 
@@ -476,62 +565,90 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     
-    <section class="why-spatial-section" id="why-us">
-        <div class="spatial-sticky-container">
+    
+<footer class="luxury-footer-wrapper">
+        <div class="luxury-footer-inner">
             
-            <div id="gyro-canvas"></div>
+            <div class="footer-aurora"></div>
 
-            <div class="spatial-header">
-                <div class="frost-pill">
-                    <span class="glowing-dot-purple"></span> The Eduooz Advantage
+            <!-- Floating Background Elements -->
+            <div class="footer-shapes">
+                <div class="f-shape float-circle"></div>
+                <div class="f-shape float-plus">
+                    <span class="plus-v"></span><span class="plus-h"></span>
                 </div>
-                <h2>Engineered for <br> <span class="text-gradient-purple">Absolute Success.</span></h2>
+                <div class="f-shape float-square"></div>
             </div>
 
-            <div class="z-cards-container">
-                
-                <div class="z-card z-card-1">
-                    <div class="card-glow"></div>
-                    <div class="icon-sphere-large">📚</div>
-                    <h3>Structured Syllabus</h3>
-                    <p>Meticulously crafted curriculum aligned perfectly with the latest central and state government exam patterns. Study smart, with high-yield topics prioritized to maximize your scoring potential.</p>
+            <div class="container">
+                <div class="footer-cta-zone">
+                    <h2 class="footer-cta-title">Ready to shape your <br><span class="text-italic-cyan">healthcare legacy?</span></h2>
+                    <a href="#enroll" class="btn-liquid-cyan magnetic-btn">Apply for 2026 Batch <span class="arrow">→</span></a>
                 </div>
 
-                <div class="z-card z-card-2">
-                    <div class="card-glow"></div>
-                    <div class="icon-sphere-large">👨‍🏫</div>
-                    <h3>Experienced Faculty</h3>
-                    <p>Learn directly from professionals who have successfully cracked these exact exams. Our instructors bring unparalleled insider strategies, practical knowledge, and proven methodologies.</p>
+                <div class="footer-grid">
+                    <div class="footer-col brand-col">
+                        <div class="logo">EDUOOZ.</div>
+                        <p>India's premier coaching ecosystem for Nursing, Pharmacy, and Lab Technology professionals.</p>
+                        <div class="social-links">
+                            <a href="#" class="magnetic-btn social-glass">In</a>
+                            <a href="#" class="magnetic-btn social-glass">Yt</a>
+                            <a href="#" class="magnetic-btn social-glass">Ig</a>
+                        </div>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Elite Programs</h4>
+                        <ul>
+                            <li><a href="#nursing">Nursing Coaching</a></li>
+                            <li><a href="#pharma">Pharmacist Exams</a></li>
+                            <li><a href="#lab">Lab Technician</a></li>
+                            <li><a href="#international">International (DHA/HAAD)</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Platform</h4>
+                        <ul>
+                            <li><a href="#about">Our Story</a></li>
+                            <li><a href="#faculty">Expert Faculty</a></li>
+                            <li><a href="#results">Success Stories</a></li>
+                            <li><a href="#contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Stay Updated</h4>
+                        <p class="newsletter-text">Get exclusive exam strategies and notification alerts.</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Email Address" required>
+                            <button type="submit" class="btn-submit-glass">→</button>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="z-card z-card-3">
-                    <div class="card-glow"></div>
-                    <div class="icon-sphere-large">🎯</div>
-                    <h3>Advanced Mock Tests</h3>
-                    <p>Simulate the real exam environment with our high-frequency test series. Gain a competitive edge with deep performance tracking, customized evaluations, and all-India rank analysis.</p>
+                <div class="footer-bottom-bar">
+                    <p>&copy; 2026 Eduooz International Academy. All Rights Reserved.</p>
+                    <div class="legal-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
                 </div>
-
-                <div class="z-card z-card-4">
-                    <div class="card-glow"></div>
-                    <div class="icon-sphere-large">🤝</div>
-                    <h3>Personal Guidance</h3>
-                    <p>Benefit from 1-on-1 mentorship, intensive doubt-clearing sessions, and dedicated career counseling tailored for lucrative healthcare opportunities in India and abroad.</p>
-                </div>
-
             </div>
+
+            <div class="massive-footer-text" aria-hidden="true">EDUOOZ</div>
             
-            <div class="spatial-scroll-indicator">
-                <span>Scroll to Explore</span>
-                <div class="mouse-icon"><div class="wheel"></div></div>
-            </div>
-
         </div>
-    </section>
-
+    </footer>
     
 
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollTopBtn" aria-label="Scroll to top">
+        ↑
+    </button>
 
     <!-- Lenis Smooth Scroll -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
