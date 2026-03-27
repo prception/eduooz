@@ -267,13 +267,69 @@ document.addEventListener("DOMContentLoaded", () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
-        if(window.innerWidth < 1024) {
-            dnaGroup.position.x = 0; dnaGroup.position.z = -20;
+        
+        if (window.innerWidth < 768) {
+            // Mobile (Stacked): Center it but push it deep into the background so text is readable
+            dnaGroup.position.x = 0; 
+            dnaGroup.position.z = -30;
+        } else if (window.innerWidth < 1024) {
+            // Tablet (Side-by-side): Shift it to the right hemisphere
+            dnaGroup.position.x = 8; 
+            dnaGroup.position.z = -15;
         } else {
-            dnaGroup.position.x = 14; dnaGroup.position.z = 0;
+            // Desktop: Far right
+            dnaGroup.position.x = 14; 
+            dnaGroup.position.z = 0;
         }
     });
     window.dispatchEvent(new Event('resize'));
+
+    // --- 4.5. GSAP Hero App-to-Orbit Sequence (CSS Version) ---
+    const seqTl = gsap.timeline({ delay: 0.5 }); 
+
+    // Smooth Entrance for iPhone Mockup
+    seqTl.to(".iphone-mockup", {
+        opacity: 1,
+        y: 0,
+        rotationX: 10,
+        rotationY: -20,
+        duration: 2.5,
+        ease: "power4.out"
+    }, 0);
+
+    // Fade in orbit container
+    seqTl.set(".orbit-container", { autoAlpha: 1 }, 1.5);
+
+    // Responsive radius for orbiting
+    const r = window.innerWidth < 768 ? 140 : 250;
+    const n1X = 0, n1Y = -r;
+    const n2X = r * Math.cos(Math.PI/6), n2Y = r * Math.sin(Math.PI/6);
+    const n3X = -r * Math.cos(Math.PI/6), n3Y = r * Math.sin(Math.PI/6);
+
+    seqTl.to("#node-nursing", { x: n1X - 65, y: n1Y - 65, scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.2)" }, 1.5)
+         .to("#node-pharma", { x: n2X - 65, y: n2Y - 65, scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.2)" }, 1.6)
+         .to("#node-lab", { x: n3X - 65, y: n3Y - 65, scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.2)" }, 1.7);
+
+    // Infinite orbit rotation
+    seqTl.to(".orbit-container", { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 2.5);
+    // Counter-rotate nodes so text stays upright
+    seqTl.to(".orbit-node", { rotation: -360, duration: 30, repeat: -1, ease: "none" }, 2.5);
+
+    // Mouse Parallax for the CSS 3D iPhone
+    window.addEventListener('mousemove', (e) => {
+        const mX = (e.clientX / window.innerWidth) * 2 - 1;
+        const mY = -(e.clientY / window.innerHeight) * 2 + 1;
+        
+        gsap.to(".iphone-mockup", {
+            x: mX * 30,
+            y: -mY * 30,
+            rotationX: 10 + (mY * 15),
+            rotationY: -20 + (mX * 15),
+            duration: 1.5,
+            ease: "power2.out"
+        });
+    });
+
     // --- 5. GSAP ScrollTrigger: Contained Trust Panel ---
     gsap.registerPlugin(ScrollTrigger);
 
@@ -763,6 +819,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    // Helper to center the active card (index 2) in the viewport
+    const getCenterOffset = () => {
+        if (!playlistTrack || !playlistTrack.children[2]) return 0;
+        const viewport = document.querySelector('.playlist-viewport');
+        const viewportWidth = viewport.offsetWidth;
+        const card = playlistTrack.children[2];
+        const cardWidth = card.offsetWidth;
+        const gap = parseInt(window.getComputedStyle(playlistTrack).gap) || 0;
+        const card2Center = (cardWidth + gap) * 2 + (cardWidth / 2);
+        return (viewportWidth / 2) - card2Center;
+    };
+
+    // Initial positioning
+    if (playlistTrack) {
+        gsap.set(playlistTrack, { x: getCenterOffset() });
+        window.addEventListener('resize', () => {
+             gsap.set(playlistTrack, { x: getCenterOffset() });
+        });
+    }
+
     // Trigger background fetch for all localized cards on load
     playlistCards.forEach(card => fetchYTMetadataRealtime(card));
 
@@ -810,7 +886,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     playlistCards.forEach(card => {
         card.addEventListener('click', (e) => {
-            if(window.lastDragDist > 10) { e.preventDefault(); return; }
+            if(e.isTrusted && window.lastDragDist > 10) { e.preventDefault(); return; }
             if(isAnimating) return;
 
             const index = Array.from(playlistTrack.children).indexOf(card);
@@ -818,20 +894,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
             syncMainPortal(card);
 
+            // Dynamically calculate distance based on current card width + gap
+            const currentCardWidth = playlistTrack.children[0].offsetWidth + (parseInt(window.getComputedStyle(playlistTrack).gap) || 0);
+            const offset = getCenterOffset();
+
             const dist = index - 2;
             if (dist !== 0) {
                 isAnimating = true;
                 if (dist > 0) {
-                    gsap.to(playlistTrack, { x: -280 * dist, duration: 0.5, ease: "power2.out", onComplete: () => {
+                    gsap.to(playlistTrack, { x: offset - (currentCardWidth * dist), duration: 0.5, ease: "power2.out", onComplete: () => {
                         for(let i=0; i<dist; i++) playlistTrack.appendChild(playlistTrack.firstElementChild);
-                        gsap.set(playlistTrack, { x: 0 });
+                        gsap.set(playlistTrack, { x: offset });
                         isAnimating = false;
                     }});
                 } else {
                     const absDist = Math.abs(dist);
                     for(let i=0; i<absDist; i++) playlistTrack.prepend(playlistTrack.lastElementChild);
-                    gsap.set(playlistTrack, { x: -280 * absDist });
-                    gsap.to(playlistTrack, { x: 0, duration: 0.5, ease: "power2.out", onComplete: () => isAnimating = false });
+                    gsap.set(playlistTrack, { x: offset - (currentCardWidth * absDist) });
+                    gsap.to(playlistTrack, { x: offset, duration: 0.5, ease: "power2.out", onComplete: () => isAnimating = false });
                 }
             }
         });
@@ -883,8 +963,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- 8. Seamless Infinite Grab & Swipe Logic ---
     let isDragging = false;
     let startX = 0;
-    const cardWidth = 280; 
-
+    
+    // Dynamic width calculation helper
+    const getCardWidth = () => {
+        if(!playlistTrack || !playlistTrack.children[0]) return 280;
+        const gap = parseInt(window.getComputedStyle(playlistTrack).gap) || 0;
+        return playlistTrack.children[0].offsetWidth + gap;
+    };
+    let cachedCenterOffset = 0;
     const pointerDown = (e) => {
         if (isAnimating || !playlistTrack) return;
         isDragging = true;
@@ -892,6 +978,8 @@ document.addEventListener("DOMContentLoaded", () => {
         startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
         playlistTrack.style.cursor = 'grabbing';
         if (autoSlideInterval) clearInterval(autoSlideInterval);
+        
+        cachedCenterOffset = getCenterOffset();
     };
 
     const pointerMove = (e) => {
@@ -900,18 +988,19 @@ document.addEventListener("DOMContentLoaded", () => {
         let walk = x - startX;
         
         // True infinite loop DOM manipulation during active Drag
-        if (walk <= -cardWidth) {
+        const currentWidth = getCardWidth();
+        if (walk <= -currentWidth) {
             playlistTrack.appendChild(playlistTrack.firstElementChild);
-            startX -= cardWidth; walk += cardWidth;
+            startX -= currentWidth; walk += currentWidth;
             syncMainPortal(playlistTrack.children[2]);
-        } else if (walk >= cardWidth) {
+        } else if (walk >= currentWidth) {
             playlistTrack.prepend(playlistTrack.lastElementChild);
-            startX += cardWidth; walk -= cardWidth;
+            startX += currentWidth; walk -= currentWidth;
             syncMainPortal(playlistTrack.children[2]);
         }
         
         window.lastDragDist += Math.abs(walk); // Ensure clicks disable gracefully
-        gsap.set(playlistTrack, { x: walk });
+        gsap.set(playlistTrack, { x: cachedCenterOffset + walk });
     };
 
     const pointerUp = (e) => {
@@ -921,26 +1010,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const endX = e.type.includes('mouse') ? e.pageX : (e.changedTouches ? e.changedTouches[0].clientX : startX);
         const walk = endX - startX;
+        const currentWidth = getCardWidth();
+        const offset = getCenterOffset();
 
         if (walk < -50 && !isAnimating) {
             isAnimating = true;
-            gsap.to(playlistTrack, { x: -cardWidth, duration: 0.35, ease: "power2.out", onComplete: () => {
+            gsap.to(playlistTrack, { x: offset - currentWidth, duration: 0.35, ease: "power2.out", onComplete: () => {
                 playlistTrack.appendChild(playlistTrack.firstElementChild);
-                gsap.set(playlistTrack, { x: 0 });
+                gsap.set(playlistTrack, { x: offset });
                 syncMainPortal(playlistTrack.children[2]);
                 isAnimating = false;
             }});
         } else if (walk > 50 && !isAnimating) {
             isAnimating = true;
-            gsap.to(playlistTrack, { x: cardWidth, duration: 0.35, ease: "power2.out", onComplete: () => {
+            gsap.to(playlistTrack, { x: offset + currentWidth, duration: 0.35, ease: "power2.out", onComplete: () => {
                 playlistTrack.prepend(playlistTrack.lastElementChild);
-                gsap.set(playlistTrack, { x: 0 });
+                gsap.set(playlistTrack, { x: offset });
                 syncMainPortal(playlistTrack.children[2]);
                 isAnimating = false;
             }});
         } else {
             // Snap back to precise center if lazy swipe
-            gsap.to(playlistTrack, { x: 0, duration: 0.3, ease: "power2.out" });
+            gsap.to(playlistTrack, { x: offset, duration: 0.3, ease: "power2.out" });
         }
         startAutoSlide();
     };
@@ -1033,41 +1124,41 @@ document.addEventListener("DOMContentLoaded", () => {
     let mmSpatial = gsap.matchMedia();
     
     mmSpatial.add("(min-width: 320px)", () => {
-        // Pin the section for 400vh to allow a long, smooth scrub through the cards
+        // Shortened scroll: each card transition = ~1 screen height of scroll
         const spatialTl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".why-spatial-section",
                 pin: true,
-                scrub: 1, // Smooth dragging effect linked to scrollbar
+                scrub: 0.8,
                 start: "top top",
-                end: "+=400%" // User scrolls for 4 screen heights to finish the animation
+                end: "+=200%" // 3 transitions across 2 screen heights = snappy
             }
         });
 
         // The Fly-Through Sequence
         // Transition 1: Card 1 leaves, Card 2 enters
-        spatialTl.to(".z-card-1", { scale: 2, opacity: 0, filter: "blur(20px)", duration: 1 })
-                 .fromTo(".z-card-2", { scale: 0.3, opacity: 0, filter: "blur(20px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1 }, "<");
+        spatialTl.to(".z-card-1", { scale: 1.8, opacity: 0, filter: "blur(15px)", duration: 1 })
+                 .fromTo(".z-card-2", { scale: 0.4, opacity: 0, filter: "blur(15px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1 }, "<");
                  
         // Transition 2: Card 2 leaves, Card 3 enters
-        spatialTl.to(".z-card-2", { scale: 2, opacity: 0, filter: "blur(20px)", duration: 1 })
-                 .fromTo(".z-card-3", { scale: 0.3, opacity: 0, filter: "blur(20px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1 }, "<");
+        spatialTl.to(".z-card-2", { scale: 1.8, opacity: 0, filter: "blur(15px)", duration: 1 })
+                 .fromTo(".z-card-3", { scale: 0.4, opacity: 0, filter: "blur(15px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1 }, "<");
 
         // Transition 3: Card 3 leaves, Card 4 enters
-        spatialTl.to(".z-card-3", { scale: 2, opacity: 0, filter: "blur(20px)", duration: 1 })
-                 .fromTo(".z-card-4", { scale: 0.3, opacity: 0, filter: "blur(20px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1 }, "<");
+        spatialTl.to(".z-card-3", { scale: 1.8, opacity: 0, filter: "blur(15px)", duration: 1 })
+                 .fromTo(".z-card-4", { scale: 0.4, opacity: 0, filter: "blur(15px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1 }, "<");
                  
-        // Hold Card 4 for a moment before unpinning
-        spatialTl.to(".z-card-4", { scale: 1.05, duration: 0.5 });
+        // Hold Card 4 briefly to prevent instant unpin
+        spatialTl.to(".z-card-4", { scale: 1.02, duration: 0.3 });
     });
 
-    // --- 8. Three.js: The Background Astrolabe (Gyroscope) ---
+    // --- 8. Three.js: Enhanced Background Astrolabe (Gyroscope) ---
     const gyroContainer = document.getElementById('gyro-canvas');
     if(gyroContainer) {
         const gyroScene = new THREE.Scene();
         
-        const gyroCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-        gyroCamera.position.set(0, 0, 25);
+        const gyroCamera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+        gyroCamera.position.set(0, 0, 22);
 
         const gyroRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         gyroRenderer.setSize(window.innerWidth, window.innerHeight);
@@ -1077,71 +1168,126 @@ document.addEventListener("DOMContentLoaded", () => {
         const gyroGroup = new THREE.Group();
         gyroScene.add(gyroGroup);
 
-        // Premium Glass Material for the Rings
+        // --- Premium Glass Ring Materials ---
         const ringMat = new THREE.MeshPhysicalMaterial({
-            color: 0xffffff, transmission: 0.9, opacity: 1, metalness: 0.1, roughness: 0.3,
-            ior: 1.5, thickness: 1.0, clearcoat: 0.8, clearcoatRoughness: 0.1
+            color: 0xd4b3ff, transmission: 0.85, opacity: 1, metalness: 0.15, roughness: 0.2,
+            ior: 1.6, thickness: 1.2, clearcoat: 1.0, clearcoatRoughness: 0.05, transparent: true
         });
 
-        // Create 3 interlocking rings to form the Astrolabe
-        const ringGeo1 = new THREE.TorusGeometry(8, 0.15, 16, 100);
-        const ringGeo2 = new THREE.TorusGeometry(6.5, 0.2, 16, 100);
-        const ringGeo3 = new THREE.TorusGeometry(5, 0.3, 16, 100);
+        const ringMatAccent = new THREE.MeshPhysicalMaterial({
+            color: 0x7dd3fc, transmission: 0.8, opacity: 1, metalness: 0.2, roughness: 0.15,
+            ior: 1.5, thickness: 0.8, clearcoat: 1.0, clearcoatRoughness: 0.05, transparent: true
+        });
 
-        const meshRing1 = new THREE.Mesh(ringGeo1, ringMat);
-        const meshRing2 = new THREE.Mesh(ringGeo2, ringMat);
-        const meshRing3 = new THREE.Mesh(ringGeo3, ringMat);
-
-        // Rotate them differently to create the gyroscope shape
+        // --- Main Interlocking Rings (thicker tubes for visibility) ---
+        const meshRing1 = new THREE.Mesh(new THREE.TorusGeometry(7, 0.25, 24, 120), ringMat);
+        const meshRing2 = new THREE.Mesh(new THREE.TorusGeometry(5.5, 0.3, 24, 120), ringMat);
+        const meshRing3 = new THREE.Mesh(new THREE.TorusGeometry(4, 0.35, 24, 120), ringMatAccent);
+        
         meshRing1.rotation.x = Math.PI / 2;
         meshRing2.rotation.y = Math.PI / 3;
         meshRing3.rotation.z = Math.PI / 4;
-
         gyroGroup.add(meshRing1, meshRing2, meshRing3);
 
-        // A glowing core in the center representing the student/knowledge
-        const coreGeo = new THREE.SphereGeometry(1.5, 32, 32);
-        const coreMat = new THREE.MeshStandardMaterial({ color: 0x4c127e, emissive: 0x4c127e, emissiveIntensity: 0.5 });
+        // --- Decorative Outer Rings ---
+        const outerRingMat = new THREE.MeshPhysicalMaterial({
+            color: 0xe0c3ff, transmission: 0.9, opacity: 0.6, metalness: 0.05, roughness: 0.3,
+            clearcoat: 0.5, transparent: true
+        });
+        const outerRing1 = new THREE.Mesh(new THREE.TorusGeometry(9, 0.08, 16, 150), outerRingMat);
+        const outerRing2 = new THREE.Mesh(new THREE.TorusGeometry(10, 0.06, 16, 150), outerRingMat);
+        outerRing1.rotation.x = Math.PI / 2.5;
+        outerRing1.rotation.z = 0.3;
+        outerRing2.rotation.x = Math.PI / 1.8;
+        outerRing2.rotation.y = 0.6;
+        gyroGroup.add(outerRing1, outerRing2);
+
+        // --- Floating Particles Field ---
+        const particlesCount = 200;
+        const particlesGeo = new THREE.BufferGeometry();
+        const positions = new Float32Array(particlesCount * 3);
+        for(let i = 0; i < particlesCount; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 30;
+            positions[i * 3 + 1] = (Math.random() - 0.5) * 30;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+        }
+        particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particlesMat = new THREE.PointsMaterial({
+            color: 0xb97aff, size: 0.08, transparent: true, opacity: 0.6, sizeAttenuation: true
+        });
+        const particles = new THREE.Points(particlesGeo, particlesMat);
+        gyroGroup.add(particles);
+
+        // --- Glowing Core ---
+        const coreGeo = new THREE.SphereGeometry(1.8, 64, 64);
+        const coreMat = new THREE.MeshStandardMaterial({
+            color: 0x7c3aed, emissive: 0x7c3aed, emissiveIntensity: 0.8,
+            transparent: true, opacity: 0.9
+        });
         const coreMesh = new THREE.Mesh(coreGeo, coreMat);
         gyroGroup.add(coreMesh);
 
-        // Studio Lighting
-        const gAmbient = new THREE.AmbientLight(0xffffff, 0.6); gyroScene.add(gAmbient);
-        const gLight1 = new THREE.PointLight(0x06b6d4, 5, 50); gLight1.position.set(10, 10, 10); gyroScene.add(gLight1);
-        const gLight2 = new THREE.PointLight(0xc026d3, 5, 50); gLight2.position.set(-10, -10, 10); gyroScene.add(gLight2);
+        // Inner glow shell
+        const glowGeo = new THREE.SphereGeometry(2.4, 32, 32);
+        const glowMat = new THREE.MeshBasicMaterial({
+            color: 0xa78bfa, transparent: true, opacity: 0.12
+        });
+        const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+        gyroGroup.add(glowMesh);
 
-        // Animate the Gyroscope
+        // --- Rich Studio Lighting ---
+        gyroScene.add(new THREE.AmbientLight(0xffffff, 0.5));
+        const gLight1 = new THREE.PointLight(0x06b6d4, 6, 50); gLight1.position.set(12, 8, 12);
+        const gLight2 = new THREE.PointLight(0xc026d3, 6, 50); gLight2.position.set(-12, -8, 10);
+        const gLight3 = new THREE.PointLight(0x7c3aed, 4, 40); gLight3.position.set(0, 12, -10);
+        const gLight4 = new THREE.PointLight(0xfbbf24, 2, 40); gLight4.position.set(8, -10, 8);
+        gyroScene.add(gLight1, gLight2, gLight3, gLight4);
+
+        // --- Animation Loop ---
         const gClock = new THREE.Clock();
         function animateGyro() {
             requestAnimationFrame(animateGyro);
             const time = gClock.getElapsedTime();
 
-            // Interlocking multi-axis rotation
-            meshRing1.rotation.y = time * 0.2;
-            meshRing1.rotation.z = Math.sin(time * 0.1) * 0.5;
+            // Multi-axis rotation with varied speeds
+            meshRing1.rotation.y = time * 0.15;
+            meshRing1.rotation.z = Math.sin(time * 0.08) * 0.4;
             
-            meshRing2.rotation.x = time * 0.3;
-            meshRing2.rotation.z = Math.cos(time * 0.2) * 0.5;
+            meshRing2.rotation.x = time * 0.25;
+            meshRing2.rotation.z = Math.cos(time * 0.15) * 0.5;
             
-            meshRing3.rotation.y = -time * 0.4;
-            meshRing3.rotation.x = Math.sin(time * 0.3) * 0.5;
+            meshRing3.rotation.y = -time * 0.3;
+            meshRing3.rotation.x = Math.sin(time * 0.2) * 0.6;
 
-            // Core pulses slightly
-            coreMesh.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
+            // Outer rings drift slowly
+            outerRing1.rotation.z = time * 0.05;
+            outerRing1.rotation.y = Math.sin(time * 0.03) * 0.2;
+            outerRing2.rotation.z = -time * 0.04;
+            outerRing2.rotation.x = Math.cos(time * 0.04) * 0.15;
+
+            // Particles gentle drift
+            particles.rotation.y = time * 0.02;
+            particles.rotation.x = Math.sin(time * 0.01) * 0.1;
+
+            // Core breathes
+            const coreScale = 1 + Math.sin(time * 1.5) * 0.08;
+            coreMesh.scale.setScalar(coreScale);
+            glowMesh.scale.setScalar(coreScale * 1.2);
+            coreMat.emissiveIntensity = 0.6 + Math.sin(time * 2) * 0.3;
 
             gyroRenderer.render(gyroScene, gyroCamera);
         }
         animateGyro();
 
-        // Tie the master group rotation to the scrollbar for absolute immersion
+        // Scroll-synced rotation (matches the shorter 200% scroll)
         gsap.to(gyroGroup.rotation, {
             scrollTrigger: {
                 trigger: ".why-spatial-section",
                 start: "top top",
-                end: "+=400%",
+                end: "+=250%",
                 scrub: 1
             },
-            x: Math.PI * 2, // Does a full backflip as user scrolls through the 4 cards
+            x: Math.PI * 2,
             y: Math.PI,
             ease: "none"
         });
@@ -1182,4 +1328,68 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
+
+    // --- 9. GSAP Cinematic Footer Reveal ---
+    let mmFooter = gsap.matchMedia();
+    
+    mmFooter.add("(min-width: 1025px)", () => {
+        // Creates the parallax scale effect as the user reaches the bottom of the page
+        gsap.from(".luxury-footer-inner", {
+            scrollTrigger: {
+                trigger: ".luxury-footer-wrapper",
+                start: "top bottom", // Starts when the top of the footer hits the bottom of the viewport
+                end: "bottom bottom",
+                scrub: true // Ties the animation exactly to the scrollbar
+            },
+            yPercent: -20, // Pushes it slightly down
+            scale: 0.95,   // Shrinks it slightly into the background
+            opacity: 0.5,  // Dims it out
+            ease: "none"
+        });
+    });
+
+    // --- Mobile Menu Toggle ---
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinksList = document.querySelector('.nav-links');
+    const navItemsList = document.querySelectorAll('.nav-links a');
+
+    if (menuToggle && navLinksList) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinksList.classList.toggle('active');
+            // Prevent scrolling when menu is open
+            document.body.style.overflow = navLinksList.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when a link is clicked
+        navItemsList.forEach(item => {
+            item.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinksList.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+
+    // --- 10. Scroll to Top Button ---
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            // Use Lenis smooth scroll if available, otherwise native
+            if (window.lenis) {
+                window.lenis.scrollTo(0, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+
 });
