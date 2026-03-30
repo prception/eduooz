@@ -2842,6 +2842,128 @@ body {
 }
 
 
+/* =========================================
+   8. FAQ SECTION (TWO-COLUMN ELITE)
+   ========================================= */
+.faq-elite-section {
+    position: relative;
+    padding: 150px 0;
+    color: #fff;
+    z-index: 10;
+}
+
+.relative-z { position: relative; z-index: 5; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* Ambient Deep Space Glow */
+.faq-ambient-glow {
+    position: absolute; top: -10%; left: 50%; transform: translateX(-50%); 
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, rgba(107, 33, 168, 0.05) 40%, transparent 70%);
+    filter: blur(80px); pointer-events: none; z-index: 1;
+}
+
+/* --- Top Centered Header --- */
+.faq-header { margin-bottom: 80px; }
+
+.frost-pill-dark {
+    display: inline-flex; align-items: center; gap: 12px; justify-content: center;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; 
+    color: #fff; margin-bottom: 1.5rem; backdrop-filter: blur(10px);
+}
+.glowing-dot-cyan { width: 8px; height: 8px; background: var(--brand-cyan); border-radius: 50%; box-shadow: 0 0 10px var(--brand-cyan); }
+
+.faq-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.5rem; color: #fff; }
+.text-italic-cyan { font-family: var(--font-serif); font-style: italic; color: var(--brand-cyan); font-weight: 600; }
+
+.faq-subtitle { font-size: 1.15rem; color: var(--text-muted-light); line-height: 1.6; font-weight: 400; max-width: 600px; }
+
+/* --- Two Column Layout --- */
+.faq-2col-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 60px; /* 0 vertical gap (items handle their own borders), 60px horizontal gap */
+    align-items: start; /* Prevents columns from stretching to match heights */
+}
+
+.faq-column {
+    display: flex; flex-direction: column;
+}
+
+/* Focus Mode Dimming */
+.faq-2col-wrapper.has-active .faq-item:not(.active) {
+    opacity: 0.4;
+}
+
+.faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: opacity 0.4s ease;
+}
+
+.faq-question {
+    width: 100%; display: flex; align-items: center; gap: 20px;
+    background: transparent; border: none; padding: 35px 0;
+    cursor: pointer; text-align: left; outline: none;
+}
+
+.faq-num {
+    font-family: var(--font-serif); font-size: 1.3rem; font-style: italic;
+    color: rgba(255,255,255,0.3); transition: color 0.4s;
+}
+
+.faq-text {
+    flex: 1; font-size: 1.25rem; font-weight: 700; color: #000000;
+    letter-spacing: -0.5px; transition: color 0.4s, transform 0.4s;
+    transform-origin: left; line-height: 1.4;
+}
+
+/* Animated Plus/Minus Toggle */
+.faq-toggle {
+    position: relative; width: 20px; height: 20px;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+}
+.horizontal-line, .vertical-line {
+    position: absolute; background: #000000; border-radius: 2px;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.horizontal-line { width: 100%; height: 2px; }
+.vertical-line { width: 2px; height: 100%; }
+
+/* Hover States */
+.faq-question:hover .faq-text { color: var(--brand-cyan); transform: translateX(5px); }
+.faq-question:hover .faq-num { color: var(--brand-cyan); }
+
+/* Grid Expand Magic */
+.faq-answer-wrapper {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.faq-answer-inner { overflow: hidden; }
+.faq-answer-inner p {
+    font-size: 1.05rem; color: var(--text-muted-light); line-height: 1.7;
+    padding-bottom: 35px; padding-left: 45px; padding-right: 20px;
+    opacity: 0; transform: translateY(-10px); transition: all 0.4s ease;
+}
+
+/* Active (Open) State */
+.faq-item.active .faq-question .faq-text { color: var(--brand-cyan); transform: translateX(5px); }
+.faq-item.active .faq-question .faq-num { color: var(--brand-cyan); }
+.faq-item.active .vertical-line { transform: rotate(90deg); opacity: 0; }
+.faq-item.active .horizontal-line { background: var(--brand-cyan); }
+.faq-item.active .faq-answer-wrapper { grid-template-rows: 1fr; }
+.faq-item.active .faq-answer-inner p { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+
+/* --- Footer Support Area --- */
+.faq-footer { margin-top: 80px; }
+.support-text { font-size: 1rem; color: var(--text-muted-light); margin-bottom: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+@media (max-width: 1024px) {
+    .faq-2col-wrapper { grid-template-columns: 1fr; gap: 0; }
+    .faq-header { margin-bottom: 50px; }
+    .faq-text { font-size: 1.15rem; }
+    .faq-answer-inner p { padding-left: 0; padding-right: 0; }
+}
 
 
 

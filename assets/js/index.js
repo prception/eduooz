@@ -1715,5 +1715,38 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         animate();
     });
+    // --- 12. GSAP FAQ Reveal & Dynamic Accordion ---
+    gsap.set(".g-faq-reveal", { autoAlpha: 1 });
+    gsap.from(".g-faq-reveal", {
+        scrollTrigger: { trigger: ".faq-elite-section", start: "top 80%" },
+        y: 40, opacity: 0, filter: "blur(10px)", duration: 1, stagger: 0.15, ease: "power3.out"
+    });
+
+    // Accordion Logic
+    const faqWrapper = document.getElementById('faq-accordion');
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    if (faqWrapper && faqItems.length > 0) {
+        faqItems.forEach(item => {
+            const button = item.querySelector('.faq-question');
+            
+            button.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+
+                // Toggle the clicked item
+                if (!isActive) {
+                    item.classList.add('active');
+                    faqWrapper.classList.add('has-active'); // Triggers Focus Mode Dimming
+                } else {
+                    faqWrapper.classList.remove('has-active'); // Removes Dimming if all are closed
+                }
+            });
+        });
+    }
 
 });
