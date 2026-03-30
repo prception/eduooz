@@ -1635,4 +1635,85 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Start cycling every 4 seconds
     setInterval(cycleAlumni, 4000);
+
+    // --- 11. GSAP Testimonials Reveal ---
+    gsap.set(".g-test-reveal", { autoAlpha: 1 });
+    gsap.from(".g-test-reveal", {
+        scrollTrigger: { trigger: ".testimonials-premium-section", start: "top 80%" },
+        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out"
+    });
+
+    // --- 12. Testimonial Marquee: JS-Driven Infinite Scroll + Drag ---
+    document.querySelectorAll('.test-marquee-container').forEach((container, idx) => {
+        const track = container.querySelector('.test-marquee-track');
+        if (!track) return;
+
+        const direction = idx === 0 ? -1 : 1; // Row 1 scrolls left, Row 2 scrolls right
+        const autoSpeed = 0.5; // Pixels per frame
+
+        let targetX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        let startPointerX = 0;
+        let dragAnchorX = 0;
+        let halfWidth = 0;
+
+        function measure() {
+            halfWidth = track.scrollWidth / 2;
+            // Start Row 2 at -halfWidth so it can scroll rightward
+            if (direction === 1 && targetX === 0) {
+                targetX = -halfWidth;
+                currentX = -halfWidth;
+            }
+        }
+        setTimeout(measure, 300);
+        window.addEventListener('resize', measure);
+
+        // Pointer Down
+        function onDown(e) {
+            isDragging = true;
+            startPointerX = e.clientX ?? e.touches[0].clientX;
+            dragAnchorX = targetX;
+        }
+        // Pointer Move
+        function onMove(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const px = e.clientX ?? (e.touches?.[0]?.clientX);
+            if (px == null) return;
+            targetX = dragAnchorX + (px - startPointerX);
+        }
+        // Pointer Up
+        function onUp() { isDragging = false; }
+
+        container.addEventListener('mousedown', onDown);
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onUp);
+        container.addEventListener('touchstart', onDown, { passive: true });
+        window.addEventListener('touchmove', onMove, { passive: false });
+        window.addEventListener('touchend', onUp);
+
+        // Render Loop
+        function animate() {
+            if (!isDragging) {
+                targetX += autoSpeed * direction;
+            }
+            // LERP for smoothness
+            currentX += (targetX - currentX) * 0.06;
+
+            // Seamless loop wrap
+            if (currentX <= -halfWidth) {
+                currentX += halfWidth;
+                targetX += halfWidth;
+            } else if (currentX >= 0) {
+                currentX -= halfWidth;
+                targetX -= halfWidth;
+            }
+
+            track.style.transform = `translateX(${currentX}px)`;
+            requestAnimationFrame(animate);
+        }
+        animate();
+    });
+
 });
