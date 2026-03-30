@@ -405,13 +405,13 @@ body {
 
 .btn-glass-outline {
     background: var(--glass-bg);
-    color: #fff;
+    color: #000000;
     text-decoration: none;
     padding: 18px 30px;
     border-radius: 100px;
     font-weight: 600;
     font-size: 1.05rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
     display: inline-flex;
     align-items: center;
@@ -2874,7 +2874,7 @@ body {
 }
 .glowing-dot-cyan { width: 8px; height: 8px; background: var(--brand-cyan); border-radius: 50%; box-shadow: 0 0 10px var(--brand-cyan); }
 
-.faq-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.5rem; color: #fff; }
+.faq-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.5rem; color: #000000; }
 .text-italic-cyan { font-family: var(--font-serif); font-style: italic; color: var(--brand-purple); font-weight: 600; }
 
 .faq-subtitle { font-size: 1.15rem; color: var(--text-muted-light); line-height: 1.6; font-weight: 400; max-width: 600px; }
@@ -3036,7 +3036,7 @@ body {
 }
 .text-italic-cyan {
     font-family: var(--font-serif); font-style: italic; font-weight: 600;
-    color: var(--brand-cyan);
+    color: var(--brand-purple);
 }
 .btn-liquid-cyan {
     display: inline-flex; align-items: center; gap: 10px;
