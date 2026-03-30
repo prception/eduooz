@@ -1512,7 +1512,7 @@ document.addEventListener("DOMContentLoaded", () => {
         details.appendChild(inner);
     });
 
-    // --- 10. GSAP Light Theme Placements & Anti-Jitter Parallax ---
+    // --- 10. GSAP Light Theme Placements & Data-Driven Cycling ---
 
     // 1. Section Entrance Reveal
     gsap.set(".g-place-reveal", { autoAlpha: 1 });
@@ -1521,65 +1521,118 @@ document.addEventListener("DOMContentLoaded", () => {
         y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out"
     });
 
-    // 2. Parallax Floating Cards on Scroll
-    let mmPlaceLight = gsap.matchMedia();
-    mmPlaceLight.add("(min-width: 1025px)", () => {
-        const alumniWrappers = document.querySelectorAll('.alumni-card-wrapper');
-        alumniWrappers.forEach(wrapper => {
-            const speed = wrapper.getAttribute('data-speed');
-            gsap.to(wrapper, {
-                y: -120 * speed, 
-                ease: "none",
-                scrollTrigger: {
-                    trigger: ".placement-light-section",
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1
-                }
-            });
-        });
-    });
+    // 2. Alumni Data Pool (Expandable)
+    const alumniPool = [
+        { name: "Priya Sharma",  exam: "AIIMS Norcet 2025",       badge: "RANK 1",      icon: "🏥", place: "AIIMS, New Delhi",       img: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=500" },
+        { name: "Arjun Patel",   exam: "Dubai Health Authority",   badge: "DHA CLEARED",  icon: "🌍", place: "Aster Hospital, Dubai",   img: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=500" },
+        { name: "Lakshmi N.",    exam: "Kerala PSC Pharmacist",    badge: "RANK 4",       icon: "🏛️", place: "Govt. Medical College",   img: "https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=500" },
+        { name: "Deepa Joseph",  exam: "JIPMER Nursing 2024",     badge: "RANK 2",       icon: "🎓", place: "JIPMER, Puducherry",     img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=500" },
+        { name: "Rahul Menon",   exam: "HAAD Exam 2025",          badge: "HAAD PASS",    icon: "🌍", place: "Cleveland Clinic, UAE",   img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=500" },
+        { name: "Sneha Nair",    exam: "RRB Staff Nurse",         badge: "SELECTED",     icon: "🏥", place: "Indian Railways Hospital",img: "https://images.unsplash.com/photo-1580281658223-9b93f18ae9ae?auto=format&fit=crop&q=80&w=500" },
+        { name: "Akhil Thomas",  exam: "Prometric SMLE",          badge: "SMLE PASS",    icon: "🌍", place: "King Faisal Hospital, KSA",img: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=500" },
+        { name: "Meera Das",     exam: "PGIMER B.Sc Nursing",     badge: "RANK 8",       icon: "🏛️", place: "PGIMER, Chandigarh",      img: "https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&q=80&w=500" },
+        { name: "Fathima K.",    exam: "ESI Staff Nurse 2024",    badge: "RANK 3",       icon: "🏥", place: "ESI Hospital, Bangalore", img: "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&q=80&w=500" },
+    ];
 
-    // 3. Jitter-Free 3D Holographic Tilt Physics
-    const wrappers = document.querySelectorAll('.alumni-card-wrapper');
+    let currentBatch = 0; // Tracks which group of 3 is currently displayed
 
-    wrappers.forEach(wrapper => {
+    function generateCardHTML(alumni) {
+        return `
+            <div class="prismatic-card">
+                <div class="card-glare-light"></div>
+                <div class="card-content-3d">
+                    <div class="alumni-img-box">
+                        <img src="${alumni.img}" alt="${alumni.name}">
+                        <div class="rank-badge">${alumni.badge}</div>
+                    </div>
+                    <div class="alumni-info">
+                        <h3>${alumni.name}</h3>
+                        <p class="exam-name">${alumni.exam}</p>
+                        <div class="placement-dest">
+                            <span class="dest-icon">${alumni.icon}</span>
+                            <span>Placed at: <strong>${alumni.place}</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    const cardWrappers = document.querySelectorAll('.alumni-card-wrapper');
+
+    function bindTiltPhysics(wrapper) {
         const card = wrapper.querySelector('.prismatic-card');
-        
-        wrapper.addEventListener('mousemove', (e) => {
-            // Measure the static wrapper, NOT the moving card
-            const rect = wrapper.getBoundingClientRect();
-            
-            // Get mouse position relative to wrapper
-            const x = e.clientX - rect.left; 
-            const y = e.clientY - rect.top; 
-            
+        if (!card) return;
+
+        // Use fresh clone to remove old listeners
+        const freshWrapper = wrapper;
+
+        freshWrapper.addEventListener('mousemove', (e) => {
+            const rect = freshWrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
-            // Calculate rotation angles (Max tilt: 12 degrees for elegance)
-            const rotateX = ((y - centerY) / centerY) * -12; 
-            const rotateY = ((x - centerX) / centerX) * 12;
-
-            // Apply 3D Rotation to the INNER card
+            // Reduced tilt: Max 6 degrees for subtlety
+            const rotateX = ((y - centerY) / centerY) * -6;
+            const rotateY = ((x - centerX) / centerX) * 6;
             card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            
-            // Move the Holographic Glare gradient to follow the mouse
             card.style.setProperty('--x', `${x}px`);
             card.style.setProperty('--y', `${y}px`);
         });
 
-        // Reset card smoothly when mouse leaves the wrapper
-        wrapper.addEventListener('mouseleave', () => {
+        freshWrapper.addEventListener('mouseleave', () => {
             card.style.transform = `rotateX(0deg) rotateY(0deg)`;
-            
-            // Add a smooth snap-back transition just for the exit
-            card.style.transition = `transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease`;
-            
-            // Remove the transition immediately after it snaps back so hover physics are instant again
+            card.style.transition = `transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease`;
             setTimeout(() => {
-                card.style.transition = `transform 0.1s ease, box-shadow 0.1s ease`;
-            }, 500);
+                card.style.transition = `transform 0.15s ease, box-shadow 0.15s ease`;
+            }, 600);
         });
-    });
+    }
+
+    // Bind initial tilt physics
+    cardWrappers.forEach(bindTiltPhysics);
+
+    // 3. Cycling Engine
+    function cycleAlumni() {
+        const totalBatches = Math.ceil(alumniPool.length / 3);
+        currentBatch = (currentBatch + 1) % totalBatches;
+        const batch = alumniPool.slice(currentBatch * 3, currentBatch * 3 + 3);
+
+        // Phase 1: Fade Out + Jump Up (staggered cascade)
+        cardWrappers.forEach((wrapper, i) => {
+            setTimeout(() => {
+                wrapper.classList.add('cycling-out');
+            }, i * 150); // 150ms stagger for smooth cascade
+        });
+
+        // Phase 2: Swap content after fade-out fully completes
+        setTimeout(() => {
+            cardWrappers.forEach((wrapper, i) => {
+                if (batch[i]) {
+                    wrapper.innerHTML = generateCardHTML(batch[i]);
+                    const img = wrapper.querySelector('img');
+                    if (img) img.loading = 'eager';
+                }
+                // Instantly set the "waiting below" position
+                wrapper.classList.remove('cycling-out');
+                wrapper.classList.add('cycling-in');
+            });
+
+            // Phase 3: Jump Reveal from Below (staggered bounce)
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    cardWrappers.forEach((wrapper, i) => {
+                        setTimeout(() => {
+                            wrapper.classList.remove('cycling-in');
+                            // Re-bind 3D tilt physics to the fresh DOM
+                            bindTiltPhysics(wrapper);
+                        }, i * 150);
+                    });
+                });
+            });
+        }, 800); // Synced with 0.7s CSS transition + buffer
+    }
+
+    // Start cycling every 4 seconds
+    setInterval(cycleAlumni, 4000);
 });
