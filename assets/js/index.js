@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 1.2, stagger: 0.2, ease: "back.out(1.2)"
     }, "-=1");
 
-            function initLenis() {
+    function initLenis() {
             if (typeof Lenis === 'undefined') {
                 console.warn('Lenis script not loaded.');
                 return;
@@ -1329,6 +1329,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    
+
     // --- 9. GSAP Cinematic Footer Reveal ---
     let mmFooter = gsap.matchMedia();
     
@@ -1392,4 +1394,192 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // --- 9. GSAP Cinematic Infinite Drag Faculty Carousel ---
+    
+    gsap.set(".g-fac-reveal", { autoAlpha: 1 });
+    gsap.from(".g-fac-reveal", {
+        scrollTrigger: { trigger: ".faculty-filmstrip-section", start: "top 75%" },
+        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out"
+    });
+
+    const track = document.getElementById('faculty-track');
+    const wrapper = document.querySelector('.filmstrip-track-wrapper');
+    
+    if(track && wrapper) {
+        const cards = Array.from(track.children);
+        
+        // 1. Clone cards to create the seamless loop illusion
+        cards.forEach(card => {
+            let clone = card.cloneNode(true);
+            track.appendChild(clone);
+        });
+
+        // 2. Physics Variables
+        let targetX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        let startX = 0;
+        let dragStartX = 0;
+        let autoScrollSpeed = 1; // Constant slow movement
+        let trackWidth = 0;
+
+        function updateMeasurements() {
+            // The real width is exactly half the total width because we cloned it once
+            trackWidth = track.scrollWidth / 2;
+        }
+        
+        // Let images load before measuring
+        setTimeout(updateMeasurements, 500);
+        window.addEventListener('resize', updateMeasurements);
+
+        // 3. Mouse Events
+        wrapper.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            dragStartX = targetX;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            targetX = dragStartX + (dx * 1.5); // 1.5 adds slight drag momentum
+        });
+
+        window.addEventListener('mouseup', () => isDragging = false);
+        window.addEventListener('mouseleave', () => isDragging = false);
+
+        // 4. Touch Events for Mobile
+        wrapper.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            dragStartX = targetX;
+            autoScrollSpeed = 0; // Pause auto-scroll on touch
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const dx = e.touches[0].clientX - startX;
+            targetX = dragStartX + (dx * 1.5);
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+            autoScrollSpeed = 1; // Resume auto-scroll
+        });
+
+        // Pause auto-scroll when hovering on desktop
+        wrapper.addEventListener('mouseenter', () => autoScrollSpeed = 0);
+        wrapper.addEventListener('mouseleave', () => autoScrollSpeed = 1);
+
+        // 5. The Render Loop
+        function animateCarousel() {
+            if (!isDragging) {
+                targetX -= autoScrollSpeed; // Auto move left
+            }
+
+            // LERP (Linear Interpolation) for buttery smoothness
+            currentX += (targetX - currentX) * 0.08;
+
+            // The Seamless Loop Logic
+            if (currentX <= -trackWidth) {
+                currentX += trackWidth;
+                targetX += trackWidth;
+            } else if (currentX > 0) {
+                currentX -= trackWidth;
+                targetX -= trackWidth;
+            }
+
+            // Apply transform natively via GSAP
+            gsap.set(track, { x: currentX });
+            requestAnimationFrame(animateCarousel);
+        }
+        
+        // Start engine
+        animateCarousel();
+    }
+
+    // --- 10. Dynamic DOM Wrapper for CSS Grid Interpolation ---
+    document.querySelectorAll('.fac-hidden-details').forEach(details => {
+        // Prevent duplicate wrapping on hot-reloads
+        if(details.querySelector('.fac-hidden-inner')) return;
+        
+        const inner = document.createElement('div');
+        inner.className = 'fac-hidden-inner';
+        
+        while (details.firstChild) {
+            inner.appendChild(details.firstChild);
+        }
+        details.appendChild(inner);
+    });
+
+    // --- 10. GSAP Light Theme Placements & Anti-Jitter Parallax ---
+
+    // 1. Section Entrance Reveal
+    gsap.set(".g-place-reveal", { autoAlpha: 1 });
+    gsap.from(".g-place-reveal", {
+        scrollTrigger: { trigger: ".placement-light-section", start: "top 80%" },
+        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out"
+    });
+
+    // 2. Parallax Floating Cards on Scroll
+    let mmPlaceLight = gsap.matchMedia();
+    mmPlaceLight.add("(min-width: 1025px)", () => {
+        const alumniWrappers = document.querySelectorAll('.alumni-card-wrapper');
+        alumniWrappers.forEach(wrapper => {
+            const speed = wrapper.getAttribute('data-speed');
+            gsap.to(wrapper, {
+                y: -120 * speed, 
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".placement-light-section",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+        });
+    });
+
+    // 3. Jitter-Free 3D Holographic Tilt Physics
+    const wrappers = document.querySelectorAll('.alumni-card-wrapper');
+
+    wrappers.forEach(wrapper => {
+        const card = wrapper.querySelector('.prismatic-card');
+        
+        wrapper.addEventListener('mousemove', (e) => {
+            // Measure the static wrapper, NOT the moving card
+            const rect = wrapper.getBoundingClientRect();
+            
+            // Get mouse position relative to wrapper
+            const x = e.clientX - rect.left; 
+            const y = e.clientY - rect.top; 
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calculate rotation angles (Max tilt: 12 degrees for elegance)
+            const rotateX = ((y - centerY) / centerY) * -12; 
+            const rotateY = ((x - centerX) / centerX) * 12;
+
+            // Apply 3D Rotation to the INNER card
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            
+            // Move the Holographic Glare gradient to follow the mouse
+            card.style.setProperty('--x', `${x}px`);
+            card.style.setProperty('--y', `${y}px`);
+        });
+
+        // Reset card smoothly when mouse leaves the wrapper
+        wrapper.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            
+            // Add a smooth snap-back transition just for the exit
+            card.style.transition = `transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease`;
+            
+            // Remove the transition immediately after it snaps back so hover physics are instant again
+            setTimeout(() => {
+                card.style.transition = `transform 0.1s ease, box-shadow 0.1s ease`;
+            }, 500);
+        });
+    });
 });
