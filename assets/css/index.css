@@ -347,7 +347,7 @@ body {
 }
 
 .hero-title {
-    font-size: clamp(3.5rem, 5vw, 5.5rem);
+    font-size: clamp(3.5rem, 4.8vw, 5.5rem);
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -2px;
@@ -355,7 +355,7 @@ body {
 }
 
 .hero-text-zone{
-    margin-top: 4rem;
+    margin-top: 6rem;
 }
 
 .text-gradient-fluid {
@@ -374,7 +374,7 @@ body {
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--text-muted);
     line-height: 1.6;
     margin-bottom: 3rem;
@@ -405,13 +405,13 @@ body {
 
 .btn-glass-outline {
     background: var(--glass-bg);
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
     padding: 18px 30px;
     border-radius: 100px;
     font-weight: 600;
     font-size: 1.05rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
     display: inline-flex;
     align-items: center;
@@ -2874,8 +2874,8 @@ body {
 }
 .glowing-dot-cyan { width: 8px; height: 8px; background: var(--brand-cyan); border-radius: 50%; box-shadow: 0 0 10px var(--brand-cyan); }
 
-.faq-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.5rem; color: #fff; }
-.text-italic-cyan { font-family: var(--font-serif); font-style: italic; color: var(--brand-cyan); font-weight: 600; }
+.faq-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.5rem; color: #000000; }
+.text-italic-cyan { font-family: var(--font-serif); font-style: italic; color: var(--brand-purple); font-weight: 600; }
 
 .faq-subtitle { font-size: 1.15rem; color: var(--text-muted-light); line-height: 1.6; font-weight: 400; max-width: 600px; }
 
@@ -2931,8 +2931,8 @@ body {
 .vertical-line { width: 2px; height: 100%; }
 
 /* Hover States */
-.faq-question:hover .faq-text { color: var(--brand-cyan); transform: translateX(5px); }
-.faq-question:hover .faq-num { color: var(--brand-cyan); }
+.faq-question:hover .faq-text { color: var(--brand-purple); transform: translateX(5px); }
+.faq-question:hover .faq-num { color: var(--brand-purple); }
 
 /* Grid Expand Magic */
 .faq-answer-wrapper {
@@ -3036,7 +3036,7 @@ body {
 }
 .text-italic-cyan {
     font-family: var(--font-serif); font-style: italic; font-weight: 600;
-    color: var(--brand-cyan);
+    color: var(--brand-purple);
 }
 .btn-liquid-cyan {
     display: inline-flex; align-items: center; gap: 10px;
