@@ -405,7 +405,7 @@ body {
 
 .btn-glass-outline {
     background: var(--glass-bg);
-    color: #000000;
+    color: #ffffff;
     text-decoration: none;
     padding: 18px 30px;
     border-radius: 100px;
