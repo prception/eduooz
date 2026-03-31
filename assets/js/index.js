@@ -284,51 +284,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     window.dispatchEvent(new Event('resize'));
 
-    // --- 4.5. GSAP Hero App-to-Orbit Sequence (CSS Version) ---
+    // --- 4.5. GSAP Hero Entrance Sequence ---
     const seqTl = gsap.timeline({ delay: 0.5 }); 
 
-    // Smooth Entrance for iPhone Mockup
-    seqTl.to(".iphone-mockup", {
+    // Phase 1: Shrink → scale-up + fade-up with bounce
+    seqTl.to(".hero-mockup-img", {
         opacity: 1,
         y: 0,
-        rotationX: 10,
-        rotationY: -20,
-        duration: 2.5,
-        ease: "power4.out"
+        scale: 1,
+        duration: 1.4,
+        ease: "back.out(1.7)"
     }, 0);
 
-    // Fade in orbit container
-    seqTl.set(".orbit-container", { autoAlpha: 1 }, 1.5);
+    // Phase 2: Reveal orbit container + ring path scales in
+    seqTl.set(".orbit-container", { autoAlpha: 1 }, 1.2);
+    seqTl.fromTo(".orbit-ring-path", 
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1, ease: "back.out(1.4)" },
+    1.2);
 
-    // Responsive radius for orbiting
-    const r = window.innerWidth < 768 ? 140 : 250;
-    const n1X = 0, n1Y = -r;
-    const n2X = r * Math.cos(Math.PI/6), n2Y = r * Math.sin(Math.PI/6);
-    const n3X = -r * Math.cos(Math.PI/6), n3Y = r * Math.sin(Math.PI/6);
+    // Phase 3: Nodes burst out from center with stagger
+    const r = window.innerWidth < 768 ? 120 : 250;
+    const nodeSize = window.innerWidth < 768 ? 45 : 60; // Half of node width
 
-    seqTl.to("#node-nursing", { x: n1X - 65, y: n1Y - 65, scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.2)" }, 1.5)
-         .to("#node-pharma", { x: n2X - 65, y: n2Y - 65, scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.2)" }, 1.6)
-         .to("#node-lab", { x: n3X - 65, y: n3Y - 65, scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.2)" }, 1.7);
+    // Position nodes evenly on the circle (120° apart)
+    const n1X = 0,                           n1Y = -r;                          // Top
+    const n2X = r * Math.cos(Math.PI / 6),   n2Y = r * Math.sin(Math.PI / 6);   // Bottom-right
+    const n3X = -r * Math.cos(Math.PI / 6),  n3Y = r * Math.sin(Math.PI / 6);   // Bottom-left
 
-    // Infinite orbit rotation
-    seqTl.to(".orbit-container", { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 2.5);
+    seqTl.to("#node-nursing", { x: n1X - nodeSize, y: n1Y - nodeSize, scale: 1, opacity: 1, duration: 1, ease: "back.out(2)" }, 1.6)
+         .to("#node-pharma",  { x: n2X - nodeSize, y: n2Y - nodeSize, scale: 1, opacity: 1, duration: 1, ease: "back.out(2)" }, 1.8)
+         .to("#node-lab",     { x: n3X - nodeSize, y: n3Y - nodeSize, scale: 1, opacity: 1, duration: 1, ease: "back.out(2)" }, 2.0);
+
+    // Phase 4: Infinite orbit rotation
+    seqTl.to(".orbit-container", { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 3.0);
     // Counter-rotate nodes so text stays upright
-    seqTl.to(".orbit-node", { rotation: -360, duration: 30, repeat: -1, ease: "none" }, 2.5);
-
-    // Mouse Parallax for the CSS 3D iPhone
-    window.addEventListener('mousemove', (e) => {
-        const mX = (e.clientX / window.innerWidth) * 2 - 1;
-        const mY = -(e.clientY / window.innerHeight) * 2 + 1;
-        
-        gsap.to(".iphone-mockup", {
-            x: mX * 30,
-            y: -mY * 30,
-            rotationX: 10 + (mY * 15),
-            rotationY: -20 + (mX * 15),
-            duration: 1.5,
-            ease: "power2.out"
-        });
-    });
+    seqTl.to(".orbit-node", { rotation: -360, duration: 30, repeat: -1, ease: "none" }, 3.0);
 
     // --- 5. GSAP ScrollTrigger: Contained Trust Panel ---
     gsap.registerPlugin(ScrollTrigger);
