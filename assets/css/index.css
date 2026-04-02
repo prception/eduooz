@@ -2328,11 +2328,10 @@ body {
 .orbit-container {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 60%;
     width: 0; height: 0;
     display: flex; align-items: center; justify-content: center;
     visibility: hidden; /* GSAP reveals */
-    z-index: 15;
 }
 
 /* Visible Orbital Ring Path */
@@ -2384,15 +2383,6 @@ body {
     z-index: 25;
 }
 
-/* .orbit-node::before {
-    content: '';
-    position: absolute;
-    top: 5px; left: 15%; right: 15%; height: 20%;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0));
-    border-radius: 50%;
-    pointer-events: none;
-} */
-
 .orbit-node:hover {
     border-color: rgba(255, 255, 255, 0.9);
     box-shadow: 
@@ -2439,10 +2429,10 @@ body {
    ========================================= */
 .hero-mockup-img {
     position: relative;
-    width: 480px;
+    width: 430px;
     height: auto;
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
-    /* z-index: 20; */
+    z-index: 20;
     /* GSAP Initial State — starts shrunk + below */
     opacity: 0;
     transform: translateY(60px) scale(0.6);
