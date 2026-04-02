@@ -61,7 +61,6 @@ body {
     /* bg removed */
     /* Changed to light to support fixed light mesh */
     /* color removed */
-    overflow-x: hidden;
     min-height: 100vh;
 }
 
