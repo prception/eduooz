@@ -413,7 +413,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 0);
 
     // Phase 2: Reveal orbit container + ring path scales in
-    seqTl.set(".orbit-container", { autoAlpha: 1 }, 1.2);
+    seqTl.set(".orbit-container", { visibility: "visible" }, 1.2);
     seqTl.fromTo(".orbit-ring-path", 
         { scale: 0, opacity: 0 },
         { scale: 1, opacity: 1, duration: 1, ease: "back.out(1.4)" },
@@ -432,10 +432,38 @@ document.addEventListener("DOMContentLoaded", () => {
          .to("#node-pharma",  { x: n2X - nodeSize, y: n2Y - nodeSize, scale: 1, opacity: 1, duration: 1, ease: "back.out(2)" }, 1.8)
          .to("#node-lab",     { x: n3X - nodeSize, y: n3Y - nodeSize, scale: 1, opacity: 1, duration: 1, ease: "back.out(2)" }, 2.0);
 
-    // Phase 4: Infinite orbit rotation
-    seqTl.to(".orbit-container", { rotation: 360, duration: 30, repeat: -1, ease: "none" }, 3.0);
-    // Counter-rotate nodes so text stays upright
-    seqTl.to(".orbit-node", { rotation: -360, duration: 30, repeat: -1, ease: "none" }, 3.0);
+    // Phase 4: Infinite orbit rotation with dynamic Z-Index wrapping
+    const proxy = { angle: 0 };
+    const nodesInfo = [
+        { id: "#node-nursing", offset: -Math.PI / 2 },
+        { id: "#node-pharma",  offset: Math.PI / 6 },
+        { id: "#node-lab",     offset: 5 * Math.PI / 6 }
+    ];
+
+    seqTl.to(proxy, {
+        angle: Math.PI * 2,
+        duration: 30,
+        repeat: -1,
+        ease: "none",
+        onUpdate: () => {
+            nodesInfo.forEach(node => {
+                const currentAngle = proxy.angle + node.offset;
+                const nodeX = r * Math.cos(currentAngle) - nodeSize;
+                // Pure Y value before subtracting nodeSize
+                const pureY = r * Math.sin(currentAngle);
+                const nodeY = pureY - nodeSize;
+                
+                // When pureY is negative (top half of the orbit), push it behind the phone
+                const isBehind = pureY < -40; // -40 offset so it tucks behind perfectly
+                
+                gsap.set(node.id, { 
+                    x: nodeX, 
+                    y: nodeY,
+                    zIndex: isBehind ? 10 : 30 
+                });
+            });
+        }
+    }, 3.0);
 
     // --- 5. GSAP ScrollTrigger: Contained Trust Panel ---
     gsap.registerPlugin(ScrollTrigger);
