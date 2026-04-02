@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eduooz | Contact Us</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/contact.css">
+</head>
+
+<body>
+    <div class="site-wrapper">
+       
+
+        <main class="contact-page-wrapper">
+            <!-- Hero with THREE JS -->
+            <div class="contact-hero-wrapper">
+                <div id="threejs-canvas-contact"></div>
+                <!-- Ambient glowing effects -->
+                <div class="gradient-mesh-bg">
+                    <div class="mesh-blob blob-purple" style="opacity: 0.3;"></div>
+                    <div class="mesh-blob blob-cyan" style="opacity: 0.2;"></div>
+                    <div class="mesh-blob blob-magenta" style="opacity: 0.2;"></div>
+                </div>
+                <div class="hero-blur-overlay"></div>
+
+                <div class="contact-hero-content">
+                    <h1 class="hero-title g-reveal" style="color: white; margin-bottom: 0;">CONTACT US</h1>
+                </div>
+            </div>
+
+            <!-- Main Flex Section -->
+            <section class="contact-main-section">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <!-- Left Hemisphere: Get in Touch -->
+                        <div class="col-lg-5 col-md-12">
+                            <div class="contact-info-block g-reveal">
+                                <h2 class="contact-heading">Get In Touch</h2>
+                                <p class="contact-desc">Reach out to our dedicated support team for any inquiries.</p>
+
+                                <div class="contact-item">
+                                    <div class="icon-circle">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                    <div class="contact-item-text">
+                                        <h4>Call Us</h4>
+                                        <p>+91 8111850054</p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-item">
+                                    <div class="icon-circle">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-item-text">
+                                        <h4>Email Us</h4>
+                                        <p style="word-break: break-all;">eduoozinternationalacademy@gmail.com</p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-item">
+                                    <div class="icon-circle">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <div class="contact-item-text">
+                                        <h4>Eduooz International Academy</h4>
+                                        <p>2nd floor, Terminal Plaza, Bypass road, Chakkai, Trivandrum, Kerala - 695024,
+                                            India</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Hemisphere: Form Card -->
+                        <div class="col-lg-7 col-md-12">
+                            <div class="form-container g-reveal">
+                                <div class="contact-form-card">
+                                    <h3>Your Detail</h3>
+                                    <form action="#" class="custom-form">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="name">Name <span class="required">*</span></label>
+                                                <input type="text" id="name" placeholder="Your Name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email Address <span class="required">*</span></label>
+                                                <input type="email" id="email" placeholder="Your Email" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="name">Phone Number <span class="required">*</span></label>
+                                                <input type="text" id="name" placeholder="Your Phone Number" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="subject">Subject <span class="required">*</span></label>
+                                                <input type="text" id="subject" placeholder="Message Subject" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="message">Comments / Questions <span
+                                                    class="required">*</span></label>
+                                            <textarea id="message" rows="3" placeholder="Your Message"
+                                                required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn-submit magnetic-btn">SUBMIT</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Map and CTA Section -->
+            <section class="map-cta-section">
+                <!-- Map Container -->
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3791.9561075177676!2d76.9229597748264!3d8.48959279155174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bb7c547b1ce5%3A0xd1c154dd3ad7aabd!2sEduooz%20Academy!5e1!3m2!1sen!2sin!4v1775106719494!5m2!1sen!2sin"
+                        style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <!-- Overlay CTA -->
+                <div class="cta-overlay-wrapper">
+                    <div class="cta-overlay-card g-reveal">
+                        <div class="cta-text">
+                            <h3>Keep Updated About<br>Our Product</h3>
+                        </div>
+                        <div class="cta-input-group">
+                            <input type="email" placeholder="Your email address" required>
+                            <button type="button" class="btn-cta-submit magnetic-btn">SUBMIT</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>      
+    </div>
+
+    <button class="scroll-to-top" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="assets/js/contact-bg.js"></script>
+</body>
+
+</html>
