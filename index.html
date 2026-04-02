@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <link rel="stylesheet" href="assets/css/index.css">
@@ -24,22 +24,7 @@
 
 <body>
     <div class="site-wrapper">
-    <header id="navbar" class="glass-header container">
-        <div class="logo">EDUOOZ.</div>
-        
-        <div class="mobile-menu-toggle" id="menu-toggle">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-
-        <nav class="nav-links">
-            <a href="#courses" class="hover-underline">Courses</a>
-            <a href="#results" class="hover-underline">Results</a>
-            <a href="#about" class="hover-underline">About Us</a>
-        </nav>
-        <a href="#demo" class="btn-glass-sm magnetic-btn header-cta">Free Demo</a>
-    </header>
+    <div id="header-container"></div>
 
 
 
@@ -78,7 +63,7 @@
 
                             <div class="cta-cluster g-reveal">
                                 <a href="#enroll" class="btn-liquid-primary magnetic-btn">Start Your Journey</a>
-                                <a href="#demo" class="btn-glass-outline magnetic-btn">Watch Demo <span class="arrow">↗</span></a>
+                                <a href="#demo" class="btn-glass-outline magnetic-btn">Watch Demo <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 5px; font-size: 0.85em;"></i></a>
                             </div>
                         </div>
                     </div>
@@ -92,17 +77,17 @@
                                 <!-- <div class="orbit-ring-path"></div> -->
 
                                 <a href="#nursing" class="orbit-node" id="node-nursing">
-                                    <div class="node-icon">🩺</div>
+                                    <div class="node-icon"><i class="fa-solid fa-stethoscope"></i></div>
                                     <span class="node-label">Nursing</span>
                                 </a>
 
                                 <a href="#pharma" class="orbit-node" id="node-pharma">
-                                    <div class="node-icon">💊</div>
+                                    <div class="node-icon"><i class="fa-solid fa-capsules"></i></div>
                                     <span class="node-label">Pharmacist</span>
                                 </a>
 
                                 <a href="#lab" class="orbit-node" id="node-lab">
-                                    <div class="node-icon">🔬</div>
+                                    <div class="node-icon"><i class="fa-solid fa-microscope"></i></div>
                                     <span class="node-label">Lab Tech</span>
                                 </a>
                             </div>
@@ -140,6 +125,35 @@
         </div>
     </section>
 
+    <!-- ACHIEVERS SPOTLIGHT: Full width banner slider -->
+    <section class="achievers-spotlight-section relative" id="achievers">
+        <div class="achiever-slider-container">
+            
+            <!-- <button class="slider-nav-btn prev-btn" aria-label="Previous Slide">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="slider-nav-btn next-btn" aria-label="Next Slide">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button> -->
+
+            <div class="achiever-track">
+                <!-- Slide 1 -->
+                <div class="achiever-slide">
+                    <div class="slide-image-wrapper">
+                        <!-- Placeholder image: Update src when you have the actual group photo -->
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=2000" alt="Student Achievers" class="achiever-bg-img">
+                        <div class="image-gradient-overlay"></div>
+                    </div>
+                    
+                    <div class="achiever-text-overlay">
+                        <h4 class="achiever-subtitle">സ്വപ്നത്തിൽ നിന്ന് ലക്ഷ്യത്തിലേക്ക്</h4>
+                        <h2 class="achiever-title">RRB JE <br><span class="highlight">WINNERS</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="color-mesh">
         <div class="blob purple-blob"></div>
         <div class="blob cyan-blob"></div>
@@ -148,10 +162,10 @@
 
     <section class="stack-courses-section" id="courses">
         <div class="courses-intro text-center">
-            <div class="frost-pill g-reveal">
+            <div class="frost-pill g-course-rev">
                 <span class="glowing-dot-purple"></span> Elite Pathways
             </div>
-            <h2 class="g-reveal">Master Your <br><span class="text-italic-gold">Discipline.</span></h2>
+            <h2 class="g-course-rev">Master Your <br><span class="text-italic-gold">Discipline.</span></h2>
         </div>
 
         <div class="stack-cards-wrapper">
@@ -160,14 +174,14 @@
                 <div class="card-glass-panel">
                     <div class="panel-left">
                         <span class="bg-watermark">01</span>
-                        <div class="course-badge">🩺</div>
+                        <div class="course-badge"><i class="fa-solid fa-user-nurse"></i></div>
                         <h3>Nursing Coaching</h3>
                         <h4 class="course-meta">Kerala PSC, AIIMS & RRB</h4>
                         <p class="course-desc">Complete syllabus coverage, daily mock exams, and personalized mentorship designed to secure central and state government nursing roles. Learn directly from top rank holders.</p>
                         
                         <div class="course-features">
-                            <span>✓ 500+ Hours Live Classes</span>
-                            <span>✓ 50+ Mock Exams</span>
+                            <span><i class="fa-solid fa-circle-check"></i> 500+ Hours Live Classes</span>
+                            <span><i class="fa-solid fa-circle-check"></i> 50+ Mock Exams</span>
                         </div>
                         
                         <a href="#nursing" class="btn-course-luxury magnetic-btn">View Curriculum <span class="arrow">→</span></a>
@@ -185,14 +199,14 @@
                 <div class="card-glass-panel">
                     <div class="panel-left">
                         <span class="bg-watermark">02</span>
-                        <div class="course-badge">💊</div>
+                        <div class="course-badge"><i class="fa-solid fa-pills"></i></div>
                         <h3>Pharmacist Coaching</h3>
                         <h4 class="course-meta">Top-Tier Recruitment</h4>
                         <p class="course-desc">Advanced strategies and comprehensive study materials tailored specifically for competitive pharmacist examinations. Achieve mastery over high-yield topics.</p>
                         
                         <div class="course-features">
-                            <span>✓ Advanced Study Material</span>
-                            <span>✓ Rank-focused Strategy</span>
+                            <span><i class="fa-solid fa-circle-check"></i> Advanced Study Material</span>
+                            <span><i class="fa-solid fa-circle-check"></i> Rank-focused Strategy</span>
                         </div>
 
                         <a href="#pharma" class="btn-course-luxury magnetic-btn">View Curriculum <span class="arrow">→</span></a>
@@ -210,17 +224,17 @@
                 <div class="card-glass-panel">
                     <div class="panel-left">
                         <span class="bg-watermark">03</span>
-                        <div class="course-badge">🔬</div>
+                        <div class="course-badge"><i class="fa-solid fa-microscope"></i></div>
                         <h3>Lab Technician</h3>
                         <h4 class="course-meta">Precision-Focused Training</h4>
                         <p class="course-desc">Expert-led practical theory sessions and rigorous testing formats designed to give you the competitive edge in precision-focused healthcare roles.</p>
                         
                         <div class="course-features">
-                            <span>✓ Practical Theory Integration</span>
-                            <span>✓ 1-on-1 Mentorship</span>
+                            <span><i class="fa-solid fa-circle-check"></i> Practical Theory Integration</span>
+                            <span><i class="fa-solid fa-circle-check"></i> 1-on-1 Mentorship</span>
                         </div>
 
-                        <a href="#lab" class="btn-course-luxury magnetic-btn">View Curriculum <span class="arrow">→</span></a>
+                        <a href="#lab" class="btn-course-luxury magnetic-btn">View Curriculum <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
                     </div>
                     <div class="panel-right">
                         <div class="liquid-image-mask">
@@ -373,7 +387,7 @@
         </div>
     </section>
 
-    <section class="why-premium-section" id="why-us">
+    <!-- <section class="why-premium-section" id="why-us">
         <div class="why-ambient-glow">
             <div class="glow-orb orb-left"></div>
             <div class="glow-orb orb-right"></div>
@@ -444,14 +458,14 @@
 
             </div>
         </div>
-    </section>
+    </section> -->
     
-    <section class="why-spatial-section" id="why-us-2">
+    <section class="why-spatial-section mt-5" id="why-us-2">
         <div class="spatial-sticky-container">
             
             <div id="gyro-canvas"></div>
 
-            <div class="spatial-header">
+            <div class="spatial-header mt-5">
                 <!-- <div class="frost-pill">
                     <span class="glowing-dot-purple"></span> The Eduooz Advantage
                 </div> -->
@@ -462,28 +476,28 @@
                 
                 <div class="z-card z-card-1" data-num="01">
                     <div class="card-glow"></div>
-                    <div class="icon-sphere-large">📚</div>
+                    <div class="icon-sphere-large"><i class="fa-solid fa-book-open"></i></div>
                     <h3>Structured Syllabus</h3>
                     <p>Meticulously crafted curriculum aligned perfectly with the latest central and state government exam patterns. Study smart, with high-yield topics prioritized to maximize your scoring potential.</p>
                 </div>
 
                 <div class="z-card z-card-2" data-num="02">
                     <div class="card-glow"></div>
-                    <div class="icon-sphere-large">👨‍🏫</div>
+                    <div class="icon-sphere-large"><i class="fa-solid fa-chalkboard-user"></i></div>
                     <h3>Experienced Faculty</h3>
                     <p>Learn directly from professionals who have successfully cracked these exact exams. Our instructors bring unparalleled insider strategies, practical knowledge, and proven methodologies.</p>
                 </div>
 
                 <div class="z-card z-card-3" data-num="03">
                     <div class="card-glow"></div>
-                    <div class="icon-sphere-large">🎯</div>
+                    <div class="icon-sphere-large"><i class="fa-solid fa-bullseye"></i></div>
                     <h3>Advanced Mock Tests</h3>
                     <p>Simulate the real exam environment with our high-frequency test series. Gain a competitive edge with deep performance tracking, customized evaluations, and all-India rank analysis.</p>
                 </div>
 
                 <div class="z-card z-card-4" data-num="04">
                     <div class="card-glow"></div>
-                    <div class="icon-sphere-large">🤝</div>
+                    <div class="icon-sphere-large"><i class="fa-solid fa-handshake"></i></div>
                     <h3>Personal Guidance</h3>
                     <p>Benefit from 1-on-1 mentorship, intensive doubt-clearing sessions, and dedicated career counseling tailored for lucrative healthcare opportunities in India and abroad.</p>
                 </div>
@@ -493,14 +507,20 @@
         </div>
     </section>
 
-    <section class="video-luxury-section" id="media">
-
-        
+    <section class="video-luxury-section" id="media"> 
             <div class="section-header text-center">
                 <div class="frost-pill g-vid-reveal">
                     <span class="glowing-dot-purple"></span> Masterclasses & Insights
                 </div>
                 <h2 class="g-vid-reveal">The Eduooz <span class="text-italic-purple">Master Classes.</span></h2>
+                
+                <div class="yt-category-tabs g-vid-reveal">
+                    <a href="#" class="yt-tab active">All</a>
+                    <a href="#" class="yt-tab">Nursing</a>
+                    <a href="#" class="yt-tab">Pharmacist</a>
+                    <a href="#" class="yt-tab">Lab Technician</a>
+                    <a href="#" class="yt-tab">German Language</a>
+                </div>
             </div>
 
             <div class="video-ecosystem g-vid-reveal">
@@ -511,143 +531,108 @@
                     </div>
                     
                     <div class="video-glass-frame">
-                        <img src="https://img.youtube.com/vi/eM-uBScwoBo/maxresdefault.jpg" alt="Main Video Thumbnail" class="active-video-bg" id="active-vid-img">
+                        <img src="" alt="Main Video Thumbnail" class="active-video-bg" id="active-vid-img">
                         <div class="video-glass-overlay"></div>
                         
                         <div class="active-video-meta">
-                            <a href="https://youtu.be/eM-uBScwoBo?si=n62dcCD7DKbCrQhE" class="vid-badge yt-badge" target="_blank"><i class="fa-brands fa-youtube"></i> Watch on YouTube</a>
-                            <h3 id="active-vid-title">Pharmacology of Quinine in 5 Minutes</h3>
-                            <p id="active-vid-desc">Rapid mastery of high-yield Kerala PSC Pharmacist topics.</p>
-                            <div class="vid-stats" id="active-vid-stats">2.5M views • 6 months ago</div>
+                            <a href="#" class="vid-badge yt-badge" target="_blank"><i class="fa-brands fa-youtube"></i> Watch on YouTube</a>
+                            <h3 id="active-vid-title"></h3>
+                            <p id="active-vid-desc"></p>
+                            <div class="vid-stats" id="active-vid-stats"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="playlist-viewport">
                     <div class="playlist-track">
-                        
-                        <div class="playlist-card" data-img="https://img.youtube.com/vi/jh07RQO0pSs/maxresdefault.jpg" data-url="https://youtu.be/jh07RQO0pSs?si=-7FYYJKgY94XEGQd" data-title="GCC Qatar Prometric Exam Winner Review" data-desc="An exclusive student success story with Eduooz Academy." data-stats="1.2M views • 2 weeks ago">
-                            <div class="playlist-duration">03:15</div>
-                            <img src="https://img.youtube.com/vi/jh07RQO0pSs/maxresdefault.jpg" alt="Thumb 1">
-                            <div class="play-icon-sm"><i class="fa-solid fa-play"></i></div>
-                        </div>
-
-                        <div class="playlist-card" data-img="https://img.youtube.com/vi/vQIG_soLtDQ/maxresdefault.jpg" data-url="https://youtu.be/vQIG_soLtDQ?si=TIshfltfh1VUxHH5" data-title="Learn German Alphabets X-Z" data-desc="Easy explanation in Malayalam & English for beginners." data-stats="850K views • 1 month ago">
-                            <div class="playlist-duration">08:22</div>
-                            <img src="https://img.youtube.com/vi/vQIG_soLtDQ/maxresdefault.jpg" alt="Thumb 2">
-                            <div class="play-icon-sm"><i class="fa-solid fa-play"></i></div>
-                        </div>
-
-                        <div class="playlist-card active" data-img="https://img.youtube.com/vi/eM-uBScwoBo/maxresdefault.jpg" data-url="https://youtu.be/eM-uBScwoBo?si=n62dcCD7DKbCrQhE" data-title="Pharmacology of Quinine in 5 Minutes" data-desc="Rapid mastery of high-yield Kerala PSC Pharmacist topics." data-stats="2.5M views • 6 months ago">
-                            <div class="playlist-duration">05:00</div>
-                            <img src="https://img.youtube.com/vi/eM-uBScwoBo/maxresdefault.jpg" alt="Thumb 3">
-                            <div class="play-icon-sm"><i class="fa-solid fa-play"></i></div>
-                        </div>
-
-                        <div class="playlist-card" data-img="https://img.youtube.com/vi/qz-hNlANzuY/maxresdefault.jpg" data-url="https://youtu.be/qz-hNlANzuY?si=EY5xoKEsT4ZWYfdA" data-title="Pharmacology of Acyclovir in 5 Minutes" data-desc="Rapid revision for upcoming state board pharmacist exams." data-stats="410K views • 2 months ago">
-                            <div class="playlist-duration">05:00</div>
-                            <img src="https://img.youtube.com/vi/qz-hNlANzuY/maxresdefault.jpg" alt="Thumb 4">
-                            <div class="play-icon-sm"><i class="fa-solid fa-play"></i></div>
-                        </div>
-
-                        <div class="playlist-card" data-img="https://img.youtube.com/vi/4Dfc7jP_9dc/maxresdefault.jpg" data-url="https://youtu.be/4Dfc7jP_9dc?si=gdw_wHtg8W3Z3LO0" data-title="Learn Lab Technician DHS the Simple Way" data-desc="A visual deep-dive into our extensive Long Term Course." data-stats="600K views • 3 weeks ago">
-                            <div class="playlist-duration">14:10</div>
-                            <img src="https://img.youtube.com/vi/4Dfc7jP_9dc/maxresdefault.jpg" alt="Thumb 5">
-                            <div class="play-icon-sm"><i class="fa-solid fa-play"></i></div>
-                        </div>
-
-                        <div class="playlist-card" data-img="https://img.youtube.com/vi/DXZWVrGW3DI/maxresdefault.jpg" data-url="https://youtu.be/DXZWVrGW3DI?si=s3GCNfdXFjiGCdja" data-title="Lab Technician DHS Long Term Program" data-desc="Smart & easy learning with Eduooz International Academy." data-stats="1.1M views • 5 months ago">
-                            <div class="playlist-duration">22:00</div>
-                            <img src="https://img.youtube.com/vi/DXZWVrGW3DI/maxresdefault.jpg" alt="Thumb 6">
-                            <div class="play-icon-sm"><i class="fa-solid fa-play"></i></div>
-                        </div>
-
+                        <!-- Cards are dynamically generated by JavaScript -->
                     </div>
                 </div>
             </div>
     </section>
 
-    <section class="faculty-filmstrip-section" id="faculty">
+    <!-- PLACEMENT ALUMNI — Filmstrip Carousel Design -->
+    <section class="faculty-filmstrip-section" id="placements">
         <div class="container">
             <div class="faculty-header">
                 <div>
                     <div class="frost-pill g-fac-reveal">
-                        <span class="glowing-dot-gold"></span> The Architects of Success
+                        <span class="glowing-dot-cyan"></span> Global Alumni Network
                     </div>
-                    <h2 class="g-fac-reveal">Learn from the <span class="text-italic-gold">Masters.</span></h2>
+                    <h2 class="g-fac-reveal">Where Our <span class="text-italic-purple">Leaders Go.</span></h2>
                 </div>
             </div>
         </div>
 
         <div class="filmstrip-track-wrapper g-fac-reveal">
             <div class="filmstrip-track" id="faculty-track">
-                
+
                 <div class="faculty-card">
-                    <img src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=800" alt="Dr. Anand" class="fac-portrait">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800" alt="Priya Sharma" class="fac-portrait">
                     <div class="fac-glass-panel">
                         <div class="fac-visible-header">
-                            <span class="fac-badge">Ph.D.</span>
-                            <h3 class="fac-name">Dr. Anand</h3>
+                            <span class="fac-badge">RANK 1</span>
+                            <h3 class="fac-name">Priya Sharma</h3>
                         </div>
                         <div class="fac-hidden-details">
-                            <p class="fac-role">Chief Director of Sciences</p>
-                            <p class="fac-desc">Over 15 years of mentorship experience, specializing in advanced biological sciences and competitive exam strategy.</p>
+                            <p class="fac-role">AIIMS Norcet 2025</p>
+                            <p class="fac-desc"><i class="fa-solid fa-hospital"></i> Placed at: AIIMS, New Delhi</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="faculty-card">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800" alt="Gabriel" class="fac-portrait">
+                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=800" alt="Arjun Patel" class="fac-portrait">
                     <div class="fac-glass-panel">
                         <div class="fac-visible-header">
-                            <span class="fac-badge">Tech & Growth</span>
-                            <h3 class="fac-name">Gabriel</h3>
+                            <span class="fac-badge">DHA CLEARED</span>
+                            <h3 class="fac-name">Arjun Patel</h3>
                         </div>
                         <div class="fac-hidden-details">
-                            <p class="fac-role">Full Stack AI & Digital</p>
-                            <p class="fac-desc">Architecting the Eduooz digital ecosystem and driving platform growth through advanced AI and performance marketing.</p>
+                            <p class="fac-role">Dubai Health Authority</p>
+                            <p class="fac-desc"><i class="fa-solid fa-globe"></i> Placed at: Aster Hospital, Dubai</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="faculty-card">
-                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=800" alt="Prof. Samuel John" class="fac-portrait">
+                    <img src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=800" alt="Lakshmi N." class="fac-portrait">
                     <div class="fac-glass-panel">
                         <div class="fac-visible-header">
-                            <span class="fac-badge">M.Pharm</span>
-                            <h3 class="fac-name">Prof. Samuel John</h3>
+                            <span class="fac-badge">RANK 4</span>
+                            <h3 class="fac-name">Lakshmi N.</h3>
                         </div>
                         <div class="fac-hidden-details">
-                            <p class="fac-role">Lead Pharmacist Educator</p>
-                            <p class="fac-desc">Former State Board Examiner bringing insider knowledge and high-yield topic analysis to pharmacy students.</p>
+                            <p class="fac-role">Kerala PSC Pharmacist</p>
+                            <p class="fac-desc"><i class="fa-solid fa-building-columns"></i> Placed at: Govt. Medical College</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="faculty-card">
-                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800" alt="Sarah Thomas" class="fac-portrait">
+                    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=800" alt="Deepa Joseph" class="fac-portrait">
                     <div class="fac-glass-panel">
                         <div class="fac-visible-header">
-                            <span class="fac-badge">DHA Specialist</span>
-                            <h3 class="fac-name">Sarah Thomas</h3>
+                            <span class="fac-badge">RANK 2</span>
+                            <h3 class="fac-name">Deepa Joseph</h3>
                         </div>
                         <div class="fac-hidden-details">
-                            <p class="fac-role">Lab Technology & Global</p>
-                            <p class="fac-desc">Guiding students through the rigorous testing formats of international healthcare placements across the globe.</p>
+                            <p class="fac-role">JIPMER Nursing 2024</p>
+                            <p class="fac-desc"><i class="fa-solid fa-graduation-cap"></i> Placed at: JIPMER, Puducherry</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="faculty-card">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800" alt="Dr. Meera Menon" class="fac-portrait">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=800" alt="Rahul Menon" class="fac-portrait">
                     <div class="fac-glass-panel">
                         <div class="fac-visible-header">
-                            <span class="fac-badge">AIIMS Rank 1</span>
-                            <h3 class="fac-name">Dr. Meera Menon</h3>
+                            <span class="fac-badge">HAAD PASS</span>
+                            <h3 class="fac-name">Rahul Menon</h3>
                         </div>
                         <div class="fac-hidden-details">
-                            <p class="fac-role">Head of Nursing Dept.</p>
-                            <p class="fac-desc">Specialized in rapid-revision techniques and intensive mock-test analysis for aspiring central government nurses.</p>
+                            <p class="fac-role">HAAD Exam 2025</p>
+                            <p class="fac-desc"><i class="fa-solid fa-globe"></i> Placed at: Cleveland Clinic, UAE</p>
                         </div>
                     </div>
                 </div>
@@ -656,28 +641,29 @@
         </div>
     </section>
     
-    <section class="placement-light-section" id="placements">
+    <!-- FACULTY — Fade-in Prismatic Grid Design -->
+    <section class="placement-light-section" id="faculty">
         
         <div class="container relative-z">
             <div class="placement-header text-center">
                 <div class="frost-pill-light g-place-reveal">
-                    <span class="glowing-dot-cyan"></span> Global Alumni Network
+                    <span class="glowing-dot-gold"></span> The Architects of Success
                 </div>
-                <h2 class="g-place-reveal">Where Our <span class="text-italic-purple">Leaders Go.</span></h2>
+                <h2 class="g-place-reveal">Learn from the <span class="text-italic-gold">Masters.</span></h2>
             </div>
         </div>
 
         <div class="marquee-wrapper g-place-reveal">
             <div class="marquee-track track-right">
                 <div class="marquee-text">
-                    <span>AIIMS DELHI • DHA DUBAI • JIPMER • KERALA PSC • HAAD • PROMETRIC •</span>
-                    <span>AIIMS DELHI • DHA DUBAI • JIPMER • KERALA PSC • HAAD • PROMETRIC •</span>
+                    <span>15+ YEARS EXPERIENCE • 500+ RANK HOLDERS • EXPERT FACULTY • PROVEN RESULTS •</span>
+                    <span>15+ YEARS EXPERIENCE • 500+ RANK HOLDERS • EXPERT FACULTY • PROVEN RESULTS •</span>
                 </div>
             </div>
             <div class="marquee-track track-left">
                 <div class="marquee-text">
-                    <span>MINISTRY OF HEALTH • SAFDARJUNG • PGIMER • RRB NURSING • ESI •</span>
-                    <span>MINISTRY OF HEALTH • SAFDARJUNG • PGIMER • RRB NURSING • ESI •</span>
+                    <span>NURSING • PHARMACY • LAB TECHNOLOGY • COMPETITIVE EXAMS • INTERNATIONAL LICENSING •</span>
+                    <span>NURSING • PHARMACY • LAB TECHNOLOGY • COMPETITIVE EXAMS • INTERNATIONAL LICENSING •</span>
                 </div>
             </div>
         </div>
@@ -687,18 +673,17 @@
             <div class="alumni-card-wrapper" data-speed="0.15">
                 <div class="prismatic-card">
                     <div class="card-glare-light"></div>
-                    
                     <div class="card-content-3d">
                         <div class="alumni-img-box">
-                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=500" alt="Alumni 1">
-                            <div class="rank-badge">RANK 1</div>
+                            <img src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=500" alt="Dr. Anand">
+                            <div class="rank-badge">15+ Years</div>
                         </div>
                         <div class="alumni-info">
-                            <h3>Priya Sharma</h3>
-                            <p class="exam-name">AIIMS Norcet 2025</p>
+                            <h3>Dr. Anand</h3>
+                            <p class="exam-name">Chief Director — Sciences</p>
                             <div class="placement-dest">
-                                <span class="dest-icon">🏥</span>
-                                <span>Placed at: <strong>AIIMS, New Delhi</strong></span>
+                                <span class="dest-icon"><i class="fa-solid fa-microscope"></i></span>
+                                <span>Mentored <strong>200+ Rank Holders</strong> in Biology &amp; Competitive Exams</span>
                             </div>
                         </div>
                     </div>
@@ -708,18 +693,17 @@
             <div class="alumni-card-wrapper" data-speed="-0.1">
                 <div class="prismatic-card">
                     <div class="card-glare-light"></div>
-                    
                     <div class="card-content-3d">
                         <div class="alumni-img-box">
-                            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=500" alt="Alumni 2">
-                            <div class="rank-badge">DHA CLEARED</div>
+                            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=500" alt="Prof. Samuel John">
+                            <div class="rank-badge">M.Pharm</div>
                         </div>
                         <div class="alumni-info">
-                            <h3>Arjun Patel</h3>
-                            <p class="exam-name">Dubai Health Authority</p>
+                            <h3>Prof. Samuel John</h3>
+                            <p class="exam-name">Lead Pharmacist Educator</p>
                             <div class="placement-dest">
-                                <span class="dest-icon">🌍</span>
-                                <span>Placed at: <strong>Aster Hospital, Dubai</strong></span>
+                                <span class="dest-icon"><i class="fa-solid fa-capsules"></i></span>
+                                <span>Ex-State Board Examiner — <strong>High-Yield Topic Specialist</strong></span>
                             </div>
                         </div>
                     </div>
@@ -729,18 +713,17 @@
             <div class="alumni-card-wrapper" data-speed="0.08">
                 <div class="prismatic-card">
                     <div class="card-glare-light"></div>
-                    
                     <div class="card-content-3d">
                         <div class="alumni-img-box">
-                            <img src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=500" alt="Alumni 3">
-                            <div class="rank-badge">RANK 4</div>
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=500" alt="Dr. Meera Menon">
+                            <div class="rank-badge">AIIMS Topper</div>
                         </div>
                         <div class="alumni-info">
-                            <h3>Lakshmi N.</h3>
-                            <p class="exam-name">Kerala PSC Pharmacist</p>
+                            <h3>Dr. Meera Menon</h3>
+                            <p class="exam-name">Head of Nursing Dept.</p>
                             <div class="placement-dest">
-                                <span class="dest-icon">🏛️</span>
-                                <span>Placed at: <strong>Govt. Medical College</strong></span>
+                                <span class="dest-icon"><i class="fa-solid fa-hospital"></i></span>
+                                <span>Trained <strong>300+ Nurses</strong> for AIIMS, JIPMER &amp; Central Govt.</span>
                             </div>
                         </div>
                     </div>
@@ -750,7 +733,7 @@
         </div>
 
         <div class="text-center mt-5 relative-z g-place-reveal">
-            <a href="#results" class="btn-dark-magnetic magnetic-btn">View All Success Stories <span class="arrow">→</span></a>
+            <a href="#results" class="btn-dark-magnetic magnetic-btn">Meet All Faculty <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
         </div>
     </section>
 
@@ -770,76 +753,293 @@
                     <div class="test-marquee-group">
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="Aisha">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="thansil">
                                 <div>
-                                    <h4>Aisha Rahman</h4>
-                                    <span class="test-badge badge-blue">AIIMS Rank 12</span>
+                                    <h4>thansil thaha</h4>
+                                    <span class="test-badge badge-blue">Nursing Aspirant</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"The structured syllabus and daily mock tests completely transformed my preparation. I cleared Norcet in my very first attempt!"</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"The classes are well structured. Faculty explains topics clearly and focuses on important exam areas. I am highly satisfied."</p>
                         </div>
-
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150" alt="Rahul">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150" alt="Chinchu">
                                 <div>
-                                    <h4>Rahul V.</h4>
-                                    <span class="test-badge badge-cyan">DHA Cleared</span>
+                                    <h4>Chinchu Anoop</h4>
+                                    <span class="test-badge badge-cyan">Oman Pearson Vue</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"Moving to Dubai was a dream. Eduooz's international faculty knew exactly what the DHA examiners were looking for."</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Even with online classes we get mentor support. Shining sir's words really motivate us to crack OMAN exams."</p>
                         </div>
-
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="Sneha">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="feba">
                                 <div>
-                                    <h4>Sneha K.</h4>
-                                    <span class="test-badge badge-purple">Kerala PSC</span>
+                                    <h4>feba stephen</h4>
+                                    <span class="test-badge badge-purple">Verified Student</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"The personalized mentorship from Dr. Meera was the game-changer. The high-yield topic analysis saved me hundreds of hours."</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"The personal mentoring and supportive faculty make online learning feel much more effective. Great choice for upskilling!"</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="Aswathy">
+                                <div>
+                                    <h4>ASWATHY R S</h4>
+                                    <span class="test-badge badge-blue">Education Excellence</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Exceptional teaching! The faculty is genuinely invested in helping students succeed. The flexible scheduling is a game-changer."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=150" alt="Raji">
+                                <div>
+                                    <h4>Raji Rajan</h4>
+                                    <span class="test-badge badge-cyan">DME Staff Nurse</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Speechless effort from everyone for my DME exam. The 2-day mock interview session was very helpful."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150" alt="Steffi">
+                                <div>
+                                    <h4>Steffi Saji</h4>
+                                    <span class="test-badge badge-purple">Mentorship</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Good teaching with clear explanations. The methods are effective and interactive. Teachers are very supportive!"</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="ashitha">
+                                <div>
+                                    <h4>ashitha aishu</h4>
+                                    <span class="test-badge badge-blue">HAAD Exam</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"The HAAD coaching was well-structured. Mock tests were highly exam-oriented and helped clarify important topics."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1548142813-c348350df2d2?auto=format&fit=crop&q=80&w=150" alt="athira">
+                                <div>
+                                    <h4>athira r</h4>
+                                    <span class="test-badge badge-cyan">Conceptual Clarity</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"A good coaching class with strong conceptual clarity. Shine Sir is an excellent teacher with deep knowledge."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1554151228-14d9def656ec?auto=format&fit=crop&q=80&w=150" alt="Pravitha">
+                                <div>
+                                    <h4>Pravitha Ratheesh</h4>
+                                    <span class="test-badge badge-purple">Mock Interview</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"It was a great experience. I am completely satisfied with the classes and the mock interview experience."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1541101767195-03713527d65e?auto=format&fit=crop&q=80&w=150" alt="Nancy">
+                                <div>
+                                    <h4>Immaculate Nancy</h4>
+                                    <span class="test-badge badge-blue">Team Support</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"No words about classes, it's very good and effective. My confidence level increased more and more with Eduooz."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=150" alt="Anjana">
+                                <div>
+                                    <h4>Anjana Anand</h4>
+                                    <span class="test-badge badge-cyan">YouTube Learner</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Excellent classes by Shine sir. If I had any option to apply for PSC, I would surely choose Eduooz only."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150" alt="Sreekrishna">
+                                <div>
+                                    <h4>SREEKRISHNA GOPIDAS</h4>
+                                    <span class="test-badge badge-purple">Trivandrum Batch</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Very good experience. I admire all the teachers. Your effort is worth it in our exams. Thank you Eduooz!"</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="Athira">
+                                <div>
+                                    <h4>ATHIRA K</h4>
+                                    <span class="test-badge badge-blue">Full Support</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Exams, classes, pdf, mock test, revisions all are very helpful. Very thankful to Shine sir and the team!"</p>
                         </div>
                     </div>
 
                     <div class="test-marquee-group" aria-hidden="true">
+                        <!-- Duplicated for infinite scroll -->
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="Aisha">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="thansil">
                                 <div>
-                                    <h4>Aisha Rahman</h4>
-                                    <span class="test-badge badge-blue">AIIMS Rank 12</span>
+                                    <h4>thansil thaha</h4>
+                                    <span class="test-badge badge-blue">Nursing Aspirant</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"The structured syllabus and daily mock tests completely transformed my preparation. I cleared Norcet in my very first attempt!"</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"The classes are well structured. Faculty explains topics clearly and focuses on important exam areas. I am highly satisfied."</p>
                         </div>
-
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150" alt="Rahul">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150" alt="Chinchu">
                                 <div>
-                                    <h4>Rahul V.</h4>
-                                    <span class="test-badge badge-cyan">DHA Cleared</span>
+                                    <h4>Chinchu Anoop</h4>
+                                    <span class="test-badge badge-cyan">Oman Pearson Vue</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"Moving to Dubai was a dream. Eduooz's international faculty knew exactly what the DHA examiners were looking for."</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Even with online classes we get mentor support. Shining sir's words really motivate us to crack OMAN exams."</p>
                         </div>
-
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="Sneha">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="feba">
                                 <div>
-                                    <h4>Sneha K.</h4>
-                                    <span class="test-badge badge-purple">Kerala PSC</span>
+                                    <h4>feba stephen</h4>
+                                    <span class="test-badge badge-purple">Verified Student</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"The personalized mentorship from Dr. Meera was the game-changer. The high-yield topic analysis saved me hundreds of hours."</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"The personal mentoring and supportive faculty make online learning feel much more effective. Great choice for upskilling!"</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="Aswathy">
+                                <div>
+                                    <h4>ASWATHY R S</h4>
+                                    <span class="test-badge badge-blue">Education Excellence</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Exceptional teaching! The faculty is genuinely invested in helping students succeed. The flexible scheduling is a game-changer."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=150" alt="Raji">
+                                <div>
+                                    <h4>Raji Rajan</h4>
+                                    <span class="test-badge badge-cyan">DME Staff Nurse</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Speechless effort from everyone for my DME exam. The 2-day mock interview session was very helpful."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150" alt="Steffi">
+                                <div>
+                                    <h4>Steffi Saji</h4>
+                                    <span class="test-badge badge-purple">Mentorship</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Good teaching with clear explanations. The methods are effective and interactive. Teachers are very supportive!"</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="ashitha">
+                                <div>
+                                    <h4>ashitha aishu</h4>
+                                    <span class="test-badge badge-blue">HAAD Exam</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"The HAAD coaching was well-structured. Mock tests were highly exam-oriented and helped clarify important topics."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1548142813-c348350df2d2?auto=format&fit=crop&q=80&w=150" alt="athira">
+                                <div>
+                                    <h4>athira r</h4>
+                                    <span class="test-badge badge-cyan">Conceptual Clarity</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"A good coaching class with strong conceptual clarity. Shine Sir is an excellent teacher with deep knowledge."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1554151228-14d9def656ec?auto=format&fit=crop&q=80&w=150" alt="Pravitha">
+                                <div>
+                                    <h4>Pravitha Ratheesh</h4>
+                                    <span class="test-badge badge-purple">Mock Interview</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"It was a great experience. I am completely satisfied with the classes and the mock interview experience."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1541101767195-03713527d65e?auto=format&fit=crop&q=80&w=150" alt="Nancy">
+                                <div>
+                                    <h4>Immaculate Nancy</h4>
+                                    <span class="test-badge badge-blue">Team Support</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"No words about classes, it's very good and effective. My confidence level increased more and more with Eduooz."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=150" alt="Anjana">
+                                <div>
+                                    <h4>Anjana Anand</h4>
+                                    <span class="test-badge badge-cyan">YouTube Learner</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Excellent classes by Shine sir. If I had any option to apply for PSC, I would surely choose Eduooz only."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150" alt="Sreekrishna">
+                                <div>
+                                    <h4>SREEKRISHNA GOPIDAS</h4>
+                                    <span class="test-badge badge-purple">Trivandrum Batch</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Very good experience. I admire all the teachers. Your effort is worth it in our exams. Thank you Eduooz!"</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="Athira">
+                                <div>
+                                    <h4>ATHIRA K</h4>
+                                    <span class="test-badge badge-blue">Full Support</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Exams, classes, pdf, mock test, revisions all are very helpful. Very thankful to Shine sir and the team!"</p>
                         </div>
                     </div>
 
@@ -852,76 +1052,293 @@
                     <div class="test-marquee-group">
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="Karthik">
+                                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=150" alt="Layana">
                                 <div>
-                                    <h4>Karthik S.</h4>
-                                    <span class="test-badge badge-blue">RRB Pharmacist</span>
+                                    <h4>Layanabaiju</h4>
+                                    <span class="test-badge badge-blue">Rank Booster</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"Prof. Samuel's pharmacology breakdowns are unmatched. I went from struggling with classifications to scoring in the 99th percentile."</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Excellent classes with well experienced teachers. Rank booster package is very useful. Thank you Eduooz academy."</p>
                         </div>
-
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150" alt="Fatima">
+                                <img src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?auto=format&fit=crop&q=80&w=150" alt="Praji">
                                 <div>
-                                    <h4>Fatima Ali</h4>
-                                    <span class="test-badge badge-purple">HAAD Cleared</span>
+                                    <h4>Praji Kannan</h4>
+                                    <span class="test-badge badge-cyan">Highly Recommended</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"The app is incredibly intuitive. Being able to access high-quality video lectures and mock tests on my phone during my commutes was vital."</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"One of the best institute. Good classes and outstanding faculties. A perfect choice for coaching."</p>
                         </div>
-
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150" alt="Joel">
+                                <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&q=80&w=150" alt="Soumya">
                                 <div>
-                                    <h4>Joel Thomas</h4>
-                                    <span class="test-badge badge-cyan">Prometric Pass</span>
+                                    <h4>SOUMYA P K</h4>
+                                    <span class="test-badge badge-purple">Study Materials</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"Eduooz doesn't just teach theory; they teach exam strategy. The time management techniques I learned here secured my placement."</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Thank you Eduooz academy! Excellent helpful study materials, and very useful for daily preparation."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150" alt="Shajin">
+                                <div>
+                                    <h4>SHAJIN NILE</h4>
+                                    <span class="test-badge badge-blue">Medical Exams</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Excellent coaching centre for medical competitive exams in State and central government PSCs. Well Experienced Mentors."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&q=80&w=150" alt="Karthi">
+                                <div>
+                                    <h4>Karthi Gireesh</h4>
+                                    <span class="test-badge badge-cyan">Intl Academy</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Eduooz provides a great learning environment. Teachers are knowledgeable, supportive and approachable."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="Asha">
+                                <div>
+                                    <h4>Asha Gopan</h4>
+                                    <span class="test-badge badge-purple">Online Batch</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Well organized classes. Very supporting faculty and staffs. Highly recommended for online coaching."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="Aiswarya">
+                                <div>
+                                    <h4>Aiswarya Sushama</h4>
+                                    <span class="test-badge badge-blue">User-Friendly</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Topics are well explained, mock tests are really helpful. The app they use is very user-friendly."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1554151228-14d9def656ec?auto=format&fit=crop&q=80&w=150" alt="Krishnapriya">
+                                <div>
+                                    <h4>Krishnapriya</h4>
+                                    <span class="test-badge badge-cyan">Quality Training</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Excellent learning environment with knowledgeable instructors. Concepts are explained in a clear and practical way."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="Aswathy">
+                                <div>
+                                    <h4>Aswathy m.s.</h4>
+                                    <span class="test-badge badge-purple">Eduooz Career</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Best coaching academy. Very helpful in studying and also very easy to learn. I suggest choosing Eduooz."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1548142813-c348350df2d2?auto=format&fit=crop&q=80&w=150" alt="Abhi">
+                                <div>
+                                    <h4>Abhi Abhirami</h4>
+                                    <span class="test-badge badge-blue">Nursing PSC</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Well organized classes with friendly faculties. Best institution for nursing PSC in the region."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&q=80&w=150" alt="Neena">
+                                <div>
+                                    <h4>Neena Sasi</h4>
+                                    <span class="test-badge badge-cyan">Systematic</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Well organized and excellent classes. Supporting staffs and best experience. Truly systematic approach."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1541101767195-03713527d65e?auto=format&fit=crop&q=80&w=150" alt="Devika">
+                                <div>
+                                    <h4>Devika S</h4>
+                                    <span class="test-badge badge-purple">Competitive Batch</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Well supportive academy. Classes are well organized and helpful for all medical competitive exams."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150" alt="Sarath">
+                                <div>
+                                    <h4>Sarath S</h4>
+                                    <span class="test-badge badge-blue">Highly Recommend</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Well organized classes with supporting faculties. Best classes for online and offline. Highly recommended!"</p>
                         </div>
                     </div>
 
                     <div class="test-marquee-group" aria-hidden="true">
+                        <!-- Duplicated for infinite scroll -->
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="Karthik">
+                                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=150" alt="Layana">
                                 <div>
-                                    <h4>Karthik S.</h4>
-                                    <span class="test-badge badge-blue">RRB Pharmacist</span>
+                                    <h4>Layanabaiju</h4>
+                                    <span class="test-badge badge-blue">Rank Booster</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"Prof. Samuel's pharmacology breakdowns are unmatched. I went from struggling with classifications to scoring in the 99th percentile."</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Excellent classes with well experienced teachers. Rank booster package is very useful. Thank you Eduooz academy."</p>
                         </div>
-
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150" alt="Fatima">
+                                <img src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?auto=format&fit=crop&q=80&w=150" alt="Praji">
                                 <div>
-                                    <h4>Fatima Ali</h4>
-                                    <span class="test-badge badge-purple">HAAD Cleared</span>
+                                    <h4>Praji Kannan</h4>
+                                    <span class="test-badge badge-cyan">Highly Recommended</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"The app is incredibly intuitive. Being able to access high-quality video lectures and mock tests on my phone during my commutes was vital."</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"One of the best institute. Good classes and outstanding faculties. A perfect choice for coaching."</p>
                         </div>
-
                         <div class="test-card">
                             <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150" alt="Joel">
+                                <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&q=80&w=150" alt="Soumya">
                                 <div>
-                                    <h4>Joel Thomas</h4>
-                                    <span class="test-badge badge-cyan">Prometric Pass</span>
+                                    <h4>SOUMYA P K</h4>
+                                    <span class="test-badge badge-purple">Study Materials</span>
                                 </div>
                             </div>
-                            <div class="test-stars">★★★★★</div>
-                            <p class="test-quote">"Eduooz doesn't just teach theory; they teach exam strategy. The time management techniques I learned here secured my placement."</p>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Thank you Eduooz academy! Excellent helpful study materials, and very useful for daily preparation."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150" alt="Shajin">
+                                <div>
+                                    <h4>SHAJIN NILE</h4>
+                                    <span class="test-badge badge-blue">Medical Exams</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Excellent coaching centre for medical competitive exams in State and central government PSCs. Well Experienced Mentors."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&q=80&w=150" alt="Karthi">
+                                <div>
+                                    <h4>Karthi Gireesh</h4>
+                                    <span class="test-badge badge-cyan">Intl Academy</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Eduooz provides a great learning environment. Teachers are knowledgeable, supportive and approachable."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="Asha">
+                                <div>
+                                    <h4>Asha Gopan</h4>
+                                    <span class="test-badge badge-purple">Online Batch</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Well organized classes. Very supporting faculty and staffs. Highly recommended for online coaching."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="Aiswarya">
+                                <div>
+                                    <h4>Aiswarya Sushama</h4>
+                                    <span class="test-badge badge-blue">User-Friendly</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Topics are well explained, mock tests are really helpful. The app they use is very user-friendly."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1554151228-14d9def656ec?auto=format&fit=crop&q=80&w=150" alt="Krishnapriya">
+                                <div>
+                                    <h4>Krishnapriya</h4>
+                                    <span class="test-badge badge-cyan">Quality Training</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Excellent learning environment with knowledgeable instructors. Concepts are explained in a clear and practical way."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="Aswathy">
+                                <div>
+                                    <h4>Aswathy m.s.</h4>
+                                    <span class="test-badge badge-purple">Eduooz Career</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Best coaching academy. Very helpful in studying and also very easy to learn. I suggest choosing Eduooz."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1548142813-c348350df2d2?auto=format&fit=crop&q=80&w=150" alt="Abhi">
+                                <div>
+                                    <h4>Abhi Abhirami</h4>
+                                    <span class="test-badge badge-blue">Nursing PSC</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Well organized classes with friendly faculties. Best institution for nursing PSC in the region."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&q=80&w=150" alt="Neena">
+                                <div>
+                                    <h4>Neena Sasi</h4>
+                                    <span class="test-badge badge-cyan">Systematic</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Well organized and excellent classes. Supporting staffs and best experience. Truly systematic approach."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1541101767195-03713527d65e?auto=format&fit=crop&q=80&w=150" alt="Devika">
+                                <div>
+                                    <h4>Devika S</h4>
+                                    <span class="test-badge badge-purple">Competitive Batch</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Well supportive academy. Classes are well organized and helpful for all medical competitive exams."</p>
+                        </div>
+                        <div class="test-card">
+                            <div class="test-card-header">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150" alt="Sarath">
+                                <div>
+                                    <h4>Sarath S</h4>
+                                    <span class="test-badge badge-blue">Highly Recommend</span>
+                                </div>
+                            </div>
+                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="test-quote">"Well organized classes with supporting faculties. Best classes for online and offline. Highly recommended!"</p>
                         </div>
                     </div>
 
@@ -1058,96 +1475,93 @@
 
             <div class="faq-footer text-center g-faq-reveal">
                 <p class="support-text">Still have questions?</p>
-                <a href="#contact" class="btn-glass-outline magnetic-btn">Contact Support ↗</a>
+                <a href="#contact" class="btn-liquid-purple magnetic-btn">Contact Support <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 5px; font-size: 0.85em;"></i></a>
             </div>
 
         </div>
     </section>
-    
-<footer class="luxury-footer-wrapper">
-        <div class="luxury-footer-inner">
-            
-            <div class="footer-aurora"></div>
 
-            <!-- Floating Background Elements -->
-            <div class="footer-shapes">
-                <div class="f-shape float-circle"></div>
-                <div class="f-shape float-plus">
-                    <span class="plus-v"></span><span class="plus-h"></span>
-                </div>
-                <div class="f-shape float-square"></div>
-            </div>
-
-            <div class="container">
-                <div class="footer-cta-zone">
-                    <h2 class="footer-cta-title">Ready to shape your <br><span class="text-italic-cyan">healthcare legacy?</span></h2>
-                    <a href="#enroll" class="btn-liquid-purple magnetic-btn">Apply for 2026 Batch <span class="arrow">→</span></a>
-                </div>
-
-                <div class="footer-grid">
-                    <div class="footer-col brand-col">
-                        <div class="logo">EDUOOZ.</div>
-                        <p>India's premier coaching ecosystem for Nursing, Pharmacy, and Lab Technology professionals.</p>
-                        <div class="social-links">
-                            <a href="#" class="magnetic-btn social-glass">In</a>
-                            <a href="#" class="magnetic-btn social-glass">Yt</a>
-                            <a href="#" class="magnetic-btn social-glass">Ig</a>
+    <!-- PREMIUM ENQUIRY FORM SECTION -->
+    <section class="enquiry-premium-section" id="contact">
+        <div class="container relative-z">
+            <div class="enquiry-glass-panel">
+                
+                <div class="enquiry-grid">
+                    <!-- Left: Content -->
+                    <div class="enquiry-info">
+                        <div class="frost-pill-light" style="margin-bottom: 20px;">
+                            <span class="glowing-dot-magenta"></span> Priority Support
+                        </div>
+                        <h2 class="enquiry-title">Start your <br><span class="text-gradient-fluid">journey today.</span></h2>
+                        <p class="enquiry-subtitle">Have questions about our syllabus, batches, or international placement? Drop us a line and our academic counselors will get back to you within 24 hours.</p>
+                        
+                        <div class="contact-methods">
+                            <div class="c-method">
+                                <div class="c-icon"><i class="fa-solid fa-phone"></i></div>
+                                <div>
+                                    <h5>Call Us Anytime</h5>
+                                    <p>+91 90000 00000</p>
+                                </div>
+                            </div>
+                            <div class="c-method">
+                                <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
+                                <div>
+                                    <h5>Email Us</h5>
+                                    <p>admissions@eduooz.online</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="footer-col">
-                        <h4>Elite Programs</h4>
-                        <ul>
-                            <li><a href="#nursing">Nursing Coaching</a></li>
-                            <li><a href="#pharma">Pharmacist Exams</a></li>
-                            <li><a href="#lab">Lab Technician</a></li>
-                            <li><a href="#international">International (DHA/HAAD)</a></li>
-                        </ul>
-                    </div>
+                    <!-- Right: Form -->
+                    <div class="enquiry-form-wrapper">
+                        <form class="glass-form" onsubmit="event.preventDefault(); alert('Form Submitted Successfully');">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <input type="text" id="name" required placeholder="Full Name">
+                                </div>
+                                <div class="input-group">
+                                    <input type="tel" id="phone" required placeholder="Phone Number">
+                                </div>
+                            </div>
+                            
+                            <div class="input-group select-wrapper">
+                                <select id="course" required>
+                                    <option value="" disabled selected>Select Course Category</option>
+                                    <option value="nursing">Nursing Coaching (AIIMS / RRB)</option>
+                                    <option value="pharma">Pharmacist Exams</option>
+                                    <option value="lab">Lab Technician Courses</option>
+                                    <option value="dha">International (DHA / HAAD)</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down select-icon"></i>
+                            </div>
 
-                    <div class="footer-col">
-                        <h4>Platform</h4>
-                        <ul>
-                            <li><a href="#about">Our Story</a></li>
-                            <li><a href="#faculty">Expert Faculty</a></li>
-                            <li><a href="#results">Success Stories</a></li>
-                            <li><a href="#contact">Contact Us</a></li>
-                        </ul>
-                    </div>
+                            <div class="input-group">
+                                <textarea id="message" rows="4" required placeholder="How can we help you?"></textarea>
+                            </div>
 
-                    <div class="footer-col">
-                        <h4>Stay Updated</h4>
-                        <p class="newsletter-text">Get exclusive exam strategies and notification alerts.</p>
-                        <form class="newsletter-form">
-                            <input type="email" placeholder="Email Address" required>
-                            <button type="submit" class="btn-submit-glass">→</button>
+                            <button type="submit" class="btn-form-submit">
+                                Submit Enquiry <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
+                            </button>
                         </form>
                     </div>
-                </div>
 
-                <div class="footer-bottom-bar">
-                    <p>&copy; 2026 Eduooz International Academy. All Rights Reserved.</p>
-                    <div class="legal-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                    </div>
                 </div>
             </div>
-
-            <div class="massive-footer-text" aria-hidden="true">EDUOOZ</div>
-            
         </div>
-    </footer>
+    </section>
+    
+    <div id="footer-container"></div>
     
 
 
     <!-- Scroll to Top Button -->
     <button class="scroll-to-top" id="scrollTopBtn" aria-label="Scroll to top">
-        ↑
+        <i class="fa-solid fa-arrow-up"></i>
     </button>
 
-    <!-- Lenis Smooth Scroll -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="assets/js/components.js"></script>
     <script src="assets/js/index.js"></script>
 </body>
 
