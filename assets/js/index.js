@@ -69,174 +69,279 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // --- 2. Navbar Light/Dark Blend Logic ---
-            const navbar = document.getElementById("navbar");
-            ScrollTrigger.create({
-                start: 500, // Trigger when scrolled 500px down
-                onEnter: () => navbar.classList.add("light-mode"),
-                onLeaveBack: () => navbar.classList.remove("light-mode")
-            });
+    function initNavbarScroll() {
+        const navbar = document.getElementById("navbar");
+        if (!navbar) return;
+        ScrollTrigger.create({
+            start: 500, // Trigger when scrolled 500px down
+            onEnter: () => navbar.classList.add("light-mode"),
+            onLeaveBack: () => navbar.classList.remove("light-mode")
+        });
+    }
+
+    if (document.getElementById("navbar")) {
+        initNavbarScroll();
+    } else {
+        window.addEventListener('headerLoaded', initNavbarScroll);
+    }
 
 
 
-    // --- 2. Three.js: Frosted Glass DNA with Assembly Animation ---
+    // --- 2. Three.js: Floating Healthcare Elements Backgroundy5t7yg7 ---
     const container = document.getElementById('cinematic-canvas');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0a0514, 0.015); // Adds depth to the shadows
+    scene.fog = new THREE.FogExp2(0x0a0514, 0.012);
     
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(10, 0, 45);
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 0, 40);
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    
-    // Enable Hyper-Realistic Shadows
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
 
-    const dnaGroup = new THREE.Group();
-    scene.add(dnaGroup);
+    // Master group for all floating elements
+    const floatingGroup = new THREE.Group();
+    scene.add(floatingGroup);
 
-    // PERFECT FROSTED GLASS MATERIAL
+    // --- MATERIALS ---
+    // Frosted Glass Material (Premium look)
     const frostedGlassMat = new THREE.MeshPhysicalMaterial({
         color: 0xffffff,
-        transmission: 0.95, // Lets light through
-        opacity: 1,
-        metalness: 0.1,
-        roughness: 0.5, // The key to "Frosted" look (scatters light)
-        ior: 1.45,
-        thickness: 2.5, // Simulates thick glass volume for refraction
-        clearcoat: 0.8, // Keeps the outer edge shiny
-        clearcoatRoughness: 0.2
+        transmission: 0.92, opacity: 1,
+        metalness: 0.05, roughness: 0.45,
+        ior: 1.45, thickness: 2.0,
+        clearcoat: 0.9, clearcoatRoughness: 0.15
     });
 
-    // Emissive glowing connectors
-    const glowMatCyan = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x06b6d4, emissiveIntensity: 2 });
-    const glowMatMagenta = new THREE.MeshStandardMaterial({ color: 0xc026d3, emissive: 0xc026d3, emissiveIntensity: 2 });
+    // Emissive glow materials for accents
+    const glowCyan = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x06b6d4, emissiveIntensity: 1.5, transparent: true, opacity: 0.9 });
+    const glowMagenta = new THREE.MeshStandardMaterial({ color: 0xc026d3, emissive: 0xc026d3, emissiveIntensity: 1.5, transparent: true, opacity: 0.9 });
+    const glowGreen = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x10b981, emissiveIntensity: 1.2, transparent: true, opacity: 0.85 });
 
-    const numNodes = 100;
-    const radius = 5.5;
-    const heightStep = 0.65;
-    
-    const sphereGeo = new THREE.SphereGeometry(1.1, 32, 32);
-    const connectionGeo = new THREE.CylinderGeometry(0.2, 0.2, radius * 2, 16);
+    // --- HELPER: Create healthcare 3D objects ---
+    const floatingElements = [];
 
-    // Array to hold pieces for animation
-    const dnaPieces = [];
-
-    // DNA Construction Loop
-    for (let i = 0; i < numNodes; i++) {
-        const angle = i * 0.18;
-        const targetY = (i - numNodes / 2) * heightStep;
-
-        const targetX1 = Math.cos(angle) * radius; 
-        const targetZ1 = Math.sin(angle) * radius;
-        const targetX2 = Math.cos(angle + Math.PI) * radius; 
-        const targetZ2 = Math.sin(angle + Math.PI) * radius;
-
-        // Create Strand 1
-        const node1 = new THREE.Mesh(sphereGeo, frostedGlassMat);
-        node1.castShadow = true; node1.receiveShadow = true;
-        dnaGroup.add(node1);
-        
-        // Create Strand 2
-        const node2 = new THREE.Mesh(sphereGeo, frostedGlassMat);
-        node2.castShadow = true; node2.receiveShadow = true;
-        dnaGroup.add(node2);
-
-        // Store target data for assembly
-        dnaPieces.push({ mesh: node1, tX: targetX1, tY: targetY, tZ: targetZ1, delay: i * 0.02 });
-        dnaPieces.push({ mesh: node2, tX: targetX2, tY: targetY, tZ: targetZ2, delay: i * 0.02 });
-
-        // Add Rungs (Connecting bridges) occasionally
-        if (i % 3 === 0) {
-            const rung = new THREE.Mesh(connectionGeo, i % 2 === 0 ? glowMatCyan : glowMatMagenta);
-            rung.castShadow = true; rung.receiveShadow = true;
-            dnaGroup.add(rung);
-            
-            // Rungs need specific rotation targets
-            dnaPieces.push({ 
-                mesh: rung, 
-                tX: 0, tY: targetY, tZ: 0, 
-                tRotY: -angle, tRotZ: Math.PI / 2,
-                delay: i * 0.02 + 0.5, // Rungs form slightly after the nodes
-                isRung: true 
-            });
-        }
+    // 1. MEDICAL CROSS (Nursing)
+    function createMedicalCross(scale) {
+        const group = new THREE.Group();
+        const boxV = new THREE.BoxGeometry(0.5 * scale, 1.6 * scale, 0.4 * scale);
+        const boxH = new THREE.BoxGeometry(1.6 * scale, 0.5 * scale, 0.4 * scale);
+        const meshV = new THREE.Mesh(boxV, frostedGlassMat);
+        const meshH = new THREE.Mesh(boxH, frostedGlassMat);
+        meshV.castShadow = true; meshH.castShadow = true;
+        group.add(meshV, meshH);
+        return group;
     }
 
-    // THE ASSEMBLY ANIMATION (Explode -> Assemble)
-    dnaPieces.forEach(piece => {
-        // 1. Explode initial positions (Randomly scattered)
-        const explodeRadius = 60;
-        piece.mesh.position.set(
-            (Math.random() - 0.5) * explodeRadius,
-            (Math.random() - 0.5) * explodeRadius - 20, // Spawn from below
-            (Math.random() - 0.5) * explodeRadius
+    // 2. PILL CAPSULE (Pharmacist)
+    function createCapsule(scale) {
+        const group = new THREE.Group();
+        const r = 0.4 * scale;
+        const h = 0.5 * scale;
+
+        // 1. Top Half (Glowing Magenta)
+        const topGroup = new THREE.Group();
+        const sphereGeo = new THREE.SphereGeometry(r, 24, 24, 0, Math.PI * 2, 0, Math.PI / 2);
+        const cylGeo = new THREE.CylinderGeometry(r, r, h, 24);
+        
+        const topCap = new THREE.Mesh(sphereGeo, glowMagenta);
+        topCap.position.y = h / 2;
+        
+        const topBody = new THREE.Mesh(cylGeo, glowMagenta);
+        topGroup.add(topCap, topBody);
+        topGroup.position.y = h / 2;
+
+        // 2. Bottom Half (Frosted Glass)
+        const botGroup = new THREE.Group();
+        const botCap = new THREE.Mesh(sphereGeo, frostedGlassMat);
+        botCap.rotation.x = Math.PI;
+        botCap.position.y = -h / 2;
+        
+        const botBody = new THREE.Mesh(cylGeo, frostedGlassMat);
+        botGroup.add(botCap, botBody);
+        botGroup.position.y = -h / 2;
+
+        // 3. Middle Joining Ring
+        // const ringGeo = new THREE.TorusGeometry(r + 0.02 * scale, 0.03 * scale, 16, 32);
+        // const ring = new THREE.Mesh(ringGeo, frostedGlassMat);
+        // ring.rotation.x = Math.PI / 2;
+
+        group.add(topGroup, botGroup);
+        return group;
+    }
+
+    // 3. TEST TUBE (Lab Technician)
+    function createTestTube(scale) {
+        const group = new THREE.Group();
+        const tubeGeo = new THREE.CylinderGeometry(0.18 * scale, 0.18 * scale, 1.6 * scale, 16, 1, true);
+        const tube = new THREE.Mesh(tubeGeo, frostedGlassMat);
+        const capGeo = new THREE.SphereGeometry(0.18 * scale, 16, 16, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2);
+        const cap = new THREE.Mesh(capGeo, frostedGlassMat);
+        cap.position.y = -0.8 * scale;
+        const liquidGeo = new THREE.CylinderGeometry(0.14 * scale, 0.14 * scale, 0.6 * scale, 16);
+        const liquid = new THREE.Mesh(liquidGeo, glowGreen);
+        liquid.position.y = -0.4 * scale;
+        const rimGeo = new THREE.TorusGeometry(0.2 * scale, 0.04 * scale, 8, 24);
+        const rim = new THREE.Mesh(rimGeo, glowCyan);
+        rim.rotation.x = Math.PI / 2;
+        rim.position.y = 0.8 * scale;
+        group.add(tube, cap, liquid, rim);
+        return group;
+    }
+
+    // 4. STETHOSCOPE (Nursing)
+    function createStethoscope(scale) {
+        const group = new THREE.Group();
+        const tr = 0.05 * scale; // Tube radius
+        
+        // 1. EAR PIECES & TOP POSTS
+        // Left Ear
+        const earGeo = new THREE.SphereGeometry(0.12 * scale, 16, 16);
+        const postGeo = new THREE.CylinderGeometry(tr, tr, 0.15 * scale, 16);
+        
+        const leftEar = new THREE.Mesh(earGeo, glowCyan);
+        leftEar.position.set(-0.5 * scale, 0.8 * scale, 0);
+        
+        const leftPost = new THREE.Mesh(postGeo, frostedGlassMat);
+        leftPost.position.set(-0.625 * scale, 0.8 * scale, 0);
+        leftPost.rotation.z = Math.PI / 2;
+
+        // Right Ear
+        const rightEar = new THREE.Mesh(earGeo, glowCyan);
+        rightEar.position.set(-0.1 * scale, 0.8 * scale, 0);
+
+        const rightPost = new THREE.Mesh(postGeo, frostedGlassMat);
+        rightPost.position.set(-0.025 * scale, 0.8 * scale, 0);
+        rightPost.rotation.z = Math.PI / 2;
+
+        // 2. UPPER HEADSET U-SHAPE
+        const upperVertGeo = new THREE.CylinderGeometry(tr, tr, 0.6 * scale, 16);
+        
+        // Left vertical
+        const leftVert = new THREE.Mesh(upperVertGeo, frostedGlassMat);
+        leftVert.position.set(-0.7 * scale, 0.5 * scale, 0);
+        
+        // Right vertical
+        const rightVert = new THREE.Mesh(upperVertGeo, frostedGlassMat);
+        rightVert.position.set(0.1 * scale, 0.5 * scale, 0);
+
+        // Center U-Torus (Radius 0.4, spans x=-0.7 to x=0.1)
+        const upperTorusGeo = new THREE.TorusGeometry(0.4 * scale, tr, 16, 32, Math.PI);
+        const upperTorus = new THREE.Mesh(upperTorusGeo, frostedGlassMat);
+        upperTorus.position.set(-0.3 * scale, 0.2 * scale, 0);
+        upperTorus.rotation.z = Math.PI; // Face downward
+
+        // 3. MAIN LOWER TUBE LOOP
+        // Straight down from center of U-Torus (x=-0.3)
+        const lowerLeftVertGeo = new THREE.CylinderGeometry(tr, tr, 0.8 * scale, 16);
+        const lowerLeftVert = new THREE.Mesh(lowerLeftVertGeo, frostedGlassMat);
+        lowerLeftVert.position.set(-0.3 * scale, -0.6 * scale, 0);
+
+        // Lower hooking Torus (Radius 0.4, spans x=-0.3 to x=0.5)
+        const lowerTorusGeo = new THREE.TorusGeometry(0.4 * scale, tr, 16, 32, Math.PI);
+        const lowerTorus = new THREE.Mesh(lowerTorusGeo, frostedGlassMat);
+        lowerTorus.position.set(0.1 * scale, -1.0 * scale, 0);
+        lowerTorus.rotation.z = Math.PI; // Face downward to create the bottom hook loop
+
+        // Straight up to chestpiece (x=0.5)
+        const lowerRightVertGeo = new THREE.CylinderGeometry(tr, tr, 1.2 * scale, 16);
+        const lowerRightVert = new THREE.Mesh(lowerRightVertGeo, frostedGlassMat);
+        lowerRightVert.position.set(0.5 * scale, -0.4 * scale, 0);
+
+        // 4. CHEST PIECE
+        // Iconic hollow ring facing forward
+        const chestGeo = new THREE.TorusGeometry(0.18 * scale, 0.07 * scale, 16, 32);
+        const chest = new THREE.Mesh(chestGeo, glowMagenta);
+        chest.position.set(0.5 * scale, 0.2 * scale, 0);
+
+        // Add all distinct perfect parts to the main group
+        group.add(
+            leftEar, leftPost, rightEar, rightPost,
+            leftVert, rightVert, upperTorus,
+            lowerLeftVert, lowerTorus, lowerRightVert,
+            chest
         );
-        piece.mesh.scale.set(0, 0, 0); // Start invisible
+        
+        // Re-center alignment for natural floating bounding box
+        group.position.x = 0.1 * scale;
+        group.position.y = 0.3 * scale;
+        
+        return group;
+    }
 
-        if (piece.isRung) {
-            piece.mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
-        }
+    // --- SPAWN FLOATING ELEMENTS ---
+    // 8 elements only — clean, spaced out, premium
+    const elementConfigs = [
+        // Left side (behind hero text) — subtle
+        { create: () => createMedicalCross(3.0), pos: [-20, 10, -10], drift: [0.10, 0.07, 0.04], rot: [0.002, 0.004, 0.005], delay: 0.2 },
+        { create: () => createCapsule(2.2), pos: [-16, -8, -12], drift: [0.08, 0.12, 0.05], rot: [0.003, 0.002, 0.005], delay: 0.6 },
 
-        // 2. Animate to mathematical target (Building the Helix)
-        gsap.to(piece.mesh.position, {
-            x: piece.tX, y: piece.tY, z: piece.tZ,
-            duration: 2.5,
-            ease: "expo.out",
-            delay: 1 + piece.delay // Wait 1 second before starting assembly
-        });
+        // Center — bridging the two sides
+        { create: () => createTestTube(1.8), pos: [-3, 13, -16], drift: [0.06, 0.05, 0.07], rot: [0.003, 0.003, 0.002], delay: 0.4 },
+        { create: () => createStethoscope(2.0), pos: [4, -1, -14], drift: [0.07, 0.09, 0.04], rot: [0.002, 0.005, 0.003], delay: 0.8 },
 
-        gsap.to(piece.mesh.scale, {
+        // Right side (behind phone mockup) — slightly larger
+        { create: () => createStethoscope(2.4), pos: [20, 8, -8], drift: [0.09, 0.06, 0.05], rot: [0.003, 0.005, 0.002], delay: 0.3 },
+        { create: () => createCapsule(2.0), pos: [34, -6, -10], drift: [0.07, 0.10, 0.06], rot: [0.004, 0.003, 0.005], delay: 0.7 },
+        { create: () => createMedicalCross(1.6), pos: [34, 7, -14], drift: [0.10, 0.08, 0.04], rot: [0.003, 0.004, 0.003], delay: 1.0 },
+        { create: () => createTestTube(2.0), pos: [22, 14, -12], drift: [0.05, 0.07, 0.08], rot: [0.002, 0.003, 0.004], delay: 0.5 },
+    ];
+
+    elementConfigs.forEach(cfg => {
+        const obj = cfg.create();
+        obj.position.set(cfg.pos[0], cfg.pos[1], cfg.pos[2]);
+        obj.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        obj.scale.set(0, 0, 0);
+        floatingGroup.add(obj);
+
+        gsap.to(obj.scale, {
             x: 1, y: 1, z: 1,
-            duration: 2,
-            ease: "back.out(1.5)",
-            delay: 1 + piece.delay
+            duration: 2.5,
+            ease: "power3.out",
+            delay: 0.8 + cfg.delay
         });
 
-        if (piece.isRung) {
-            gsap.to(piece.mesh.rotation, {
-                x: 0, y: piece.tRotY, z: piece.tRotZ,
-                duration: 2.5,
-                ease: "expo.out",
-                delay: 1 + piece.delay
-            });
-        }
+        floatingElements.push({
+            mesh: obj,
+            basePos: { x: cfg.pos[0], y: cfg.pos[1], z: cfg.pos[2] },
+            baseRot: { x: obj.rotation.x, y: obj.rotation.y, z: obj.rotation.z },
+            drift: cfg.drift,
+            rot: cfg.rot,
+            phase: Math.random() * Math.PI * 2
+        });
     });
 
-    // Position entire group to the right
-    dnaGroup.position.x = 14;
-    dnaGroup.rotation.z = Math.PI / 12;
-
-    // --- 3. Studio Lighting (Crucial for Shadows and Frosted Glass) ---
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4); 
+    // --- STUDIO LIGHTING ---
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
-    // Main Spotlight (Casts crisp, soft shadows through the glass)
-    const spotLight = new THREE.SpotLight(0xffffff, 5);
-    spotLight.position.set(15, 25, 25);
-    spotLight.angle = Math.PI / 4;
-    spotLight.penumbra = 0.5;
+    const spotLight = new THREE.SpotLight(0xffffff, 4);
+    spotLight.position.set(10, 20, 25);
+    spotLight.angle = Math.PI / 3;
+    spotLight.penumbra = 0.6;
     spotLight.castShadow = true;
-    spotLight.shadow.mapSize.width = 2048; // High res shadows
-    spotLight.shadow.mapSize.height = 2048;
-    spotLight.shadow.bias = -0.0001;
+    spotLight.shadow.mapSize.width = 1024;
+    spotLight.shadow.mapSize.height = 1024;
     scene.add(spotLight);
 
-    // Colored Rim Lights for the frosted edges
-    const rimCyan = new THREE.PointLight(0x06b6d4, 8, 50); 
-    rimCyan.position.set(20, 5, -15); 
+    const rimCyan = new THREE.PointLight(0x06b6d4, 6, 60);
+    rimCyan.position.set(25, 5, -10);
     scene.add(rimCyan);
-    
-    const rimMagenta = new THREE.PointLight(0xc026d3, 8, 50); 
-    rimMagenta.position.set(0, -10, 10); 
+
+    const rimMagenta = new THREE.PointLight(0xc026d3, 6, 60);
+    rimMagenta.position.set(-20, -8, 10);
     scene.add(rimMagenta);
 
-    // --- 4. Render Loop ---
+    const rimPurple = new THREE.PointLight(0x5b21b6, 4, 50);
+    rimPurple.position.set(0, 15, -20);
+    scene.add(rimPurple);
+
+    // --- RENDER LOOP ---
     const clock = new THREE.Clock();
-    let mouseX = 0; let mouseY = 0;
+    let mouseX = 0, mouseY = 0;
 
     window.addEventListener('mousemove', (e) => {
         mouseX = (e.clientX / window.innerWidth) * 2 - 1;
@@ -247,16 +352,29 @@ document.addEventListener("DOMContentLoaded", () => {
         requestAnimationFrame(animate);
         const time = clock.getElapsedTime();
 
-        // Organic, fluid rotation (Only starts getting noticeable after assembly)
-        dnaGroup.rotation.y += 0.002;
-        dnaGroup.position.y = Math.sin(time * 0.8) * 1.5;
-
-        // Mouse Parallax
-        gsap.to(dnaGroup.rotation, {
-            x: mouseY * 0.15,
-            duration: 1,
-            ease: "power2.out"
+        // Animate each floating element with elegant organic motion (sway and float instead of spinning)
+        floatingElements.forEach(el => {
+            const t = time + el.phase;
+            el.mesh.position.x = el.basePos.x + Math.sin(t * el.drift[0]) * 2.0;
+            el.mesh.position.y = el.basePos.y + Math.sin(t * el.drift[1] + 1.5) * 2.5;
+            el.mesh.position.z = el.basePos.z + Math.sin(t * el.drift[2] + 0.8) * 1.0;
+            
+            // Sway slightly around its base rotation instead of endless spinning
+            el.mesh.rotation.x = el.baseRot.x + Math.sin(t * el.rot[0] * 150) * 0.2;
+            el.mesh.rotation.y = el.baseRot.y + Math.sin(t * el.rot[1] * 150) * 0.3;
+            el.mesh.rotation.z = el.baseRot.z + Math.cos(t * el.rot[2] * 150) * 0.15;
         });
+
+        // Mouse parallax on entire floating group
+        // gsap.to(floatingGroup.rotation, {
+        //     x: mouseY * 0.08,
+        //     y: mouseX * 0.06,
+        //     duration: 1.5,
+        //     ease: "power2.out"
+        // });
+
+        // Subtle camera breathing
+        camera.position.y = Math.sin(time * 0.3) * 0.5;
 
         renderer.render(scene, camera);
     }
@@ -267,20 +385,18 @@ document.addEventListener("DOMContentLoaded", () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
-        
+
         if (window.innerWidth < 768) {
-            // Mobile (Stacked): Center it but push it deep into the background so text is readable
-            dnaGroup.position.x = 0; 
-            dnaGroup.position.z = -30;
+            camera.position.z = 50; // Pull camera back on mobile for wider view
+            camera.fov = 55;
         } else if (window.innerWidth < 1024) {
-            // Tablet (Side-by-side): Shift it to the right hemisphere
-            dnaGroup.position.x = 8; 
-            dnaGroup.position.z = -15;
+            camera.position.z = 45;
+            camera.fov = 52;
         } else {
-            // Desktop: Far right
-            dnaGroup.position.x = 14; 
-            dnaGroup.position.z = 0;
+            camera.position.z = 40;
+            camera.fov = 50;
         }
+        camera.updateProjectionMatrix();
     });
     window.dispatchEvent(new Event('resize'));
 
@@ -342,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     counters.forEach(counter => {
         ScrollTrigger.create({
-            trigger: ".trust-section-contained",
+            trigger: ".trust-glass-panel",
             start: "top 85%",
             onEnter: () => {
                 const target = +counter.getAttribute("data-target");
@@ -714,26 +830,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let isAnimating = false;
     window.lastDragDist = 0;
 
-    // Initialization: Force the 3rd child in the DOM to be the initially active, centered card
-    if (playlistTrack && playlistTrack.children.length > 2) {
-        playlistCards.forEach(c => c.classList.remove('active'));
-        playlistTrack.children[2].classList.add('active');
-        
-        // Sync the main portal
-        const initialImg = playlistTrack.children[2].getAttribute('data-img');
-        const initialTitle = playlistTrack.children[2].getAttribute('data-title');
-        const initialDesc = playlistTrack.children[2].getAttribute('data-desc');
-        const initialStats = playlistTrack.children[2].getAttribute('data-stats');
-        const initialUrl = playlistTrack.children[2].getAttribute('data-url');
-        
-        if (activeVidImg) activeVidImg.src = initialImg;
-        if (activeVidTitle) activeVidTitle.innerText = initialTitle;
-        if (activeVidDesc) activeVidDesc.innerText = initialDesc;
-        const statsEl = document.getElementById('active-vid-stats');
-        if (statsEl && initialStats) statsEl.innerText = initialStats;
-        const linkEl = document.querySelector('.yt-badge');
-        if (linkEl && initialUrl) linkEl.href = initialUrl;
-    }
+    // (Initialization is handled dynamically by renderPlaylistCards after data is loaded)
 
     // --- 7. YouTube Data API v3 Dynamic Fetcher ---
     const YOUTUBE_API_KEY = ""; // PASTE YOUR YOUTUBE DATA API V3 KEY HERE
@@ -838,8 +935,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const syncMainPortal = (card) => {
         if (!card) return;
         
-        // Enforce DOM level Active CSS swapping
-        playlistCards.forEach(c => c.classList.remove('active'));
+        // Enforce DOM level Active CSS swapping (use LIVE children, not stale NodeList)
+        Array.from(playlistTrack.children).forEach(c => c.classList.remove('active'));
         card.classList.add('active');
 
         const newImg = card.getAttribute('data-img');
@@ -875,38 +972,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    playlistCards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            if(e.isTrusted && window.lastDragDist > 10) { e.preventDefault(); return; }
-            if(isAnimating) return;
-
-            const index = Array.from(playlistTrack.children).indexOf(card);
-            if (index === 2 && card.classList.contains('active')) return;
-
-            syncMainPortal(card);
-
-            // Dynamically calculate distance based on current card width + gap
-            const currentCardWidth = playlistTrack.children[0].offsetWidth + (parseInt(window.getComputedStyle(playlistTrack).gap) || 0);
-            const offset = getCenterOffset();
-
-            const dist = index - 2;
-            if (dist !== 0) {
-                isAnimating = true;
-                if (dist > 0) {
-                    gsap.to(playlistTrack, { x: offset - (currentCardWidth * dist), duration: 0.5, ease: "power2.out", onComplete: () => {
-                        for(let i=0; i<dist; i++) playlistTrack.appendChild(playlistTrack.firstElementChild);
-                        gsap.set(playlistTrack, { x: offset });
-                        isAnimating = false;
-                    }});
-                } else {
-                    const absDist = Math.abs(dist);
-                    for(let i=0; i<absDist; i++) playlistTrack.prepend(playlistTrack.lastElementChild);
-                    gsap.set(playlistTrack, { x: offset - (currentCardWidth * absDist) });
-                    gsap.to(playlistTrack, { x: offset, duration: 0.5, ease: "power2.out", onComplete: () => isAnimating = false });
-                }
-            }
-        });
-    });
+    // (Click handlers are attached dynamically by renderPlaylistCards)
 
     // --- 7.5 Inline YouTube Iframe Player ---
     const playerPortal = document.getElementById('main-portal');
@@ -950,6 +1016,170 @@ document.addEventListener("DOMContentLoaded", () => {
             if (rightCard) rightCard.click();
         }, 3000); 
     };
+
+    // --- YOUTUBE CATEGORY DATA STORE ---
+    // The user can edit these URLs later to populate each tab!
+    // --- Category-Specific YouTube Playlists ---
+    // --- Category-Specific YouTube Playlists (Real Titles) ---
+    const nursingPlaylist = [
+        { img: "https://img.youtube.com/vi/E1X1RFFt138/maxresdefault.jpg", url: "https://youtu.be/E1X1RFFt138?si=0TrAngTwP8UsTbqw", title: "Super notes for Assistant Professor in Nursing", desc: "Eduooz International Academy | Nursing Exam Guide", stats: "Eduooz - Nurses Learning Hub", duration: "08:53" },
+        { img: "https://img.youtube.com/vi/4J_sUv_L5f0/maxresdefault.jpg", url: "https://youtu.be/4J_sUv_L5f0?si=eK1eW4HgoQy_c_4v", title: "DHS Staff Nurse Exam Preparation 2025", desc: "How to Crack DHS Exam Fast | Eduooz Results & Strategy", stats: "Eduooz - Nurses Learning Hub", duration: "13:17" },
+        { img: "https://img.youtube.com/vi/YglY46sa7oA/maxresdefault.jpg", url: "https://youtu.be/YglY46sa7oA?si=9NVPLSGX5_PXlb3f", title: "POWER PLAN for DHA | MOH | DOH/HAAD | Prometric", desc: "Pearson VUE | Study Strategy by Eduooz Academy", stats: "Eduooz - Nurses Learning Hub", duration: "14:49" },
+        { img: "https://img.youtube.com/vi/w76w1arkX7E/maxresdefault.jpg", url: "https://youtu.be/w76w1arkX7E?si=AkVPt67Hjx39jZ2o", title: "NCLEX-RN Animation Class", desc: "Eduooz Academy | Free Power Pack for Score Boosting", stats: "Eduooz - Nurses Learning Hub", duration: "15:08" },
+        { img: "https://img.youtube.com/vi/tmP81NRePkA/maxresdefault.jpg", url: "https://youtu.be/tmP81NRePkA?si=6Bvjk8TS63e6Lq0X", title: "Pearson VUE Nursing Prometric Exam", desc: "Important Questions Discussion & Practice Session", stats: "Eduooz - Nurses Learning Hub", duration: "14:46" },
+        { img: "https://img.youtube.com/vi/dcKOKETcrK4/maxresdefault.jpg", url: "https://youtu.be/dcKOKETcrK4?si=_bCrpIn0Ei5463Lc", title: "Nursing Prometric Exam", desc: "Important Questions Discussion and Practice Session", stats: "Eduooz - Nurses Learning Hub", duration: "15:39" },
+        { img: "https://img.youtube.com/vi/XjogZEgAA2M/maxresdefault.jpg", url: "https://youtu.be/XjogZEgAA2M?si=CMIgkmReFJ203EEp", title: "Mission NORCET 11 | Eduooz Academy", desc: "Let's Start Today!", stats: "Eduooz - Nurses Learning Hub", duration: "05:26" },
+        { img: "https://img.youtube.com/vi/_iRggg9Y_UQ/maxresdefault.jpg", url: "https://youtu.be/_iRggg9Y_UQ?si=igzGt6bHNU1yPDE0", title: "Nursing Prometric Exam", desc: "Important Question Discussion & Practice Session", stats: "Eduooz - Nurses Learning Hub", duration: "09:40" },
+        { img: "https://img.youtube.com/vi/ptIFWQ_cJIQ/maxresdefault.jpg", url: "https://youtu.be/ptIFWQ_cJIQ?si=lUJVrBOF0iteUge-", title: "Nursing Saudi | Complete Career Details", desc: "Eduooz International Academy", stats: "Eduooz - Nurses Learning Hub", duration: "09:53" },
+        { img: "https://img.youtube.com/vi/ftKaRv5WUmk/maxresdefault.jpg", url: "https://youtu.be/ftKaRv5WUmk?si=4pybFeukOVsPX4UN", title: "Nursing Kuwait Prometric Complete Exam Training", desc: "Eduooz International Academy", stats: "Eduooz - Nurses Learning Hub", duration: "18:24" }
+    ];
+
+    const pharmacistPlaylist = [
+        { img: "https://img.youtube.com/vi/Gab0IJ_-8tQ/maxresdefault.jpg", url: "https://youtu.be/Gab0IJ_-8tQ?si=ly1hZz50CT5Cm1sJ", title: "Paracetamol Pharmacology in 5 Minutes", desc: "Eduooz International Academy", stats: "Eduooz Academy - Pharmacist PSC Coaching", duration: "07:00" },
+        { img: "https://img.youtube.com/vi/vcEzTp2HEF4/maxresdefault.jpg", url: "https://youtu.be/vcEzTp2HEF4?si=H_dShvotFAtU6U2-", title: "Phenytoin Pharmacology in 5 Minutes", desc: "Eduooz International Academy", stats: "Eduooz Academy - Pharmacist PSC Coaching", duration: "07:44" },
+        { img: "https://img.youtube.com/vi/ugvAoQFZCf8/maxresdefault.jpg", url: "https://youtu.be/ugvAoQFZCf8?si=Xve9l2gbIS4zsc2K", title: "Sulfonamides in Pharmacology \u2014 Explained in 5 Min", desc: "Eduooz International Academy", stats: "Eduooz Academy - Pharmacist PSC Coaching", duration: "17:06" },
+        { img: "https://img.youtube.com/vi/f47-76tui34/maxresdefault.jpg", url: "https://youtu.be/f47-76tui34?si=1UUWegNs946ZP4t8", title: "Kerala PSC Pharmacist | Diazepam Pharmacology in 5 Min", desc: "Quick Revision", stats: "Eduooz Academy - Pharmacist PSC Coaching", duration: "15:24" },
+        { img: "https://img.youtube.com/vi/Hp1yBFQ4e2o/maxresdefault.jpg", url: "https://youtu.be/Hp1yBFQ4e2o?si=Mi8KCpsul_oVHqiT", title: "Kerala PSC Pharmacist | Insulin Pharmacology in 5 Min", desc: "Eduooz Academy", stats: "Eduooz Academy - Pharmacist PSC Coaching", duration: "15:00" },
+        { img: "https://img.youtube.com/vi/-GIBgYF63ko/maxresdefault.jpg", url: "https://youtu.be/-GIBgYF63ko?si=GfJ_gzwzcpvDli6J", title: "Pharmacology Quick Revision | Eduooz Academy", desc: "Kerala PSC Pharmacist Exam Preparation", stats: "Eduooz Academy - Pharmacist PSC Coaching", duration: "48:58" },
+        { img: "https://img.youtube.com/vi/iElZRUtCE14/maxresdefault.jpg", url: "https://youtu.be/iElZRUtCE14?si=9FDSi7s8xRxsFSQr", title: "Pharmacist Exam Strategy | Eduooz Academy", desc: "Kerala PSC Pharmacist Coaching", stats: "Eduooz Academy - Pharmacist PSC Coaching", duration: "71:47" },
+        { img: "https://img.youtube.com/vi/dg9FUWQShk0/maxresdefault.jpg", url: "https://youtu.be/dg9FUWQShk0?si=iWu2KspQkvf3mtT0", title: "RRB Pharmacist 2025 | Online Coaching with Eduooz", desc: "Complete Exam Preparation", stats: "Eduooz Academy - Pharmacist PSC Coaching", duration: "11:19" },
+        { img: "https://img.youtube.com/vi/lYvPIHaV4O0/maxresdefault.jpg", url: "https://youtu.be/lYvPIHaV4O0?si=pTA9wdsYlzegwduT", title: "Kerala PSC Pharmacist | Markovnikov\u2019s Rule in 5 Min", desc: "Eduooz Academy", stats: "Eduooz Academy - Pharmacist PSC Coaching", duration: "12:10" },
+        { img: "https://img.youtube.com/vi/ChlT_2r96R4/maxresdefault.jpg", url: "https://youtu.be/ChlT_2r96R4?si=KWiv-uVkglAWMq6S", title: "Metformin Pharmacology: A 5-Minute Simplified Explanation", desc: "Eduooz International Academy", stats: "Eduooz Academy - Pharmacist PSC Coaching", duration: "11:55" }
+    ];
+
+    const labTechPlaylist = [
+        { img: "https://img.youtube.com/vi/ZqHuz3kBS-4/maxresdefault.jpg", url: "https://youtu.be/ZqHuz3kBS-4?si=8KR8BPVrxqIx5LVT", title: "Lab Technician DHS Long-Term Course", desc: "Simple Learning with Eduooz Academy", stats: "Eduooz MLT Academy", duration: "16:01" },
+        { img: "https://img.youtube.com/vi/l7QKm6WsqBA/maxresdefault.jpg", url: "https://youtu.be/l7QKm6WsqBA?si=jmsu-g3UkIC-IqZQ", title: "Lab Technician DHS Long Term Course", desc: "Simple & Easy Learning \u2013 Eduooz International Academy", stats: "Eduooz MLT Academy", duration: "10:40" },
+        { img: "https://img.youtube.com/vi/Er5l3ptq6RM/maxresdefault.jpg", url: "https://youtu.be/Er5l3ptq6RM?si=DiKVQ33nqlKuXhex", title: "Kerala PSC Lab Technician: Scientist Nicknames", desc: "Eduooz Academy", stats: "Eduooz MLT Academy", duration: "04:26" },
+        { img: "https://img.youtube.com/vi/8X8A_tso5Dk/maxresdefault.jpg", url: "https://youtu.be/8X8A_tso5Dk?si=7aX5tb0U5DeAga-2", title: "Lab Technician DHS Long Term \u2013 Calendar of Health", desc: "Eduooz International Academy", stats: "Eduooz MLT Academy", duration: "07:21" },
+        { img: "https://img.youtube.com/vi/ElQf1fTFPCw/maxresdefault.jpg", url: "https://youtu.be/ElQf1fTFPCw?si=TnNxZ7tqCTR7nsXE", title: "Mosquito Vector Chart Explained | PSC MLT Exams", desc: "Lab Technician Long Term | Eduooz", stats: "Eduooz MLT Academy", duration: "06:41" },
+        { img: "https://img.youtube.com/vi/DXZWVrGW3DI/maxresdefault.jpg", url: "https://youtu.be/DXZWVrGW3DI?si=mpHvYaC3dNYBUhRv", title: "Lab Technician DHS Long Term Program", desc: "Smart & Easy Learning \u2013 Eduooz International Academy", stats: "Eduooz MLT Academy", duration: "03:44" },
+        { img: "https://img.youtube.com/vi/N_aayNO3RmM/maxresdefault.jpg", url: "https://youtu.be/N_aayNO3RmM?si=BT8VPPUEBMK0vQzA", title: "Kerala PSC Junior Lab Assistant", desc: "Easy Preparation Strategy | Eduooz Academy", stats: "Eduooz MLT Academy", duration: "03:00" },
+        { img: "https://img.youtube.com/vi/Oe5m4qBXJYQ/maxresdefault.jpg", url: "https://youtu.be/Oe5m4qBXJYQ?si=IOlZCURaYBrgGv5W", title: "Kerala PSC Junior Lab Assistant | Level & Exam Details", desc: "Eduooz Academy", stats: "Eduooz MLT Academy", duration: "06:39" },
+        { img: "https://img.youtube.com/vi/N_aayNO3RmM/maxresdefault.jpg", url: "https://youtu.be/N_aayNO3RmM?si=pgjy3DlrD2sH0Klx", title: "Kerala PSC Junior Lab Assistant", desc: "Easy Preparation Strategy | Eduooz Academy", stats: "Eduooz MLT Academy", duration: "03:00" },
+        { img: "https://img.youtube.com/vi/z0h8iw7-pfc/maxresdefault.jpg", url: "https://youtu.be/z0h8iw7-pfc?si=fB0eZoo2A-vVvc9L", title: "Lab Technician (DHS Long Term) | Complete Learning Program", desc: "Eduooz Academy", stats: "Eduooz MLT Academy", duration: "02:22" }
+    ];
+
+    const germanPlaylist = [
+        { img: "https://img.youtube.com/vi/yHO54z55JkA/maxresdefault.jpg", url: "https://youtu.be/yHO54z55JkA?si=KRMANjBEh_WBdrRO", title: "German Alphabets A\u2013D | Learn German for Beginners", desc: "Malayalam / English Explanation | Eduooz Academy", stats: "Eduooz - Nurses Learning Hub", duration: "10:38" },
+        { img: "https://img.youtube.com/vi/s3SfINGk5Bw/maxresdefault.jpg", url: "https://youtu.be/s3SfINGk5Bw?si=b89VxYNgY9UhZtS8", title: "German Alphabets E\u2013H | Learn German for Beginners", desc: "Malayalam / English Explanation | Eduooz Academy", stats: "Eduooz - Nurses Learning Hub", duration: "07:14" },
+        { img: "https://img.youtube.com/vi/0b8vw2bJ6g8/maxresdefault.jpg", url: "https://youtu.be/0b8vw2bJ6g8?si=ZLmGg8tTIg26ItCw", title: "Learn German Alphabets I\u2013O", desc: "Easy Explanation in Malayalam & English | Eduooz Academy", stats: "Eduooz - Nurses Learning Hub", duration: "11:25" }
+    ];
+
+    // "All" tab shows a curated mix from every category (interleaved dynamically)
+    const allPlaylist = [];
+    const maxLen = Math.max(nursingPlaylist.length, pharmacistPlaylist.length, labTechPlaylist.length, germanPlaylist.length);
+    for (let i = 0; i < maxLen; i++) {
+        if (nursingPlaylist[i]) allPlaylist.push(nursingPlaylist[i]);
+        if (pharmacistPlaylist[i]) allPlaylist.push(pharmacistPlaylist[i]);
+        if (labTechPlaylist[i]) allPlaylist.push(labTechPlaylist[i]);
+        if (germanPlaylist[i]) allPlaylist.push(germanPlaylist[i]);
+    }
+
+    const ytCategoryData = {
+        'All': allPlaylist,
+        'Nursing': nursingPlaylist,
+        'Pharmacist': pharmacistPlaylist,
+        'Lab Technician': labTechPlaylist,
+        'German Language': germanPlaylist
+    };
+
+    // --- Dynamic Playlist Card Renderer ---
+    function renderPlaylistCards(playlist) {
+        if (!playlistTrack) return;
+
+        // Clear existing cards
+        playlistTrack.innerHTML = '';
+
+        // Generate card elements from data
+        playlist.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'playlist-card';
+            card.setAttribute('data-img', item.img);
+            card.setAttribute('data-url', item.url);
+            card.setAttribute('data-title', item.title);
+            card.setAttribute('data-desc', item.desc);
+            card.setAttribute('data-stats', item.stats);
+
+            card.innerHTML = `
+                <div class="playlist-duration">${item.duration}</div>
+                <img src="${item.img}" alt="${item.title}">
+                <div class="play-icon-sm"><i class="fa-solid fa-play"></i></div>
+            `;
+
+            playlistTrack.appendChild(card);
+        });
+
+        // Mark the 3rd card (index 2) as active
+        if (playlistTrack.children.length > 2) {
+            playlistTrack.children[2].classList.add('active');
+        }
+
+        // Attach click handlers to new cards
+        Array.from(playlistTrack.children).forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.isTrusted && window.lastDragDist > 10) { e.preventDefault(); return; }
+                if (isAnimating) return;
+
+                const index = Array.from(playlistTrack.children).indexOf(card);
+                if (index === 2 && card.classList.contains('active')) return;
+
+                syncMainPortal(card);
+
+                const currentCardWidth = playlistTrack.children[0].offsetWidth + (parseInt(window.getComputedStyle(playlistTrack).gap) || 0);
+                const offset = getCenterOffset();
+
+                const dist = index - 2;
+                if (dist !== 0) {
+                    isAnimating = true;
+                    if (dist > 0) {
+                        gsap.to(playlistTrack, { x: offset - (currentCardWidth * dist), duration: 0.5, ease: "power2.out", onComplete: () => {
+                            for (let i = 0; i < dist; i++) playlistTrack.appendChild(playlistTrack.firstElementChild);
+                            gsap.set(playlistTrack, { x: offset });
+                            isAnimating = false;
+                        }});
+                    } else {
+                        const absDist = Math.abs(dist);
+                        for (let i = 0; i < absDist; i++) playlistTrack.prepend(playlistTrack.lastElementChild);
+                        gsap.set(playlistTrack, { x: offset - (currentCardWidth * absDist) });
+                        gsap.to(playlistTrack, { x: offset, duration: 0.5, ease: "power2.out", onComplete: () => isAnimating = false });
+                    }
+                }
+            });
+        });
+
+        // Re-center and sync portal
+        gsap.set(playlistTrack, { x: getCenterOffset() });
+        const centerCard = playlistTrack.children[2];
+        if (centerCard) syncMainPortal(centerCard);
+    }
+
+    // Initial render with "All" playlist
+    renderPlaylistCards(allPlaylist);
+
+    // YouTube Category Tabs Logic
+    const ytTabs = document.querySelectorAll('.yt-tab');
+    if (ytTabs.length > 0) {
+        ytTabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                if(tab.classList.contains('active')) return;
+
+                ytTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.innerText.trim();
+                const playlistData = ytCategoryData[category];
+                
+                if(playlistData && playlistTrack) {
+                    gsap.to(playlistTrack, { opacity: 0, duration: 0.2, onComplete: () => {
+                        renderPlaylistCards(playlistData);
+                        gsap.to(playlistTrack, { opacity: 1, duration: 0.3 });
+                    }});
+                }
+            });
+        });
+    }
 
     // --- 8. Seamless Infinite Grab & Swipe Logic ---
     let isDragging = false;
@@ -1046,14 +1276,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Scroll Reveal for Courses
     gsap.set(".g-course-rev", { autoAlpha: 1 });
-    gsap.from(".g-course-rev", {
-        scrollTrigger: {
-            trigger: ".luxury-courses-section",
-            start: "top 75%"
-        },
-        y: 50, opacity: 0, filter: "blur(10px)", 
-        duration: 1, stagger: 0.15, ease: "power3.out"
-    });
+    gsap.fromTo(".g-course-rev", 
+        { y: 50, opacity: 0, filter: "blur(15px)" },
+        {
+            scrollTrigger: {
+                trigger: ".stack-courses-section",
+                start: "top 75%"
+            },
+            y: 0, opacity: 1, filter: "blur(0px)", 
+            duration: 1.2, stagger: 0.15, ease: "power3.out",
+            clearProps: "filter" // Remove filter after animation to prevent text rendering artifacts
+        }
+    );
 
     // Hover & Accordion Logic
     const courseRows = document.querySelectorAll('.course-row');
@@ -1159,15 +1393,32 @@ document.addEventListener("DOMContentLoaded", () => {
         const gyroGroup = new THREE.Group();
         gyroScene.add(gyroGroup);
 
-        // --- Premium Glass Ring Materials ---
+        // --- Generate Bright Environment for Frosted Glass ---
+        // Without this, glass materials have nothing to refract and look dark
+        const pmremGenerator = new THREE.PMREMGenerator(gyroRenderer);
+        pmremGenerator.compileEquirectangularShader();
+        const envScene = new THREE.Scene();
+        envScene.background = new THREE.Color(0xe8e0f0); // Soft lavender-white
+        // Brand-colored fill lights inside the env
+        const envL1 = new THREE.PointLight(0xd4b3ff, 15, 100); envL1.position.set(10, 10, 10);
+        const envL2 = new THREE.PointLight(0x7dd3fc, 15, 100); envL2.position.set(-10, -10, 10);
+        const envL3 = new THREE.PointLight(0xffffff, 10, 100); envL3.position.set(0, 0, -10);
+        envScene.add(envL1, envL2, envL3);
+        const envTexture = pmremGenerator.fromScene(envScene, 0.04).texture;
+        gyroScene.environment = envTexture;
+        pmremGenerator.dispose();
+
+        // --- Premium Frosted Glass Ring Materials ---
         const ringMat = new THREE.MeshPhysicalMaterial({
-            color: 0xd4b3ff, transmission: 0.85, opacity: 1, metalness: 0.15, roughness: 0.2,
-            ior: 1.6, thickness: 1.2, clearcoat: 1.0, clearcoatRoughness: 0.05, transparent: true
+            color: 0xd4b3ff, transmission: 0.9, opacity: 1, metalness: 0.0, roughness: 0.4,
+            ior: 1.5, thickness: 1.0, clearcoat: 1.0, clearcoatRoughness: 0.1,
+            envMapIntensity: 1.5, transparent: true
         });
 
         const ringMatAccent = new THREE.MeshPhysicalMaterial({
-            color: 0x7dd3fc, transmission: 0.8, opacity: 1, metalness: 0.2, roughness: 0.15,
-            ior: 1.5, thickness: 0.8, clearcoat: 1.0, clearcoatRoughness: 0.05, transparent: true
+            color: 0x7dd3fc, transmission: 0.85, opacity: 1, metalness: 0.0, roughness: 0.35,
+            ior: 1.5, thickness: 0.8, clearcoat: 1.0, clearcoatRoughness: 0.1,
+            envMapIntensity: 1.5, transparent: true
         });
 
         // --- Main Interlocking Rings (thicker tubes for visibility) ---
@@ -1182,8 +1433,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // --- Decorative Outer Rings ---
         const outerRingMat = new THREE.MeshPhysicalMaterial({
-            color: 0xe0c3ff, transmission: 0.9, opacity: 0.6, metalness: 0.05, roughness: 0.3,
-            clearcoat: 0.5, transparent: true
+            color: 0xe0c3ff, transmission: 0.85, opacity: 0.8, metalness: 0.0, roughness: 0.45,
+            clearcoat: 0.8, envMapIntensity: 1.2, transparent: true
         });
         const outerRing1 = new THREE.Mesh(new THREE.TorusGeometry(9, 0.08, 16, 150), outerRingMat);
         const outerRing2 = new THREE.Mesh(new THREE.TorusGeometry(10, 0.06, 16, 150), outerRingMat);
@@ -1320,48 +1571,89 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    
+    // Mobile specific blur-out effect when reaching the card's image
+    mmCards.add("(max-width: 1024px)", () => {
+        const wrappers = gsap.utils.toArray('.card-sticky-wrapper');
+        
+        wrappers.forEach((wrapper, index) => {
+            if (index === wrappers.length - 1) return; // Skip last card
+            
+            const panel = wrapper.querySelector('.card-glass-panel');
+            const imageEl = wrapper.querySelector('.liquid-image-mask');
+            const nextWrapper = wrappers[index + 1];
 
-    // --- 9. GSAP Cinematic Footer Reveal ---
-    let mmFooter = gsap.matchMedia();
-    
-    mmFooter.add("(min-width: 1025px)", () => {
-        // Creates the parallax scale effect as the user reaches the bottom of the page
-        gsap.from(".luxury-footer-inner", {
-            scrollTrigger: {
-                trigger: ".luxury-footer-wrapper",
-                start: "top bottom", // Starts when the top of the footer hits the bottom of the viewport
-                end: "bottom bottom",
-                scrub: true // Ties the animation exactly to the scrollbar
-            },
-            yPercent: -20, // Pushes it slightly down
-            scale: 0.95,   // Shrinks it slightly into the background
-            opacity: 0.5,  // Dims it out
-            ease: "none"
+            gsap.to(panel, {
+                scale: 0.9,           // Push back effect
+                y: -30,               // Shift up
+                filter: "blur(10px)",
+                opacity: 0.4,
+                ease: "none",         // Linear ease is perfectly smooth for scroll scrubs
+                scrollTrigger: {
+                    trigger: imageEl,
+                    start: "top 35%",     // Start when the top of the image hits the middle-bottom of screen
+                    endTrigger: nextWrapper,
+                    end: "top 25%",       // Spread out the animation until the next card reaches the top
+                    scrub: 1.5            // High smoothing factor
+                }
+            });
         });
     });
 
-    // --- Mobile Menu Toggle ---
-    const menuToggle = document.getElementById('menu-toggle');
-    const navLinksList = document.querySelector('.nav-links');
-    const navItemsList = document.querySelectorAll('.nav-links a');
+    
 
-    if (menuToggle && navLinksList) {
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            navLinksList.classList.toggle('active');
-            // Prevent scrolling when menu is open
-            document.body.style.overflow = navLinksList.classList.contains('active') ? 'hidden' : '';
-        });
-
-        // Close menu when a link is clicked
-        navItemsList.forEach(item => {
-            item.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navLinksList.classList.remove('active');
-                document.body.style.overflow = '';
+    // --- 9. GSAP Cinematic Footer Reveal ---
+    function initFooterAnimation() {
+        let mmFooter = gsap.matchMedia();
+        
+        mmFooter.add("(min-width: 1025px)", () => {
+            gsap.from(".luxury-footer-inner", {
+                scrollTrigger: {
+                    trigger: ".luxury-footer-wrapper",
+                    start: "top bottom",
+                    end: "bottom bottom",
+                    scrub: true
+                },
+                yPercent: -20,
+                scale: 0.95,
+                opacity: 0.5,
+                ease: "none"
             });
         });
+    }
+
+    if (document.querySelector('.luxury-footer-wrapper')) {
+        initFooterAnimation();
+    } else {
+        window.addEventListener('footerLoaded', initFooterAnimation);
+    }
+
+    // --- Mobile Menu Toggle ---
+    function initHeaderInteractions() {
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinksList = document.querySelector('.nav-links');
+        const navItemsList = document.querySelectorAll('.nav-links a');
+
+        if (menuToggle && navLinksList) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinksList.classList.toggle('active');
+                document.body.style.overflow = navLinksList.classList.contains('active') ? 'hidden' : '';
+            });
+
+            navItemsList.forEach(item => {
+                item.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navLinksList.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+    }
+
+    if (document.getElementById('menu-toggle')) {
+        initHeaderInteractions();
+    } else {
+        window.addEventListener('headerLoaded', initHeaderInteractions);
     }
 
     // --- 10. Scroll to Top Button ---
@@ -1512,36 +1804,39 @@ document.addEventListener("DOMContentLoaded", () => {
         y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out"
     });
 
-    // 2. Alumni Data Pool (Expandable)
-    const alumniPool = [
-        { name: "Priya Sharma",  exam: "AIIMS Norcet 2025",       badge: "RANK 1",      icon: "🏥", place: "AIIMS, New Delhi",       img: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=500" },
-        { name: "Arjun Patel",   exam: "Dubai Health Authority",   badge: "DHA CLEARED",  icon: "🌍", place: "Aster Hospital, Dubai",   img: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=500" },
-        { name: "Lakshmi N.",    exam: "Kerala PSC Pharmacist",    badge: "RANK 4",       icon: "🏛️", place: "Govt. Medical College",   img: "https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=500" },
-        { name: "Deepa Joseph",  exam: "JIPMER Nursing 2024",     badge: "RANK 2",       icon: "🎓", place: "JIPMER, Puducherry",     img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=500" },
-        { name: "Rahul Menon",   exam: "HAAD Exam 2025",          badge: "HAAD PASS",    icon: "🌍", place: "Cleveland Clinic, UAE",   img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=500" },
-        { name: "Sneha Nair",    exam: "RRB Staff Nurse",         badge: "SELECTED",     icon: "🏥", place: "Indian Railways Hospital",img: "https://images.unsplash.com/photo-1580281658223-9b93f18ae9ae?auto=format&fit=crop&q=80&w=500" },
-        { name: "Akhil Thomas",  exam: "Prometric SMLE",          badge: "SMLE PASS",    icon: "🌍", place: "King Faisal Hospital, KSA",img: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=500" },
-        { name: "Meera Das",     exam: "PGIMER B.Sc Nursing",     badge: "RANK 8",       icon: "🏛️", place: "PGIMER, Chandigarh",      img: "https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&q=80&w=500" },
-        { name: "Fathima K.",    exam: "ESI Staff Nurse 2024",    badge: "RANK 3",       icon: "🏥", place: "ESI Hospital, Bangalore", img: "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&q=80&w=500" },
+    // 2. Faculty Data Pool (Replaces Alumni Pool for Fade-in Grid)
+    const facultyPool = [
+        // Batch 1 (Matches initial HTML)
+        { name: "Dr. Anand", role: "Chief Director — Sciences", badge: "15+ Years", icon: '<i class="fa-solid fa-microscope"></i>', desc: "Mentored <strong>200+ Rank Holders</strong> in Biology & Competitive Exams", img: "https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=500" },
+        { name: "Prof. Samuel John", role: "Lead Pharmacist Educator", badge: "M.Pharm", icon: '<i class="fa-solid fa-capsules"></i>', desc: "Ex-State Board Examiner — <strong>High-Yield Topic Specialist</strong>", img: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=500" },
+        { name: "Dr. Meera Menon", role: "Head of Nursing Dept.", badge: "AIIMS Topper", icon: '<i class="fa-solid fa-hospital"></i>', desc: "Trained <strong>300+ Nurses</strong> for AIIMS, JIPMER & Central Govt.", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=500" },
+        // Batch 2
+        { name: "Gabriel", role: "Full Stack AI & Digital", badge: "Tech & Growth", icon: '<i class="fa-solid fa-laptop-code"></i>', desc: "Architecting the Eduooz digital ecosystem and platform growth", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=500" },
+        { name: "Sarah Thomas", role: "Lab Technology & Global", badge: "DHA Specialist", icon: '<i class="fa-solid fa-globe"></i>', desc: "Guiding students through international testing formats & placements", img: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=500" },
+        { name: "Dr. Rajesh Kumar", role: "Anatomy Expert", badge: "MBBS, MD", icon: '<i class="fa-solid fa-bone"></i>', desc: "Breaking down complex anatomical concepts with practical ease", img: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=500" },
+        // Batch 3
+        { name: "Anita Desai", role: "Senior Nursing Instructor", badge: "10+ Years", icon: '<i class="fa-solid fa-syringe"></i>', desc: "Specializes in clinical scenarios and emergency care questions", img: "https://images.unsplash.com/photo-1580281658223-9b93f18ae9ae?auto=format&fit=crop&q=80&w=500" },
+        { name: "Vikram Singh", role: "Head of Pharmacology", badge: "M.Sc Pharma", icon: '<i class="fa-solid fa-flask"></i>', desc: "Mastering drug classifications and mechanism of actions", img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=500" },
+        { name: "Elena Fernandez", role: "PROMETRIC Guide", badge: "Global Trainer", icon: '<i class="fa-solid fa-plane"></i>', desc: "Preparing students for Middle Eastern licensing board exams", img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=500" }
     ];
 
-    let currentBatch = 0; // Tracks which group of 3 is currently displayed
+    let currentFacultyBatch = 0; // Tracks which group of 3 is currently displayed
 
-    function generateCardHTML(alumni) {
+    function generateFacultyCardHTML(fac) {
         return `
             <div class="prismatic-card">
                 <div class="card-glare-light"></div>
                 <div class="card-content-3d">
                     <div class="alumni-img-box">
-                        <img src="${alumni.img}" alt="${alumni.name}">
-                        <div class="rank-badge">${alumni.badge}</div>
+                        <img src="${fac.img}" alt="${fac.name}">
+                        <div class="rank-badge">${fac.badge}</div>
                     </div>
                     <div class="alumni-info">
-                        <h3>${alumni.name}</h3>
-                        <p class="exam-name">${alumni.exam}</p>
+                        <h3>${fac.name}</h3>
+                        <p class="exam-name">${fac.role}</p>
                         <div class="placement-dest">
-                            <span class="dest-icon">${alumni.icon}</span>
-                            <span>Placed at: <strong>${alumni.place}</strong></span>
+                            <span class="dest-icon">${fac.icon}</span>
+                            <span>${fac.desc}</span>
                         </div>
                     </div>
                 </div>
@@ -1584,10 +1879,10 @@ document.addEventListener("DOMContentLoaded", () => {
     cardWrappers.forEach(bindTiltPhysics);
 
     // 3. Cycling Engine
-    function cycleAlumni() {
-        const totalBatches = Math.ceil(alumniPool.length / 3);
-        currentBatch = (currentBatch + 1) % totalBatches;
-        const batch = alumniPool.slice(currentBatch * 3, currentBatch * 3 + 3);
+    function cycleFaculty() {
+        const totalBatches = Math.ceil(facultyPool.length / 3);
+        currentFacultyBatch = (currentFacultyBatch + 1) % totalBatches;
+        const batch = facultyPool.slice(currentFacultyBatch * 3, currentFacultyBatch * 3 + 3);
 
         // Phase 1: Fade Out + Jump Up (staggered cascade)
         cardWrappers.forEach((wrapper, i) => {
@@ -1600,7 +1895,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             cardWrappers.forEach((wrapper, i) => {
                 if (batch[i]) {
-                    wrapper.innerHTML = generateCardHTML(batch[i]);
+                    wrapper.innerHTML = generateFacultyCardHTML(batch[i]);
                     const img = wrapper.querySelector('img');
                     if (img) img.loading = 'eager';
                 }
@@ -1624,8 +1919,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 800); // Synced with 0.7s CSS transition + buffer
     }
 
-    // Start cycling every 4 seconds
-    setInterval(cycleAlumni, 4000);
+    // Start cycling every 5 seconds
+    setInterval(cycleFaculty, 5000);
 
     // --- 11. GSAP Testimonials Reveal ---
     gsap.set(".g-test-reveal", { autoAlpha: 1 });
