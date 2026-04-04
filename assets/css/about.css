@@ -1,0 +1,44 @@
+/* ============================================
+   ABOUT PAGE - GLOBAL VARIABLES & SETUP
+   ============================================ */
+:root {
+    --brand-dark: #0a0514;
+    --brand-purple: #5b21b6;
+    --brand-magenta: #c026d3;
+    --brand-cyan: #06b6d4;
+    --text-main: #ffffff;
+    --text-muted: #cbd5e1;
+    --bg-light: #f8fafc;
+    --font-main: 'Plus Jakarta Sans', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html.lenis, html.lenis body { height: auto; width: 100%; overflow-x: hidden; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--brand-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Custom Grid System */
+.container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+.row { display: flex; flex-wrap: wrap; width: 100%; margin: 0 -15px; }
+.align-items-center { align-items: center; }
+.position-relative { position: relative; }
+.mt-5 { margin-top: 3rem; }
+.col-md-9 { width: 75%; padding: 0 15px; }
+.col-lg-8 { width: 66.666667%; padding: 0 15px; }
+
+@media (max-width: 768px) {
+    .col-md-9, .col-lg-8 { width: 100%; }
+}
+

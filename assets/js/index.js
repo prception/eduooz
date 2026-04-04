@@ -1725,6 +1725,8 @@ document.addEventListener("DOMContentLoaded", () => {
             track.appendChild(clone);
         });
 
+        const allCards = Array.from(track.children);
+
         // 2. Physics Variables
         let targetX = 0;
         let currentX = 0;
@@ -1802,6 +1804,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Apply transform natively via GSAP
             gsap.set(track, { x: currentX });
+
+            // Mobile auto-reveal logic
+            if (window.innerWidth <= 1024) {
+                const screenCenter = window.innerWidth / 2;
+                allCards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const cardCenter = rect.left + rect.width / 2;
+                    // Trigger if the center of the card is near the center of the screen
+                    if (cardCenter > screenCenter - (rect.width * 0.55) && cardCenter < screenCenter + (rect.width * 0.55)) {
+                        card.classList.add('mobile-active');
+                    } else {
+                        card.classList.remove('mobile-active');
+                    }
+                });
+            } else {
+                allCards.forEach(card => card.classList.remove('mobile-active'));
+            }
+
             requestAnimationFrame(animateCarousel);
         }
         

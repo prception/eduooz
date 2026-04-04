@@ -146,7 +146,7 @@
 }
 
 .footer-cta-title {
-    font-size: clamp(3rem, 5vw, 5rem); font-weight: 800; color: var(--brand-dark);
+    font-size: clamp(2.3rem, 5vw, 5rem); font-weight: 800; color: var(--brand-dark);
     letter-spacing: -2px; line-height: 1.1; margin-bottom: 40px;
 }
 
@@ -364,7 +364,7 @@
     .social-links { justify-content: center; }
     .footer-col ul li a:hover { transform: translateX(0); color: var(--brand-cyan); }
     .footer-bottom-bar { flex-direction: column; gap: 20px; text-align: center; }
-    .massive-footer-text { font-size: 35vw; bottom: 0; }
+    .massive-footer-text { font-size: 22vw; bottom: 0; }
     .site-wrapper { border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
     .float-circle { width: 100px; height: 100px; }
     .float-square { width: 70px; height: 70px; }
