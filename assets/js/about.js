@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
 
     // --- 1. Initialize Lenis Smooth Scrolling ---
     function initLenis() {
@@ -43,7 +43,8 @@
         duration: 1.2, 
         stagger: 0.15, 
         ease: "power3.out", 
-        delay: 0.5 
+        delay: 0.5,
+        clearProps: "filter"
     });
 
     
@@ -82,7 +83,7 @@
 
         renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(width, height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
         
         // Enable Hyper-Realistic Shadows
         renderer.shadowMap.enabled = true;
@@ -353,8 +354,8 @@
         spotLight.angle = Math.PI / 4;
         spotLight.penumbra = 0.5;
         spotLight.castShadow = true;
-        spotLight.shadow.mapSize.width = 2048; // High res shadows
-        spotLight.shadow.mapSize.height = 2048;
+        spotLight.shadow.mapSize.width = 1024; // Lower res shadows
+        spotLight.shadow.mapSize.height = 1024;
         spotLight.shadow.bias = -0.0001;
         scene.add(spotLight);
 
@@ -518,14 +519,15 @@
         opacity: 0, 
         duration: 1.2, 
         stagger: 0.15, 
-        ease: "power3.out"
+        ease: "power3.out",
+        clearProps: "filter"
     });
 
     // --- 7. GSAP Who We Help Reveal & Touch Interaction ---
     gsap.set(".g-wwh-reveal", { autoAlpha: 1 });
     gsap.from(".g-wwh-reveal", {
         scrollTrigger: { trigger: ".wwh-premium-section", start: "top 80%" },
-        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out"
+        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out", clearProps: "filter"
     });
 
     const wwhPillars = document.querySelectorAll('.wwh-pillar');
@@ -556,7 +558,7 @@
             start: "top 80%",
             toggleActions: "play reverse play reverse"
         },
-        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, ease: "power3.out"
+        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, ease: "power3.out", clearProps: "filter"
     });
 
     // 2. Card Entrances (Directional slide-in, replays on scroll)
@@ -750,7 +752,7 @@
             start: "top 80%",
         },
         y: 40, opacity: 0, filter: "blur(10px)", 
-        duration: 1.2, stagger: 0.15, ease: "power3.out"
+        duration: 1.2, stagger: 0.15, ease: "power3.out", clearProps: "filter"
     });
 
     // --- Cinematic Lights Out & Magnetic Cursor Logic ---

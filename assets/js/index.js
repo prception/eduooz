@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tl.from(".g-reveal", {
         y: 50, opacity: 0, filter: "blur(15px)", 
-        duration: 1.2, stagger: 0.15, ease: "power3.out", delay: 0.2
+        duration: 1.2, stagger: 0.15, ease: "power3.out", delay: 0.2,
+        clearProps: "filter"
     })
     .from(".main-glass-card", {
         y: 100, opacity: 0, rotationX: 15, scale: 0.9,
@@ -97,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     container.appendChild(renderer.domElement);
@@ -323,8 +324,8 @@ document.addEventListener("DOMContentLoaded", () => {
     spotLight.angle = Math.PI / 3;
     spotLight.penumbra = 0.6;
     spotLight.castShadow = true;
-    spotLight.shadow.mapSize.width = 1024;
-    spotLight.shadow.mapSize.height = 1024;
+    spotLight.shadow.mapSize.width = 512;
+    spotLight.shadow.mapSize.height = 512;
     scene.add(spotLight);
 
     const rimCyan = new THREE.PointLight(0x06b6d4, 6, 60);
@@ -535,9 +536,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
     camera.position.set(0, 0, 15);
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
     container.appendChild(renderer.domElement);
@@ -706,7 +707,8 @@ document.addEventListener("DOMContentLoaded", () => {
         filter: "blur(10px)",
         duration: 0.6,
         stagger: 0.05,
-        ease: "power3.out"
+        ease: "power3.out",
+        clearProps: "filter"
     }, "-=0.4")
     // Reveal staggered image stack inside the card
     .from(".stack-main", {
@@ -764,7 +766,7 @@ document.addEventListener("DOMContentLoaded", () => {
             toggleActions: "play none none reverse"
         },
         y: 40, opacity: 0, filter: "blur(10px)", 
-        duration: 1, stagger: 0.15, ease: "power3.out"
+        duration: 1, stagger: 0.15, ease: "power3.out", clearProps: "filter"
     });
 
     // Animate Cards Sliding up individually as you scroll
@@ -806,7 +808,7 @@ document.addEventListener("DOMContentLoaded", () => {
             start: "top 80%",
         },
         y: 40, opacity: 0, filter: "blur(10px)", 
-        duration: 1.2, stagger: 0.15, ease: "power3.out"
+        duration: 1.2, stagger: 0.15, ease: "power3.out", clearProps: "filter"
     });
 
     // --- Cinematic Lights Out & Magnetic Cursor Logic ---
@@ -1413,9 +1415,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const gyroCamera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
         gyroCamera.position.set(0, 0, 22);
 
-        const gyroRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        const gyroRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "default" });
         gyroRenderer.setSize(window.innerWidth, window.innerHeight);
-        gyroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        gyroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
         gyroContainer.appendChild(gyroRenderer.domElement);
 
         const gyroGroup = new THREE.Group();
@@ -1710,7 +1712,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.set(".g-fac-reveal", { autoAlpha: 1 });
     gsap.from(".g-fac-reveal", {
         scrollTrigger: { trigger: ".faculty-filmstrip-section", start: "top 75%" },
-        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out"
+        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out", clearProps: "filter"
     });
 
     const track = document.getElementById('faculty-track');
@@ -2053,7 +2055,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.set(".g-faq-reveal", { autoAlpha: 1 });
     gsap.from(".g-faq-reveal", {
         scrollTrigger: { trigger: ".faq-elite-section", start: "top 80%" },
-        y: 40, opacity: 0, filter: "blur(10px)", duration: 1, stagger: 0.15, ease: "power3.out"
+        y: 40, opacity: 0, filter: "blur(10px)", duration: 1, stagger: 0.15, ease: "power3.out", clearProps: "filter"
     });
 
     // Accordion Logic
