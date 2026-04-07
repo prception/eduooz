@@ -600,7 +600,7 @@ body.chat-is-open .scroll-to-top {
 .chat-btn-shimmer {
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 100%;
     height: 100%;
     background: linear-gradient(
@@ -610,15 +610,17 @@ body.chat-is-open .scroll-to-top {
         transparent 100%
     );
     border-radius: 50%;
+    transform: translateX(-100%);
     animation: chatShimmer 3s ease-in-out infinite;
     animation-delay: 1.5s;
     pointer-events: none;
+    will-change: transform;
 }
 
 @keyframes chatShimmer {
-    0%   { left: -100%; }
-    30%  { left: 100%; }
-    100% { left: 100%; }
+    0%   { transform: translateX(-100%); }
+    30%  { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
 }
 
 /* --- Orbital Ring --- */

@@ -76,7 +76,7 @@
             } else {
                 scrollBtn.classList.remove('show');
             }
-        });
+        }, { passive: true });
 
         // Smooth scroll to top
         scrollBtn.addEventListener('click', () => {
