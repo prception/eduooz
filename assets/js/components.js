@@ -16,7 +16,8 @@
     // Component paths - automatically adjusted for subdirectories
     const components = {
         header: basePath + 'components/header.html',
-        footer: basePath + 'components/footer.html'
+        footer: basePath + 'components/footer.html',
+        chat: basePath + 'components/chat.html'
     };
 
     /**
@@ -51,6 +52,10 @@
                     initScrollToTop();
                     window.dispatchEvent(new Event('footerLoaded'));
                 }
+
+                if (containerId === 'chat-container') {
+                    initChatFab();
+                }
             })
             .catch(error => {
                 console.error('Error loading component:', error);
@@ -78,6 +83,190 @@
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
+            });
+        });
+    }
+
+    /**
+     * Initialize the Premium Chat FAB button
+     * - Delayed entrance animation on scroll
+     * - Toggle active state on click (opens panel)
+     * - Quick replies, message sending, typing indicator
+     */
+    function initChatFab() {
+        const chatFab = document.getElementById('chatFab');
+        const chatBtn = document.getElementById('chatFabBtn');
+        const chatPanelClose = document.getElementById('chatPanelClose');
+        const chatBody = document.getElementById('chatPanelBody');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+
+        if (!chatFab || !chatBtn) return;
+
+        let chatShown = false;
+
+        // Show chat button after scrolling 300px OR after 4 seconds
+        const showChat = () => {
+            if (chatShown) return;
+            chatShown = true;
+            chatFab.classList.add('visible');
+        };
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) showChat();
+        }, { passive: true });
+
+        setTimeout(showChat, 4000);
+
+        // Toggle panel on FAB click
+        chatBtn.addEventListener('click', () => {
+            chatFab.classList.toggle('active');
+            
+            // Add class to body to hide scroll-to-top button
+            const isActive = chatFab.classList.contains('active');
+            document.body.classList.toggle('chat-is-open', isActive);
+
+            if (isActive && chatInput) {
+                setTimeout(() => chatInput.focus(), 450);
+            }
+        });
+
+        // Close panel via minimize button
+        if (chatPanelClose) {
+            chatPanelClose.addEventListener('click', () => {
+                chatFab.classList.remove('active');
+                document.body.classList.remove('chat-is-open');
+            });
+        }
+
+        // --- Helpers ---
+        function getTimeString() {
+            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function scrollToBottom() {
+            if (chatBody) {
+                setTimeout(() => {
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 50);
+            }
+        }
+
+        function addUserMessage(text) {
+            if (!chatBody) return;
+            const msg = document.createElement('div');
+            msg.className = 'chat-msg chat-msg-user';
+            msg.innerHTML = `
+                <div class="chat-msg-avatar">U</div>
+                <div class="chat-msg-bubble">
+                    <p>${text}</p>
+                    <span class="chat-msg-time">${getTimeString()}</span>
+                </div>
+            `;
+            chatBody.appendChild(msg);
+            scrollToBottom();
+        }
+
+        function showTyping() {
+            if (!chatBody) return;
+            const typing = document.createElement('div');
+            typing.className = 'chat-msg chat-msg-bot';
+            typing.id = 'chatTyping';
+            typing.innerHTML = `
+                <div class="chat-msg-avatar">E</div>
+                <div class="chat-msg-bubble">
+                    <div class="chat-typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+            chatBody.appendChild(typing);
+            scrollToBottom();
+        }
+
+        function removeTyping() {
+            const typing = document.getElementById('chatTyping');
+            if (typing) typing.remove();
+        }
+
+        function addBotMessage(text) {
+            removeTyping();
+            if (!chatBody) return;
+            const msg = document.createElement('div');
+            msg.className = 'chat-msg chat-msg-bot';
+            msg.innerHTML = `
+                <div class="chat-msg-avatar">E</div>
+                <div class="chat-msg-bubble">
+                    <p>${text}</p>
+                    <span class="chat-msg-time">${getTimeString()}</span>
+                </div>
+            `;
+            chatBody.appendChild(msg);
+            scrollToBottom();
+        }
+
+        // Bot reply based on topic
+        function getBotReply(userMsg) {
+            const msg = userMsg.toLowerCase();
+            if (msg.includes('course')) return "We offer elite coaching for Nursing, Pharmacy, and Lab Technology. Would you like details on a specific program? 📚";
+            if (msg.includes('admission')) return "Admissions for the 2026 batch are now open! You can apply online or visit our campus. Shall I share the application link? 🎓";
+            if (msg.includes('placement')) return "Our students have a 95%+ placement rate across top hospitals and healthcare networks. Want to see our placement report? 💼";
+            if (msg.includes('call') || msg.includes('talk')) return "Absolutely! Our counselor will call you shortly. You can also reach us directly at +91 8111850054 📞";
+            return "Thanks for reaching out! Our team will get back to you shortly. Is there anything specific you'd like to know about Eduooz? 😊";
+        }
+
+        // Handle sending a message
+        function handleSend() {
+            if (!chatInput) return;
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            // Remove quick replies on first user message
+            const quickReplies = chatBody.querySelector('.chat-quick-replies');
+            if (quickReplies) quickReplies.remove();
+
+            addUserMessage(text);
+            chatInput.value = '';
+
+            // Show typing then reply
+            setTimeout(showTyping, 400);
+            setTimeout(() => {
+                addBotMessage(getBotReply(text));
+            }, 1400 + Math.random() * 800);
+        }
+
+        // Send button click
+        if (chatSendBtn) {
+            chatSendBtn.addEventListener('click', handleSend);
+        }
+
+        // Enter key
+        if (chatInput) {
+            chatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSend();
+                }
+            });
+        }
+
+        // Quick reply buttons
+        const quickBtns = document.querySelectorAll('.chat-quick-btn');
+        quickBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const msg = btn.getAttribute('data-msg');
+                if (!msg) return;
+
+                // Remove quick replies
+                const quickReplies = chatBody.querySelector('.chat-quick-replies');
+                if (quickReplies) quickReplies.remove();
+
+                addUserMessage(msg);
+
+                setTimeout(showTyping, 400);
+                setTimeout(() => {
+                    addBotMessage(getBotReply(msg));
+                }, 1400 + Math.random() * 800);
             });
         });
     }
@@ -136,6 +325,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         loadComponent(components.header, 'header-container');
         loadComponent(components.footer, 'footer-container');
+        loadComponent(components.chat, 'chat-container');
     });
 
 })();
