@@ -1,0 +1,77 @@
+<!-- Premium Chat Button -->
+<div class="chat-fab-wrapper" id="chatFab">
+    <!-- Pulse Ring (attention grabber) -->
+    <div class="chat-pulse-ring"></div>
+    <div class="chat-pulse-ring ring-delay"></div>
+
+    <!-- Orbital Ring -->
+    <div class="chat-orbit-ring"></div>
+
+    <!-- Main Button -->
+    <button class="chat-fab-btn" id="chatFabBtn" aria-label="Chat with us">
+        <span class="chat-icon-wrap">
+            <i class="fa-solid fa-comments chat-icon-main"></i>
+            <i class="fa-solid fa-xmark chat-icon-close"></i>
+        </span>
+        <!-- Shimmer sweep -->
+        <span class="chat-btn-shimmer"></span>
+    </button>
+
+    <!-- Hover Tooltip -->
+    <div class="chat-tooltip">
+        <span class="chat-tooltip-dot"></span>
+        Chat with us
+    </div>
+
+    <!-- Chat Panel -->
+    <div class="chat-panel" id="chatPanel">
+        <!-- Header -->
+        <div class="chat-panel-header">
+            <div class="chat-header-left">
+                <div class="chat-avatar">
+                    <span class="chat-avatar-letter">E</span>
+                    <span class="chat-avatar-status"></span>
+                </div>
+                <div class="chat-header-info">
+                    <h4>Eduooz Support</h4>
+                    <p><span class="chat-status-dot"></span> Online now</p>
+                </div>
+            </div>
+            <button class="chat-panel-close" id="chatPanelClose" aria-label="Close chat">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+        </div>
+
+        <!-- Messages Area -->
+        <div class="chat-panel-body" id="chatPanelBody">
+            <!-- Welcome message -->
+            <div class="chat-msg chat-msg-bot">
+                <div class="chat-msg-avatar">E</div>
+                <div class="chat-msg-bubble">
+                    <p>Hi there! 👋 Welcome to <strong>Eduooz Academy</strong>.</p>
+                    <p>How can we help you today?</p>
+                    <span class="chat-msg-time">Just now</span>
+                </div>
+            </div>
+
+            <!-- Quick Replies -->
+            <div class="chat-quick-replies">
+                <button class="chat-quick-btn" data-msg="I want to know about courses">📚 Courses</button>
+                <button class="chat-quick-btn" data-msg="Tell me about admissions">🎓 Admissions</button>
+                <button class="chat-quick-btn" data-msg="I need placement details">💼 Placements</button>
+                <button class="chat-quick-btn" data-msg="I want to talk to someone">📞 Call Back</button>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-panel-footer">
+            <div class="chat-input-wrapper">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." autocomplete="off">
+                <button class="chat-send-btn" id="chatSendBtn" aria-label="Send message">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+            <p class="chat-powered">Powered by <strong>Eduooz</strong></p>
+        </div>
+    </div>
+</div>
