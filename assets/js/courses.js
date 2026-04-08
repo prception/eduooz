@@ -1177,3 +1177,232 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
 });
+
+        // Tab Filtering Logic with GSAP
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const boxes = document.querySelectorAll('.course-box');
+
+                // Hide all first
+                gsap.to(boxes, {
+                    opacity: 0, scale: 0.9, y: 20, duration: 0.2, onComplete: () => {
+                        boxes.forEach(box => {
+                            if (filter === 'all' || box.getAttribute('data-category') === filter) {
+                                box.style.display = 'flex';
+                                // Show filtered
+                                gsap.to(box, {
+                                    opacity: 1,
+                                    scale: 1,
+                                    y: 0,
+                                    duration: 0.4,
+                                    ease: "back.out(1.5)",
+                                    stagger: 0.05
+                                });
+                            } else {
+                                box.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                const answer = q.nextElementSibling;
+                const icon = q.querySelector('i');
+                const isOpen = answer.style.maxHeight !== '0px' && answer.style.maxHeight !== '';
+
+                // Close all others
+                document.querySelectorAll('.faq-a').forEach(a => a.style.maxHeight = '0px');
+                document.querySelectorAll('.faq-q i').forEach(i => i.style.transform = 'rotate(0deg)');
+
+                if (!isOpen) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    icon.style.transform = 'rotate(45deg)';
+                }
+            });
+        });
+
+        // --- Video Testimonials Logic ---
+        (function () {
+            const playlistItems = document.querySelectorAll('.testi-playlist-item');
+            const featuredImg = document.getElementById('testiFeaturedImg');
+            const avatarImg = document.getElementById('testiAvatarImg');
+            const nameEl = document.getElementById('testiName');
+            const subEl = document.getElementById('testiSub');
+            const badgeEl = document.getElementById('testiBadge');
+            const quoteEl = document.getElementById('testiQuote');
+
+            if (!playlistItems.length) return;
+
+            let currentIndex = 0;
+            let autoPlayInterval;
+
+            function updateFeatured(index) {
+                // Remove active class from all
+                playlistItems.forEach(item => item.classList.remove('active'));
+
+                // Add active class to current
+                const currentItem = playlistItems[index];
+                currentItem.classList.add('active');
+
+                // Animate transition using GSAP
+                gsap.to('.testi-featured', {
+                    opacity: 0, duration: 0.2, onComplete: () => {
+                        // Update content
+                        featuredImg.src = currentItem.dataset.img;
+                        avatarImg.src = currentItem.dataset.avatar;
+                        nameEl.textContent = currentItem.dataset.name;
+                        subEl.textContent = currentItem.dataset.sub;
+                        badgeEl.innerHTML = '<i class="fa-solid fa-check"></i> ' + currentItem.dataset.badge;
+                        quoteEl.innerHTML = '<i class="fa-solid fa-quote-left testi-quote-icon"></i> <p>' + currentItem.dataset.quote + '</p>';
+
+                        // Fade back in
+                        gsap.to('.testi-featured', { opacity: 1, duration: 0.3 });
+                    }
+                });
+            }
+
+            function nextItem() {
+                currentIndex = (currentIndex + 1) % playlistItems.length;
+                updateFeatured(currentIndex);
+            }
+
+            function startAutoPlay() {
+                // Clear any existing before starting to prevent multiple intervals
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = setInterval(nextItem, 2000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
+
+            // Click handling
+            playlistItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateFeatured(currentIndex);
+                    stopAutoPlay();
+                    // Resume after 5 seconds of inactivity
+                    setTimeout(startAutoPlay, 5000);
+                });
+            });
+
+            // Pause autoplay on hover over featured section or playlist
+            const featuredSection = document.getElementById('testiFeatured');
+            const playlistSection = document.getElementById('testiPlaylist');
+
+            if (featuredSection && playlistSection) {
+                featuredSection.addEventListener('mouseenter', stopAutoPlay);
+                featuredSection.addEventListener('mouseleave', startAutoPlay);
+                playlistSection.addEventListener('mouseenter', stopAutoPlay);
+                playlistSection.addEventListener('mouseleave', startAutoPlay);
+            }
+
+            // Start Autoplay
+            startAutoPlay();
+        })();
+
+        // --- YouTube Carousel ---
+        (function () {
+            const track = document.getElementById('ytTrack');
+            const viewport = document.getElementById('ytViewport');
+            const prevBtn = document.getElementById('ytPrev');
+            const nextBtn = document.getElementById('ytNext');
+            const dotsEl = document.getElementById('ytDots');
+            if (!track) return;
+
+            const cards = Array.from(track.querySelectorAll('.yt-card'));
+            let currentIndex = 0;
+
+            function getSlidesVisible() {
+                const w = window.innerWidth;
+                if (w <= 640) return 1;
+                if (w <= 991) return 2;
+                return 3;
+            }
+
+            function getTotal() {
+                return Math.ceil(cards.length / getSlidesVisible());
+            }
+
+            // Build dots
+            function buildDots() {
+                dotsEl.innerHTML = '';
+                const total = getTotal();
+                for (let i = 0; i < total; i++) {
+                    const d = document.createElement('button');
+                    d.className = 'yt-dot' + (i === 0 ? ' active' : '');
+                    d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                    d.addEventListener('click', () => goTo(i));
+                    dotsEl.appendChild(d);
+                }
+            }
+
+            function updateDots() {
+                const dotBtns = dotsEl.querySelectorAll('.yt-dot');
+                dotBtns.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+            }
+
+            function goTo(index) {
+                const slidesVisible = getSlidesVisible();
+                const total = getTotal();
+                currentIndex = Math.max(0, Math.min(index, total - 1));
+
+                const cardWidth = cards[0].getBoundingClientRect().width;
+                const gap = 24;
+                const slideOffset = currentIndex * slidesVisible * (cardWidth + gap);
+                track.style.transform = `translateX(-${slideOffset}px)`;
+
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex >= total - 1;
+                updateDots();
+            }
+
+            prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+            nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+
+            buildDots();
+            goTo(0);
+            window.addEventListener('resize', () => { buildDots(); goTo(0); });
+        })();
+
+        // Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+            const lenis = new Lenis();
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+
+            gsap.utils.toArray('.g-reveal').forEach(el => {
+                gsap.from(el, {
+                    scrollTrigger: { trigger: el, start: "top 85%" },
+                    y: 30, opacity: 0, duration: 0.8, ease: "power2.out"
+                });
+            });
+
+            // Placement stat cards entrance
+            gsap.utils.toArray('.placement-stat-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: { trigger: card, start: "top 88%" },
+                    y: 40, opacity: 0, duration: 0.7,
+                    delay: i * 0.1,
+                    ease: "power2.out"
+                });
+            });
+
+            const tl = gsap.timeline();
+            tl.from('.glass-pill', { opacity: 0, y: 20, duration: 0.6 })
+                .from('.hero-title-main', { opacity: 0, y: 30, duration: 0.8 }, "-=0.3")
+                .from('.hero-desc', { opacity: 0, y: 20, duration: 0.8 }, "-=0.5")
+                .from('.cta-cluster', { opacity: 0, y: 20, duration: 0.8 }, "-=0.5");
+        });
+
+    

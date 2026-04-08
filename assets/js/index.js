@@ -698,8 +698,7 @@ document.addEventListener("DOMContentLoaded", () => {
         opacity: 0,
         y: 40,
         duration: 0.8,
-        ease: "power4.out",
-        force3D: true
+        ease: "power4.out"
     })
     // Fade in text elements, milestones & CTAs
     .from(".g-about-up", {
@@ -732,8 +731,7 @@ document.addEventListener("DOMContentLoaded", () => {
         opacity: 0,
         duration: 0.6,
         stagger: 0.1,
-        ease: "back.out(1.5)",
-        force3D: true
+        ease: "back.out(1.5)"
     }, "-=0.4");
 
     // Independent Parallax effect for the main image
@@ -742,11 +740,10 @@ document.addEventListener("DOMContentLoaded", () => {
             trigger: ".about-hybrid-premium",
             start: "top bottom",
             end: "bottom top",
-            scrub: 1.5 // Added scrubbing duration for smooth, non-jittery parallax
+            scrub: true
         },
         y: "15%",
-        ease: "none",
-        force3D: true
+        ease: "none"
     });
 
     // --- 6. GSAP Why Eduooz Reveal & Stacking ---
@@ -1639,20 +1636,17 @@ document.addEventListener("DOMContentLoaded", () => {
         let mmFooter = gsap.matchMedia();
         
         mmFooter.add("(min-width: 1025px)", () => {
-            gsap.set(".luxury-footer-inner", { willChange: "transform, opacity" });
-            
             gsap.from(".luxury-footer-inner", {
                 scrollTrigger: {
                     trigger: ".luxury-footer-wrapper",
                     start: "top bottom",
                     end: "bottom bottom",
-                    scrub: 1 // Add scrub smoothing to eliminate shattering lag
+                    scrub: true
                 },
                 yPercent: -20,
                 scale: 0.95,
                 opacity: 0.5,
-                ease: "none",
-                force3D: true // Force Hardware Acceleration
+                ease: "none"
             });
         });
     }
@@ -1905,42 +1899,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const card = wrapper.querySelector('.prismatic-card');
         if (!card) return;
 
-        let rect, centerX, centerY;
+        // Use fresh clone to remove old listeners
+        const freshWrapper = wrapper;
 
-        // Cache rect on enter to prevent layout thrashing
-        wrapper.addEventListener('mouseenter', () => {
-            rect = wrapper.getBoundingClientRect();
-            centerX = rect.width / 2;
-            centerY = rect.height / 2;
-            // Instantly stop CSS transition so JS updates flawlessly
-            card.style.transition = "none";
-        });
-
-        wrapper.addEventListener('mousemove', (e) => {
-            if(!rect) return; // Wait for enter
-            
+        freshWrapper.addEventListener('mousemove', (e) => {
+            const rect = freshWrapper.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
             // Reduced tilt: Max 6 degrees for subtlety
             const rotateX = ((y - centerY) / centerY) * -6;
             const rotateY = ((x - centerX) / centerX) * 6;
-            
-            // Push updates to browser render queue cleanly
-            window.requestAnimationFrame(() => {
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                card.style.setProperty('--x', `${x}px`);
-                card.style.setProperty('--y', `${y}px`);
-            });
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            card.style.setProperty('--x', `${x}px`);
+            card.style.setProperty('--y', `${y}px`);
         });
 
-        wrapper.addEventListener('mouseleave', () => {
-            card.style.transition = `transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease`;
+        freshWrapper.addEventListener('mouseleave', () => {
             card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            card.style.transition = `transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease`;
             setTimeout(() => {
                 card.style.transition = `transform 0.15s ease, box-shadow 0.15s ease`;
             }, 600);
-            rect = null; // Clear off-state
         });
     }
 
