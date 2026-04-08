@@ -1,11 +1,14 @@
 (function () {
     'use strict';
 
-    // Detect base path for components.
-    // The website utilizes root-relative absolute paths (e.g. /assets/ css & js bounds)
-    // Return root '/' to reliably fetch components from any nested folder topology.
+    // Detect if we're in a subdirectory and get the base path
     function getBasePath() {
-        return '/';
+        const path = window.location.pathname;
+        // Check if we're in the courses folder or any other subdirectory
+        if (path.includes('/courses/') || path.includes('/pages/')) {
+            return '../';
+        }
+        return '';
     }
 
     const basePath = getBasePath();
