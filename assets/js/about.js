@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (container && typeof THREE !== 'undefined') {
         scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0x0a0514, 0.015); // Adds depth to the shadows
+        scene.fog = new THREE.FogExp2(0xe8d5fa, 0.015); // Light lavender fog! Do not use black fog.
         
         let width = container.clientWidth || window.innerWidth;
         let height = container.clientHeight || window.innerHeight;
@@ -90,25 +90,64 @@ document.addEventListener("DOMContentLoaded", () => {
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
 
+        // --- Generate Bright Environment for Premium Glass Refraction ---
+        // Without this custom PMREM env pass, glass has nothing to refract and looks like grey clay.
+        const pmremGenerator = new THREE.PMREMGenerator(renderer);
+        pmremGenerator.compileEquirectangularShader();
+        const envScene = new THREE.Scene();
+        envScene.background = new THREE.Color(0xfbf6ff); 
+        const envL1 = new THREE.PointLight(0xd4b3ff, 15, 100); envL1.position.set(10, 10, 10);
+        const envL2 = new THREE.PointLight(0x7dd3fc, 15, 100); envL2.position.set(-10, -10, 10);
+        const envL3 = new THREE.PointLight(0xffffff, 10, 100); envL3.position.set(0, 0, -10);
+        envScene.add(envL1, envL2, envL3);
+        scene.environment = pmremGenerator.fromScene(envScene, 0.04).texture;
+        pmremGenerator.dispose();
+
         dnaGroup = new THREE.Group();
         scene.add(dnaGroup);
 
-        // PERFECT FROSTED GLASS MATERIAL
+        // --- Procedural Micro-Texture Generator ---
+        // Generates an organic, porous texture (like eggshell, bone, or etched ceramic)
+        function createMicroTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512; canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#888'; // Neutral bump base
+            ctx.fillRect(0, 0, 512, 512);
+            for(let i = 0; i < 20000; i++) {
+                ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+                ctx.beginPath();
+                ctx.arc(Math.random() * 512, Math.random() * 512, Math.random() * 2 + 0.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            return texture;
+        }
+        const organicBumpMap = createMicroTexture();
+        organicBumpMap.repeat.set(4, 4);
+
+        // PERFECT PREMIER OPAQUE GLASS MATERIAL
+        // Highly reflective, smooth milky glass with a realistic organic micro-texture
         const frostedGlassMat = new THREE.MeshPhysicalMaterial({
-            color: 0xffffff,
-            transmission: 0.95, // Lets light through
-            opacity: 1,
-            metalness: 0.1,
-            roughness: 0.5, // The key to "Frosted" look (scatters light)
-            ior: 1.45,
-            thickness: 2.5, // Simulates thick glass volume for refraction
-            clearcoat: 0.8, // Keeps the outer edge shiny
-            clearcoatRoughness: 0.2
+            color: 0xe2e8f0, // Deeper silver-pearl base to reduce blowout
+            emissive: 0x000000, // Removed artificial glow to allow natural shadows
+            emissiveIntensity: 0, 
+            transparent: false, 
+            opacity: 1.0,
+            metalness: 0.25, // Adds richer contrast to shadows
+            roughness: 0.15, // Slightly raised to catch the bump map nicely
+            bumpMap: organicBumpMap,
+            bumpScale: 0.008, // Subtle realistic physical texture
+            clearcoat: 1.0, // High wet-look outer gloss layer
+            clearcoatRoughness: 0.02, // Mirror-like clearcoat
+            envMapIntensity: 2.5 // Lowered from 4.0 to soften extreme specular highlights
         });
 
-        // Emissive glowing connectors
-        const glowMatCyan = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x06b6d4, emissiveIntensity: 2 });
-        const glowMatMagenta = new THREE.MeshStandardMaterial({ color: 0xc026d3, emissive: 0xc026d3, emissiveIntensity: 2 });
+        // Glowing glossy jewel connectors (Solid)
+        const glowMatCyan = new THREE.MeshPhysicalMaterial({ color: 0x22d3ee, emissive: 0x06b6d4, emissiveIntensity: 1.0, transparent: false, metalness: 0.1, roughness: 0.05, clearcoat: 1.0, envMapIntensity: 2.0 });
+        const glowMatMagenta = new THREE.MeshPhysicalMaterial({ color: 0xe879f9, emissive: 0xc026d3, emissiveIntensity: 1.0, transparent: false, metalness: 0.1, roughness: 0.05, clearcoat: 1.0, envMapIntensity: 2.0 });
 
         const numNodes = 100;
         const radius = 5.5;
@@ -205,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const floatingGroup = new THREE.Group();
         scene.add(floatingGroup);
         const floatingElements = [];
-        const glowMatGreen = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x10b981, emissiveIntensity: 1.2, transparent: true, opacity: 0.85 });
+        const glowMatGreen = new THREE.MeshPhysicalMaterial({ color: 0x34d399, emissive: 0x10b981, emissiveIntensity: 1.0, transparent: false, metalness: 0.1, roughness: 0.05, clearcoat: 1.0, envMapIntensity: 2.0 });
 
         function createMedicalCross(scale) {
             const group = new THREE.Group();
@@ -304,9 +343,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const elementConfigs = [
             // Left region (Spreads out far left)
-            { create: () => createMedicalCross(2.5), pos: [-13, -3, 5], rot: [0.002, 0.004, 0.005], delay: 0.2 },
-            { create: () => createCapsule(2), pos: [-15, -10, -10], rot: [0.003, 0.002, 0.005], delay: 0.6 },
-            { create: () => createTestTube(2), pos: [-5, 5, 25], rot: [0.003, 0.003, 0.002], delay: 0.9 }, // Up close
+            { create: () => createMedicalCross(4), pos: [-33, 10, 5], rot: [0.002, 0.004, 0.005], delay: 0.2 },
+            { create: () => createCapsule(3), pos: [-33, 0, -10], rot: [0.003, 0.002, 0.005], delay: 0.6 },
+            { create: () => createTestTube(3), pos: [-30, 5, 25], rot: [0.003, 0.003, 0.002], delay: 0.9 },
+            
+            { create: () => createMedicalCross(2.5), pos: [-11, -8, 5], rot: [0.002, 0.004, 0.005], delay: 0.2 },
+            { create: () => createCapsule(2), pos: [-15, -13, -10], rot: [0.003, 0.002, 0.005], delay: 0.6 },
+            { create: () => createTestTube(2), pos: [-2, 8, 25], rot: [0.003, 0.003, 0.002], delay: 0.9 }, // Up close
             
             // Middle region (Around the DNA)
             { create: () => createTestTube(1.5), pos: [8, 22, -15], rot: [0.003, 0.003, 0.002], delay: 0.4 },
@@ -314,7 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             // Right region (Spreads out far right)
             { create: () => createStethoscope(2.5), pos: [25, 5, -5], rot: [0.003, 0.005, 0.002], delay: 0.3 },
-            { create: () => createCapsule(2), pos: [45, -15, 15], rot: [0.004, 0.003, 0.005], delay: 0.7 },
+            { create: () => createCapsule(2), pos: [35, -5, 15], rot: [0.004, 0.003, 0.005], delay: 0.7 },
             { create: () => createMedicalCross(2), pos: [25, 0, 20], rot: [0.003, 0.004, 0.003], delay: 1.0 },
         ];
 
@@ -345,11 +388,11 @@ document.addEventListener("DOMContentLoaded", () => {
         dnaGroup.rotation.z = Math.PI / 12;
 
         // --- Studio Lighting (Crucial for Shadows and Frosted Glass) ---
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4); 
+        const ambientLight = new THREE.AmbientLight(0xffffff, 2.5); // Boosted ambient light!
         scene.add(ambientLight);
 
         // Main Spotlight (Casts crisp, soft shadows through the glass)
-        const spotLight = new THREE.SpotLight(0xffffff, 5);
+        const spotLight = new THREE.SpotLight(0xffffff, 8); // Brighter spotlight
         spotLight.position.set(15, 25, 25);
         spotLight.angle = Math.PI / 4;
         spotLight.penumbra = 0.5;
@@ -501,8 +544,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 trigger: img.parentElement,
                 start: "top bottom",
                 end: "bottom top",
-                scrub: true
-            }
+                scrub: 1 // Smoothed scrub to stop shattering
+            },
+            force3D: true
         });
     });
 
@@ -592,8 +636,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 trigger: img.closest('.timeline-row'),
                 start: "top bottom",
                 end: "bottom top",
-                scrub: true
-            }
+                scrub: 1 // Added inertia smoothing
+            },
+            force3D: true
         });
     });
 
@@ -622,8 +667,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 trigger: ".approach-light-section",
                 start: "top bottom",
                 end: "bottom top",
-                scrub: true
-            }
+                scrub: 1 // Smoothed tracking
+            },
+            force3D: true
         });
     });
 
@@ -1629,17 +1675,20 @@ document.addEventListener("DOMContentLoaded", () => {
         let mmFooter = gsap.matchMedia();
         
         mmFooter.add("(min-width: 1025px)", () => {
+            gsap.set(".luxury-footer-inner", { willChange: "transform, opacity" });
+
             gsap.from(".luxury-footer-inner", {
                 scrollTrigger: {
                     trigger: ".luxury-footer-wrapper",
                     start: "top bottom",
                     end: "bottom bottom",
-                    scrub: true
+                    scrub: 1
                 },
                 yPercent: -20,
                 scale: 0.95,
                 opacity: 0.5,
-                ease: "none"
+                ease: "none",
+                force3D: true
             });
         });
     }
