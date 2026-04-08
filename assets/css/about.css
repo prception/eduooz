@@ -123,6 +123,62 @@ body {
     background: linear-gradient(90deg, rgba(10,5,20,0) 0%, rgba(255,255,255,0.03) 100%);
     pointer-events: none;
 }
+
+.gradient-mesh-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120vh;
+    z-index: 1;
+    filter: blur(100px);
+}
+
+.mesh-blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: fluid 20s infinite alternate ease-in-out;
+}
+
+.blob-purple {
+    width: 80vw;
+    height: 80vw;
+    background: var(--brand-purple);
+    top: -20%;
+    left: -10%;
+}
+
+.blob-cyan {
+    width: 80vw;
+    height: 80vw;
+    background: var(--brand-cyan);
+    bottom: -10%;
+    right: -10%;
+    animation-delay: -5s;
+    opacity: 0.4;
+}
+
+.blob-magenta {
+    width: 90vw;
+    height: 90vw;
+    background: var(--brand-magenta);
+    top: 20%;
+    left: 40%;
+    animation-delay: -10s;
+    opacity: 0.3;
+}
+
+@keyframes fluid {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(10vw, 10vh) scale(1.2);
+    }
+}
+
 .theme-blend-zone {
     position: relative;
     z-index: 20;
@@ -145,7 +201,8 @@ body {
     min-height: 50vh;
     display: flex;
     overflow: hidden;
-    background: rgba(94, 43, 196, 0.5);
+    background: rgba(94, 43, 196, 0.9);
+    /* background: var(--brand-dark); */
     padding-top: 160px; /* Accounts for header */
 }
 
@@ -1115,7 +1172,8 @@ body {
 
     .timeline-completion { margin-top: 60px; padding: 40px 20px; }
     .completion-icon { width: 64px; height: 64px; font-size: 1.4rem; }
-}/* =========================================
+}
+/* =========================================
    5. CINEMATIC VIDEO SECTION
    ========================================= */
 .video-luxury-section {
@@ -1945,10 +2003,6 @@ body {
         padding: 0px 0;
     }
 }
-
-
-
-
 
 
 
