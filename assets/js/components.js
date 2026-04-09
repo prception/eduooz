@@ -1,11 +1,26 @@
 (function () {
     'use strict';
 
-    // Detect base path for components.
-    // The website utilizes root-relative absolute paths (e.g. /assets/ css & js bounds)
-    // Return root '/' to reliably fetch components from any nested folder topology.
+    /**
+     * Detect base path for components.
+     * It looks at the current script's src to determine the relative path to the root.
+     * This ensures it works on local files, root domains, and subdirectories (GitHub Pages).
+     */
     function getBasePath() {
-        return '/';
+        const script = document.querySelector('script[src*="components.js"]');
+        if (!script) return './';
+        
+        const src = script.getAttribute('src');
+        // If the src is root-relative (starts with /), we return it up to the assets folder
+        if (src.startsWith('/')) {
+            return src.substring(0, src.indexOf('assets/'));
+        }
+        
+        // Otherwise, return the relative part before 'assets/'
+        const assetsIndex = src.indexOf('assets/');
+        if (assetsIndex === -1) return './';
+        
+        return src.substring(0, assetsIndex);
     }
 
     const basePath = getBasePath();
@@ -33,8 +48,9 @@
             })
             .then(html => {
                 // Fix relative paths if we are in a subdirectory
-                if (basePath && basePath !== '') {
-                    html = html.replace(/(href|src)="((?!http|#|mailto|\/).*?)"/g, '$1="' + basePath + '$2"');
+                if (basePath && basePath !== '' && basePath !== '/') {
+                    // Update href and src that don't start with http, /, #, or mailto
+                    html = html.replace(/(href|src)="(?!(?:https?:\/\/|#|mailto:|\/))([^"]+)"/g, '$1="' + basePath + '$2"');
                 }
 
                 container.innerHTML = html;
