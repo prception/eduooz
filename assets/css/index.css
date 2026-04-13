@@ -2682,15 +2682,19 @@ body {
     position: relative;
     z-index: 2;
     transform-style: preserve-3d;
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform; /* Force GPU Acceleration for JS Parallax */
 }
 /* Cycling Animation States */
-.alumni-card-wrapper.cycling-out {
+.alumni-cycle-animator {
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, opacity;
+}
+.alumni-cycle-animator.cycling-out {
     opacity: 0;
     transform: translateY(-30px) scale(0.95);
     pointer-events: none;
 }
-.alumni-card-wrapper.cycling-in {
+.alumni-cycle-animator.cycling-in {
     opacity: 0;
     transform: translateY(40px) scale(0.95);
     pointer-events: none;
@@ -2699,14 +2703,33 @@ body {
 
 .prismatic-card {
     position: relative; width: 100%;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    /* Frosted Glass Simulation — replaces backdrop-filter: blur(30px) which was
+       catastrophically expensive because the continuously-animated marquee text
+       behind these cards forced the GPU to recompute a 30px gaussian blur 60x/sec. */
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.92) 0%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(245, 240, 255, 0.88) 100%
+    );
     border: 1px solid rgba(255, 255, 255, 1);
     border-radius: 24px; padding: 25px;
     box-shadow: 0 20px 50px rgba(76, 18, 126, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.8);
     transform-style: preserve-3d;
+    will-change: transform;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
-    /* We don't use overflow hidden here so the 3D content can pop out */
+}
+/* Simulated frosted texture layer */
+.prismatic-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: 
+        radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(245, 240, 255, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 /* Prismatic Glare Effect (Optimized for Light Backgrounds) */
@@ -2727,6 +2750,8 @@ body {
 
 /* Card Internal Content (Pops out in 3D) */
 .card-content-3d {
+    position: relative;
+    z-index: 1; /* Above the ::before frosted texture */
     transform: translateZ(30px); /* Pushes everything toward the user */
     pointer-events: none; /* Let the wrapper handle the mouse */
 }

@@ -1555,14 +1555,31 @@ body {
 
 .prismatic-card {
     position: relative; width: 100%;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    /* Frosted Glass Simulation — replaces backdrop-filter: blur(30px) */
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.92) 0%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(245, 240, 255, 0.88) 100%
+    );
     border: 1px solid rgba(255, 255, 255, 1);
     border-radius: 24px; padding: 25px;
     box-shadow: 0 20px 50px rgba(76, 18, 126, 0.05), inset 0 0 20px rgba(255, 255, 255, 0.8);
     transform-style: preserve-3d;
+    will-change: transform;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
-    /* We don't use overflow hidden here so the 3D content can pop out */
+}
+/* Simulated frosted texture layer */
+.prismatic-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: 
+        radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(245, 240, 255, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 /* Prismatic Glare Effect (Optimized for Light Backgrounds) */
@@ -1576,15 +1593,17 @@ body {
                 transparent 80%);
     opacity: 0; transition: opacity 0.3s;
     pointer-events: none; z-index: 10;
-    mix-blend-mode: overlay; /* Creates that premium iridescent sheen */
+    mix-blend-mode: overlay;
 }
 .alumni-card-wrapper:hover .card-glare-light { opacity: 1; }
 .alumni-card-wrapper:hover .prismatic-card { box-shadow: 0 30px 60px rgba(76, 18, 126, 0.12), inset 0 0 30px rgba(255, 255, 255, 1); }
 
 /* Card Internal Content (Pops out in 3D) */
 .card-content-3d {
-    transform: translateZ(30px); /* Pushes everything toward the user */
-    pointer-events: none; /* Let the wrapper handle the mouse */
+    position: relative;
+    z-index: 1;
+    transform: translateZ(30px);
+    pointer-events: none;
 }
 
 .alumni-img-box {
