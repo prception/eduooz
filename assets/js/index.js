@@ -58,14 +58,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // Magnetic Buttons
     const magneticBtns = document.querySelectorAll('.magnetic-btn');
     magneticBtns.forEach(btn => {
+        let rect = null;
+        let activeRAF = null;
+
+        btn.addEventListener('mouseenter', () => {
+            rect = btn.getBoundingClientRect();
+        });
+
         btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
+            if(!rect) return;
             const x = (e.clientX - rect.left) - rect.width / 2;
             const y = (e.clientY - rect.top) - rect.height / 2;
-            gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: "power2.out" });
+            
+            if(activeRAF) cancelAnimationFrame(activeRAF);
+            activeRAF = requestAnimationFrame(() => {
+                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: "power2.out" });
+            });
         });
+
         btn.addEventListener('mouseleave', () => {
+            if(activeRAF) cancelAnimationFrame(activeRAF);
             gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
+            rect = null;
         });
     });
 
@@ -349,8 +363,15 @@ document.addEventListener("DOMContentLoaded", () => {
         mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
     });
 
+    let isCinematicVisible = true;
+    const cinematicObserver = new IntersectionObserver((entries) => {
+        isCinematicVisible = entries[0].isIntersecting;
+    }, { threshold: 0.01 });
+    if(container) cinematicObserver.observe(container);
+
     function animate() {
         requestAnimationFrame(animate);
+        if(!isCinematicVisible) return;
         const time = clock.getElapsedTime();
 
         // Animate each floating element with elegant organic motion (sway and float instead of spinning)
@@ -654,8 +675,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- 4. Render Loop ---
     const clock = new THREE.Clock();
     
+    let isHoloVisible = true;
+    const holoObserver = new IntersectionObserver((entries) => {
+        isHoloVisible = entries[0].isIntersecting;
+    }, { threshold: 0.01 });
+    if(container) holoObserver.observe(container);
+
     function animate() {
         requestAnimationFrame(animate);
+        if(!isHoloVisible) return;
         const time = clock.getElapsedTime();
 
         // Continuous elegant rotation for whichever object is active
@@ -1520,8 +1548,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // --- Animation Loop ---
         const gClock = new THREE.Clock();
+        
+        let isGyroVisible = true;
+        const gyroObserver = new IntersectionObserver((entries) => {
+            isGyroVisible = entries[0].isIntersecting;
+        }, { threshold: 0.01 });
+        if(gyroContainer) gyroObserver.observe(gyroContainer);
+
         function animateGyro() {
             requestAnimationFrame(animateGyro);
+            if(!isGyroVisible) return;
             const time = gClock.getElapsedTime();
 
             // Multi-axis rotation with varied speeds
@@ -1744,12 +1780,32 @@ document.addEventListener("DOMContentLoaded", () => {
         let autoScrollSpeed = 1; // Constant slow movement
         let trackWidth = 0;
 
+        // --- PERFORMANCE OPTIMIZATION: Data Structure for DOM State ---
+        let windowWidth = window.innerWidth;
+        let screenCenter = window.innerWidth / 2;
+        let cardData = [];
+
         function updateMeasurements() {
             // The real width is exactly half the total width because we cloned it once
             trackWidth = track.scrollWidth / 2;
+            
+            // Cache heavy measurements to avoid Layout Thrashing in the hot loop
+            windowWidth = window.innerWidth;
+            screenCenter = windowWidth / 2;
+
+            cardData = allCards.map(card => {
+                // Card's absolute screen X relative to current scroll baseline
+                const baseScreenLeft = card.getBoundingClientRect().left - currentX;
+                return {
+                    element: card,
+                    width: card.offsetWidth,
+                    baseLeft: baseScreenLeft,
+                    isActive: card.classList.contains('mobile-active')
+                };
+            });
         }
         
-        // Let images load before measuring
+        // Let images load before measuring fully
         setTimeout(updateMeasurements, 500);
         window.addEventListener('resize', updateMeasurements);
 
@@ -1813,21 +1869,36 @@ document.addEventListener("DOMContentLoaded", () => {
             // Apply transform natively via GSAP
             gsap.set(track, { x: currentX });
 
-            // Mobile auto-reveal logic
-            if (window.innerWidth <= 1024) {
-                const screenCenter = window.innerWidth / 2;
-                allCards.forEach(card => {
-                    const rect = card.getBoundingClientRect();
-                    const cardCenter = rect.left + rect.width / 2;
+            // Mobile auto-reveal logic (O(N) data structure loop, ZERO DOM Reflows)
+            if (windowWidth <= 1024) {
+                for (let i = 0; i < cardData.length; i++) {
+                    const card = cardData[i];
+                    // Calculate exact center position on screen strictly using cached array elements + math
+                    const cardCenter = card.baseLeft + currentX + (card.width / 2);
+                    
                     // Trigger if the center of the card is near the center of the screen
-                    if (cardCenter > screenCenter - (rect.width * 0.55) && cardCenter < screenCenter + (rect.width * 0.55)) {
-                        card.classList.add('mobile-active');
+                    const isNearCenter = cardCenter > screenCenter - (card.width * 0.55) && 
+                                         cardCenter < screenCenter + (card.width * 0.55);
+
+                    if (isNearCenter) {
+                        if (!card.isActive) {
+                            card.element.classList.add('mobile-active');
+                            card.isActive = true;
+                        }
                     } else {
-                        card.classList.remove('mobile-active');
+                        if (card.isActive) {
+                            card.element.classList.remove('mobile-active');
+                            card.isActive = false;
+                        }
                     }
-                });
+                }
             } else {
-                allCards.forEach(card => card.classList.remove('mobile-active'));
+                for (let i = 0; i < cardData.length; i++) {
+                    if (cardData[i].isActive) {
+                        cardData[i].element.classList.remove('mobile-active');
+                        cardData[i].isActive = false;
+                    }
+                }
             }
 
             requestAnimationFrame(animateCarousel);
@@ -1857,77 +1928,75 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.set(".g-place-reveal", { autoAlpha: 1 });
     gsap.from(".g-place-reveal", {
         scrollTrigger: { trigger: ".placement-light-section", start: "top 80%" },
-        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out"
+        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out",
+        clearProps: "filter,transform" // Clear filter dynamically after animation finishes to prevent GPU lockup
     });
 
     // 2. Faculty Data Pool (Replaces Alumni Pool for Fade-in Grid)
     const facultyPool = [
-        // Batch 1 (Matches initial HTML)
-        { name: "Dr. Anand", role: "Chief Director — Sciences", badge: "15+ Years", icon: '<i class="fa-solid fa-microscope"></i>', desc: "Mentored <strong>200+ Rank Holders</strong> in Biology & Competitive Exams", img: "https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=500" },
-        { name: "Prof. Samuel John", role: "Lead Pharmacist Educator", badge: "M.Pharm", icon: '<i class="fa-solid fa-capsules"></i>', desc: "Ex-State Board Examiner — <strong>High-Yield Topic Specialist</strong>", img: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=500" },
-        { name: "Dr. Meera Menon", role: "Head of Nursing Dept.", badge: "AIIMS Topper", icon: '<i class="fa-solid fa-hospital"></i>', desc: "Trained <strong>300+ Nurses</strong> for AIIMS, JIPMER & Central Govt.", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=500" },
+        // Batch 1
+        { name: "Shine Stephen", role: "Asst. Professor (Ex-AIIMS)", badge: "MSc (N)", icon: '<i class="fa-solid fa-trophy"></i>', desc: "A PGIMER & INC-WHO PhD Scholar, former AIIMS faculty, and multi-rank holder in KPSC exams.", img: "assets/images/faculties/SHINE.png" },
+        { name: "Nayana Shaji", role: "M Pharm Pharmacology", badge: "GPAT Ranker", icon: '<i class="fa-solid fa-award"></i>', desc: "A GPAT Ranker and distinction holder across various Kerala & Central competitive pharmacy exams.", img: "assets/images/faculties/NAYANA.jpeg" },
+        { name: "Vidhu R Vijayan", role: "MSc Nursing (Orthopedic)", badge: "NCLEX RN", icon: '<i class="fa-solid fa-stethoscope"></i>', desc: "An Orthopedic Nursing specialist who successfully passed the international NCLEX RN certification.", img: "assets/images/faculties/VIDHU.JPG.jpeg" },
         // Batch 2
-        { name: "Gabriel", role: "Full Stack AI & Digital", badge: "Tech & Growth", icon: '<i class="fa-solid fa-laptop-code"></i>', desc: "Architecting the Eduooz digital ecosystem and platform growth", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=500" },
-        { name: "Sarah Thomas", role: "Lab Technology & Global", badge: "DHA Specialist", icon: '<i class="fa-solid fa-globe"></i>', desc: "Guiding students through international testing formats & placements", img: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=500" },
-        { name: "Dr. Rajesh Kumar", role: "Anatomy Expert", badge: "MBBS, MD", icon: '<i class="fa-solid fa-bone"></i>', desc: "Breaking down complex anatomical concepts with practical ease", img: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=500" },
+        { name: "Honey Mol P. V", role: "MSc Molecular Biology", badge: "Distinction", icon: '<i class="fa-solid fa-dna"></i>', desc: "A Molecular Biology distinction holder and proven rank holder in Kerala PSC state recruitment.", img: "assets/images/faculties/HONEY.JPG.jpeg" },
+        { name: "Sreelekshmi E. M", role: "MSc Microbiology", badge: "2nd Rank", icon: '<i class="fa-solid fa-microscope"></i>', desc: "Achieved 2nd Rank in state-level health recruitment for Microbiology specialists.", img: "assets/images/faculties/SREELEKSHMI.jpeg" },
+        { name: "Arathy Surendran", role: "MSc Nursing (Pediatrics)", badge: "KUHS Scholar", icon: '<i class="fa-solid fa-baby"></i>', desc: "A Pediatrics Nursing scholar from KUHS and a recognized Kerala PSC nursing rank holder.", img: "assets/images/faculties/ARATHY.JPG.jpeg" },
         // Batch 3
-        { name: "Anita Desai", role: "Senior Nursing Instructor", badge: "10+ Years", icon: '<i class="fa-solid fa-syringe"></i>', desc: "Specializes in clinical scenarios and emergency care questions", img: "https://images.unsplash.com/photo-1580281658223-9b93f18ae9ae?auto=format&fit=crop&q=80&w=500" },
-        { name: "Vikram Singh", role: "Head of Pharmacology", badge: "M.Sc Pharma", icon: '<i class="fa-solid fa-flask"></i>', desc: "Mastering drug classifications and mechanism of actions", img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=500" },
-        { name: "Elena Fernandez", role: "PROMETRIC Guide", badge: "Global Trainer", icon: '<i class="fa-solid fa-plane"></i>', desc: "Preparing students for Middle Eastern licensing board exams", img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=500" }
+        { name: "Aparna T. M", role: "M Pharm - KUHS", badge: "1st Rank", icon: '<i class="fa-solid fa-capsules"></i>', desc: "A distinguished M Pharm professional and 1st Rank holder in the KUHS pharmacy boards.", img: "assets/images/faculties/APARNA.jpeg" },
+        { name: "Dr. Manjima G. S", role: "Doctor of Pharmacy (PharmD)", badge: "Int'l Scholar", icon: '<i class="fa-solid fa-globe"></i>', desc: "Awarded an International Scholarship for MSc Pharmacology in the UK after completing PharmD.", img: "assets/images/faculties/MANJIMA.jpeg" },
+        { name: "Jesna Prasad", role: "BSc Nursing", badge: "German B2", icon: '<i class="fa-solid fa-language"></i>', desc: "A BSc Nurse with German A1-B2 proficiency, expert in guiding global migration for healthcare.", img: "assets/images/faculties/JESNA.JPG.jpeg" },
+        // Batch 4 (Cycling back with Top Faculty to keep 3 cards)
+        { name: "Jeethu Paul", role: "MSc Nursing (Pediatric)", badge: "KPSC Ranker", icon: '<i class="fa-solid fa-user-nurse"></i>', desc: "A specialized Pediatric Nurse with consistent ranking records in various Kerala PSC exams.", img: "assets/images/faculties/JEETHU.JPG.jpeg" },
+        { name: "Shine Stephen", role: "Asst. Professor (Ex-AIIMS)", badge: "MSc (N)", icon: '<i class="fa-solid fa-trophy"></i>', desc: "A PGIMER & INC-WHO PhD Scholar, former AIIMS faculty, and multi-rank holder in KPSC exams.", img: "assets/images/faculties/SHINE.png" },
+        { name: "Nayana Shaji", role: "M Pharm Pharmacology", badge: "GPAT Ranker", icon: '<i class="fa-solid fa-award"></i>', desc: "A GPAT Ranker and distinction holder across various Kerala & Central competitive pharmacy exams.", img: "assets/images/faculties/NAYANA.jpeg" }
     ];
 
     let currentFacultyBatch = 0; // Tracks which group of 3 is currently displayed
+    
+    // --- PERFORMANCE FIX: Shadowing DOM Nodes instead of arbitrary innerHTML insertion ---
+    // And decoupling Parallax animation layer from Fade animation layer 
+    const activeWrappers = document.querySelectorAll('.alumni-card-wrapper');
+    const facultyDOMNodes = Array.from(activeWrappers).map(wrapper => {
+        return {
+            wrapper: wrapper,
+            cycleNode: wrapper.querySelector('.alumni-cycle-animator') || wrapper, // Decoupled transitional boundary
+            img: wrapper.querySelector('img'),
+            badge: wrapper.querySelector('.rank-badge'),
+            name: wrapper.querySelector('.alumni-info h3'),
+            role: wrapper.querySelector('.exam-name'),
+            icon: wrapper.querySelector('.dest-icon'),
+            desc: wrapper.querySelector('.placement-dest span:last-child')
+        };
+    });
 
-    function generateFacultyCardHTML(fac) {
-        return `
-            <div class="prismatic-card">
-                <div class="card-glare-light"></div>
-                <div class="card-content-3d">
-                    <div class="alumni-img-box">
-                        <img src="${fac.img}" alt="${fac.name}">
-                        <div class="rank-badge">${fac.badge}</div>
-                    </div>
-                    <div class="alumni-info">
-                        <h3>${fac.name}</h3>
-                        <p class="exam-name">${fac.role}</p>
-                        <div class="placement-dest">
-                            <span class="dest-icon">${fac.icon}</span>
-                            <span>${fac.desc}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-    }
-
-    const cardWrappers = document.querySelectorAll('.alumni-card-wrapper');
-
-    function bindTiltPhysics(wrapper) {
+    function bindTiltPhysics(nodeInfo) {
+        const wrapper = nodeInfo.wrapper;
         const card = wrapper.querySelector('.prismatic-card');
         if (!card) return;
 
         let rect, centerX, centerY;
+        let activeRAF = null;
 
-        // Cache rect on enter to prevent layout thrashing
         wrapper.addEventListener('mouseenter', () => {
             rect = wrapper.getBoundingClientRect();
             centerX = rect.width / 2;
             centerY = rect.height / 2;
-            // Instantly stop CSS transition so JS updates flawlessly
             card.style.transition = "none";
         });
 
         wrapper.addEventListener('mousemove', (e) => {
-            if(!rect) return; // Wait for enter
-            
+            if(!rect) return; 
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            // Reduced tilt: Max 6 degrees for subtlety
             const rotateX = ((y - centerY) / centerY) * -6;
             const rotateY = ((x - centerX) / centerX) * 6;
             
-            // Push updates to browser render queue cleanly
-            window.requestAnimationFrame(() => {
+            // Cancel unexecuted frames to prevent bottlenecking
+            if(activeRAF) window.cancelAnimationFrame(activeRAF);
+
+            activeRAF = window.requestAnimationFrame(() => {
                 card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                 card.style.setProperty('--x', `${x}px`);
                 card.style.setProperty('--y', `${y}px`);
@@ -1935,57 +2004,68 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         wrapper.addEventListener('mouseleave', () => {
+            if(activeRAF) window.cancelAnimationFrame(activeRAF);
             card.style.transition = `transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease`;
             card.style.transform = `rotateX(0deg) rotateY(0deg)`;
             setTimeout(() => {
                 card.style.transition = `transform 0.15s ease, box-shadow 0.15s ease`;
             }, 600);
-            rect = null; // Clear off-state
+            rect = null; 
         });
     }
 
-    // Bind initial tilt physics
-    cardWrappers.forEach(bindTiltPhysics);
+    // Bind tilt physics EXACTLY ONCE to avoid Compound Listener Leaks
+    facultyDOMNodes.forEach(bindTiltPhysics);
 
-    // 3. Cycling Engine
+    // Pre-load all images so no pop-in happens during cycle
+    facultyPool.forEach(fac => {
+        if(fac.img) {
+            const img = new Image();
+            img.src = fac.img;
+        }
+    });
+
+    // 3. Cycling Engine (Zero DOM Reflow Edition)
     function cycleFaculty() {
         const totalBatches = Math.ceil(facultyPool.length / 3);
         currentFacultyBatch = (currentFacultyBatch + 1) % totalBatches;
         const batch = facultyPool.slice(currentFacultyBatch * 3, currentFacultyBatch * 3 + 3);
 
-        // Phase 1: Fade Out + Jump Up (staggered cascade)
-        cardWrappers.forEach((wrapper, i) => {
+        // Phase 1: Fade Out + Jump Up (staggered cascade strictly on decopled inner node)
+        facultyDOMNodes.forEach((node, i) => {
             setTimeout(() => {
-                wrapper.classList.add('cycling-out');
-            }, i * 150); // 150ms stagger for smooth cascade
+                node.cycleNode.classList.add('cycling-out');
+            }, i * 150);
         });
 
-        // Phase 2: Swap content after fade-out fully completes
+        // Phase 2: Direct Text Modification safely masked by CSS invisibility
         setTimeout(() => {
-            cardWrappers.forEach((wrapper, i) => {
-                if (batch[i]) {
-                    wrapper.innerHTML = generateFacultyCardHTML(batch[i]);
-                    const img = wrapper.querySelector('img');
-                    if (img) img.loading = 'eager';
+            facultyDOMNodes.forEach((node, i) => {
+                const fac = batch[i];
+                if (fac) {
+                    if(node.img) { node.img.src = fac.img; node.img.alt = fac.name; }
+                    if(node.badge) node.badge.textContent = fac.badge;
+                    if(node.name) node.name.textContent = fac.name;
+                    if(node.role) node.role.textContent = fac.role;
+                    if(node.icon) node.icon.innerHTML = fac.icon;
+                    if(node.desc) node.desc.textContent = fac.desc;
                 }
-                // Instantly set the "waiting below" position
-                wrapper.classList.remove('cycling-out');
-                wrapper.classList.add('cycling-in');
+                
+                node.cycleNode.classList.remove('cycling-out');
+                node.cycleNode.classList.add('cycling-in');
             });
 
-            // Phase 3: Jump Reveal from Below (staggered bounce)
+            // Phase 3: Jump Reveal from Below 
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    cardWrappers.forEach((wrapper, i) => {
+                    facultyDOMNodes.forEach((node, i) => {
                         setTimeout(() => {
-                            wrapper.classList.remove('cycling-in');
-                            // Re-bind 3D tilt physics to the fresh DOM
-                            bindTiltPhysics(wrapper);
+                            node.cycleNode.classList.remove('cycling-in');
                         }, i * 150);
                     });
                 });
             });
-        }, 800); // Synced with 0.7s CSS transition + buffer
+        }, 800);
     }
 
     // Start cycling every 5 seconds
@@ -1995,7 +2075,8 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.set(".g-test-reveal", { autoAlpha: 1 });
     gsap.from(".g-test-reveal", {
         scrollTrigger: { trigger: ".testimonials-premium-section", start: "top 80%" },
-        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out"
+        y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out",
+        clearProps: "filter,transform"
     });
 
     // --- 12. Testimonial Marquee: JS-Driven Infinite Scroll + Drag ---
