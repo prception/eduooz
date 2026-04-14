@@ -29,6 +29,14 @@
     transition: color 0.4s ease;
 }
 
+.logo img {
+    height: 170px;
+}
+
+.logo-footer img {
+    height: 170px;
+}
+
 .nav-links {
     display: flex;
     gap: 40px;
@@ -158,7 +166,7 @@
 .btn-liquid-cyan {
     display: inline-flex; align-items: center; gap: 10px;
     background: var(--brand-cyan); color: var(--brand-dark);
-    padding: 20px 45px; border-radius: 100px; font-weight: 800; font-size: 1.1rem;
+    padding: 20px 45px; border-radius: 100px; font-weight: 600; font-size: 1.1rem;
     text-decoration: none; box-shadow: 0 15px 35px rgba(6, 182, 212, 0.3);
     transition: all 0.3s;
 }
@@ -432,7 +440,7 @@ body.chat-is-open .scroll-to-top {
     padding: 16px 36px;
     border-radius: 100px;
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: .80rem;
     box-shadow: 0 10px 20px rgba(91, 33, 182, 0.2);
     transition: all 0.3s;
     position: relative;

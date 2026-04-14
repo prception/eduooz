@@ -305,29 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { create: () => createTestTube(2.0), pos: [22, 14, -12], drift: [0.05, 0.07, 0.08], rot: [0.002, 0.003, 0.004], delay: 0.5 },
     ];
 
-    elementConfigs.forEach(cfg => {
-        const obj = cfg.create();
-        obj.position.set(cfg.pos[0], cfg.pos[1], cfg.pos[2]);
-        obj.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
-        obj.scale.set(0, 0, 0);
-        floatingGroup.add(obj);
-
-        gsap.to(obj.scale, {
-            x: 1, y: 1, z: 1,
-            duration: 2.5,
-            ease: "power3.out",
-            delay: 0.8 + cfg.delay
-        });
-
-        floatingElements.push({
-            mesh: obj,
-            basePos: { x: cfg.pos[0], y: cfg.pos[1], z: cfg.pos[2] },
-            baseRot: { x: obj.rotation.x, y: obj.rotation.y, z: obj.rotation.z },
-            drift: cfg.drift,
-            rot: cfg.rot,
-            phase: Math.random() * Math.PI * 2
-        });
-    });
+    // We will initialize the elements inside a setTimeout below to prevent lag
 
     // --- STUDIO LIGHTING ---
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -400,8 +378,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
         renderer.render(scene, camera);
     }
-    animate();
-
+    // ------------------------------------------------------------
+    // CRITICAL PERFORMANCE OPTIMIZATION
+    // We defer the heavy WebGL payload (geometry compilation + render loop) 
+    // by 1.4 seconds. This ensures the main hero GSAP entrance (phone mockup) 
+    // runs at an unflinching 60 FPS upon load.
+    // ------------------------------------------------------------
+    setTimeout(() => {
+        elementConfigs.forEach(cfg => {
+            const obj = cfg.create();
+            obj.position.set(cfg.pos[0], cfg.pos[1], cfg.pos[2]);
+            obj.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+            obj.scale.set(0, 0, 0);
+            floatingGroup.add(obj);
+    
+            gsap.to(obj.scale, {
+                x: 1, y: 1, z: 1,
+                duration: 2.5,
+                ease: "power3.out",
+                delay: cfg.delay // Base delay of 0.8 removed since we are natively delaying via setTimeout
+            });
+    
+            floatingElements.push({
+                mesh: obj,
+                basePos: { x: cfg.pos[0], y: cfg.pos[1], z: cfg.pos[2] },
+                baseRot: { x: obj.rotation.x, y: obj.rotation.y, z: obj.rotation.z },
+                drift: cfg.drift,
+                rot: cfg.rot,
+                phase: Math.random() * Math.PI * 2
+            });
+        });
+        
+        animate();
+    }, 2500);
     // Responsive
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -1699,34 +1708,40 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener('footerLoaded', initFooterAnimation);
     }
 
-    // --- Mobile Menu Toggle ---
-    function initHeaderInteractions() {
-        const menuToggle = document.getElementById('menu-toggle');
-        const navLinksList = document.querySelector('.nav-links');
-        const navItemsList = document.querySelectorAll('.nav-links a');
+    // --- Testimonial Name Avatars (replaces placeholder images) ---
+    (function initTestimonialAvatars() {
+        const gradients = [
+            'linear-gradient(135deg, #667eea, #764ba2)',
+            'linear-gradient(135deg, #f093fb, #f5576c)',
+            'linear-gradient(135deg, #4facfe, #00f2fe)',
+            'linear-gradient(135deg, #43e97b, #38f9d7)',
+            'linear-gradient(135deg, #fa709a, #fee140)',
+            'linear-gradient(135deg, #a18cd1, #fbc2eb)',
+            'linear-gradient(135deg, #fccb90, #d57eeb)',
+            'linear-gradient(135deg, #e0c3fc, #8ec5fc)',
+            'linear-gradient(135deg, #f5576c, #ff6a88)',
+            'linear-gradient(135deg, #0acffe, #495aff)',
+        ];
 
-        if (menuToggle && navLinksList) {
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                navLinksList.classList.toggle('active');
-                document.body.style.overflow = navLinksList.classList.contains('active') ? 'hidden' : '';
-            });
+        document.querySelectorAll('.test-card-header').forEach((header, idx) => {
+            const img = header.querySelector('img');
+            const h4 = header.querySelector('h4');
+            if (!img || !h4) return;
 
-            navItemsList.forEach(item => {
-                item.addEventListener('click', () => {
-                    menuToggle.classList.remove('active');
-                    navLinksList.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
-        }
-    }
+            const name = h4.textContent.trim();
+            const parts = name.split(/\s+/);
+            const initials = parts.length >= 2
+                ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+                : name.substring(0, 2).toUpperCase();
 
-    if (document.getElementById('menu-toggle')) {
-        initHeaderInteractions();
-    } else {
-        window.addEventListener('headerLoaded', initHeaderInteractions);
-    }
+            const avatar = document.createElement('div');
+            avatar.className = 'test-avatar';
+            avatar.textContent = initials;
+            avatar.style.background = gradients[idx % gradients.length];
+
+            img.parentNode.insertBefore(avatar, img);
+        });
+    })();
 
     // --- 10. Scroll to Top Button ---
     const scrollTopBtn = document.getElementById('scrollTopBtn');

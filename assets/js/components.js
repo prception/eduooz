@@ -299,6 +299,7 @@
         navbarToggler.addEventListener('click', function () {
             this.classList.toggle('active');
             navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
         });
 
         // Close navbar when clicking a nav link
@@ -307,6 +308,7 @@
             link.addEventListener('click', function () {
                 navbarToggler.classList.remove('active');
                 navLinks.classList.remove('active');
+                document.body.style.overflow = '';
             });
         });
     }
