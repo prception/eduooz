@@ -516,20 +516,21 @@ body {
 /* Contained Trust Panel inside the transition */
 .trust-glass-panel {
     pointer-events: auto;
-    /* Re-enable clicks for the panel */
-    max-width: 1300px;
-    margin: 0 auto;
+    position: relative;
+    max-width: 1250px;
+    margin: -70px auto 0; /* Pulls slightly into the hero gradient for depth */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgb(215 6 241 / 5%);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(15, 10, 25, 24%); /* Premium Dark Glass */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 30px;
-    padding: 40px 60px;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), inset 0 2px 20px rgba(255, 255, 255, 0.1);
+    padding: 45px 50px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4), inset 0 2px 20px rgba(255, 255, 255, 0.05);
+    overflow: hidden;
 }
 
 .stat-block {
@@ -538,27 +539,40 @@ body {
     align-items: center;
     text-align: center;
     flex: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.stat-icon-wrap {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 .stat-number {
-    font-size: 3.5rem;
-    font-weight: 800;
+    font-size: 4rem;
+    font-weight: 900;
     line-height: 1;
     margin-bottom: 8px;
-    background: linear-gradient(145deg, #ffffff 0%, #e6d7f4 50%, #bd82f4 100%);
+    background: linear-gradient(to right, #ffffff, var(--brand-cyan));
     -webkit-background-clip: text;
     background-clip: text;
-    /* Added this line */
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 4px 15px rgba(6, 182, 212, 0.2));
+    filter: drop-shadow(0 4px 15px rgba(6, 182, 212, 0.25));
+    letter-spacing: -2px;
 }
 
 .stat-label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #e2e8f0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
 }
 
 .stat-divider {
@@ -656,7 +670,7 @@ body {
     height: 100vh;
     z-index: -2;
     filter: blur(80px);
-    opacity: 0.05;
+    opacity: 0.1;
 }
 
 .blob {
@@ -1010,7 +1024,7 @@ body {
 }
 
 .about-title {
-    font-size: clamp(3rem, 4vw, 4.5rem);
+    font-size: clamp(3rem, 3vw, 3.5rem);
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -1px;
@@ -1133,13 +1147,7 @@ body {
     background: linear-gradient(to right, var(--brand-purple), var(--brand-magenta));
 }
 
-.about-title {
-    font-size: clamp(3rem, 4vw, 4.5rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -1px;
-    color: var(--text-light-theme);
-}
+
 
 
 @keyframes goldShimmer {
@@ -1163,7 +1171,7 @@ body {
     background: rgba(91, 33, 182, 0.05);
     border: 1px solid rgba(91, 33, 182, 0.1);
     border-radius: 100px;
-    font-size: 0.85rem;
+    font-size: 0.70rem;
     font-weight: 600;
     color: var(--text-light-theme);
     transition: all 0.3s ease;
@@ -1205,7 +1213,7 @@ body {
     padding: 16px 36px;
     border-radius: 100px;
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: .80rem;
     box-shadow: 0 10px 20px rgba(91, 33, 182, 0.2);
     transition: all 0.3s;
     position: relative;
@@ -1236,7 +1244,7 @@ body {
     color: var(--text-light-theme);
     text-decoration: none;
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: .85rem;
     transition: color 0.3s;
     display: flex;
     align-items: center;
@@ -1436,7 +1444,7 @@ body {
 }
 
 .story-block h3 {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -1455,7 +1463,7 @@ body {
 }
 
 .story-block p {
-    font-size: 1.15rem;
+    font-size: 1rem;
     color: var(--text-muted-light);
     line-height: 1.8;
     font-weight: 500;
@@ -1720,7 +1728,6 @@ body {
 .main-video-portal:hover {
     transform: scale(1.02);
     box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 60px rgba(107, 33, 168, 0.3);
-    z-index: 60;
 }
 
 .video-glass-frame {
@@ -2760,7 +2767,7 @@ body {
     position: relative; width: 100%; height: 220px; border-radius: 16px; overflow: hidden;
     margin-bottom: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
-.alumni-img-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(10%); transition: filter 0.3s, transform 0.5s; }
+.alumni-img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(10%); transition: filter 0.3s, transform 0.5s; }
 .alumni-card-wrapper:hover .alumni-img-box img { filter: grayscale(0%); transform: scale(1.05); }
 
 .rank-badge {
@@ -2881,8 +2888,17 @@ body {
 
 .test-card-header { display: flex; align-items: center; gap: 20px; }
 .test-card-header img {
-    width: 60px; height: 60px; border-radius: 50%;
-    object-fit: cover; 
+    display: none; /* Hidden — replaced by JS-generated initials */
+}
+
+/* Name Initial Avatar */
+.test-avatar {
+    width: 55px; height: 55px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; font-weight: 800; color: #fff;
+    letter-spacing: 1px; flex-shrink: 0;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    text-transform: uppercase;
 }
 
 .test-card-header h4 { 

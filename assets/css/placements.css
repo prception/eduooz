@@ -108,7 +108,7 @@ body {
    1. PLACEMENTS HERO (COMMAND CENTER)
    ========================================= */
 .placement-hero-section {
-    position: relative; padding: 180px 0 120px 0;
+    position: relative; padding: 180px 0 55px 0;
      z-index: 10; overflow: hidden;
 }
 
@@ -132,7 +132,7 @@ body {
 .dashboard-glass-panel {
     background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.3);
-    border-radius: 30px; padding: 40px; box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    border-radius: 30px; padding: 40px; box-shadow: 0 23px 80px rgba(0,0,0,0.5);
 }
 
 .data-header { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; margin-bottom: 30px; }
@@ -144,19 +144,19 @@ body {
 .data-node { display: flex; align-items: flex-start; gap: 15px; }
 .data-node i { font-size: 1.8rem; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; }
 .data-node h3 { font-size: 2rem; font-weight: 900; color: var(--text-muted-light); line-height: 1; margin-bottom: 5px; display: flex; align-items: center; }
-.data-node span { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+.data-node span { font-size: 0.85rem; font-weight: 700; color: rgba(0, 0, 0, 0.5); text-transform: uppercase; letter-spacing: 1px; }
 
 /* =========================================
    2. INFINITE ALUMNI CASCADE
    ========================================= */
 .alumni-cascade-section {
-    padding: 120px 0; background-color: var(--bg-light); position: relative; z-index: 10;
+    padding: 120px 0; position: relative; z-index: 10;
 }
 .section-title-dark { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; color: var(--brand-dark); line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 15px; }
 .section-subtitle-dark { font-size: 1.15rem; color: var(--text-muted-light); }
 
 .cascade-master-wrapper {
-    position: relative; height: 95vh; min-height: 850px; max-height: 1200px; max-width: 1200px; margin: 0 auto;
+    position: relative; height: 160vh; min-height: 1100px; max-height: 1800px; max-width: 1200px; margin: 0 auto;
     overflow: hidden; /* Prevent seeing the overflowing stacked cards */
 }
 
@@ -204,7 +204,7 @@ body {
 /* =========================================
    3. THE CAREER INCUBATOR (BENTO BOX)
    ========================================= */
-.incubator-section { padding: 150px 0; background-color: var(--brand-dark); position: relative; z-index: 10; }
+.incubator-section { padding: 150px 0; position: relative; z-index: 10; }
 .incubator-header { margin-bottom: 80px; }
 
 /* The Asymmetrical Grid */
