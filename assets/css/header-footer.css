@@ -4,8 +4,10 @@
 .glass-header {
     position: fixed;
     top: 10px;
-    left: 5%;
+    left: 50%;
+    transform: translateX(-50%);
     width: 90%;
+    max-width: 1400px;
     height: 80px;
     display: flex;
     justify-content: space-between;
