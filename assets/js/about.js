@@ -507,6 +507,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 // "+=3000" means it takes 3000px of scrolling to get through the 3 panels. Very smooth.
                 end: "+=3000", 
                 scrub: 1, // Smooth scrubbing
+                onUpdate: (self) => {
+                    // Dynamic velocity-based skew effect for the container
+                    const skewAmount = gsap.utils.clamp(-4, 4, self.getVelocity() / -300);
+                    gsap.to(horizonTrack, {
+                        skewX: skewAmount,
+                        ease: "power2.out",
+                        duration: 0.6,
+                        overwrite: "auto"
+                    });
+                }
             }
         });
 

@@ -31,10 +31,13 @@
 
 .logo img {
     height: 170px;
+    filter: brightness(15);
+    transition: filter 0.4s ease;
 }
 
 .logo-footer img {
     height: 170px;
+    /* filter: brightness(15); */
 }
 
 .nav-links {
@@ -51,6 +54,10 @@
 .glass-header.light-mode .logo,
 .glass-header.light-mode .hover-underline {
     color: var(--text-light-theme);
+}
+
+.glass-header.light-mode .logo img {
+    filter: none;
 }
 
 .glass-header.light-mode .btn-glass-sm {
@@ -159,7 +166,7 @@
 }
 
 .text-italic-cyan {
-    font-family: var(--font-serif); font-style: italic; font-weight: 600;
+    font-family: var(--font-serif); font-weight: 600;
     color: var(--brand-purple);
 }
 
