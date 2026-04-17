@@ -68,7 +68,7 @@ body {
 .hero-wrapper {
     position: relative;
     min-height: 100vh;
-    background: var(--brand-dark);
+    background:  #0a0514d6;
     /* NO overflow: hidden here, allowing seamless blending */
 }
 
@@ -78,7 +78,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 120vh;
+    height: 100vh;
     z-index: 1;
     filter: blur(100px);
 }
@@ -496,19 +496,12 @@ body {
 .theme-blend-zone {
     position: relative;
     z-index: 20;
-    padding: 200px 0 100px 0;
-    margin-top: -150px;
-    /* Crucial: Pulls the zone UP to cover the canvas edge */
-
-    /* The Flawless Blend: 
-        Transparent at top to show 3D DNA.
-        Solid brand-dark exactly at 150px (where canvas ends) to hide the line.
-        Fades to bg-light smoothly after.
-    */
+    padding: 100px 0 50px 0;
+    margin-top: -60px;
     background: linear-gradient(to bottom,
             transparent 0%,
-            var(--brand-purple) 150px,
-            rgba(248, 250, 252, 0) 100%);
+            #614f81fa 60px,
+            rgba(248, 250, 252, 0) 120px);
     pointer-events: none;
     /* Let clicks pass through the gradient */
 }
@@ -732,7 +725,8 @@ body {
     margin-bottom: 60px;
 }
 
-.section-header h2 {
+.section-header h2,
+.section-header-vid h2 {
     font-size: clamp(2.9rem, 4vw, 4.5rem);
     font-weight: 800;
     color: var(--text-light-theme);
@@ -740,7 +734,8 @@ body {
     margin-bottom: 15px;
 }
 
-.section-header p {
+.section-header p,
+.section-header-vid p {
     font-size: 1.2rem;
     color: var(--text-muted-light);
     font-weight: 500;
@@ -1300,7 +1295,7 @@ body {
 .image-stack {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 85%;
     top: 0;
     left: 0;
 }
@@ -1709,7 +1704,6 @@ body {
 .text-center { text-align: center; display: flex; flex-direction: column; align-items: center; }
 
 .glowing-dot-purple { width: 8px; height: 8px; background: var(--brand-purple); border-radius: 50%; box-shadow: 0 0 15px var(--brand-purple); }
-.text-italic-purple { font-weight: 600; color: var(--brand-purple); }
 
 .video-ecosystem {
     position: relative; z-index: 55;
@@ -1890,18 +1884,19 @@ body {
 
 .g-vid-reveal { visibility: hidden; }
 
-.video-luxury-section .section-header {
+.video-luxury-section .section-header-vid {
     position: relative;
-    z-index: 60; /* Keeps the heading brightly lit above the cinematic overlay */
+    z-index: 60;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: -40px;
 }
 
 .yt-category-tabs {
     display: flex;
     gap: 15px;
-    margin-top: 30px;
+    margin-top: 0px;
     margin-bottom: 20px;
 }
 
@@ -2049,7 +2044,7 @@ body {
     font-size: 0.85rem;
 }
 .spatial-header h2 {
-    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    font-size: clamp(2.5rem, 3.5vw, 4rem);
     font-weight: 800;
     letter-spacing: -1.5px;
     color: var(--brand-dark);
@@ -2240,14 +2235,14 @@ body {
     font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800;
     letter-spacing: -1.5px; color: var(--brand-dark);
 }
-.text-italic-purple { font-family: var(--font-serif); font-style: italic; font-weight: 600; color: var(--brand-purple); }
+.text-italic-purple { font-family: var(--font-serif); font-weight: 600; color: var(--brand-purple); }
 
 .frost-pill {
     display: inline-flex; align-items: center; gap: 12px;
     background: #fff; border: 1px solid rgba(76, 18, 126, 0.1);
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     padding: 8px 20px; border-radius: 50px;
-    font-size: 0.9rem; font-weight: 700; color: var(--brand-purple); margin-bottom: 1.5rem;
+    font-size: 0.9rem; font-weight: 700; color: var(--brand-purple); margin-bottom: 0.5rem;
 }
 .glowing-dot-purple { width: 8px; height: 8px; background: var(--brand-purple); border-radius: 50%; box-shadow: 0 0 10px rgba(91, 33, 182, 0.4); }
 
@@ -2265,7 +2260,7 @@ body {
     top: 15vh; /* Offset to clear the glass header */
     height: 70vh; /* Takes up most of the screen */
     min-height: 500px;
-    margin-bottom: 50px; /* Space between cards before they stack */
+    margin-bottom: 1px;
     display: flex;
     align-items: center;
     transform-origin: top center;
@@ -2278,7 +2273,7 @@ body {
 
 /* The Liquid Glass Panel */
 .card-glass-panel {
-    width: 100%; height: 100%;
+    width: 100%; height: 85%;
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
     border: 1px solid rgba(255, 255, 255, 0.9); border-top: 1px solid #fff;
@@ -2292,7 +2287,7 @@ body {
 
 /* Left Content */
 .panel-left {
-    padding: 60px;
+    padding: 0px 60px;
     display: flex; flex-direction: column; justify-content: center;
     position: relative; z-index: 2;
 }
@@ -2521,7 +2516,7 @@ body {
    ========================================= */
 .faculty-filmstrip-section {
     position: relative;
-    padding: 120px 0;
+    padding: 40px 0;
     color: #000000;
     z-index: 10;
     overflow: hidden;
@@ -2529,10 +2524,10 @@ body {
 
 .faculty-header {
     display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 60px;
+    /* margin-bottom: 60px; */
 }
 .glowing-dot-gold { width: 8px; height: 8px; background: #d4af37; border-radius: 50%; box-shadow: 0 0 15px #d4af37; }
-.faculty-header h2 { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; }
+.faculty-header h2 { font-size: clamp(3rem, 5vw, 4rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; }
 
 .scroll-instruction {
     display: flex; align-items: center; gap: 10px;
@@ -2560,7 +2555,7 @@ body {
 /* The Faculty Cards */
 .faculty-card {
     width: 350px; 
-    height: 500px;
+    height: 400px;
     position: relative;
     border-radius: 30px;
     overflow: hidden;
@@ -2632,7 +2627,7 @@ body {
    ========================================= */
 .placement-light-section {
     position: relative;
-    padding: 120px 0;
+    padding: 55px 0;
     overflow: hidden;
     z-index: 10;
 }
@@ -2646,12 +2641,11 @@ body {
     background: #ffffff; border: 1px solid rgba(76, 18, 126, 0.1);
     box-shadow: 0 5px 15px rgba(0,0,0,0.03);
     padding: 8px 20px; border-radius: 50px;
-    font-size: 0.9rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 1.5rem;
+    font-size: 0.9rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 0.5rem;
 }
 .glowing-dot-cyan { width: 8px; height: 8px; background: var(--brand-cyan); border-radius: 50%; box-shadow: 0 0 10px rgba(6, 182, 212, 0.4); }
 
-.placement-header h2 { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -1.5px; color: var(--brand-dark); line-height: 1.1; }
-.text-italic-purple { font-family: var(--font-serif); font-style: italic; font-weight: 600; color: var(--brand-purple); }
+.placement-header h2 { font-size: clamp(3rem, 5vw, 4rem); font-weight: 800; letter-spacing: -1.5px; color: var(--brand-dark); line-height: 1.1; }
 
 /* --- Infinite Typographic River (Light Silver) --- */
 .marquee-wrapper {
@@ -2680,7 +2674,7 @@ body {
 /* --- 3D Prismatic Alumni Cards --- */
 .alumni-showcase-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
-    position: relative; z-index: 5; margin-top: 80px; padding-bottom: 40px;
+    position: relative; z-index: 5; margin-top: 45px; padding-bottom: 40px;
     perspective: 1500px; /* Base perspective for 3D */
 }
 
@@ -2706,7 +2700,7 @@ body {
     transform: translateY(40px) scale(0.95);
     pointer-events: none;
 }
-.alumni-card-wrapper:nth-child(2) { margin-top: 100px; }
+.alumni-card-wrapper:nth-child(2) { margin-top: 70px; }
 
 .prismatic-card {
     position: relative; width: 100%;
@@ -2764,11 +2758,35 @@ body {
 }
 
 .alumni-img-box {
-    position: relative; width: 100%; height: 220px; border-radius: 16px; overflow: hidden;
-    margin-bottom: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    position: relative; width: 100%; height: 375px; border-radius: 16px; overflow: hidden;
+    margin-bottom: 5px; box-shadow: 0 15px 35x rgba(0,0,0,0.1);
 }
 .alumni-img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(10%); transition: filter 0.3s, transform 0.5s; }
 .alumni-card-wrapper:hover .alumni-img-box img { filter: grayscale(0%); transform: scale(1.05); }
+
+.alumni-text-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 25px 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+    z-index: 5;
+    pointer-events: none;
+}
+.alumni-text-overlay h3 { 
+    font-size: 1.6rem !important; 
+    font-weight: 800; 
+    color: #fff !important; 
+    margin-bottom: 5px; 
+    letter-spacing: -0.5px; 
+}
+.alumni-text-overlay .exam-name { 
+    font-size: 0.95rem !important; 
+    color: var(--brand-cyan) !important; 
+    font-weight: 700; 
+    margin-bottom: 0 !important; 
+}
 
 .rank-badge {
     position: absolute; top: 15px; right: 15px;
@@ -2777,8 +2795,9 @@ body {
     border-radius: 50px; box-shadow: 0 10px 20px rgba(91, 33, 182, 0.3);
 }
 
-.alumni-info h3 { font-size: 1.8rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 5px; letter-spacing: -0.5px; }
-.exam-name { font-size: 1.05rem; color: var(--brand-purple); font-weight: 700; margin-bottom: 20px; }
+.alumni-info {
+    padding-top: 5px;
+}
 
 .placement-dest {
     background: rgba(255, 255, 255, 0.5); padding: 15px;
@@ -2823,14 +2842,14 @@ body {
    ========================================= */
 .testimonials-premium-section {
     position: relative;
-    padding: 100px 0 160px 0;
+    padding: 15px 0 0;
     overflow: hidden;
     z-index: 10;
 }
 
 .test-header { margin-bottom: 60px; position: relative; z-index: 5; }
 .test-header h2 { 
-    font-size: clamp(2.5rem, 5vw, 4.5rem); 
+    font-size: clamp(2.5rem, 5vw, 4rem); 
     font-weight: 800; 
     letter-spacing: -1.5px; 
     color: var(--brand-dark); 
@@ -2880,7 +2899,7 @@ body {
     flex-shrink: 0; 
     background: #ffffff;
     border-radius: 20px;
-    padding: 30px;
+    padding: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
     border: 1px solid rgba(0,0,0,0.05);
     display: flex; flex-direction: column; gap: 15px;
@@ -2893,7 +2912,7 @@ body {
 
 /* Name Initial Avatar */
 .test-avatar {
-    width: 55px; height: 55px; border-radius: 50%;
+    width: 45px; height: 45px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.2rem; font-weight: 800; color: #fff;
     letter-spacing: 1px; flex-shrink: 0;
@@ -2909,14 +2928,14 @@ body {
 }
 
 .test-badge {
-    font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    font-size: 0.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
     padding: 4px 10px; border-radius: 50px; color: #fff; display: inline-block;
 }
 .badge-blue { background: #0ea5e9; }
 .badge-cyan { background: #06b6d4; }
 .badge-purple { background: #8b5cf6; }
 
-.test-stars { color: #f59e0b; font-size: 1.2rem; letter-spacing: 2px; }
+.test-stars { color: #f59e0b; font-size: 1rem; letter-spacing: 2px; }
 
 .test-quote {
     font-size: 1.05rem; 
@@ -2939,7 +2958,7 @@ body {
    ========================================= */
 .faq-elite-section {
     position: relative;
-    padding: 150px 0;
+    padding: 110px 0 45px;
     color: #fff;
     z-index: 10;
 }
@@ -2956,7 +2975,7 @@ body {
 }
 
 /* --- Top Centered Header --- */
-.faq-header { margin-bottom: 80px; }
+.faq-header { margin-bottom: 15px; }
 
 .frost-pill-dark {
     display: inline-flex; align-items: center; gap: 12px; justify-content: center;
@@ -2966,8 +2985,8 @@ body {
 }
 .glowing-dot-cyan { width: 8px; height: 8px; background: var(--brand-cyan); border-radius: 50%; box-shadow: 0 0 10px var(--brand-cyan); }
 
-.faq-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.5rem; color: #000000; }
-.text-italic-cyan { font-family: var(--font-serif); font-style: italic; color: var(--brand-purple); font-weight: 600; }
+.faq-title { font-size: clamp(3rem, 5vw, 4rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.5rem; color: #000000; }
+.text-italic-cyan { font-family: var(--font-serif);color: var(--brand-purple); font-weight: 600; }
 
 .faq-subtitle { font-size: 1.15rem; color: var(--text-muted-light); line-height: 1.6; font-weight: 400; max-width: 600px; }
 
@@ -3056,7 +3075,7 @@ body {
 .faq-item.active .faq-answer-inner p { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
 
 /* --- Footer Support Area --- */
-.faq-footer { margin-top: 80px; }
+.faq-footer { margin-top: 15px; }
 .support-text { font-size: 1rem; color: var(--text-muted-light); margin-bottom: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
 @media (max-width: 1024px) {
