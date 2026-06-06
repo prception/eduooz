@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Eduooz International Academy</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/header-footer.css">
+    <link rel="stylesheet" href="../assets/css/course-main.css">
+</head>
+<body>
+    
+    <div id="header-container"></div>
+
+    <div class="color-mesh">
+        <div class="blob purple-blob"></div>
+        <div class="blob cyan-blob"></div>
+        <div class="blob magenta-blob"></div>
+    </div>
+
+    <!-- 1. COURSE HERO (The Holographic Nexus) -->
+    <section class="nexus-hero-section" id="course-intro">
+        
+        <!-- Deep Space Ambient Glows -->
+        <div class="nexus-ambient-glow glow-cyan"></div>
+        <div class="nexus-ambient-glow glow-purple"></div>
+
+        <div class="container relative-z">
+            
+            <!-- Breadcrumbs -->
+            <div class="nexus-breadcrumbs g-nexus-reveal">
+                <a href="/">Eduooz</a> <span class="divider">/</span> 
+                <a href="/courses">Specializations</a> <span class="divider">/</span> 
+                <span class="current-path">Laboratory Diagnostics</span>
+            </div>
+
+            <div class="nexus-grid">
+                
+                <!-- LEFT: Narrative & CTAs -->
+                <div class="nexus-content-zone g-nexus-reveal">
+                    <div class="frost-pill-dark mb-4">
+                        <span class="glowing-dot-cyan"></span> Admissions Open: 2026 Batch
+                    </div>
+                    
+                    <h1 class="nexus-title">
+                        Advanced <br>
+                        <span class="text-gradient-cyan">Diagnostics.</span>
+                    </h1>
+                    
+                    <p class="nexus-subtitle">
+                        The definitive preparatory ecosystem for Central Government and International Medical Laboratory boards. Master diagnostic techniques, hone your analytical precision, and secure your global placement.
+                    </p>
+
+                    <div class="nexus-cta-group">
+                        <a href="#enroll" class="btn-liquid-cyan magnetic-btn">Secure Your Seat <span class="arrow">↗</span></a>
+                        <div class="enrollment-status">
+                            <div class="status-pulse"></div>
+                            <span>Only 24 Seats Remaining</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: The Holographic 3D Space -->
+                <div class="nexus-hologram-zone g-nexus-reveal">
+                    
+                    <!-- Orbital Rings -->
+                    <div class="orbital-ring ring-1"></div>
+                    <div class="orbital-ring ring-2"></div>
+                    <div class="orbital-ring ring-3"></div>
+
+                    <!-- The Levitating Centerpiece -->
+                    <div class="floating-centerpiece">
+                        <div class="scan-line"></div>
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89404bb8a0e?auto=format&fit=crop&q=80&w=800" style="border-radius: 50%; mix-blend-mode: luminosity; position: relative; z-index: 2;" alt="Course Hologram" class="main-hologram-img">
+                        <div class="hologram-base-shadow"></div>
+                    </div>
+
+                    <!-- The Parallax Data Nodes (Shift with mouse) -->
+                    <div class="glass-node node-1 parallax-element" data-speed="0.05">
+                        <div class="node-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div>
+                            <strong>6 Months</strong>
+                            <span>Intensive Track</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-node node-2 parallax-element" data-speed="-0.03">
+                        <div class="node-icon"><i class="fa-solid fa-globe"></i></div>
+                        <div>
+                            <strong>DHA / HAAD</strong>
+                            <span>Curriculum Aligned</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-node node-3 parallax-element" data-speed="0.08">
+                        <div class="node-icon"><i class="fa-solid fa-microscope"></i></div>
+                        <div>
+                            <strong>150+</strong>
+                            <span>Clinical Mocks</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM: The Authority Trust Bar -->
+        <div class="nexus-trust-bar g-nexus-reveal">
+            <span class="trust-label">Alumni Placed At:</span>
+            <div class="trust-marquee">
+                <div class="trust-track">
+                    <span>Cleveland Clinic Abu Dhabi</span> <span class="dot">•</span>
+                    <span>AIIMS New Delhi</span> <span class="dot">•</span>
+                    <span>King's College Hospital Dubai</span> <span class="dot">•</span>
+                    <span>JIPMER</span> <span class="dot">•</span>
+                    <span>Aster DM Healthcare</span> <span class="dot">•</span>
+                    <!-- Duplicates for seamless loop -->
+                    <span>Cleveland Clinic Abu Dhabi</span> <span class="dot">•</span>
+                    <span>AIIMS New Delhi</span> <span class="dot">•</span>
+                    <span>King's College Hospital Dubai</span> <span class="dot">•</span>
+                    <span>JIPMER</span> <span class="dot">•</span>
+                    <span>Aster DM Healthcare</span> <span class="dot">•</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. MASTER COURSE LISTING (Atmospheric Monolith Grid) -->
+    <section class="atmospheric-course-section" id="course-directory">
+        
+        <!-- The Dynamic Ambient Backgrounds -->
+        <div class="ambient-bg-wrapper">
+            <!-- Default Dark Gradient -->
+            <div class="ambient-layer active-bg" id="bg-default"></div>
+            <!-- Course Specific Backgrounds (Hidden by default) -->
+            <div class="ambient-layer" id="bg-nursing"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=2000" alt="Nursing"></div>
+            <div class="ambient-layer" id="bg-global"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=2000" alt="Global"></div>
+            <div class="ambient-layer" id="bg-psc"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=2000" alt="PSC"></div>
+            <div class="ambient-layer" id="bg-pharma"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=2000" alt="Pharma"></div>
+            
+            <!-- Heavy Frost Overlay so text remains perfectly readable -->
+            <div class="ambient-frost-overlay"></div>
+        </div>
+
+        <div class="container relative-z">
+            
+            <div class="monolith-header text-center g-monolith-reveal">
+                <div class="frost-pill-dark mb-4 mx-auto">
+                    <span class="glowing-dot-cyan"></span> Elite Curriculums
+                </div>
+                <h2 class="monolith-title">Choose your <span class="text-gradient-fluid">Trajectory.</span></h2>
+            </div>
+
+            <!-- The Staggered Vertical Grid -->
+            <div class="monolith-grid">
+                
+                <!-- Monolith 1: AIIMS NORCET -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
+                    <div class="monolith-glow accent-cyan"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-cyan border-cyan">Nursing Leadership</span>
+                            <span class="mono-duration">6 Months</span>
+                        </div>
+                        <h3 class="mono-name">AIIMS NORCET & Central Govt.</h3>
+                        <p class="mono-desc">Master clinical scenarios, prioritize high-yield concepts, and conquer negative marking to secure your rank in India's toughest nursing exams.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>500+</strong><span>Hrs Live</span></div>
+                                <div><strong>150</strong><span>Mocks</span></div>
+                            </div>
+                            <a href="nursing/AIIMS.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 2: DHA / HAAD -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-global">
+                    <div class="monolith-glow accent-purple"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-purple border-purple">Global Placements</span>
+                            <span class="mono-duration">3 Months</span>
+                        </div>
+                        <h3 class="mono-name">DHA, HAAD & MOH Prep.</h3>
+                        <p class="mono-desc">Bypass the red tape. We provide end-to-end coaching, Dataflow credential verification, and direct hospital interviews in the Middle East.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>100%</strong><span>Assistance</span></div>
+                                <div><strong>98%</strong><span>Pass Rate</span></div>
+                            </div>
+                            <a href="nursing/HAAD-nursing-licence.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 3: NCLEX-RN -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
+                    <div class="monolith-glow accent-magenta"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-magenta border-magenta">International License</span>
+                            <span class="mono-duration">4 Months</span>
+                        </div>
+                        <h3 class="mono-name">NCLEX-RN Mastery</h3>
+                        <p class="mono-desc">Prepare for the NCLEX-RN exam with an immersive curriculum designed to build your clinical reasoning and pass the boards on your first attempt.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>Top Tier</strong><span>Faculty</span></div>
+                                <div><strong>NextGen</strong><span>Simulations</span></div>
+                            </div>
+                            <a href="nursing/NCLEX.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 4: Staff Nurse DHS -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-psc">
+                    <div class="monolith-glow accent-blue"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-blue border-blue">State Government</span>
+                            <span class="mono-duration">5 Months</span>
+                        </div>
+                        <h3 class="mono-name">Kerala PSC Staff Nurse</h3>
+                        <p class="mono-desc">Designed specifically around the new weighted syllabus. Learn rapid recall strategies and absolute elimination techniques from state rank holders.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>Rank 1</strong><span>Faculty</span></div>
+                                <div><strong>Mal/Eng</strong><span>Medium</span></div>
+                            </div>
+                            <a href="nursing/staff-nurse-DHS.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 5: IMS Nursing -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
+                    <div class="monolith-glow accent-cyan"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-cyan border-cyan">Central Govt.</span>
+                            <span class="mono-duration">4 Months</span>
+                        </div>
+                        <h3 class="mono-name">IMS Nursing Officer</h3>
+                        <p class="mono-desc">Comprehensive coaching for Institute of Medical Sciences (IMS) Nursing Officer exam. Focus on key clinical and theoretical concepts.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>300+</strong><span>Hrs Live</span></div>
+                                <div><strong>100</strong><span>Mocks</span></div>
+                            </div>
+                            <a href="nursing/IMS.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 6: JIPMER Nursing -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-global">
+                    <div class="monolith-glow accent-purple"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-purple border-purple">Premier Institute</span>
+                            <span class="mono-duration">5 Months</span>
+                        </div>
+                        <h3 class="mono-name">JIPMER Nursing</h3>
+                        <p class="mono-desc">Targeted preparation for Jawaharlal Institute of Postgraduate Medical Education and Research. Learn from JIPMER alumni.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>400+</strong><span>Hrs Live</span></div>
+                                <div><strong>92%</strong><span>Pass Rate</span></div>
+                            </div>
+                            <a href="nursing/JIPMER.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 7: MOH Nursing Licence -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-psc">
+                    <div class="monolith-glow accent-magenta"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-magenta border-magenta">Middle East</span>
+                            <span class="mono-duration">3 Months</span>
+                        </div>
+                        <h3 class="mono-name">MOH Nursing Licence</h3>
+                        <p class="mono-desc">Ministry of Health (MOH) exam preparation for nursing professionals seeking to work in the UAE and Gulf region.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>Expert</strong><span>Guidance</span></div>
+                                <div><strong>100%</strong><span>Assistance</span></div>
+                            </div>
+                            <a href="nursing/MOH-nursing-licence.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 8: Military Nursing -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-pharma">
+                    <div class="monolith-glow accent-blue"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-blue border-blue">Armed Forces</span>
+                            <span class="mono-duration">6 Months</span>
+                        </div>
+                        <h3 class="mono-name">Military Nursing Service</h3>
+                        <p class="mono-desc">Specialized coaching for the Military Nursing Service (MNS) exam. Join the elite armed forces healthcare team.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>500+</strong><span>Hrs Live</span></div>
+                                <div><strong>Interview</strong><span>Prep</span></div>
+                            </div>
+                            <a href="nursing/Military-nursing.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 9: MSc Nursing Entrance -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
+                    <div class="monolith-glow accent-cyan"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-cyan border-cyan">Post Graduation</span>
+                            <span class="mono-duration">6 Months</span>
+                        </div>
+                        <h3 class="mono-name">MSc Nursing Entrance</h3>
+                        <p class="mono-desc">Ace the national and state level entrance examinations for MSc Nursing with our comprehensive syllabus coverage.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>Rank 1</strong><span>Faculty</span></div>
+                                <div><strong>150+</strong><span>Mocks</span></div>
+                            </div>
+                            <a href="nursing/Msc-nursing-entrance.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 10: NIMHANS Nursing Officer -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-global">
+                    <div class="monolith-glow accent-purple"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-purple border-purple">National Institute</span>
+                            <span class="mono-duration">4 Months</span>
+                        </div>
+                        <h3 class="mono-name">NIMHANS Nursing Officer</h3>
+                        <p class="mono-desc">Master neurological and psychiatric nursing concepts to clear the NIMHANS nursing officer exam with top ranks.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>Specialized</strong><span>Training</span></div>
+                                <div><strong>CBT</strong><span>Simulations</span></div>
+                            </div>
+                            <a href="nursing/NIMHANS-nursing-officer.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 11: PGIMER Nursing -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-psc">
+                    <div class="monolith-glow accent-magenta"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-magenta border-magenta">Premier Institute</span>
+                            <span class="mono-duration">5 Months</span>
+                        </div>
+                        <h3 class="mono-name">PGIMER Nursing</h3>
+                        <p class="mono-desc">Strategic preparation for the PGIMER Chandigarh nursing exams, focusing on high-yield clinical scenarios.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>350+</strong><span>Hrs Live</span></div>
+                                <div><strong>Pdf</strong><span>Notes</span></div>
+                            </div>
+                            <a href="nursing/PGIMER-nursing.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 12: RRB Nursing -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-pharma">
+                    <div class="monolith-glow accent-blue"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-blue border-blue">Railway Board</span>
+                            <span class="mono-duration">4 Months</span>
+                        </div>
+                        <h3 class="mono-name">RRB Nursing Officer</h3>
+                        <p class="mono-desc">Prepare for the Railway Recruitment Board Nursing exams with targeted mock tests and expert faculty.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>Extensive</strong><span>Q-Bank</span></div>
+                                <div><strong>Expert</strong><span>Mentorship</span></div>
+                            </div>
+                            <a href="nursing/RRB-nursing.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 13: Assistant Professor Nursing -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
+                    <div class="monolith-glow accent-cyan"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-cyan border-cyan">Academic Role</span>
+                            <span class="mono-duration">6 Months</span>
+                        </div>
+                        <h3 class="mono-name">Asst. Professor Nursing</h3>
+                        <p class="mono-desc">Elevate your career into academia. Specialized coaching for Assistant Professor roles in top nursing colleges.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>Ph.D</strong><span>Faculty</span></div>
+                                <div><strong>Research</strong><span>Focus</span></div>
+                            </div>
+                            <a href="nursing/ass-professor-nursing.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 14: Nursing Prometric -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-global">
+                    <div class="monolith-glow accent-purple"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-purple border-purple">Global Placement</span>
+                            <span class="mono-duration">3 Months</span>
+                        </div>
+                        <h3 class="mono-name">Nursing Prometric</h3>
+                        <p class="mono-desc">Clear the Prometric exams for Saudi Arabia, Qatar, and Oman with our targeted test series and lectures.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>100%</strong><span>Assistance</span></div>
+                                <div><strong>95%</strong><span>Pass Rate</span></div>
+                            </div>
+                            <a href="nursing/nursing-prometric.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 15: Nursing Tutor -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-psc">
+                    <div class="monolith-glow accent-magenta"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-magenta border-magenta">Academic Role</span>
+                            <span class="mono-duration">4 Months</span>
+                        </div>
+                        <h3 class="mono-name">Nursing Tutor</h3>
+                        <p class="mono-desc">Preparation for nursing tutor vacancies across state and central government educational institutions.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>300+</strong><span>Hrs Live</span></div>
+                                <div><strong>Mock</strong><span>Interviews</span></div>
+                            </div>
+                            <a href="nursing/nursing-tutor.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monolith 16: Staff Nurse DME -->
+                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-pharma">
+                    <div class="monolith-glow accent-blue"></div>
+                    <div class="monolith-content">
+                        <div class="mono-meta">
+                            <span class="mono-badge text-blue border-blue">State Government</span>
+                            <span class="mono-duration">5 Months</span>
+                        </div>
+                        <h3 class="mono-name">Staff Nurse DME</h3>
+                        <p class="mono-desc">Secure your rank in Directorate of Medical Education (DME) exams with our state-specific curriculum.</p>
+                        
+                        <div class="mono-footer">
+                            <div class="mono-stats">
+                                <div><strong>Rank 1</strong><span>Faculty</span></div>
+                                <div><strong>150+</strong><span>Mocks</span></div>
+                            </div>
+                            <a href="nursing/staff-nurse-DME.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+
+    <div id="footer-container"></div>
+    
+
+
+    <!-- Chat Button -->
+    <div id="chat-container"></div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/course-landing.js"></script>
+</body>
+</html>

@@ -104,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- 2. Three.js: Floating Healthcare Elements Backgroundy5t7yg7 ---
     const container = document.getElementById('cinematic-canvas');
+    if (container) {
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x0a0514, 0.012);
     
@@ -430,6 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
         camera.updateProjectionMatrix();
     });
     window.dispatchEvent(new Event('resize'));
+    } // End if (container)
 
     // --- 4.5. GSAP Hero Entrance Sequence ---
     const seqTl = gsap.timeline({ delay: 0.5 }); 
@@ -442,6 +444,14 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 1.4,
         ease: "back.out(1.7)"
     }, 0);
+
+    // Phase 1.5: Reveal app download buttons
+    seqTl.to(".download-label, .app-download-buttons", {
+        opacity: 1,
+        y: 0,
+        duration: 1.0,
+        ease: "power3.out"
+    }, 0.6);
 
     // Phase 2: Reveal orbit container + ring path scales in
     seqTl.set(".orbit-container", { visibility: "visible" }, 1.2);
@@ -2199,5 +2209,99 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
+
+    // --- 13. Redesigned Impact Stats Section: Premium Interactions ---
+    
+    // Header reveal
+    gsap.from(".impact-header .frost-pill-dark, .impact-header .impact-title, .impact-header .impact-subtitle", {
+        scrollTrigger: { trigger: ".impact-stats-section", start: "top 80%" },
+        y: 30, autoAlpha: 0, filter: "blur(8px)",
+        duration: 1, stagger: 0.15, ease: "power3.out",
+        clearProps: "all"
+    });
+
+    // Tile stagger reveal
+    gsap.from(".itile", {
+        scrollTrigger: { trigger: ".impact-bento-grid", start: "top 85%" },
+        y: 40, autoAlpha: 0, scale: 0.98,
+        duration: 0.8, stagger: 0.08, ease: "back.out(1.4)",
+        clearProps: "opacity,visibility,transform",
+        onComplete: () => ScrollTrigger.refresh()
+    });
+
+    // Success Tile Specific Animations (Ring + Bars)
+    ScrollTrigger.create({
+        trigger: "#itile-success-trigger",
+        start: "top 85%",
+        onEnter: () => {
+            // 1. Success Ring Animation
+            const ring = document.getElementById("success-ring-main");
+            if(ring) {
+                const targetPercent = 95;
+                const circumference = 2 * Math.PI * 50; // r=50
+                const offset = circumference - (targetPercent / 100) * circumference;
+                ring.style.strokeDashoffset = offset;
+            }
+
+            // 2. Multiple Progress Bars
+            document.querySelectorAll("#itile-success-trigger .ibar-fill-white").forEach(bar => {
+                const targetWidth = bar.getAttribute("data-width");
+                bar.style.width = targetWidth + "%";
+            });
+        }
+    });
+
+    // Animated counters for itiles
+    document.querySelectorAll(".itile-counter").forEach(counter => {
+        ScrollTrigger.create({
+            trigger: counter,
+            start: "top 90%",
+            onEnter: () => {
+                const target = +counter.getAttribute("data-target");
+                const countObj = { val: 0 };
+                gsap.to(countObj, {
+                    val: target,
+                    duration: 2,
+                    ease: "power2.out",
+                    onUpdate: () => {
+                        counter.innerText = Math.floor(countObj.val).toLocaleString('en-IN');
+                    }
+                });
+            },
+            once: true
+        });
+    });
+
+    // Custom Lightweight Tilt Effect (JS + GSAP)
+    document.querySelectorAll("[data-tilt]").forEach(tile => {
+        tile.addEventListener("mousemove", (e) => {
+            const rect = tile.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 50; // Reduced Sensitivity
+            const rotateY = -(x - centerX) / 60; 
+            
+            gsap.to(tile, {
+                rotateX: rotateX,
+                rotateY: rotateY,
+                duration: 0.5,
+                ease: "power2.out",
+                transformPerspective: 1000
+            });
+        });
+        
+        tile.addEventListener("mouseleave", () => {
+            gsap.to(tile, {
+                rotateX: 0,
+                rotateY: 0,
+                duration: 0.8,
+                ease: "elastic.out(1, 0.3)"
+            });
+        });
+    });
 
 });

@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const navbar = document.getElementById("navbar");
         if (!navbar) return;
         ScrollTrigger.create({
-            start: 200, 
+            start: 700, 
             onEnter: () => navbar.classList.add("light-mode"),
             onLeaveBack: () => navbar.classList.remove("light-mode")
         });
