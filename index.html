@@ -31,13 +31,19 @@
 
     <!-- HERO SECTION -->
     <div class="hero-wrapper">
-        <div class="gradient-mesh-bg">
-            <div class="mesh-blob blob-purple"></div>
-            <div class="mesh-blob blob-cyan"></div>
-            <div class="mesh-blob blob-magenta"></div>
+        <div class="hero-grid-architecture">
+            <div class="grid-plane"></div>
+            <div class="grid-glow-points"></div>
+            <div class="traveling-lines">
+                <div class="t-line t-line-h" style="top: 20%; --c: var(--brand-cyan); animation-duration: 7s;"></div>
+                <div class="t-line t-line-h" style="top: 45%; --c: var(--brand-purple); animation-duration: 9s; animation-delay: 2s;"></div>
+                <div class="t-line t-line-h" style="top: 75%; --c: var(--brand-magenta); animation-duration: 6s; animation-delay: 4s;"></div>
+                
+                <div class="t-line t-line-v" style="left: 15%; --c: var(--brand-purple); animation-duration: 8s;"></div>
+                <div class="t-line t-line-v" style="left: 45%; --c: var(--brand-cyan); animation-duration: 10s; animation-delay: 3s;"></div>
+                <div class="t-line t-line-v" style="left: 80%; --c: var(--brand-magenta); animation-duration: 7s; animation-delay: 1s;"></div>
+            </div>
         </div>
-
-        <div id="cinematic-canvas"></div>
         
         <div class="hero-blur-overlay"></div>
 
@@ -72,8 +78,18 @@
 
                     <!-- Right Hemisphere: Dynamic Smartphone Interface -->
                     <div class="col-md-6 col-lg-5">
-                        <div class="hero-visual-zone">
+                        <div class="hero-visual-zone" style="flex-direction: column;">
                             <img src="assets/images/mockup.png" alt="Eduooz App" class="hero-mockup-img">
+
+                            <p class="download-label" style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); margin-top: -1rem; margin-bottom: 12px; font-weight: 500; letter-spacing: 0.5px; z-index: 30; opacity: 0; transform: translateY(20px);">Download the App</p>
+                            <div class="app-download-buttons" style="display: flex; gap: 15px; z-index: 30; opacity: 0; transform: translateY(20px);">
+                                <a href="#" class="btn-glass-outline magnetic-btn">
+                                    <i class="fa-brands fa-apple" style="font-size: 1.2em; margin-right: 5px;"></i> App Store
+                                </a>
+                                <a href="https://clpdiy.page.link/vedH" target="_blank" class="btn-glass-outline magnetic-btn">
+                                    <i class="fa-brands fa-google-play" style="font-size: 1.2em; margin-right: 5px;"></i> Google Play
+                                </a>
+                            </div>
 
                             <div class="orbit-container" id="master-orbit">
                                 <!-- <div class="orbit-ring-path"></div> -->
@@ -107,13 +123,13 @@
             <div class="panel-sweep"></div>
             <div class="stat-block">
                 <!-- <div class="stat-icon-wrap"><i class="fa-solid fa-graduation-cap text-cyan"></i></div> -->
-                <h3 class="stat-number"><span class="counter" data-target="500">0</span>+</h3>
+                <h3 class="stat-number"><span class="counter" data-target="15000">0</span>+</h3>
                 <p class="stat-label">Students Trained</p>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-block">
                 <!-- <div class="stat-icon-wrap"><i class="fa-solid fa-trophy text-purple"></i></div> -->
-                <h3 class="stat-number"><span class="counter" data-target="1000">0</span>+</h3>
+                <h3 class="stat-number"><span class="counter" data-target="3000">0</span>+</h3>
                 <p class="stat-label">Rank Holders</p>
             </div>
             <div class="stat-divider"></div>
@@ -153,14 +169,14 @@
                 <div class="achiever-slide">
                     <div class="slide-image-wrapper">
                         <!-- Placeholder image: Update src when you have the actual group photo -->
-                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=2000" alt="Student Achievers" class="achiever-bg-img">
-                        <div class="image-gradient-overlay"></div>
+                        <img src="assets/images/home-banner.jpeg" alt="Student Achievers" class="achiever-bg-img">
+                        <!-- <div class="image-gradient-overlay"></div> -->
                     </div>
                     
-                    <div class="achiever-text-overlay">
+                    <!-- <div class="achiever-text-overlay">
                         <h4 class="achiever-subtitle">സ്വപ്നത്തിൽ നിന്ന് ലക്ഷ്യത്തിലേക്ക്</h4>
                         <h2 class="achiever-title">RRB JE <br><span class="highlight">WINNERS</span></h2>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -172,7 +188,7 @@
             <div class="frost-pill g-course-rev">
                 <span class="glowing-dot-purple"></span> Elite Pathways
             </div>
-            <h2 class="g-course-rev">Master Your <br><span class="text-italic-gold">Discipline.</span></h2>
+            <h2 class="g-course-rev">Master Your <span class="text-italic-gold">Discipline.</span></h2>
         </div>
 
         <div class="stack-cards-wrapper">
@@ -1374,6 +1390,186 @@
                 </div>
             </div>
 
+        </div>
+    </section>
+
+    <!-- SO FAR SO GOOD — IMPACT STATS SECTION -->
+    <section class="impact-stats-section" id="impact">
+
+        <!-- Ambient glow orbs -->
+        <div class="impact-glow-orb impact-orb-1"></div>
+        <!-- <div class="impact-glow-orb impact-orb-2"></div> -->
+
+        <div class="impact-container">
+
+            <!-- Header -->
+            <div class="impact-header g-impact-reveal">
+                <div class="frost-pill-dark mx-auto" style="display:inline-flex; margin-bottom: 1.5rem;">
+                    <span class="glowing-dot-purple"></span> Impact in Numbers
+                </div>
+                <h2 class="impact-title">So far, <span class="text-italic-purple">so good.</span></h2>
+                <p class="impact-subtitle">Eduooz has empowered thousands of healthcare professionals to land their dream roles. Every number here is a testament to our commitment to excellence.</p>
+            </div>
+
+            <div class="impact-bento-grid">
+                <!-- ROW 1 -->
+                <!-- TILE 1: Courses (Col 1, Row 1) -->
+                <div class="itile itile-peach" data-tilt>
+                    <div class="itile-top">
+                        <div class="itile-icon-pill itile-pill-peach">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                    </div>
+                    <div class="itile-number">
+                        <span class="itile-counter" data-target="600">0</span>
+                        <span class="itile-plus">+</span>
+                    </div>
+                    <div class="itile-label">Courses in 8 Indian Languages</div>
+                </div>
+
+                <!-- TILE 2: Minutes Watched (Col 2-4, Row 1) -->
+                <div class="itile itile-wide-3 itile-mint" data-tilt>
+                    <div class="itile-inner-row">
+                        <div class="itile-icon-pill itile-pill-mint big-icon">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <div class="itile-content">
+                            <div class="itile-number">
+                                <span class="itile-counter" data-target="100000000">0</span>
+                                <span class="itile-plus">+</span>
+                            </div>
+                            <div class="itile-label">Minutes Video Watched</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 2-3 (Tall Items) -->
+                <!-- TILE 3: Rating (Col 1, Row 2-3) -->
+                <div class="itile itile-tall itile-sky" data-tilt>
+                    <div class="itile-center-content">
+                        <div class="itile-brand-icon">
+                            <i class="fa-brands fa-google-play" style="font-size: 2.5rem; color: #3b82f6;"></i>
+                        </div>
+                        <div class="itile-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="itile-number">4.8 Rating</div>
+                    </div>
+                </div>
+
+                <!-- TILE 4: Success Rate & Happy Users (Col 2-3, Row 2-3) -->
+                <div class="itile itile-center-big itile-primary-blue" data-tilt id="itile-success-trigger">
+                    <div class="itile-success-full-wrap">
+                        <div class="itile-success-left">
+                            <div class="itile-success-ring-wrap">
+                                <svg viewBox="0 0 120 120" class="itile-ring-svg">
+                                    <defs>
+                                        <linearGradient id="ringGradWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#ffffff" />
+                                            <stop offset="100%" stop-color="#93c5fd" />
+                                        </linearGradient>
+                                    </defs>
+                                    <circle cx="60" cy="60" r="50" class="ring-bg-white"/>
+                                    <circle cx="60" cy="60" r="50" class="ring-fill-white" id="success-ring-main"/>
+                                </svg>
+                                <div class="itile-ring-label-white">
+                                    <span class="itile-counter" data-target="95">0</span>%
+                                </div>
+                            </div>
+                            <span class="itile-success-label">Success Rate</span>
+                        </div>
+
+                        <div class="itile-success-right">
+                            <h3 class="itile-success-headline">Our students consistently outperform national averages.</h3>
+                            
+                            <div class="itile-progress-stack">
+                                <div class="ibar-group">
+                                    <div class="ibar-info">
+                                        <span class="ibar-name">Kerala PSC</span>
+                                        <span class="ibar-val">96%</span>
+                                    </div>
+                                    <div class="ibar-track-white">
+                                        <div class="ibar-fill-white" data-width="96"></div>
+                                    </div>
+                                </div>
+                                <div class="ibar-group">
+                                    <div class="ibar-info">
+                                        <span class="ibar-name">AIIMS NORCET</span>
+                                        <span class="ibar-val">92%</span>
+                                    </div>
+                                    <div class="ibar-track-white">
+                                        <div class="ibar-fill-white" data-width="92"></div>
+                                    </div>
+                                </div>
+                                <div class="ibar-group">
+                                    <div class="ibar-info">
+                                        <span class="ibar-name">DHA / HAAD / MOH</span>
+                                        <span class="ibar-val">94%</span>
+                                    </div>
+                                    <div class="ibar-track-white">
+                                        <div class="ibar-fill-white" data-width="94"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="#enroll" class="itile-cta-white">
+                                Start Your Journey <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TILE 5: Doubts Cleared (Col 4, Row 2-3) -->
+                <div class="itile itile-tall itile-cream" data-tilt>
+                    <div class="itile-top">
+                        <div class="itile-number itile-num-gold">
+                            <span class="itile-counter" data-target="10000">0</span>
+                            <span class="itile-plus">+</span>
+                        </div>
+                        <div class="itile-label">Doubts Cleared</div>
+                    </div>
+                    <div class="itile-illustration">
+                        <i class="fa-solid fa-lightbulb" style="font-size: 4rem; opacity: 0.2; margin-top: 20px;"></i>
+                    </div>
+                </div>
+
+                <!-- ROW 4 -->
+                <!-- TILE 6: Questions Practiced (Col 1-2, Row 4) -->
+                <div class="itile itile-half itile-lavender" data-tilt>
+                    <div class="itile-inner-row">
+                        <div class="itile-illustration-small">
+                            <i class="fa-solid fa-clipboard-list" style="font-size: 2.5rem; color: #7c3aed;"></i>
+                        </div>
+                        <div class="itile-content">
+                            <div class="itile-number itile-num-purple">
+                                <span class="itile-counter" data-target="100000">0</span>
+                                <span class="itile-plus">+</span>
+                            </div>
+                            <div class="itile-label">Questions Practiced</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TILE 7: Placements (Col 3-4, Row 4) -->
+                <div class="itile itile-half itile-dark-slate" data-tilt>
+                    <div class="itile-inner-row">
+                        <div class="itile-content">
+                            <div class="itile-number">
+                                <span class="itile-counter" data-target="10000">0</span>
+                                <span class="itile-plus">+</span>
+                            </div>
+                            <div class="itile-label itile-label-white">Job Placements</div>
+                        </div>
+                        <div class="itile-illustration-small">
+                            <i class="fa-solid fa-award" style="font-size: 2.5rem; color: #50e3c2;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 

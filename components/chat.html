@@ -8,7 +8,7 @@
     <div class="chat-orbit-ring"></div>
 
     <!-- Main Button -->
-    <button class="chat-fab-btn" id="chatFabBtn" aria-label="Chat with us">
+    <button class="chat-fab-btn" id="chatFabBtn" aria-label="Contact us">
         <span class="chat-icon-wrap">
             <i class="fa-solid fa-comments chat-icon-main"></i>
             <i class="fa-solid fa-xmark chat-icon-close"></i>
@@ -20,7 +20,7 @@
     <!-- Hover Tooltip -->
     <div class="chat-tooltip">
         <span class="chat-tooltip-dot"></span>
-        Chat with us
+        Contact us
     </div>
 
     <!-- Chat Panel -->
@@ -42,36 +42,52 @@
             </button>
         </div>
 
-        <!-- Messages Area -->
+        <!-- Content Area -->
         <div class="chat-panel-body" id="chatPanelBody">
-            <!-- Welcome message -->
-            <div class="chat-msg chat-msg-bot">
-                <div class="chat-msg-avatar">E</div>
-                <div class="chat-msg-bubble">
-                    <p>Hi there! 👋 Welcome to <strong>Eduooz Academy</strong>.</p>
-                    <p>How can we help you today?</p>
-                    <span class="chat-msg-time">Just now</span>
-                </div>
+            <div class="chat-welcome-text">
+                <p>Hello! 👋 How would you like to connect with our academic advisor?</p>
             </div>
+            
+            <!-- Contact Options -->
+            <div class="contact-channels">
+                <!-- WhatsApp Option -->
+                <a href="https://wa.me/918111850054?text=Hi!%20I%20am%20interested%20in%20Eduooz%20courses." target="_blank" rel="noopener" class="contact-card whatsapp-card">
+                    <div class="card-icon-wrap">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>WhatsApp Chat</h3>
+                        <p>Chat with our academic counselor for quick answers</p>
+                        <span class="card-badge">Instant Reply</span>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </a>
 
-            <!-- Quick Replies -->
-            <div class="chat-quick-replies">
-                <button class="chat-quick-btn" data-msg="I want to know about courses">📚 Courses</button>
-                <button class="chat-quick-btn" data-msg="Tell me about admissions">🎓 Admissions</button>
-                <button class="chat-quick-btn" data-msg="I need placement details">💼 Placements</button>
-                <button class="chat-quick-btn" data-msg="I want to talk to someone">📞 Call Back</button>
+                <!-- Call Option -->
+                <a href="tel:+918111850054" class="contact-card call-card">
+                    <div class="card-icon-wrap">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Direct Call</h3>
+                        <p>Speak to our counseling team for detailed admission info</p>
+                        <span class="card-badge">9 AM - 6 PM</span>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </a>
             </div>
         </div>
 
-        <!-- Input Area -->
+        <!-- Footer Area -->
         <div class="chat-panel-footer">
-            <div class="chat-input-wrapper">
-                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." autocomplete="off">
-                <button class="chat-send-btn" id="chatSendBtn" aria-label="Send message">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
+            <div class="chat-footer-badge">
+                <i class="fa-solid fa-shield-halved"></i> <span>Official Eduooz Channels</span>
             </div>
-            <p class="chat-powered">Powered by <strong>Eduooz</strong></p>
+            <p class="chat-powered">Powered by <strong>Eduooz Academy</strong></p>
         </div>
     </div>
 </div>

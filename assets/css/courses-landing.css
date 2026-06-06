@@ -10,7 +10,7 @@
     --text-light-theme: #0f172a;
     --text-muted-light: #475569;
     --font-main: 'Plus Jakarta Sans', sans-serif;
-    --font-serif: 'Cormorant Garamond', serif;
+    /* --font-serif: 'Cormorant Garamond', serif; */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -258,13 +258,13 @@ body {
    ========================================= */
 .course-video-section {
     position: relative;
-    padding: 120px 0;
+    padding: 80px 0;
     z-index: 10;
     overflow: hidden;
 }
 
-.video-header { margin-bottom: 60px; }
-.video-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; color: var(--brand-dark); line-height: 1.1; letter-spacing: -1.5px; }
+.video-header { margin-bottom: 30px; }
+.video-title { font-size: clamp(3rem, 5vw, 4rem); font-weight: 800; color: var(--brand-dark); line-height: 1.1; letter-spacing: -1.5px; }
 
 /* --- Cinematic Player Wrapper --- */
 .video-master-wrapper {
@@ -610,7 +610,7 @@ body {
 .time-text-stack { display: flex; flex-direction: column; }
 .time-text-stack h3 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--brand-dark); line-height: 1; text-transform: uppercase; letter-spacing: -1px; }
 .time-text-stack p { font-size: clamp(1.5rem, 2vw, 2rem); margin: 0; }
-.text-italic-purple { font-family: var(--font-serif); font-style: italic; color: var(--brand-purple); font-weight: 600; }
+.text-italic-purple { font-family: var(--font-serif); color: var(--brand-purple); font-weight: 600; }
 
 .duration-subtitle { font-size: 1.15rem; color: var(--text-muted-light); line-height: 1.6; max-width: 450px; font-weight: 500; }
 
@@ -1067,7 +1067,6 @@ body {
 .text-center { text-align: center; display: flex; flex-direction: column; align-items: center; }
 
 .glowing-dot-purple { width: 8px; height: 8px; background: var(--brand-purple); border-radius: 50%; box-shadow: 0 0 15px var(--brand-purple); }
-.text-italic-purple { font-weight: 600; color: var(--brand-purple); }
 
 .video-ecosystem {
     position: relative; z-index: 55;
@@ -1495,12 +1494,11 @@ body {
     background: #ffffff; border: 1px solid rgba(76, 18, 126, 0.1);
     box-shadow: 0 5px 15px rgba(0,0,0,0.03);
     padding: 8px 20px; border-radius: 50px;
-    font-size: 0.9rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 1.5rem;
+    font-size: 0.9rem; font-weight: 700; color: var(--brand-dark);
 }
 .glowing-dot-cyan { width: 8px; height: 8px; background: var(--brand-cyan); border-radius: 50%; box-shadow: 0 0 10px rgba(6, 182, 212, 0.4); }
 
 .placement-header h2 { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -1.5px; color: var(--brand-dark); line-height: 1.1; }
-.text-italic-purple { font-family: var(--font-serif); font-style: italic; font-weight: 600; color: var(--brand-purple); }
 
 /* --- Infinite Typographic River (Light Silver) --- */
 .marquee-wrapper {

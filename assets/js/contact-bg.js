@@ -174,4 +174,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function initNavbarScroll() {
+        const navbar = document.getElementById("navbar");
+        if (!navbar) return;
+        ScrollTrigger.create({
+            start: 1000, 
+            onEnter: () => navbar.classList.add("light-mode"),
+            onLeaveBack: () => navbar.classList.remove("light-mode")
+        });
+    }
+
+    if (document.getElementById("navbar")) {
+        initNavbarScroll();
+    } else {
+        window.addEventListener('headerLoaded', initNavbarScroll);
+    }
+
 });
