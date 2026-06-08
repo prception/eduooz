@@ -161,342 +161,512 @@
                 <h2 class="monolith-title">Choose your <span class="text-gradient-fluid">Trajectory.</span></h2>
             </div>
 
-            <!-- The Staggered Vertical Grid -->
-            <div class="monolith-grid">
-                
-                <!-- Monolith 1: AIIMS NORCET -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
-                    <div class="monolith-glow accent-cyan"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-cyan border-cyan">Nursing Leadership</span>
-                            <span class="mono-duration">6 Months</span>
-                        </div>
-                        <h3 class="mono-name">AIIMS NORCET & Central Govt.</h3>
-                        <p class="mono-desc">Master clinical scenarios, prioritize high-yield concepts, and conquer negative marking to secure your rank in India's toughest nursing exams.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>500+</strong><span>Hrs Live</span></div>
-                                <div><strong>150</strong><span>Mocks</span></div>
+            <!-- Tab Navigation -->
+            <div class="trajectory-tabs" id="trajectoryTabs">
+                <button class="trajectory-tab active" data-filter="all">All</button>
+                <button class="trajectory-tab" data-filter="state">State Exams</button>
+                <button class="trajectory-tab" data-filter="central">Central Exams</button>
+            </div>
+
+            <!-- Dynamic Section Heading -->
+            <h3 class="trajectory-master-heading g-monolith-reveal" id="trajectoryHeading">All State & Central Nursing Exams</h3>
+
+            <!-- Tab Content Wrapper -->
+            <div class="trajectory-content" id="trajectoryContent">
+
+                <!-- STATE EXAMS SECTION -->
+                <div class="trajectory-section" data-section="state">
+                   
+                    <div class="monolith-grid">
+
+                        <!-- APN -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">State Government</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">APN</h3>
+                                <p class="mono-desc">Comprehensive preparation for the Assistant Public Nurse (APN) exam under Kerala PSC with targeted mock tests and syllabus coverage.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>300+</strong><span>Hrs Live</span></div>
+                                        <div><strong>120</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/APN .html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/AIIMS.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
+
+                        <!-- DHS Nursing -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">State Government</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">DHS Nursing</h3>
+                                <p class="mono-desc">Designed specifically around the new weighted syllabus. Learn rapid recall strategies and absolute elimination techniques from state rank holders.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>Rank 1</strong><span>Faculty</span></div>
+                                        <div><strong>Mal/Eng</strong><span>Medium</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/DHS_NURSING .html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DME Nursing -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">State Government</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">DME Nursing</h3>
+                                <p class="mono-desc">Secure your rank in Directorate of Medical Education (DME) exams with our state-specific curriculum and expert mentoring.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>Rank 1</strong><span>Faculty</span></div>
+                                        <div><strong>150+</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/DME_NURSING  .html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Homeo -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-magenta"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-magenta border-magenta">State Government</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">Homeo</h3>
+                                <p class="mono-desc">Targeted preparation for Homoeo nursing positions under the state health department with comprehensive study material.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>250+</strong><span>Hrs Live</span></div>
+                                        <div><strong>100</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/HOMEO.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- IMS Staff Nurse -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">State Government</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">IMS Staff Nurse</h3>
+                                <p class="mono-desc">Comprehensive coaching for Institute of Medical Sciences (IMS) Staff Nurse exam. Focus on key clinical and theoretical concepts.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>300+</strong><span>Hrs Live</span></div>
+                                        <div><strong>100</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/IMS_Staff_Nurse.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- JPHN DHS -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">State Government</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">JPHN DHS</h3>
+                                <p class="mono-desc">Expert coaching for Junior Public Health Nurse (JPHN) under DHS Kerala with complete syllabus and previous year analysis.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>350+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Mal/Eng</strong><span>Medium</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/JPHNP_DHS.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- JPHN DME -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">State Government</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">JPHN DME</h3>
+                                <p class="mono-desc">Structured coaching for Junior Public Health Nurse (JPHN) under DME with mock exams and expert faculty guidance.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>300+</strong><span>Hrs Live</span></div>
+                                        <div><strong>120</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/JPHN_DME.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LSGD -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-magenta"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-magenta border-magenta">State Government</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">LSGD</h3>
+                                <p class="mono-desc">Preparation for nursing positions under Local Self Government Department (LSGD) with tailored study plans and mock tests.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>200+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Expert</strong><span>Faculty</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/LSGD.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MSc Nursing Entrance -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-nursing">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">Post Graduation</span>
+                                    <span class="mono-duration">6 Months</span>
+                                </div>
+                                <h3 class="mono-name">MSc Nursing Entrance</h3>
+                                <p class="mono-desc">Ace the national and state level entrance examinations for MSc Nursing with our comprehensive syllabus coverage.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>Rank 1</strong><span>Faculty</span></div>
+                                        <div><strong>150+</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/MSc_Nursing_entrance_exam.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nursing Tutor -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">Academic Role</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">Nursing Tutor</h3>
+                                <p class="mono-desc">Preparation for nursing tutor vacancies across state government educational institutions with mock interviews.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>300+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Mock</strong><span>Interviews</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/Nursing_Tutor.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Treatment Organiser -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">State Government</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">Treatment Organiser</h3>
+                                <p class="mono-desc">Focused coaching for Treatment Organiser posts under Kerala health services with expert guidance and study material.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>250+</strong><span>Hrs Live</span></div>
+                                        <div><strong>100</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/STATE/Treatment_Organiser.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- Monolith 2: DHA / HAAD -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-global">
-                    <div class="monolith-glow accent-purple"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-purple border-purple">Global Placements</span>
-                            <span class="mono-duration">3 Months</span>
-                        </div>
-                        <h3 class="mono-name">DHA, HAAD & MOH Prep.</h3>
-                        <p class="mono-desc">Bypass the red tape. We provide end-to-end coaching, Dataflow credential verification, and direct hospital interviews in the Middle East.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>100%</strong><span>Assistance</span></div>
-                                <div><strong>98%</strong><span>Pass Rate</span></div>
-                            </div>
-                            <a href="nursing/HAAD-nursing-licence.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                <!-- CENTRAL EXAMS SECTION -->
+                <div class="trajectory-section" data-section="central">
+                    <div class="monolith-grid">
 
-                <!-- Monolith 3: NCLEX-RN -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
-                    <div class="monolith-glow accent-magenta"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-magenta border-magenta">International License</span>
-                            <span class="mono-duration">4 Months</span>
-                        </div>
-                        <h3 class="mono-name">NCLEX-RN Mastery</h3>
-                        <p class="mono-desc">Prepare for the NCLEX-RN exam with an immersive curriculum designed to build your clinical reasoning and pass the boards on your first attempt.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>Top Tier</strong><span>Faculty</span></div>
-                                <div><strong>NextGen</strong><span>Simulations</span></div>
+                        <!-- AIIMS NORCET -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-nursing">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">Premier Institute</span>
+                                    <span class="mono-duration">6 Months</span>
+                                </div>
+                                <h3 class="mono-name">AIIMS NORCET</h3>
+                                <p class="mono-desc">Master clinical scenarios, prioritize high-yield concepts, and conquer negative marking to secure your rank in India's toughest nursing exams.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>500+</strong><span>Hrs Live</span></div>
+                                        <div><strong>150</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/AIIMS_NORCET.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/NCLEX.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 4: Staff Nurse DHS -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-psc">
-                    <div class="monolith-glow accent-blue"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-blue border-blue">State Government</span>
-                            <span class="mono-duration">5 Months</span>
-                        </div>
-                        <h3 class="mono-name">Kerala PSC Staff Nurse</h3>
-                        <p class="mono-desc">Designed specifically around the new weighted syllabus. Learn rapid recall strategies and absolute elimination techniques from state rank holders.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>Rank 1</strong><span>Faculty</span></div>
-                                <div><strong>Mal/Eng</strong><span>Medium</span></div>
+                        <!-- DSSSB Nursing Officer -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-nursing">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">Central Govt.</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">DSSSB Nursing Officer</h3>
+                                <p class="mono-desc">Delhi Subordinate Services Selection Board nursing officer exam prep with complete coverage of clinical and general studies.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>400+</strong><span>Hrs Live</span></div>
+                                        <div><strong>120</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/DSSSB_Nursing_Officer_Exam.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/staff-nurse-DHS.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 5: IMS Nursing -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
-                    <div class="monolith-glow accent-cyan"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-cyan border-cyan">Central Govt.</span>
-                            <span class="mono-duration">4 Months</span>
-                        </div>
-                        <h3 class="mono-name">IMS Nursing Officer</h3>
-                        <p class="mono-desc">Comprehensive coaching for Institute of Medical Sciences (IMS) Nursing Officer exam. Focus on key clinical and theoretical concepts.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>300+</strong><span>Hrs Live</span></div>
-                                <div><strong>100</strong><span>Mocks</span></div>
+                        <!-- ESIC Nursing Officer -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-nursing">
+                            <div class="monolith-glow accent-magenta"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-magenta border-magenta">Central Govt.</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">ESIC Nursing Officer</h3>
+                                <p class="mono-desc">Strategic preparation for ESIC Nursing Officer recruitment with focused clinical nursing and aptitude training.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>350+</strong><span>Hrs Live</span></div>
+                                        <div><strong>100</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/ESIC_Nursing_Officer_Exam.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/IMS.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 6: JIPMER Nursing -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-global">
-                    <div class="monolith-glow accent-purple"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-purple border-purple">Premier Institute</span>
-                            <span class="mono-duration">5 Months</span>
-                        </div>
-                        <h3 class="mono-name">JIPMER Nursing</h3>
-                        <p class="mono-desc">Targeted preparation for Jawaharlal Institute of Postgraduate Medical Education and Research. Learn from JIPMER alumni.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>400+</strong><span>Hrs Live</span></div>
-                                <div><strong>92%</strong><span>Pass Rate</span></div>
+                        <!-- JIPMER Nursing Officer -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-global">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">Premier Institute</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">JIPMER Nursing Officer</h3>
+                                <p class="mono-desc">Targeted preparation for Jawaharlal Institute of Postgraduate Medical Education and Research. Learn from JIPMER alumni.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>400+</strong><span>Hrs Live</span></div>
+                                        <div><strong>92%</strong><span>Pass Rate</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/JIPMER_Nursing_Officer_Recruitment.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/JIPMER.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 7: MOH Nursing Licence -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-psc">
-                    <div class="monolith-glow accent-magenta"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-magenta border-magenta">Middle East</span>
-                            <span class="mono-duration">3 Months</span>
-                        </div>
-                        <h3 class="mono-name">MOH Nursing Licence</h3>
-                        <p class="mono-desc">Ministry of Health (MOH) exam preparation for nursing professionals seeking to work in the UAE and Gulf region.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>Expert</strong><span>Guidance</span></div>
-                                <div><strong>100%</strong><span>Assistance</span></div>
+                        <!-- Military Nursing Service (MNS) -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-pharma">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">Armed Forces</span>
+                                    <span class="mono-duration">6 Months</span>
+                                </div>
+                                <h3 class="mono-name">Military Nursing Service (MNS)</h3>
+                                <p class="mono-desc">Specialized coaching for the Military Nursing Service (MNS) exam. Join the elite armed forces healthcare team.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>500+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Interview</strong><span>Prep</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/Military_Nursing_Service_(MNS).html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/MOH-nursing-licence.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 8: Military Nursing -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-pharma">
-                    <div class="monolith-glow accent-blue"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-blue border-blue">Armed Forces</span>
-                            <span class="mono-duration">6 Months</span>
-                        </div>
-                        <h3 class="mono-name">Military Nursing Service</h3>
-                        <p class="mono-desc">Specialized coaching for the Military Nursing Service (MNS) exam. Join the elite armed forces healthcare team.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>500+</strong><span>Hrs Live</span></div>
-                                <div><strong>Interview</strong><span>Prep</span></div>
+                        <!-- NVS School Nurse -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-nursing">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">Central Govt.</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">NVS School Nurse</h3>
+                                <p class="mono-desc">Navodaya Vidyalaya Samiti school nurse recruitment preparation with comprehensive general nursing and aptitude coverage.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>250+</strong><span>Hrs Live</span></div>
+                                        <div><strong>90</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/NVS_School_Nurse_Recruitment.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/Military-nursing.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 9: MSc Nursing Entrance -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
-                    <div class="monolith-glow accent-cyan"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-cyan border-cyan">Post Graduation</span>
-                            <span class="mono-duration">6 Months</span>
-                        </div>
-                        <h3 class="mono-name">MSc Nursing Entrance</h3>
-                        <p class="mono-desc">Ace the national and state level entrance examinations for MSc Nursing with our comprehensive syllabus coverage.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>Rank 1</strong><span>Faculty</span></div>
-                                <div><strong>150+</strong><span>Mocks</span></div>
+                        <!-- PGIMER -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-psc">
+                            <div class="monolith-glow accent-magenta"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-magenta border-magenta">Premier Institute</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">PGIMER</h3>
+                                <p class="mono-desc">Strategic preparation for the PGIMER Chandigarh nursing exams, focusing on high-yield clinical scenarios.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>350+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Pdf</strong><span>Notes</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/PGIMER.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/Msc-nursing-entrance.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 10: NIMHANS Nursing Officer -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-global">
-                    <div class="monolith-glow accent-purple"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-purple border-purple">National Institute</span>
-                            <span class="mono-duration">4 Months</span>
-                        </div>
-                        <h3 class="mono-name">NIMHANS Nursing Officer</h3>
-                        <p class="mono-desc">Master neurological and psychiatric nursing concepts to clear the NIMHANS nursing officer exam with top ranks.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>Specialized</strong><span>Training</span></div>
-                                <div><strong>CBT</strong><span>Simulations</span></div>
+                        <!-- RCC -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-nursing">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">Central Govt.</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">RCC</h3>
+                                <p class="mono-desc">Dr. Ram Manohar Lohia Hospital nursing officer exam preparation with expert clinical faculty and comprehensive mock tests.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>300+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Expert</strong><span>Faculty</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/RML.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/NIMHANS-nursing-officer.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 11: PGIMER Nursing -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-psc">
-                    <div class="monolith-glow accent-magenta"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-magenta border-magenta">Premier Institute</span>
-                            <span class="mono-duration">5 Months</span>
-                        </div>
-                        <h3 class="mono-name">PGIMER Nursing</h3>
-                        <p class="mono-desc">Strategic preparation for the PGIMER Chandigarh nursing exams, focusing on high-yield clinical scenarios.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>350+</strong><span>Hrs Live</span></div>
-                                <div><strong>Pdf</strong><span>Notes</span></div>
-                            </div>
-                            <a href="nursing/PGIMER-nursing.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 12: RRB Nursing -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-pharma">
-                    <div class="monolith-glow accent-blue"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-blue border-blue">Railway Board</span>
-                            <span class="mono-duration">4 Months</span>
-                        </div>
-                        <h3 class="mono-name">RRB Nursing Officer</h3>
-                        <p class="mono-desc">Prepare for the Railway Recruitment Board Nursing exams with targeted mock tests and expert faculty.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>Extensive</strong><span>Q-Bank</span></div>
-                                <div><strong>Expert</strong><span>Mentorship</span></div>
+                        <!-- RML -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-nursing">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">Central Govt.</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">RML</h3>
+                                <p class="mono-desc">Dr. Ram Manohar Lohia Hospital nursing officer exam preparation with expert clinical faculty and comprehensive mock tests.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>300+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Expert</strong><span>Faculty</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/RML.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/RRB-nursing.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 13: Assistant Professor Nursing -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
-                    <div class="monolith-glow accent-cyan"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-cyan border-cyan">Academic Role</span>
-                            <span class="mono-duration">6 Months</span>
-                        </div>
-                        <h3 class="mono-name">Asst. Professor Nursing</h3>
-                        <p class="mono-desc">Elevate your career into academia. Specialized coaching for Assistant Professor roles in top nursing colleges.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>Ph.D</strong><span>Faculty</span></div>
-                                <div><strong>Research</strong><span>Focus</span></div>
+                        <!-- RRB Staff Nurse -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-pharma">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">Railway Board</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">RRB Staff Nurse</h3>
+                                <p class="mono-desc">Prepare for the Railway Recruitment Board Nursing exams with targeted mock tests and expert faculty.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>Extensive</strong><span>Q-Bank</span></div>
+                                        <div><strong>Expert</strong><span>Mentorship</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/RRB_Staff_Nurse_Exam.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/ass-professor-nursing.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 14: Nursing Prometric -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-global">
-                    <div class="monolith-glow accent-purple"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-purple border-purple">Global Placement</span>
-                            <span class="mono-duration">3 Months</span>
-                        </div>
-                        <h3 class="mono-name">Nursing Prometric</h3>
-                        <p class="mono-desc">Clear the Prometric exams for Saudi Arabia, Qatar, and Oman with our targeted test series and lectures.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>100%</strong><span>Assistance</span></div>
-                                <div><strong>95%</strong><span>Pass Rate</span></div>
+                        <!-- SGPGIMS -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-global">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">Premier Institute</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">SGPGIMS</h3>
+                                <p class="mono-desc">Sanjay Gandhi Postgraduate Institute nursing exam prep with clinical specialization focus and dedicated mentorship.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>350+</strong><span>Hrs Live</span></div>
+                                        <div><strong>110</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/SGPGIMS .html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/nursing-prometric.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 15: Nursing Tutor -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-psc">
-                    <div class="monolith-glow accent-magenta"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-magenta border-magenta">Academic Role</span>
-                            <span class="mono-duration">4 Months</span>
-                        </div>
-                        <h3 class="mono-name">Nursing Tutor</h3>
-                        <p class="mono-desc">Preparation for nursing tutor vacancies across state and central government educational institutions.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>300+</strong><span>Hrs Live</span></div>
-                                <div><strong>Mock</strong><span>Interviews</span></div>
+                        <!-- Sree Chitra -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-nursing">
+                            <div class="monolith-glow accent-magenta"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-magenta border-magenta">Premier Institute</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">Sree Chitra</h3>
+                                <p class="mono-desc">Sree Chitra Tirunal Institute nursing officer exam preparation with specialized cardiac and neuro-nursing modules.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>400+</strong><span>Hrs Live</span></div>
+                                        <div><strong>95%</strong><span>Pass Rate</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/Sree_Chithra.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/nursing-tutor.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 16: Staff Nurse DME -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-pharma">
-                    <div class="monolith-glow accent-blue"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-blue border-blue">State Government</span>
-                            <span class="mono-duration">5 Months</span>
-                        </div>
-                        <h3 class="mono-name">Staff Nurse DME</h3>
-                        <p class="mono-desc">Secure your rank in Directorate of Medical Education (DME) exams with our state-specific curriculum.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>Rank 1</strong><span>Faculty</span></div>
-                                <div><strong>150+</strong><span>Mocks</span></div>
+                        <!-- SSC Nursing / Staff Nurse -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-pharma">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">Central Govt.</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">SSC Nursing / Staff Nurse</h3>
+                                <p class="mono-desc">Staff Selection Commission nursing recruitment preparation with comprehensive general knowledge and clinical nursing coverage.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>450+</strong><span>Hrs Live</span></div>
+                                        <div><strong>130</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="nursing/CENTRAL/SSC_Nursing_Staff_Nurse_Recruitment.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="nursing/staff-nurse-DME.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
+
                     </div>
                 </div>
 
