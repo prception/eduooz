@@ -124,7 +124,7 @@ body {
 
 /* --- Left: Narrative Zone --- */
 .nexus-title { font-size: clamp(3.5rem, 6vw, 6rem); font-weight: 900; line-height: 1.1; letter-spacing: -2px; color: #fff; margin-bottom: 25px; }
-.text-gradient-cyan { background: linear-gradient(135deg, #fff 0%, var(--brand-cyan) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.text-gradient-cyan { font-size: 1.5em; background: linear-gradient(135deg, #fff 0%, var(--brand-cyan) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .nexus-subtitle { font-size: 1.15rem; color: var(--text-muted); line-height: 1.6; font-weight: 400; max-width: 550px; margin-bottom: 50px; }
 
 .nexus-cta-group { display: flex; align-items: center; gap: 30px; }
