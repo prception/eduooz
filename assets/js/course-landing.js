@@ -235,7 +235,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const headingMap = {
             all: 'All State & Central Nursing Exams',
             state: 'Kerala State PSC Nursing Exams',
-            central: 'Central Government Nursing Exams'
+            central: 'Central Government Nursing Exams',
+            gcc: 'GCC Nursing Licensing Exams'
         };
 
         tabs.forEach(tab => {
