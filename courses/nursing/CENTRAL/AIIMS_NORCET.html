@@ -39,12 +39,20 @@
                 "ex-servicemen": 35
             }
         },
-    
-       
-    
+
+        previousPapers: [
+            { id: 'norcet-5-2024-s1',  year: '2024', title: 'NORCET 5 — Morning Shift', meta: '200 MCQs · 90 mins', pages: 24, pdfUrl: null },
+            { id: 'norcet-5-2024-s2',  year: '2024', title: 'NORCET 5 — Evening Shift', meta: '200 MCQs · 90 mins', pages: 24, pdfUrl: null },
+            { id: 'norcet-5-2024-key', year: '2024', title: 'NORCET 5 — Answer Key',    meta: 'All Sets · Official', pages: 8,  pdfUrl: null },
+            { id: 'norcet-4-2023-s1',  year: '2023', title: 'NORCET 4 — Morning Shift', meta: '200 MCQs · 90 mins', pages: 22, pdfUrl: null },
+            { id: 'norcet-4-2023-s2',  year: '2023', title: 'NORCET 4 — Evening Shift', meta: '200 MCQs · 90 mins', pages: 22, pdfUrl: null },
+            { id: 'norcet-4-2023-key', year: '2023', title: 'NORCET 4 — Answer Key',    meta: 'All Sets · Official', pages: 6,  pdfUrl: null }
+        ],
+
     };
     </script>
 </head>
+
 <body>
     
     <div id="header-container"></div>
@@ -84,65 +92,156 @@
 
                 <div class="course-vital-wrapper g-course-reveal">
                     <div class="vital-glass-card" id="vital-card">
-                        <div class="vital-glare"></div>
-                        
-                        <!-- <div class="vital-header">
-                            <h3>Exam Vitals</h3>
-                            <div class="pulse-indicator">
-                                <span class="pulse-dot"></span> Live
-                            </div>
-                        </div> -->
 
-                        <div class="vital-grid">
-                            <div class="vital-item">
-                                <div class="vital-icon"><i class="fa-solid fa-video"></i></div>
-                                <div><h4>Live + Recorded Classes</h4><span>500+ Hours</span></div>
+                        <!-- Ambient accents -->
+                        <div class="vfc-accent vfc-accent-1"></div>
+                        <div class="vfc-accent vfc-accent-2"></div>
+                        <div class="vfc-light-sweep"></div>
+
+                        <!-- Header -->
+                        <div class="vfc-header">
+                            <div class="vfc-header-left">
+                                <span class="vfc-eyebrow">✦ What's Included</span>
+                                <h3 class="vfc-headline">Complete Learning System</h3>
                             </div>
-                            <div class="vital-item">
-                                <div class="vital-icon"><i class="fa-solid fa-file-powerpoint"></i></div>
-                                <div><h4>Free PPT Notes</h4><span>All Subjects</span></div>
-                            </div>
-                            <div class="vital-item">
-                                <div class="vital-icon"><i class="fa-solid fa-clipboard-question"></i></div>
-                                <div><h4>Practice Questions</h4><span>10,000+ MCQs</span></div>
-                            </div>
-                            <div class="vital-item">
-                                <div class="vital-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                                <div><h4>Model Exams</h4><span>150+ CBT Tests</span></div>
-                            </div>
-                            <div class="vital-item">
-                                <div class="vital-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
-                                <div><h4>Expert Mentor Support</h4><span>1-on-1 Guidance</span></div>
-                            </div>
-                            <div class="vital-item">
-                                <div class="vital-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
-                                <div><h4>Periodic Revision Sessions</h4><span>Structured Review</span></div>
-                            </div>
-                            <div class="vital-item">
-                                <div class="vital-icon"><i class="fa-solid fa-infinity"></i></div>
-                                <div><h4>Unlimited Test Series</h4><span>Until You Crack It</span></div>
-                            </div>
-                            <div class="vital-item">
-                                <div class="vital-icon"><i class="fa-solid fa-play-circle"></i></div>
-                                <div><h4>Animated Classes</h4><span>Highly Engaging</span></div>
+                            <div class="vfc-live-badge">
+                                <span class="vfc-pulse-dot"></span> Enrolling Now
                             </div>
                         </div>
 
-                       
+                        <!-- Stat Chips -->
+                        <div class="vfc-stats">
+                            <div class="vfc-stat-chip">
+                                <span class="vfc-stat-value">500+</span>
+                                <span class="vfc-stat-label">Hours Classes</span>
+                            </div>
+                            <div class="vfc-stat-chip">
+                                <span class="vfc-stat-value">10,000+</span>
+                                <span class="vfc-stat-label">MCQs</span>
+                            </div>
+                            <div class="vfc-stat-chip">
+                                <span class="vfc-stat-value">150+</span>
+                                <span class="vfc-stat-label">CBT Tests</span>
+                            </div>
+                        </div>
+
+                        <!-- 2×2 Feature Grid — Slide A -->
+                        <div class="vfc-grid-wrap" id="vfc-grid-wrap">
+                            <div class="vfc-slide active" id="vfc-slide-0">
+                                <div class="vfc-card-grid">
+                                    <div class="vfc-card">
+                                        <div class="vfc-card-icon-wrap"><i class="fa-solid fa-video"></i></div>
+                                        <h4 class="vfc-card-title">Live + Recorded Classes</h4>
+                                        <p class="vfc-card-sub">500+ Hours</p>
+                                    </div>
+                                    <div class="vfc-card">
+                                        <div class="vfc-card-icon-wrap"><i class="fa-solid fa-file-powerpoint"></i></div>
+                                        <h4 class="vfc-card-title">Free PPT Notes</h4>
+                                        <p class="vfc-card-sub">All Subjects</p>
+                                    </div>
+                                    <div class="vfc-card">
+                                        <div class="vfc-card-icon-wrap"><i class="fa-solid fa-clipboard-question"></i></div>
+                                        <h4 class="vfc-card-title">Practice Questions</h4>
+                                        <p class="vfc-card-sub">10,000+ MCQs</p>
+                                    </div>
+                                    <div class="vfc-card">
+                                        <div class="vfc-card-icon-wrap"><i class="fa-solid fa-laptop-code"></i></div>
+                                        <h4 class="vfc-card-title">Model Exams</h4>
+                                        <p class="vfc-card-sub">150+ CBT Tests</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide B -->
+                            <div class="vfc-slide" id="vfc-slide-1">
+                                <div class="vfc-card-grid">
+                                    <div class="vfc-card">
+                                        <div class="vfc-card-icon-wrap"><i class="fa-solid fa-chalkboard-user"></i></div>
+                                        <h4 class="vfc-card-title">Expert Mentor Support</h4>
+                                        <p class="vfc-card-sub">1-on-1 Guidance</p>
+                                    </div>
+                                    <div class="vfc-card">
+                                        <div class="vfc-card-icon-wrap"><i class="fa-solid fa-arrows-rotate"></i></div>
+                                        <h4 class="vfc-card-title">Revision Sessions</h4>
+                                        <p class="vfc-card-sub">Structured Review</p>
+                                    </div>
+                                    <div class="vfc-card">
+                                        <div class="vfc-card-icon-wrap"><i class="fa-solid fa-infinity"></i></div>
+                                        <h4 class="vfc-card-title">Unlimited Tests</h4>
+                                        <p class="vfc-card-sub">Until You Crack It</p>
+                                    </div>
+                                    <div class="vfc-card">
+                                        <div class="vfc-card-icon-wrap"><i class="fa-solid fa-play-circle"></i></div>
+                                        <h4 class="vfc-card-title">Animated Classes</h4>
+                                        <p class="vfc-card-sub">Highly Engaging</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer: progress bar + dots -->
+                        <div class="vfc-footer">
+                            <div class="vfc-progress-track">
+                                <div class="vfc-progress-fill" id="vfc-progress"></div>
+                            </div>
+                            <div class="vfc-dots" id="vfc-dots">
+                                <button class="vfc-dot active" aria-label="Slide 1"></button>
+                                <button class="vfc-dot" aria-label="Slide 2"></button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 2: STICKY QUICK NAVIGATION -->
-    <nav class="exam-sticky-nav" aria-label="Quick Navigation">
-        <a href="#exam-snapshot">Overview</a>
-        <a href="#syllabus">Syllabus</a>
-        <a href="#papers">Papers</a>
-        <a href="#practice">Mock Tests</a>
-        <a href="#faculty">Faculty</a>
-        <a href="#faq">FAQ</a>
+    <!-- SECTION 2: STICKY ICON NAVIGATION -->
+    <nav class="exam-sticky-nav" id="exam-sticky-nav" aria-label="Quick Navigation">
+        <div class="esn-track">
+            <div class="esn-item">
+                <a class="esn-btn" href="#exam-snapshot" aria-label="Overview">
+                    <span class="esn-pulse-ring"></span>
+                    <i class="fa-solid fa-chart-pie"></i>
+                </a>
+                <span class="esn-tooltip" aria-hidden="true">Overview<span class="esn-arr"></span></span>
+            </div>
+            <div class="esn-item">
+                <a class="esn-btn" href="#syllabus" aria-label="Syllabus">
+                    <span class="esn-pulse-ring"></span>
+                    <i class="fa-solid fa-book-open"></i>
+                </a>
+                <span class="esn-tooltip" aria-hidden="true">Syllabus<span class="esn-arr"></span></span>
+            </div>
+            <div class="esn-item">
+                <a class="esn-btn" href="#papers" aria-label="Papers">
+                    <span class="esn-pulse-ring"></span>
+                    <i class="fa-solid fa-file-lines"></i>
+                </a>
+                <span class="esn-tooltip" aria-hidden="true">Papers<span class="esn-arr"></span></span>
+            </div>
+            <div class="esn-item">
+                <a class="esn-btn" href="#practice" aria-label="Mock Tests">
+                    <span class="esn-pulse-ring"></span>
+                    <i class="fa-solid fa-laptop-code"></i>
+                </a>
+                <span class="esn-tooltip" aria-hidden="true">Mock Tests<span class="esn-arr"></span></span>
+            </div>
+            <div class="esn-item">
+                <a class="esn-btn" href="#faculty" aria-label="Faculty">
+                    <span class="esn-pulse-ring"></span>
+                    <i class="fa-solid fa-user-graduate"></i>
+                </a>
+                <span class="esn-tooltip" aria-hidden="true">Faculty<span class="esn-arr"></span></span>
+            </div>
+            <div class="esn-item">
+                <a class="esn-btn" href="#faq" aria-label="FAQ">
+                    <span class="esn-pulse-ring"></span>
+                    <i class="fa-solid fa-circle-question"></i>
+                </a>
+                <span class="esn-tooltip" aria-hidden="true">FAQ<span class="esn-arr"></span></span>
+            </div>
+        </div>
     </nav>
 
     <!-- SECTION 3: EXAM SNAPSHOT -->
@@ -165,7 +264,7 @@
                         <div class="snap-value">All India Institute of Medical Sciences (AIIMS) — Central Government</div>
                     </div>
                     <div class="snapshot-card">
-                        <div class="snap-icon"><i class="fa-solid fa-file-certificate"></i></div>
+                        <div class="snap-icon"><i class="fa-solid fa-file-lines"></i></div>
                         <div class="snap-label">Name of Examination</div>
                         <div class="snap-value">Nursing Officer Recruitment Common Eligibility Test (NORCET)</div>
                     </div>
@@ -226,22 +325,96 @@
 
     <!-- SECTION 4: ABOUT THE EXAM -->
     <section class="about-exam-section" id="about-exam">
+        <div class="aev-ambient">
+            <div class="aev-blob aev-blob-1"></div>
+            <div class="aev-blob aev-blob-2"></div>
+        </div>
         <div class="container">
             <div class="text-center">
                 <div class="section-label"><span class="label-dot"></span> About This Exam</div>
                 <h2 class="section-title">Understanding <span class="text-gradient">NORCET.</span></h2>
             </div>
-            <div class="about-exam-grid g-exam-reveal">
-                <div class="about-exam-image">
-                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800" alt="AIIMS Institute">
+
+            <div class="aev-grid">
+
+                <!-- LEFT: Video Carousel (60%) -->
+                <div class="aev-carousel-col g-exam-reveal">
+                    <div class="aev-carousel" id="aev-carousel">
+                        <div class="aev-glow-ring"></div>
+                        <div class="aev-track-wrap" id="aev-track-wrap">
+                            <div class="aev-track" id="aev-track"></div>
+                        </div>
+                        <button class="aev-nav aev-nav-prev" id="aev-prev" aria-label="Previous video">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button class="aev-nav aev-nav-next" id="aev-next" aria-label="Next video">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                        <div class="aev-dots" id="aev-dots"></div>
+                    </div>
+                    <a href="https://www.youtube.com/@Eduooz-NursesLearningHub-to3ww" target="_blank" rel="noopener" class="aev-yt-link">
+                        <i class="fa-brands fa-youtube"></i>
+                        Watch more on Eduooz Nurses Learning Hub
+                        <i class="fa-solid fa-up-right-from-square"></i>
+                    </a>
+
+
+                    <div class="aev-stats" id="aev-stats">
+                        <div class="aev-stat">
+                            <span class="aev-stat-num" data-target="3000" data-suffix="+">0+</span>
+                            <span class="aev-stat-lbl">Annual Vacancies</span>
+                        </div>
+                        <div class="aev-stat">
+                            <span class="aev-stat-num" data-target="25" data-suffix="+">0+</span>
+                            <span class="aev-stat-lbl">AIIMS Institutes</span>
+                        </div>
+                        <div class="aev-stat">
+                            <span class="aev-stat-num" data-target="7" data-prefix="Level ">7</span>
+                            <span class="aev-stat-lbl">Pay Matrix</span>
+                        </div>
+                        <div class="aev-stat">
+                            <span class="aev-stat-num" data-target="100" data-suffix="%">0%</span>
+                            <span class="aev-stat-lbl">Government Job</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="about-exam-content">
-                    <h3>What is AIIMS NORCET?</h3>
-                    <p>AIIMS NORCET (Nursing Officer Recruitment Common Eligibility Test) is a national-level examination conducted by the All India Institute of Medical Sciences, New Delhi. It serves as the single gateway for recruitment of Nursing Officers across all AIIMS institutes in India.</p>
-                    <p>The exam tests candidates on their clinical nursing knowledge, patient care fundamentals, and critical thinking abilities. Successful candidates are posted as Nursing Officers (Group B, Non-Gazetted) with attractive pay scales, government benefits, and career growth opportunities.</p>
-                    <p>With over 3,000+ vacancies announced annually across 25+ AIIMS institutes, NORCET represents one of the most prestigious nursing career pathways in India, offering job security, pension benefits, and international recognition.</p>
-                    <div class="about-highlights" id="about-highlights"></div>
+                
+
+                <!-- RIGHT: Content (40%) -->
+                <div class="aev-content-col g-exam-reveal">
+                    <h3 class="aev-heading">What is <span class="text-gradient">AIIMS NORCET?</span></h3>
+                    <p class="aev-desc">The national gateway for Nursing Officer recruitment across all AIIMS institutes. One competitive exam — a lifetime of government career security at India's premier medical institutions.</p>
+
+                    <div class="aev-badges">
+                        <div class="aev-badge">
+                            <div class="aev-badge-ic"><i class="fa-solid fa-landmark-dome"></i></div>
+                            <div><strong>National Level Recruitment</strong><span>Conducted by AIIMS New Delhi</span></div>
+                        </div>
+                        <div class="aev-badge">
+                            <div class="aev-badge-ic"><i class="fa-solid fa-door-open"></i></div>
+                            <div><strong>Single Gateway</strong><span>For all AIIMS Nursing Officer posts</span></div>
+                        </div>
+                        <div class="aev-badge">
+                            <div class="aev-badge-ic"><i class="fa-solid fa-briefcase"></i></div>
+                            <div><strong>3,000+ Annual Vacancies</strong><span>Across 25+ AIIMS institutes</span></div>
+                        </div>
+                        <div class="aev-badge">
+                            <div class="aev-badge-ic"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div><strong>Government Job Security</strong><span>Level 7 Pay Matrix + Pension</span></div>
+                        </div>
+                        <div class="aev-badge">
+                            <div class="aev-badge-ic"><i class="fa-solid fa-chart-line"></i></div>
+                            <div><strong>Career Growth</strong><span>Promotions & international recognition</span></div>
+                        </div>
+                        <div class="aev-badge">
+                            <div class="aev-badge-ic"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                            <div><strong>Attractive Salary</strong><span>₹44,900 – ₹1,42,400 / month</span></div>
+                        </div>
+                    </div>
+
+                    
                 </div>
+
             </div>
         </div>
     </section>
@@ -263,11 +436,12 @@
                 <!-- LEFT COLUMN: Eligibility Criteria -->
                 <div class="split-column" id="elig-carousel-col">
                     <div class="split-col-header content-right">
-                        <div class="split-col-badge "><i class="fa-solid fa-user-check"></i> Eligibility Explorer</div>
                         <div class="vcarousel-controls">
                             <button class="vc-arrow vc-up" data-target="elig-vcarousel"><i class="fa-solid fa-chevron-up"></i></button>
                             <button class="vc-arrow vc-down" data-target="elig-vcarousel"><i class="fa-solid fa-chevron-down"></i></button>
                         </div>
+                        <div class="split-col-badge "><i class="fa-solid fa-user-check"></i> Eligibility Explorer</div>
+
                     </div>
                     <div class="vcarousel-wrapper">
                         <div class="vcarousel-viewport" id="elig-vcarousel" data-autoplay="4000">
@@ -480,8 +654,6 @@
             </div>
         </div>
     </section> 
-
-
 
     <!-- SECTION 8: OFFICIAL SYLLABUS -->
     <section class="syllabus-section" id="syllabus">
@@ -819,24 +991,71 @@
                 <div class="section-label"><span class="label-dot"></span> Download Center</div>
                 <h2 class="section-title">Previous Year <span class="text-gradient">Question Papers.</span></h2>
             </div>
-            <div class="papers-toolbar g-exam-reveal">
-                <div class="papers-search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="papers-search" placeholder="Search papers...">
+
+            <div class="pdf-explorer g-exam-reveal" id="pdf-explorer">
+
+                <!-- LEFT: PDF Preview Panel -->
+                <div class="pex-preview-panel">
+                    <div class="pex-preview-card" id="pex-preview-card">
+
+                        <div class="pex-toolbar">
+                            <div class="pex-toolbar-info">
+                                <span class="pex-info-year" id="pex-info-year"></span>
+                                <span class="pex-info-title" id="pex-info-title">Select a paper to preview</span>
+                            </div>
+                            <div class="pex-toolbar-actions">
+                                <button class="pex-tbtn" id="pex-zoom-out" title="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                                <span class="pex-zoom-label" id="pex-zoom-label">100%</span>
+                                <button class="pex-tbtn" id="pex-zoom-in" title="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                                <a class="pex-tbtn pex-tbtn-dl" id="pex-download-btn" href="#" title="Download PDF"><i class="fa-solid fa-download"></i> Download</a>
+                                <button class="pex-tbtn" id="pex-fullscreen-btn" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="pex-frame-wrap" id="pex-frame-wrap">
+                            <div class="pex-skeleton" id="pex-skeleton">
+                                <div class="pex-sk-bar"></div>
+                                <div class="pex-sk-bar pex-sk-short"></div>
+                                <div class="pex-sk-block"></div>
+                                <div class="pex-sk-bar pex-sk-med"></div>
+                                <div class="pex-sk-bar pex-sk-short"></div>
+                            </div>
+                            <iframe id="pex-iframe" src="" title="PDF Preview" allowfullscreen></iframe>
+                            <div class="pex-locked-state" id="pex-locked-state">
+                                <div class="pex-locked-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                                <p class="pex-locked-title" id="pex-locked-title">Select a Paper</p>
+                                <p class="pex-locked-sub" id="pex-locked-sub">Click any card to preview it here</p>
+                                <a href="#enroll" class="pex-enroll-btn">Enroll to Download All Papers</a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="papers-filter">
-                    <button class="active" data-year="all">All Years</button>
-                    <button data-year="2025">2025</button>
-                    <button data-year="2024">2024</button>
-                    <button data-year="2023">2023</button>
+
+                <!-- RIGHT: Library Panel -->
+                <div class="pex-library-panel">
+
+                    <div class="pex-filter-bar">
+                        <div class="pex-tabs" id="pex-tabs">
+                            <button class="pex-tab active" data-year="all">All Years</button>
+                            <button class="pex-tab" data-year="2024">2024</button>
+                            <button class="pex-tab" data-year="2023">2023</button>
+                        </div>
+                        <div class="pex-search-wrap">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="pex-search" placeholder="Search papers…">
+                        </div>
+                    </div>
+
+                    <div class="pex-paper-grid" id="pex-paper-grid"></div>
+
+                    <div class="pex-empty" id="pex-empty">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <p>No papers found</p>
+                    </div>
+
                 </div>
-            </div>
-            <div class="papers-grid" id="papers-grid">
-                <!-- Rendered by JS -->
-            </div>
-            <div class="papers-empty" id="papers-empty">
-                <i class="fa-solid fa-folder-open" style="font-size: 2rem; margin-bottom: 12px; display: block;"></i>
-                No papers found matching your search.
+
             </div>
         </div>
     </section>
@@ -867,239 +1086,434 @@
         </div>
     </section>
 
-    <!-- SECTION 15: FACULTY TEAM -->
-    <section class="faculty-morph-section" id="faculty">
-        <div class="container relative-z">
-            <div class="faculty-header text-center g-fac-reveal">
-                <div class="frost-pill-light mb-4">
-                    <span class="glowing-dot-purple"></span> The Architects of Success
-                </div>
-                <h2 class="faculty-title">Learn from the <br><span class="text-italic-purple">Rank Holders.</span></h2>
-                <div class="mobile-swipe-hint d-none">
-                    <i class="fa-solid fa-arrows-left-right"></i> Swipe to explore
-                </div>
+    <!-- SECTION 15: FACULTY CAROUSEL -->
+    <section class="fac-showcase-section" id="faculty">
+        <div class="container">
+            <div class="text-center g-exam-reveal">
+                <div class="section-label"><span class="label-dot"></span> The Team of Our Success</div>
+                <h2 class="section-title">Expert-Led <span class="text-gradient">NORCET Coaching.</span></h2>
+                <p class="fac-section-sub">Our faculty combines NORCET rank holders, ex-AIIMS professionals, and clinical specialists — unified by one mission: your selection.</p>
             </div>
 
-            <div class="faculty-track-wrapper g-fac-reveal">
-                <div class="fac-morph-card">
-                    <div class="fac-image-layer">
-                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=800" alt="Dr. Meera N.">
-                        <div class="fac-name-tag"><h3>Dr. Meera N.</h3><span class="text-purple">Head of Anatomy</span></div>
-                    </div>
-                    <div class="fac-glass-bio">
-                        <div class="bio-content-inner">
-                            <div class="credential-badge badge-purple"><i class="fa-solid fa-trophy"></i> AIR 12 - AIIMS</div>
-                            <h3>Dr. Meera N.</h3>
-                            <span class="role text-purple">Head of Anatomy</span>
-                            <p>Former Senior Resident at AIIMS Delhi. Specializes in high-yield visual frameworks for systemic anatomy and physiology.</p>
-                            <div class="fac-stats-mini"><div><strong>8+</strong><span>Yrs Exp</span></div><div><strong>500+</strong><span>Selected</span></div></div>
+            <!-- <div class="fac-car-root g-exam-reveal"> -->
+                <!-- LEFT: Featured expertise panel -->
+                <!-- <button class="fac-car-arrow fac-car-prev" id="fac-car-prev" aria-label="Previous faculty">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <div class="fac-car-stage" id="fac-car-stage">
+                    <div class="fac-car-track" id="fac-car-track">
+
+                        <div class="fac-car-card" data-accent="cyan">
+                            <div class="fac-car-icon-area">
+                                <div class="fac-car-icon-ring"><i class="fa-solid fa-chess"></i></div>
+                                <span class="fac-car-cred-badge"><i class="fa-solid fa-trophy"></i> NORCET Rank Holders</span>
+                            </div>
+                            <div class="fac-car-body">
+                                <h3 class="fac-car-name">NORCET Strategy &amp; Exam Prep</h3>
+                                <p class="fac-car-role">Strategy Specialists · Former NORCET Rank Holders</p>
+                                <p class="fac-car-desc">NORCET rank holders who have mastered the art of cracking CBT exams. They decode patterns and teach the exact techniques that push scores from 140 to 185+.</p>
+                                <div class="fac-car-topics">
+                                    <span class="fac-car-topic">Pattern Analysis</span>
+                                    <span class="fac-car-topic">Time Management</span>
+                                    <span class="fac-car-topic">High-Yield Topics</span>
+                                    <span class="fac-car-topic">Mock Strategy</span>
+                                </div>
+                            </div>
+                            <div class="fac-car-foot">
+                                <div class="fac-car-stat"><strong>10+</strong><span>Rank Holders</span></div>
+                                <div class="fac-car-stat"><strong>3000+</strong><span>Selected</span></div>
+                                <div class="fac-car-stat"><strong>96%</strong><span>Pass Rate</span></div>
+                            </div>
                         </div>
+
+                        <div class="fac-car-card" data-accent="blue">
+                            <div class="fac-car-icon-area">
+                                <div class="fac-car-icon-ring"><i class="fa-solid fa-kit-medical"></i></div>
+                                <span class="fac-car-cred-badge"><i class="fa-solid fa-hospital"></i> Ex-AIIMS Faculty</span>
+                            </div>
+                            <div class="fac-car-body">
+                                <h3 class="fac-car-name">Medical-Surgical Nursing</h3>
+                                <p class="fac-car-role">Clinical Specialists · Ex-AIIMS Delhi Faculty</p>
+                                <p class="fac-car-desc">Former AIIMS faculty who blend clinical experience with exam strategy, transforming complex Med-Surg scenarios into logical, scoring frameworks.</p>
+                                <div class="fac-car-topics">
+                                    <span class="fac-car-topic">Critical Care</span>
+                                    <span class="fac-car-topic">Perioperative Nursing</span>
+                                    <span class="fac-car-topic">Clinical MCQs</span>
+                                    <span class="fac-car-topic">Emergency Nursing</span>
+                                </div>
+                            </div>
+                            <div class="fac-car-foot">
+                                <div class="fac-car-stat"><strong>15+</strong><span>Yrs Experience</span></div>
+                                <div class="fac-car-stat"><strong>1200+</strong><span>Selected</span></div>
+                                <div class="fac-car-stat"><strong>98%</strong><span>Pass Rate</span></div>
+                            </div>
+                        </div>
+
+                        <div class="fac-car-card" data-accent="purple">
+                            <div class="fac-car-icon-area">
+                                <div class="fac-car-icon-ring"><i class="fa-solid fa-pills"></i></div>
+                                <span class="fac-car-cred-badge"><i class="fa-solid fa-flask"></i> Clinical Pharmacologists</span>
+                            </div>
+                            <div class="fac-car-body">
+                                <h3 class="fac-car-name">Pharmacology &amp; Drug Therapy</h3>
+                                <p class="fac-car-role">Pharmacology Experts · Clinical Practice Leaders</p>
+                                <p class="fac-car-desc">Master the most feared NORCET subject with structured mnemonics and proven shortcuts. Drug classifications to nursing implications — simplified.</p>
+                                <div class="fac-car-topics">
+                                    <span class="fac-car-topic">Drug Classifications</span>
+                                    <span class="fac-car-topic">Nursing Implications</span>
+                                    <span class="fac-car-topic">Adverse Effects</span>
+                                    <span class="fac-car-topic">High-Yield Drugs</span>
+                                </div>
+                            </div>
+                            <div class="fac-car-foot">
+                                <div class="fac-car-stat"><strong>200+</strong><span>Drug Mnemonics</span></div>
+                                <div class="fac-car-stat"><strong>1500+</strong><span>Selected</span></div>
+                                <div class="fac-car-stat"><strong>94%</strong><span>Pass Rate</span></div>
+                            </div>
+                        </div>
+
+                        <div class="fac-car-card" data-accent="teal">
+                            <div class="fac-car-icon-area">
+                                <div class="fac-car-icon-ring"><i class="fa-solid fa-heart-pulse"></i></div>
+                                <span class="fac-car-cred-badge"><i class="fa-solid fa-eye"></i> Visual Framework Experts</span>
+                            </div>
+                            <div class="fac-car-body">
+                                <h3 class="fac-car-name">Anatomy &amp; Physiology</h3>
+                                <p class="fac-car-role">Visual Framework Specialists · Systemic A&amp;P Experts</p>
+                                <p class="fac-car-desc">Anatomy taught through premium visual mind maps and systemic deep-dives. Diagram-based teaching proven to double retention in CBT settings.</p>
+                                <div class="fac-car-topics">
+                                    <span class="fac-car-topic">Systemic Anatomy</span>
+                                    <span class="fac-car-topic">Physiology Deep-Dives</span>
+                                    <span class="fac-car-topic">Visual Mind Maps</span>
+                                    <span class="fac-car-topic">High-Yield MCQs</span>
+                                </div>
+                            </div>
+                            <div class="fac-car-foot">
+                                <div class="fac-car-stat"><strong>500+</strong><span>Visual Diagrams</span></div>
+                                <div class="fac-car-stat"><strong>2000+</strong><span>Selected</span></div>
+                                <div class="fac-car-stat"><strong>95%</strong><span>Pass Rate</span></div>
+                            </div>
+                        </div>
+
+                        <div class="fac-car-card" data-accent="amber">
+                            <div class="fac-car-icon-area">
+                                <div class="fac-car-icon-ring"><i class="fa-solid fa-house-medical"></i></div>
+                                <span class="fac-car-cred-badge"><i class="fa-solid fa-shield-halved"></i> Public Health Specialists</span>
+                            </div>
+                            <div class="fac-car-body">
+                                <h3 class="fac-car-name">Community Health Nursing</h3>
+                                <p class="fac-car-role">Public Health Experts · National Health Program Specialists</p>
+                                <p class="fac-car-desc">National health programs, epidemiology, and maternal &amp; child health mapped to actual NORCET question types — making the highest-scoring subject even easier.</p>
+                                <div class="fac-car-topics">
+                                    <span class="fac-car-topic">National Health Programs</span>
+                                    <span class="fac-car-topic">Epidemiology</span>
+                                    <span class="fac-car-topic">Maternal &amp; Child Health</span>
+                                    <span class="fac-car-topic">Biostatistics</span>
+                                </div>
+                            </div>
+                            <div class="fac-car-foot">
+                                <div class="fac-car-stat"><strong>100+</strong><span>Programs Covered</span></div>
+                                <div class="fac-car-stat"><strong>1800+</strong><span>Selected</span></div>
+                                <div class="fac-car-stat"><strong>97%</strong><span>Pass Rate</span></div>
+                            </div>
+                        </div>
+
+                        <div class="fac-car-card" data-accent="pink">
+                            <div class="fac-car-icon-area">
+                                <div class="fac-car-icon-ring"><i class="fa-solid fa-laptop-code"></i></div>
+                                <span class="fac-car-cred-badge"><i class="fa-solid fa-microchip"></i> Technology Experts</span>
+                            </div>
+                            <div class="fac-car-body">
+                                <h3 class="fac-car-name">CBT Practice &amp; Analysis</h3>
+                                <p class="fac-car-role">Exam Technology Specialists · Score Optimization Experts</p>
+                                <p class="fac-car-desc">Master the AIIMS NORCET CBT interface before exam day. Speed optimization, negative marking strategy, and real-time decision making — mastered.</p>
+                                <div class="fac-car-topics">
+                                    <span class="fac-car-topic">CBT Interface Mastery</span>
+                                    <span class="fac-car-topic">Speed Optimization</span>
+                                    <span class="fac-car-topic">Negative Marking</span>
+                                    <span class="fac-car-topic">Post-Test Analysis</span>
+                                </div>
+                            </div>
+                            <div class="fac-car-foot">
+                                <div class="fac-car-stat"><strong>50+</strong><span>Full Mock Tests</span></div>
+                                <div class="fac-car-stat"><strong>800+</strong><span>Selected</span></div>
+                                <div class="fac-car-stat"><strong>93%</strong><span>Pass Rate</span></div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+                <button class="fac-car-arrow fac-car-next" id="fac-car-next" aria-label="Next faculty">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div> -->
 
-                <div class="fac-morph-card">
-                    <div class="fac-image-layer">
-                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=800" alt="Prof. Samuel J.">
-                        <div class="fac-name-tag"><h3>Prof. Samuel J.</h3><span class="text-cyan">Clinical Pharmacologist</span></div>
-                    </div>
-                    <div class="fac-glass-bio">
-                        <div class="bio-content-inner">
-                            <div class="credential-badge badge-cyan"><i class="fa-solid fa-globe"></i> NORCET Specialist</div>
-                            <h3>Prof. Samuel J.</h3>
-                            <span class="role text-cyan">Clinical Pharmacologist</span>
-                            <p>Over a decade of experience in NORCET coaching. Decodes exam patterns and high-yield pharmacology topics.</p>
-                            <div class="fac-stats-mini"><div><strong>12+</strong><span>Yrs Exp</span></div><div><strong>98%</strong><span>Pass Rate</span></div></div>
-                        </div>
-                    </div>
-                </div>
+            <!-- <div class="fac-car-dots" id="fac-car-dots"></div> -->
 
-                <div class="fac-morph-card">
-                    <div class="fac-image-layer">
-                        <img src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=800" alt="Anjali Thomas">
-                        <div class="fac-name-tag"><h3>Anjali Thomas</h3><span class="text-dark">Chief Nursing Instructor</span></div>
-                    </div>
-                    <div class="fac-glass-bio">
-                        <div class="bio-content-inner">
-                            <div class="credential-badge badge-dark" style="background: var(--text-light-theme);"><i class="fa-solid fa-medal"></i> NORCET Rank 1</div>
-                            <h3>Anjali Thomas</h3>
-                            <span class="role text-dark">Chief Nursing Instructor</span>
-                            <p>NORCET Rank 1 holder. Focuses on elimination techniques, negative marking defense, and rapid recall strategies for CBT exams.</p>
-                            <div class="fac-stats-mini"><div><strong>5+</strong><span>Yrs Exp</span></div><div><strong>300+</strong><span>Selected</span></div></div>
-                        </div>
-                    </div>
-                </div>
+            
+        </div>
+    </section>
 
-                <div class="fac-morph-card">
-                    <div class="fac-image-layer">
-                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=800" alt="Dr. Arjun Patel">
-                        <div class="fac-name-tag"><h3>Dr. Arjun Patel</h3><span class="text-blue">Medical-Surgical Nursing</span></div>
+    <!-- SECTION 16: SUCCESS STORIES HUB -->
+    <!-- Replace video IDs below with actual student testimonial YouTube video IDs -->
+    <section class="testi-hub-section" id="results">
+        <div class="testi-ambient">
+            <div class="testi-blob-1"></div>
+            <div class="testi-blob-2"></div>
+        </div>
+        <div class="container">
+            <div class="testi-header text-center g-exam-reveal">
+                <div class="section-label"><span class="label-dot"></span> Real Results, Real Nurses</div>
+                <h2 class="section-title">Hear It From The Nurses <br>Who <span class="text-gradient">Cracked NORCET-Demo section</span></h2>
+            </div>
+
+            <div class="testi-video-layout g-exam-reveal">
+                <a class="testi-vid-featured" href="https://www.youtube.com/watch?v=d5xoc5zvWyQ" target="_blank" rel="noopener">
+                    <div class="testi-vid-thumb-wrap">
+                        <img src="https://img.youtube.com/vi/d5xoc5zvWyQ/maxresdefault.jpg" alt="NORCET Success Story" class="testi-thumb" loading="lazy">
+                        <div class="testi-play-btn"><i class="fa-solid fa-play"></i></div>
                     </div>
-                    <div class="fac-glass-bio">
-                        <div class="bio-content-inner">
-                            <div class="credential-badge badge-blue" style="background: #0ea5e9;"><i class="fa-solid fa-microscope"></i> Ex-AIIMS Faculty</div>
-                            <h3>Dr. Arjun Patel</h3>
-                            <span class="role text-blue">Medical-Surgical Nursing</span>
-                            <p>Transforms complex clinical scenarios into logical frameworks. Specializes in Med-Surg nursing and critical care concepts.</p>
-                            <div class="fac-stats-mini"><div><strong>7+</strong><span>Yrs Exp</span></div><div><strong>Author</strong><span>3 Books</span></div></div>
+                    <div class="testi-vid-meta testi-featured-meta">
+                        <div class="testi-stars-row">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
+                        <h4 class="testi-vid-name">Priya Sharma</h4>
+                        <div class="testi-vid-tags">
+                            <span class="testi-vid-rank">AIR 15</span>
+                            <span class="testi-vid-inst">AIIMS Delhi</span>
+                            <span class="testi-vid-year">NORCET 2024</span>
+                        </div>
+                        <p class="testi-vid-quote">"Eduooz mock tests were almost identical to the actual NORCET exam. The faculty guidance helped me secure AIR 15 in my first attempt!"</p>
                     </div>
+                </a>
+
+                <div class="testi-vid-stack">
+                    <a class="testi-vid-card" href="https://www.youtube.com/watch?v=qEBQcfAy5e4" target="_blank" rel="noopener">
+                        <div class="testi-vid-thumb-wrap">
+                            <img src="https://img.youtube.com/vi/qEBQcfAy5e4/maxresdefault.jpg" alt="NORCET Success Story" class="testi-thumb" loading="lazy">
+                            <div class="testi-play-btn testi-play-sm"><i class="fa-solid fa-play"></i></div>
+                        </div>
+                        <div class="testi-vid-meta">
+                            <div class="testi-stars-row"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <h4 class="testi-vid-name">Rahul Menon</h4>
+                            <div class="testi-vid-tags">
+                                <span class="testi-vid-rank">AIIMS Delhi</span>
+                                <span class="testi-vid-year">NORCET 2024</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="testi-vid-card" href="https://www.youtube.com/watch?v=h9NjqU6IyzE" target="_blank" rel="noopener">
+                        <div class="testi-vid-thumb-wrap">
+                            <img src="https://img.youtube.com/vi/h9NjqU6IyzE/maxresdefault.jpg" alt="NORCET Success Story" class="testi-thumb" loading="lazy">
+                            <div class="testi-play-btn testi-play-sm"><i class="fa-solid fa-play"></i></div>
+                        </div>
+                        <div class="testi-vid-meta">
+                            <div class="testi-stars-row"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <h4 class="testi-vid-name">Lakshmi N.</h4>
+                            <div class="testi-vid-tags">
+                                <span class="testi-vid-rank">AIIMS Bhopal</span>
+                                <span class="testi-vid-year">NORCET 2023</span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 16: TESTIMONIALS -->
-    <section class="testimonials-premium-section" id="results">
-        <div class="container relative-z">
-            <div class="test-header text-center">
-                <h2 class="g-test-reveal">Don't just take our <br><span class="text-italic-cyan">word for it.</span></h2>
+    <!-- GOOGLE REVIEWS & TRUST WALL -->
+    <section class="greview-section" id="reviews">
+        <div class="container">
+            <div class="text-center g-exam-reveal" style="margin-bottom:48px;">
+                <div class="section-label"><span class="label-dot"></span> Social Proof</div>
+                <h2 class="section-title">Trusted by <span class="text-gradient">Thousands of Nurses.</span></h2>
             </div>
-        </div>
 
-        <div class="test-marquee-master-wrapper g-test-reveal">
-            <div class="test-marquee-container">
-                <div class="test-marquee-track test-track-left">
-                    <div class="test-marquee-group">
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="Priya">
-                                <div><h4>Priya Sharma</h4><span class="test-badge badge-blue">NORCET AIR 15</span></div>
-                            </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"Eduooz mock tests were almost identical to the actual NORCET exam. The faculty guidance helped me secure AIR 15 in my first attempt!"</p>
-                        </div>
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150" alt="Rahul">
-                                <div><h4>Rahul Menon</h4><span class="test-badge badge-cyan">AIIMS Delhi</span></div>
-                            </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"The structured study plan and mentor support made all the difference. Now posted at AIIMS Delhi as Nursing Officer!"</p>
-                        </div>
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="Lakshmi">
-                                <div><h4>Lakshmi N.</h4><span class="test-badge badge-purple">NORCET 2024</span></div>
-                            </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"The previous year paper analysis sessions were gold. Every high-yield topic they predicted actually appeared in the exam."</p>
-                        </div>
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="Aswathy">
-                                <div><h4>ASWATHY R S</h4><span class="test-badge badge-blue">Working Professional</span></div>
-                            </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"Even with a full-time job, the flexible scheduling and recorded classes helped me prepare effectively. Cleared NORCET on first try!"</p>
-                        </div>
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=150" alt="Deepa">
-                                <div><h4>Deepa Joseph</h4><span class="test-badge badge-cyan">AIIMS Bhopal</span></div>
-                            </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"The CBT simulation environment at Eduooz removed my exam anxiety completely. I was fully confident on exam day."</p>
-                        </div>
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150" alt="Steffi">
-                                <div><h4>Steffi Saji</h4><span class="test-badge badge-purple">AIIMS Rishikesh</span></div>
-                            </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"Personal mentoring and supportive faculty make Eduooz stand out. Got placed at AIIMS Rishikesh - dream come true!"</p>
-                        </div>
+            <div class="greview-stats-bar g-exam-reveal" id="greview-stats-bar">
+                <div class="greview-rating-hero">
+                    <div class="greview-g-logo"><i class="fa-brands fa-google"></i></div>
+                    <div class="greview-rating-num">4.9</div>
+                    <div class="greview-stars-lg">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
                     </div>
-                    <div class="test-marquee-group" aria-hidden="true">
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150" alt="Priya">
-                                <div><h4>Priya Sharma</h4><span class="test-badge badge-blue">NORCET AIR 15</span></div>
+                    <p class="greview-rating-label">Google Rating</p>
+                </div>
+                <div class="greview-divider-v"></div>
+                <div class="greview-counter-group">
+                    <div class="greview-counter-item">
+                        <strong class="greview-count" data-target="1500" data-suffix="+">0+</strong>
+                        <span>Google Reviews</span>
+                    </div>
+                    <div class="greview-counter-item">
+                        <strong class="greview-count" data-target="5000" data-suffix="+">0+</strong>
+                        <span>Students Enrolled</span>
+                    </div>
+                    <div class="greview-counter-item">
+                        <strong class="greview-count" data-target="3000" data-suffix="+">0+</strong>
+                        <span>Selections Made</span>
+                    </div>
+                    <div class="greview-counter-item">
+                        <strong class="greview-count" data-target="96" data-suffix="%">0%</strong>
+                        <span>Pass Rate</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="greview-carousel-wrap g-exam-reveal" id="greview-carousel-wrap">
+                <button class="greview-arrow greview-prev" id="greview-prev" aria-label="Previous reviews" disabled>
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <div class="greview-carousel-viewport" id="greview-carousel-viewport">
+                    <div class="greview-track" id="greview-track">
+                        <div class="greview-card">
+                            <div class="greview-card-top">
+                                <div class="greview-avatar">AS</div>
+                                <div>
+                                    <h5>Aswathy R S</h5>
+                                    <div class="greview-card-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                </div>
+                                <i class="fa-brands fa-google greview-g-icon"></i>
                             </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"Eduooz mock tests were almost identical to the actual NORCET exam. The faculty guidance helped me secure AIR 15 in my first attempt!"</p>
+                            <p class="greview-text">"The faculty here are outstanding. Their systematic approach to NORCET topics and CBT practice sessions gave me the edge I needed. Cleared NORCET in my first attempt!"</p>
+                            <div class="greview-badges-row">
+                                <span class="greview-badge">First Attempt</span>
+                                <span class="greview-badge greview-badge-inst">AIIMS Delhi</span>
+                            </div>
                         </div>
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150" alt="Rahul">
-                                <div><h4>Rahul Menon</h4><span class="test-badge badge-cyan">AIIMS Delhi</span></div>
+                        <div class="greview-card">
+                            <div class="greview-card-top">
+                                <div class="greview-avatar">SM</div>
+                                <div>
+                                    <h5>Sneha M.</h5>
+                                    <div class="greview-card-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                </div>
+                                <i class="fa-brands fa-google greview-g-icon"></i>
                             </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"The structured study plan and mentor support made all the difference. Now posted at AIIMS Delhi as Nursing Officer!"</p>
+                            <p class="greview-text">"Best NORCET coaching platform in India. The mock tests are exactly like the real exam. My confidence went through the roof after 30+ mocks. Got AIR 42!"</p>
+                            <div class="greview-badges-row">
+                                <span class="greview-badge">AIR 42</span>
+                                <span class="greview-badge greview-badge-inst">AIIMS Rishikesh</span>
+                            </div>
                         </div>
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="Lakshmi">
-                                <div><h4>Lakshmi N.</h4><span class="test-badge badge-purple">NORCET 2024</span></div>
+                        <div class="greview-card">
+                            <div class="greview-card-top">
+                                <div class="greview-avatar">DV</div>
+                                <div>
+                                    <h5>Divya V.</h5>
+                                    <div class="greview-card-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                </div>
+                                <i class="fa-brands fa-google greview-g-icon"></i>
                             </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"The previous year paper analysis sessions were gold. Every high-yield topic they predicted actually appeared in the exam."</p>
+                            <p class="greview-text">"Being a working nurse, I needed flexible classes. Eduooz's recorded lectures and weekend live sessions were perfect. The mentor support was exceptional throughout."</p>
+                            <div class="greview-badges-row">
+                                <span class="greview-badge">Working Nurse</span>
+                                <span class="greview-badge greview-badge-inst">AIIMS Bhopal</span>
+                            </div>
                         </div>
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="Aswathy">
-                                <div><h4>ASWATHY R S</h4><span class="test-badge badge-blue">Working Professional</span></div>
+                        <div class="greview-card">
+                            <div class="greview-card-top">
+                                <div class="greview-avatar">RM</div>
+                                <div>
+                                    <h5>Rahul Menon</h5>
+                                    <div class="greview-card-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                </div>
+                                <i class="fa-brands fa-google greview-g-icon"></i>
                             </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"Even with a full-time job, the flexible scheduling and recorded classes helped me prepare effectively. Cleared NORCET on first try!"</p>
+                            <p class="greview-text">"The structured study plan and personal mentor support made all the difference. The daily live sessions kept me on track even during tough phases. Now posted at AIIMS Delhi!"</p>
+                            <div class="greview-badges-row">
+                                <span class="greview-badge">AIR 8</span>
+                                <span class="greview-badge greview-badge-inst">AIIMS Delhi</span>
+                            </div>
                         </div>
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=150" alt="Deepa">
-                                <div><h4>Deepa Joseph</h4><span class="test-badge badge-cyan">AIIMS Bhopal</span></div>
+                        <div class="greview-card">
+                            <div class="greview-card-top">
+                                <div class="greview-avatar">SS</div>
+                                <div>
+                                    <h5>Steffi Saji</h5>
+                                    <div class="greview-card-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                </div>
+                                <i class="fa-brands fa-google greview-g-icon"></i>
                             </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"The CBT simulation environment at Eduooz removed my exam anxiety completely. I was fully confident on exam day."</p>
+                            <p class="greview-text">"Eduooz's CBT simulation is the best I've tried. The interface is identical to the real NORCET portal. I went into the exam feeling like I'd already done it a hundred times."</p>
+                            <div class="greview-badges-row">
+                                <span class="greview-badge">CBT Expert</span>
+                                <span class="greview-badge greview-badge-inst">AIIMS Rishikesh</span>
+                            </div>
                         </div>
-                        <div class="test-card">
-                            <div class="test-card-header">
-                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150" alt="Steffi">
-                                <div><h4>Steffi Saji</h4><span class="test-badge badge-purple">AIIMS Rishikesh</span></div>
+                        <div class="greview-card">
+                            <div class="greview-card-top">
+                                <div class="greview-avatar">DJ</div>
+                                <div>
+                                    <h5>Deepa Joseph</h5>
+                                    <div class="greview-card-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                </div>
+                                <i class="fa-brands fa-google greview-g-icon"></i>
                             </div>
-                            <div class="test-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                            <p class="test-quote">"Personal mentoring and supportive faculty make Eduooz stand out. Got placed at AIIMS Rishikesh - dream come true!"</p>
+                            <p class="greview-text">"The previous year paper analysis sessions were absolutely gold. Every high-yield topic the faculty predicted actually appeared in my exam. I was so well prepared it felt effortless."</p>
+                            <div class="greview-badges-row">
+                                <span class="greview-badge">First Attempt</span>
+                                <span class="greview-badge greview-badge-inst">AIIMS Bhopal</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <button class="greview-arrow greview-next" id="greview-next" aria-label="Next reviews">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="greview-dots" id="greview-dots"></div>
+
+            <div class="greview-trust-row g-exam-reveal">
+                <div class="greview-trust-badge"><i class="fa-solid fa-circle-check"></i> Trusted by 5000+ Nursing Aspirants</div>
+                <div class="greview-trust-badge"><i class="fa-solid fa-circle-check"></i> AIIMS NORCET Focused Training</div>
+                <div class="greview-trust-badge"><i class="fa-solid fa-circle-check"></i> Structured CBT Preparation</div>
+                <div class="greview-trust-badge"><i class="fa-solid fa-circle-check"></i> Dedicated Mentor Support</div>
+                <div class="greview-trust-badge"><i class="fa-solid fa-circle-check"></i> Previous Year Paper Analysis</div>
+                <div class="greview-trust-badge"><i class="fa-solid fa-circle-check"></i> Mock Exam Platform</div>
             </div>
         </div>
     </section>
 
     <!-- DOWNLOAD APP SECTION -->
-    <section class="why-eduooz-section" id="download-app" style="padding: 80px 0;">
+    <section class="why-eduooz-section" id="download-app">
         <div class="container">
             <div class="text-center">
                 <div class="section-label"><span class="label-dot"></span> Learn On The Go</div>
                 <h2 class="section-title">Download the <span class="text-gradient">Eduooz App.</span></h2>
             </div>
 
-            <div class="about-exam-grid g-exam-reveal" style="margin-top: 40px;">
-                <div class="about-exam-image" style="aspect-ratio: auto; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(91, 33, 182, 0.05)); border-radius: 24px; padding: 40px;">
-                    <img src="../../../assets/images/phone-mockup.png" alt="Eduooz Mobile App" style="max-height: 400px; width: auto; object-fit: contain; border-radius: 0;">
+            <div class="dapp-grid g-exam-reveal">
+                <div class="dapp-image-col">
+                    <img src="../../../assets/images/phone-mockup.png" alt="Eduooz Mobile App" class="dapp-phone">
                 </div>
-                <div>
-                    <h3 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; margin-bottom: 16px;">Your NORCET Preparation, Always in Your Pocket</h3>
-                    <p style="font-size: 1rem; line-height: 1.8; color: #475569; margin-bottom: 24px;">Access live classes, mock tests, study materials, and performance analytics anywhere, anytime. The Eduooz app puts the entire AIIMS NORCET preparation ecosystem at your fingertips.</p>
+                <div class="dapp-content-col">
+                    <h3 class="dapp-heading">Your NORCET Preparation, Always in Your Pocket</h3>
+                    <p class="dapp-desc">Access live classes, mock tests, study materials, and performance analytics anywhere, anytime. The Eduooz app puts the entire AIIMS NORCET preparation ecosystem at your fingertips.</p>
 
-                    <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
-                        <div class="about-highlight-item" style="width: fit-content;"><i class="fa-solid fa-video"></i> Live & Recorded Classes</div>
-                        <div class="about-highlight-item" style="width: fit-content;"><i class="fa-solid fa-laptop-code"></i> CBT Mock Tests on Mobile</div>
-                        <div class="about-highlight-item" style="width: fit-content;"><i class="fa-solid fa-chart-line"></i> Real-time Performance Tracking</div>
-                        <div class="about-highlight-item" style="width: fit-content;"><i class="fa-solid fa-bell"></i> Exam Notifications & Updates</div>
-                        <div class="about-highlight-item" style="width: fit-content;"><i class="fa-solid fa-download"></i> Offline Study Materials</div>
+                    <div class="dapp-features">
+                        <div class="about-highlight-item"><i class="fa-solid fa-video"></i> Live &amp; Recorded Classes</div>
+                        <div class="about-highlight-item"><i class="fa-solid fa-laptop-code"></i> CBT Mock Tests on Mobile</div>
+                        <div class="about-highlight-item"><i class="fa-solid fa-chart-line"></i> Real-time Performance Tracking</div>
+                        <div class="about-highlight-item"><i class="fa-solid fa-bell"></i> Exam Notifications &amp; Updates</div>
+                        <div class="about-highlight-item"><i class="fa-solid fa-download"></i> Offline Study Materials</div>
                     </div>
 
-                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-                        <a href="#" class="btn-liquid-cyan magnetic-btn" style="padding: 14px 28px; font-size: 0.9rem;">
-                            <i class="fa-brands fa-google-play" style="margin-right: 8px;"></i> Google Play Store
+                    <div class="dapp-cta">
+                        <a href="#" class="btn-liquid-cyan magnetic-btn">
+                            <i class="fa-brands fa-google-play"></i> Google Play Store
                         </a>
-                        <a href="#" class="btn-glass-outline magnetic-btn" style="padding: 14px 28px; font-size: 0.9rem;">
-                            <i class="fa-brands fa-apple" style="margin-right: 8px;"></i> App Store
+                        <a href="#" class="btn-glass-outline magnetic-btn">
+                            <i class="fa-brands fa-apple"></i> App Store
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+
+
+
 
     <!-- SECTION 17: RELATED RESOURCES -->
     <section class="resources-section" id="resources">
@@ -1113,8 +1527,6 @@
             </div>
         </div>
     </section>
-
-  
 
     <!-- SECTION 20: FINAL CTA / APPLICATION FORM -->
     <section class="cta-terminal-section" id="apply">
@@ -1188,6 +1600,9 @@
         </div>
     </section>
 
+
+
+
     <div id="footer-container"></div>
     <div id="chat-container"></div>
 
@@ -1199,5 +1614,78 @@
     <script src="../../../assets/js/components.js"></script>
     <script src="../../../assets/js/courses.js"></script>
     <script src="../../../assets/js/exam-landing.js"></script>
+
+    <!-- Vital Feature Card Carousel -->
+    <script>
+    (function vfcInit() {
+        var DURATION = 4000;
+        var current = 0;
+        var timer = null;
+        var isHovered = false;
+        var slides, dots, progressFill;
+
+        function init() {
+            var card = document.getElementById('vital-card');
+            if (!card) return;
+
+            slides = Array.prototype.slice.call(card.querySelectorAll('.vfc-slide'));
+            dots   = Array.prototype.slice.call(card.querySelectorAll('.vfc-dot'));
+            progressFill = document.getElementById('vfc-progress');
+
+            if (!slides.length) return;
+
+            /* Dot click handlers */
+            dots.forEach(function(dot, idx) {
+                dot.addEventListener('click', function() { goTo(idx); });
+            });
+
+            /* Pause on hover */
+            card.addEventListener('mouseenter', function() {
+                isHovered = true;
+                if (progressFill) progressFill.classList.add('vfc-paused');
+            });
+            card.addEventListener('mouseleave', function() {
+                isHovered = false;
+                if (progressFill) progressFill.classList.remove('vfc-paused');
+            });
+
+            goTo(0);
+            startTimer();
+        }
+
+        function goTo(idx) {
+            var prev = current;
+            current = ((idx % slides.length) + slides.length) % slides.length;
+
+            slides[prev].classList.remove('active');
+            slides[current].classList.add('active');
+
+            dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
+
+            resetProgress();
+        }
+
+        function resetProgress() {
+            if (!progressFill) return;
+            progressFill.classList.remove('vfc-animating', 'vfc-paused');
+            void progressFill.offsetWidth; /* force reflow — restarts CSS animation */
+            progressFill.classList.add('vfc-animating');
+            if (isHovered) progressFill.classList.add('vfc-paused');
+        }
+
+        function startTimer() {
+            clearInterval(timer);
+            timer = setInterval(function() {
+                if (!isHovered) goTo((current + 1) % slides.length);
+            }, DURATION);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
 </body>
 </html>

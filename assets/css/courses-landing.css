@@ -124,9 +124,12 @@ body {
 .course-breadcrumbs .divider { color: rgba(255,255,255,0.2); }
 .course-breadcrumbs .current-course { color: var(--brand-cyan); }
 
-/* Grid Layout */
+/* Grid Layout — perfect 50/50 split */
 .course-hero-grid {
-    display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
 }
 
 /* Typography */
@@ -165,57 +168,248 @@ body {
 }
 .btn-glass-outline:hover { background: #fff; color: var(--brand-dark); }
 
-/* --- Vital Signs Glass Dashboard --- */
-.course-vital-wrapper { perspective: 1200px; }
+/* ============================================================
+   VITAL FEATURE CARD (VFC) — Premium Bento Dashboard
+   ============================================================ */
+.course-vital-wrapper {
+    display: flex;
+    align-self: stretch;
+}
+
 .vital-glass-card {
-    background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.15); border-top: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 30px; padding: 40px; position: relative; overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 0 40px rgba(255,255,255,0.05);
-    transform-style: preserve-3d;
+    flex: 1;
+    background: rgba(8, 4, 18, 0.7);
+    backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid rgba(255,255,255,0.18);
+    border-radius: 28px;
+    padding: 32px 28px 26px;
+    position: relative; overflow: hidden;
+    box-shadow:
+        0 0 0 1px rgba(6,182,212,0.07),
+        0 30px 70px rgba(0,0,0,0.55),
+        inset 0 0 60px rgba(255,255,255,0.015);
+    display: flex; flex-direction: column; gap: 22px;
 }
 
-/* Jitter-free Holographic Glare */
-.vital-glare {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 30px;
-    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.1) 0%, transparent 60%);
-    pointer-events: none; z-index: 1; opacity: 0; transition: opacity 0.3s; mix-blend-mode: overlay;
+/* Floating gradient orbs */
+.vfc-accent {
+    position: absolute; border-radius: 50%;
+    filter: blur(55px); pointer-events: none; z-index: 0;
+    animation: vfcFloat 12s ease-in-out infinite alternate;
 }
-.course-vital-wrapper:hover .vital-glare { opacity: 1; }
+.vfc-accent-1 {
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(6,182,212,0.14), transparent 70%);
+    top: -50px; right: -30px;
+}
+.vfc-accent-2 {
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(167,139,250,0.12), transparent 70%);
+    bottom: 10px; left: -40px;
+    animation-delay: -6s;
+}
+@keyframes vfcFloat { from { transform: translate(0,0) scale(1); } to { transform: translate(10px,-15px) scale(1.08); } }
 
-.vital-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-.vital-header h3 { font-size: 1.5rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
-.pulse-indicator { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 1px; }
-.pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; animation: pulse 1.5s infinite; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+/* Moving light sweep */
+.vfc-light-sweep {
+    position: absolute; top: 0; left: 0; width: 45%; height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.025) 50%, transparent 100%);
+    transform: skewX(-12deg) translateX(-200%);
+    animation: vfcSweep 9s ease-in-out infinite 1.5s;
+    pointer-events: none; z-index: 0;
+}
+@keyframes vfcSweep { 0%,100% { transform: skewX(-12deg) translateX(-200%); } 50% { transform: skewX(-12deg) translateX(400%); } }
 
-/* Metrics Grid */
-.vital-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
-.vital-item { display: flex; align-items: flex-start; gap: 15px; }
-.vital-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(6, 182, 212, 0.1); color: var(--brand-cyan); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-.vital-item h4 { font-size: 0.85rem; color: rgba(255,255,255,0.6); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-.vital-item span { font-size: 1.1rem; font-weight: 800; color: #fff; }
+/* --- Header --- */
+.vfc-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    position: relative; z-index: 2;
+}
+.vfc-header-left { display: flex; flex-direction: column; gap: 5px; }
+.vfc-eyebrow {
+    font-size: 0.62rem; font-weight: 700; color: var(--brand-cyan);
+    text-transform: uppercase; letter-spacing: 3px;
+}
+.vfc-headline {
+    font-size: 1.05rem; font-weight: 800; color: #fff; letter-spacing: -0.3px; margin: 0;
+}
+.vfc-live-badge {
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.22);
+    padding: 6px 14px; border-radius: 50px;
+    font-size: 0.62rem; font-weight: 700; color: #10b981;
+    text-transform: uppercase; letter-spacing: 1.2px; white-space: nowrap;
+    flex-shrink: 0;
+}
+.vfc-pulse-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #10b981; flex-shrink: 0;
+    animation: vfcPulse 1.8s ease-in-out infinite;
+}
+@keyframes vfcPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); } 50% { box-shadow: 0 0 0 6px rgba(16,185,129,0); } }
 
-/* Urgency Footer */
-.vital-footer { background: rgba(0,0,0,0.2); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
-.batch-info { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.95rem; }
-.batch-info span { color: rgba(255,255,255,0.6); }
-.batch-info strong { color: #fff; font-weight: 800; }
+/* --- Stat Chips --- */
+.vfc-stats {
+    display: flex; gap: 10px; position: relative; z-index: 2;
+}
+.vfc-stat-chip {
+    flex: 1; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 14px 12px;
+    display: flex; flex-direction: column; gap: 4px;
+    transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+    cursor: default;
+}
+.vfc-stat-chip:hover {
+    border-color: rgba(6,182,212,0.22);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+.vfc-stat-value { font-size: 1.25rem; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -0.5px; }
+.vfc-stat-label { font-size: 0.6rem; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
 
-.seats-info { display: flex; flex-direction: column; gap: 10px; }
-.progress-bar-bg { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(--brand-cyan), var(--brand-purple)); border-radius: 10px; }
-.urgency-text { font-size: 0.85rem; font-weight: 700; color: var(--brand-cyan); text-align: right; }
+/* --- Card Grid Wrapper (stacked slides) --- */
+.vfc-grid-wrap {
+    position: relative; z-index: 2;
+    display: grid; /* all slides at [1,1] — stack them */
+}
+.vfc-slide {
+    grid-column: 1; grid-row: 1;
+    opacity: 0;
+    transform: scale(0.97) translateY(6px);
+    transition: opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+}
+.vfc-slide.active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+}
 
-/* Mobile Adjustments */
+/* 2×2 Grid */
+.vfc-card-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+
+/* Individual feature cards */
+.vfc-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 18px; padding: 20px 18px;
+    display: flex; flex-direction: column; gap: 11px;
+    position: relative; overflow: hidden; cursor: default;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), border-color 0.3s, box-shadow 0.3s;
+}
+/* inner gradient glow on hover */
+.vfc-card::before {
+    content: ''; position: absolute; inset: 0; border-radius: 18px;
+    background: radial-gradient(circle at 30% 10%, rgba(6,182,212,0.09) 0%, transparent 65%);
+    opacity: 0; transition: opacity 0.4s; pointer-events: none;
+}
+/* gradient border ring on hover */
+.vfc-card::after {
+    content: ''; position: absolute; inset: 0; border-radius: 18px;
+    background: linear-gradient(135deg, rgba(6,182,212,0.35) 0%, rgba(167,139,250,0.25) 50%, transparent 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    padding: 1px; opacity: 0; transition: opacity 0.4s; pointer-events: none;
+}
+.vfc-card:hover { transform: translateY(-5px); border-color: rgba(6,182,212,0.2); box-shadow: 0 14px 36px rgba(0,0,0,0.32), 0 0 0 1px rgba(6,182,212,0.1), inset 0 0 16px rgba(6,182,212,0.03); }
+.vfc-card:hover::before { opacity: 1; }
+.vfc-card:hover::after { opacity: 1; }
+
+/* Card Icon */
+.vfc-card-icon-wrap {
+    width: 44px; height: 44px; border-radius: 13px;
+    background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--brand-cyan);
+    position: relative; z-index: 1; flex-shrink: 0;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), background 0.3s, box-shadow 0.3s;
+}
+.vfc-card:hover .vfc-card-icon-wrap {
+    transform: scale(1.12) rotate(7deg);
+    background: rgba(6,182,212,0.18);
+    box-shadow: 0 0 20px rgba(6,182,212,0.3);
+}
+
+.vfc-card-title { font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.85); line-height: 1.3; margin: 0; position: relative; z-index: 1; }
+.vfc-card-sub { font-size: 0.71rem; font-weight: 700; color: var(--brand-cyan); margin: 0; position: relative; z-index: 1; opacity: 0.85; }
+
+/* --- Footer: progress bar + dots --- */
+.vfc-footer {
+    display: flex; flex-direction: column; gap: 12px;
+    position: relative; z-index: 2;
+}
+.vfc-progress-track {
+    width: 100%; height: 2px; background: rgba(255,255,255,0.07);
+    border-radius: 10px; overflow: hidden;
+}
+.vfc-progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--brand-cyan), #a78bfa);
+    border-radius: 10px; box-shadow: 0 0 8px rgba(6,182,212,0.5);
+}
+.vfc-progress-fill.vfc-animating { animation: vfcProgress 4s linear forwards; }
+.vfc-progress-fill.vfc-paused { animation-play-state: paused; }
+@keyframes vfcProgress { from { width: 0%; } to { width: 100%; } }
+
+.vfc-dots { display: flex; justify-content: center; gap: 7px; align-items: center; }
+.vfc-dot {
+    width: 6px; height: 6px; border-radius: 3px;
+    background: rgba(255,255,255,0.18); border: none; cursor: pointer; padding: 0;
+    transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.vfc-dot.active { background: var(--brand-cyan); width: 24px; box-shadow: 0 0 8px rgba(6,182,212,0.5); }
+.vfc-dot:hover:not(.active) { background: rgba(255,255,255,0.38); }
+
+/* ============================================================
+   RESPONSIVE — Hero + VFC Bento
+   ============================================================ */
+
+/* Tablet / small desktop: stack to single column */
 @media (max-width: 1024px) {
-    .course-hero-grid { grid-template-columns: 1fr; gap: 50px; }
+    .course-hero-section { padding: 90px 0 70px; }
+    .course-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .course-vital-wrapper { align-self: auto; }
     .course-bg-overlay { background: linear-gradient(to top, rgba(10,5,20,1) 0%, rgba(10,5,20,0.8) 60%, rgba(10,5,20,0.4) 100%); }
     .course-title { font-size: 3.5rem; }
-    .course-cta-group { flex-direction: column; width: 100%; max-width: 350px; }
-    .course-cta-group a { width: 100%; justify-content: center; }
-    .vital-glass-card { padding: 30px 20px; }
-    .vital-grid { grid-template-columns: 1fr; gap: 20px; }
+    .course-cta-group { flex-direction: row; flex-wrap: wrap; }
+    .course-cta-group a { flex: 1; min-width: 160px; justify-content: center; }
+    .vital-glass-card { padding: 28px 24px 22px; }
+}
+
+/* Large mobile: font + spacing reductions */
+@media (max-width: 768px) {
+    .course-hero-section { padding: 80px 0 56px; }
+    .course-title { font-size: 2.8rem; letter-spacing: -0.5px; }
+    .course-description { font-size: 1.05rem; max-width: 100%; margin-bottom: 28px; }
+    .frost-pill-dark { font-size: 0.82rem; padding: 7px 16px; }
+    .course-cta-group { flex-direction: column; width: 100%; max-width: 380px; }
+    .course-cta-group a { width: 100%; min-width: unset; padding: 15px 28px; font-size: 0.95rem; }
+    .vfc-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .vfc-live-badge { align-self: flex-start; }
+    .vfc-stats { gap: 8px; }
+    .vfc-stat-chip { padding: 12px 10px; }
+    .vfc-stat-value { font-size: 1.1rem; }
+    .vfc-card { padding: 16px 14px; }
+    .vfc-card-icon-wrap { width: 40px; height: 40px; font-size: 0.95rem; }
+    .vfc-card-title { font-size: 0.76rem; }
+}
+
+/* Small mobile: compact layout */
+@media (max-width: 480px) {
+    .course-hero-section { padding: 68px 0 44px; }
+    .course-title { font-size: 2.1rem; letter-spacing: -0.3px; }
+    .course-description { font-size: 0.97rem; }
+    .vital-glass-card { padding: 22px 16px 18px; gap: 16px; }
+    .vfc-headline { font-size: 0.9rem; }
+    .vfc-card-grid { grid-template-columns: 1fr; gap: 10px; } /* single col on tiny screens */
+    .vfc-card { padding: 14px 12px; gap: 9px; }
+    .vfc-card-icon-wrap { width: 36px; height: 36px; border-radius: 10px; }
+    .vfc-stat-label { font-size: 0.55rem; }
+    .btn-liquid-cyan, .btn-glass-outline { padding: 14px 22px; font-size: 0.9rem; }
 }
 
 .theme-blend-zone {
@@ -2029,4 +2223,61 @@ body {
     .cta-urgency-box { flex-direction: column; gap: 20px; align-items: center; border-top: none; padding-top: 0; }
     .input-row { grid-template-columns: 1fr; gap: 30px; }
     .glass-terminal-card { padding: 40px 25px; }
+}
+
+/* =============================================
+   GLOBAL MOBILE POLISH — Section Padding &
+   Typography Reductions
+   ============================================= */
+@media (max-width: 768px) {
+    /* Cut heavy section paddings in half */
+    .curriculum-premium-section,
+    .duration-light-section,
+    .pricing-premium-section { padding: 80px 0; }
+
+    .video-luxury-section { padding: 60px 0 80px; }
+    .course-video-section { padding: 60px 0; }
+
+    /* Curriculum filter: wrap to 2×2 pill grid */
+    .phase-filter-track { flex-wrap: wrap; border-radius: 20px; }
+    .phase-btn { font-size: 0.85rem; padding: 10px 18px; }
+
+    /* Duration big number */
+    .huge-number { font-size: 8rem; }
+
+    /* Pricing toggle */
+    .pricing-toggle-wrapper { margin-bottom: 48px; }
+
+    /* CTA enroll */
+    .cta-urgency-box { flex-direction: column; gap: 14px; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+    /* Extreme padding cuts */
+    .curriculum-premium-section,
+    .duration-light-section,
+    .pricing-premium-section { padding: 60px 0; }
+
+    .video-luxury-section { padding: 48px 0 60px; }
+    .course-video-section { padding: 48px 0; }
+
+    /* Curriculum */
+    .curriculum-header { margin-bottom: 36px; }
+    .phase-filter-wrapper { margin-bottom: 36px; }
+    .matrix-grid { grid-template-columns: 1fr; gap: 20px; }
+    .module-glass-card { padding: 28px 22px; min-height: auto; }
+
+    /* Duration */
+    .huge-number { font-size: 6rem; letter-spacing: -4px; }
+
+    /* Glass terminal (enroll form) */
+    .glass-terminal-card { padding: 28px 18px; }
+    .input-group label { font-size: 0.78rem; }
+    .input-group input, .input-group select { padding: 12px 14px; font-size: 0.88rem; }
+
+    /* Playlist / video carousel */
+    .playlist-card { width: 110px; }
+
+    /* Sticky bottom nav safe area */
+    body.has-sticky-nav { padding-bottom: 68px; }
 }
