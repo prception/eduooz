@@ -190,7 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // --- 2. The Atmospheric Background Logic (Desktop Only) ---
-    // We disable this on mobile via CSS (display: none on wrapper), but we also check via JS
     if (window.innerWidth > 1024) {
         const monolithCards = document.querySelectorAll('.monolith-card');
         const ambientLayers = document.querySelectorAll('.ambient-layer');
@@ -198,21 +197,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         monolithCards.forEach(card => {
             card.addEventListener('mouseenter', function() {
-                // 1. Get the target background ID
                 const targetId = this.getAttribute('data-target-bg');
                 const targetLayer = document.getElementById(targetId);
-
-                // 2. Remove active class from all layers
                 ambientLayers.forEach(layer => layer.classList.remove('active-bg'));
-
-                // 3. Add active class to target layer
                 if (targetLayer) {
                     targetLayer.classList.add('active-bg');
                 }
             });
 
             card.addEventListener('mouseleave', function() {
-                // Return to the default dark gradient when mouse leaves
                 ambientLayers.forEach(layer => layer.classList.remove('active-bg'));
                 if (defaultBg) {
                     defaultBg.classList.add('active-bg');
@@ -220,7 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
         
-        // Optional: Ensure default is active if mouse leaves the whole grid
         const monolithGrid = document.querySelector('.monolith-grid');
         if(monolithGrid) {
             monolithGrid.addEventListener('mouseleave', () => {
@@ -228,6 +220,76 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (defaultBg) defaultBg.classList.add('active-bg');
             });
         }
+    }
+
+    // --- 3. Trajectory Tab Switching Logic ---
+    const tabContainer = document.getElementById('trajectoryTabs');
+    const contentWrapper = document.getElementById('trajectoryContent');
+    const masterHeading = document.getElementById('trajectoryHeading');
+
+    if (tabContainer && contentWrapper) {
+        const tabs = tabContainer.querySelectorAll('.trajectory-tab');
+        const sections = contentWrapper.querySelectorAll('.trajectory-section');
+        const sectionHeadings = contentWrapper.querySelectorAll('.trajectory-section-heading');
+
+        const headingMap = {
+            all: 'All State & Central Nursing Exams',
+            state: 'Kerala State PSC Nursing Exams',
+            central: 'Central Government Nursing Exams',
+            gcc: 'GCC Nursing Licensing Exams'
+        };
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update master heading with smooth transition
+                if (masterHeading) {
+                    masterHeading.classList.add('is-transitioning');
+                    setTimeout(() => {
+                        masterHeading.textContent = headingMap[filter] || headingMap.all;
+                        masterHeading.classList.remove('is-transitioning');
+                    }, 300);
+                }
+
+                // Show/hide individual section headings
+                sectionHeadings.forEach(h => {
+                    if (filter === 'all') {
+                        h.style.display = 'none';
+                    } else {
+                        h.style.display = '';
+                    }
+                });
+
+                // Filter sections with animation
+                sections.forEach(section => {
+                    const sectionType = section.getAttribute('data-section');
+
+                    if (filter === 'all' || sectionType === filter) {
+                        section.classList.remove('is-hidden');
+                        section.classList.remove('is-entering');
+                        // Force reflow to restart animation
+                        void section.offsetWidth;
+                        section.classList.add('is-entering');
+                    } else {
+                        section.classList.add('is-hidden');
+                        section.classList.remove('is-entering');
+                    }
+                });
+
+                // Re-trigger GSAP scroll animations for newly visible cards
+                setTimeout(() => {
+                    ScrollTrigger.refresh();
+                }, 100);
+            });
+        });
+
+        // Initialize: hide section headings on load (default is "all")
+        sectionHeadings.forEach(h => { h.style.display = 'none'; });
     }
 }
 
