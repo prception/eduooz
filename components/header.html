@@ -1,153 +1,367 @@
     <header id="navbar" class="glass-header container">
-        <div class="logo"><img src="assets/images/eduooz-log.png" alt=""></div>
-        
-        <div class="mobile-menu-toggle" id="menu-toggle">
+        <div class="logo"><img src="assets/images/eduooz-log.png" alt="Eduooz Logo"></div>
+
+        <div class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" role="button" tabindex="0">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </div>
 
-        <nav class="nav-links">
+        <nav class="nav-links" aria-label="Main navigation">
             <a href="index.html" class="hover-underline">Home</a>
             <a href="about.html" class="hover-underline">About Us</a>
-            
+
             <div class="nav-item dropdown">
-                <a href="#" class="hover-underline">Courses <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
-                <div class="dropdown-menu mega-menu">
-                    <div class="mega-menu-sidebar">
-                        <div class="sidebar-item active" data-category="nursing">
+                <a href="#" class="hover-underline" aria-haspopup="true" aria-expanded="false" id="courses-menu-trigger">Courses <i class="fa-solid fa-chevron-down dropdown-caret" aria-hidden="true"></i></a>
+                <div class="dropdown-menu mega-menu" role="region" aria-label="Courses menu">
+                    <div class="mega-menu-sidebar" role="tablist" aria-label="Course categories">
+
+                        <div class="sidebar-item active" data-category="nursing" role="tab" aria-selected="true" aria-controls="nursing" tabindex="0">
                             <div class="sidebar-info">
                                 <h4>Nursing Coaching</h4>
-                                <p>AIIMS, DHS, DME, RRB & International</p>
+                                <p>Kerala State, Central &amp; GCC Exams</p>
                             </div>
-                            <i class="fa-solid fa-chevron-right"></i>
+                            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                         </div>
-                        <div class="sidebar-item" data-category="lab-tech">
-                            <div class="sidebar-info">
-                                <h4>Lab Technician</h4>
-                                <p>DHS, DME, Railway RRB & AIIMS</p>
-                            </div>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                        <div class="sidebar-item" data-category="pharmacy">
+
+                        <div class="sidebar-item" data-category="pharmacy" role="tab" aria-selected="false" aria-controls="pharmacy" tabindex="0">
                             <div class="sidebar-info">
                                 <h4>Pharmacy Coaching</h4>
-                                <p>DHS, DME & RRB Pharmacist</p>
+                                <p>Kerala PSC, Central &amp; GCC Exams</p>
                             </div>
-                            <i class="fa-solid fa-chevron-right"></i>
+                            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                         </div>
+
+                        <div class="sidebar-item" data-category="mlt" role="tab" aria-selected="false" aria-controls="mlt" tabindex="0">
+                            <div class="sidebar-info">
+                                <h4>MLT Coaching</h4>
+                                <p>Kerala PSC &amp; Central Exams</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                        </div>
+
                     </div>
-                    
+
                     <div class="mega-menu-content" data-lenis-prevent>
-                        <!-- Nursing Panel -->
-                        <div class="category-panel active" id="nursing">
-                            <div class="course-grid">
-                                <a href="/courses/nursing/CENTRAL/AIIMS_NORCET.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>AIIMS</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/HAAD-nursing-licence.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>HAAD Nursing</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/IMS.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>IMS</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/JIPMER.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>JIPMER</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/MOH-nursing-licence.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>MOH Licence</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL /Military-nursing.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>Military Nursing</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/Msc-nursing-entrance.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>MSc Entrance</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/NCLEX.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>NCLEX</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/NIMHANS-nursing-officer.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>NIMHANS</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/PGIMER-nursing.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>PGIMER</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/RRB-nursing.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>RRB Nursing</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/ass-professor-nursing.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>Ass Professor</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/nursing-prometric.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>Prometric</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/nursing-tutor.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>Nursing Tutor</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/staff-nurse-DHS.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>Staff Nurse DHS</span>
-                                </a>
-                                <a href="/courses/nursing/CENTRAL/staff-nurse-DME.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-briefcase-medical"></i></div>
-                                    <span>Staff Nurse DME</span>
-                                </a>
+
+                        <!-- ===================== NURSING PANEL ===================== -->
+                        <div class="category-panel active" id="nursing" role="tabpanel" aria-labelledby="nursing-tab">
+
+                            <div class="course-section">
+                                <h5 class="course-section-title">
+                                    <i class="fa-solid fa-map-marker-alt" aria-hidden="true"></i>
+                                    Kerala Nursing Exams
+                                </h5>
+                                <div class="course-grid">
+                                    <a href="/courses/nursing/kerala/apn-staff-nurse.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>APN</span>
+                                    </a>
+                                    <a href="/courses/nursing/kerala/dhs-staff-nurse.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>DHS Nursing</span>
+                                    </a>
+                                    <a href="/courses/nursing/kerala/dme-staff-nurse.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>DME Nursing</span>
+                                    </a>
+                                    <a href="/courses/nursing/kerala/homeo-nursing.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>Homeo</span>
+                                    </a>
+                                    <a href="/courses/nursing/kerala/ims-staff-nurse.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>IMS Staff Nurse</span>
+                                    </a>
+                                    <a href="/courses/nursing/kerala/jphn-dhs.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>JPHN DHS</span>
+                                    </a>
+                                    <a href="/courses/nursing/kerala/jphn-dme.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>JPHN DME</span>
+                                    </a>
+                                    <a href="/courses/nursing/kerala/lsgd-nursing.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>LSGD</span>
+                                    </a>
+                                    <a href="/courses/nursing/kerala/msc-nursing-entrance.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>MSc Nursing Entrance</span>
+                                    </a>
+                                    <a href="/courses/nursing/kerala/nursing-tutor.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>Nursing Tutor</span>
+                                    </a>
+                                    <a href="/courses/nursing/kerala/treatment-organiser.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>Treatment Organiser</span>
+                                    </a>
+                                </div>
                             </div>
+
+                            <div class="course-section">
+                                <h5 class="course-section-title">
+                                    <i class="fa-solid fa-landmark" aria-hidden="true"></i>
+                                    Central Nursing Exams
+                                </h5>
+                                <div class="course-grid">
+                                    <a href="/courses/nursing/central/aiims-norcet.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>AIIMS NORCET</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/dsssb-nursing-officer.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>DSSSB Nursing Officer</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/esic-nursing-officer.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>ESIC Nursing Officer</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/jipmer-nursing-officer.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>JIPMER Nursing Officer</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/military-nursing-service-mns.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>Military Nursing (MNS)</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/nvs-school-nurse.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>NVS School Nurse</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/pgimer-nursing.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>PGIMER</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/rcc-nursing.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>RCC</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/rml-nursing.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>RML</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/rrb-staff-nurse.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>RRB Staff Nurse</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/sgpgims-nursing.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>SGPGIMS</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/sree-chitra-nursing.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>Sree Chitra</span>
+                                    </a>
+                                    <a href="/courses/nursing/central/ssc-staff-nurse.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-briefcase-medical" aria-hidden="true"></i></div>
+                                        <span>SSC Staff Nurse</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="course-section">
+                                <h5 class="course-section-title">
+                                    <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                                    GCC Nursing Licensing Exams
+                                </h5>
+                                <div class="course-grid">
+                                    <a href="/courses/nursing/gcc/dha-nursing-prometric.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></div>
+                                        <span>DHA Nursing (Dubai)</span>
+                                    </a>
+                                    <a href="/courses/nursing/gcc/haad-nursing-pearson-vue.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></div>
+                                        <span>HAAD Nursing (Abu Dhabi)</span>
+                                    </a>
+                                    <a href="/courses/nursing/gcc/kuwait-nursing-prometric.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></div>
+                                        <span>Kuwait Nursing</span>
+                                    </a>
+                                    <a href="/courses/nursing/gcc/oman-nursing-pearson-vue.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></div>
+                                        <span>Oman (OMSB) Nursing</span>
+                                    </a>
+                                    <a href="/courses/nursing/gcc/qatar-nursing-prometric.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></div>
+                                        <span>Qatar Nursing</span>
+                                    </a>
+                                    <a href="/courses/nursing/gcc/saudi-nursing-prometric.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></div>
+                                        <span>Saudi Nursing</span>
+                                    </a>
+                                    <a href="/courses/nursing/gcc/sharjah-nursing-prometric.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></div>
+                                        <span>Sharjah Nursing</span>
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <!-- Lab Tech Panel -->
-                        <div class="category-panel" id="lab-tech">
-                            <div class="course-grid">
-                                <a href="/courses/lab-tech/DHS-lab-tech.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-microscope"></i></div>
-                                    <span>DHS Lab Tech</span>
-                                </a>
-                                <a href="/courses/lab-tech/DME-lab-tech.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-microscope"></i></div>
-                                    <span>DME Lab Tech</span>
-                                </a>
-                                <a href="courses/lab-tech/Railway-RRB-lab-ass.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-microscope"></i></div>
-                                    <span>Railway Lab Ass</span>
-                                </a>
-                                <a href="courses/lab-tech/Railway-RRB-lab-superintendent.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-microscope"></i></div>
-                                    <span>Lab Superintendent</span>
-                                </a>
+                        <!-- ===================== PHARMACY PANEL ===================== -->
+                        <div class="category-panel" id="pharmacy" role="tabpanel" aria-labelledby="pharmacy-tab">
+
+                            <div class="course-section">
+                                <h5 class="course-section-title">
+                                    <i class="fa-solid fa-map-marker-alt" aria-hidden="true"></i>
+                                    Kerala PSC Exams
+                                </h5>
+                                <div class="course-grid">
+                                    <a href="/courses/pharmacy/kerala/app-pharmacist.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>APP</span>
+                                    </a>
+                                    <a href="/courses/pharmacy/kerala/dhs-dme-pharmacist.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>DHS / DME Pharmacist</span>
+                                    </a>
+                                    <a href="/courses/pharmacy/kerala/drug-analyst.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>Drug Analyst</span>
+                                    </a>
+                                    <a href="/courses/pharmacy/kerala/drug-inspector.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>Drug Inspector</span>
+                                    </a>
+                                    <a href="/courses/pharmacy/kerala/guruvayoor-devaswom-pharmacist.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>Guruvayoor Devaswom</span>
+                                    </a>
+                                    <a href="/courses/pharmacy/kerala/lsgd-pharmacist.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>LSGD Pharmacist</span>
+                                    </a>
+                                    <a href="/courses/pharmacy/kerala/oil-palm-pharmacist.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>Oil Palm Pharmacist</span>
+                                    </a>
+                                </div>
                             </div>
+
+                            <div class="course-section">
+                                <h5 class="course-section-title">
+                                    <i class="fa-solid fa-landmark" aria-hidden="true"></i>
+                                    Central Exams
+                                </h5>
+                                <div class="course-grid">
+                                    <a href="/courses/pharmacy/central/cre-pharmacist.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>CRE</span>
+                                    </a>
+                                    <a href="/courses/pharmacy/central/gpat.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>GPAT</span>
+                                    </a>
+                                    <a href="/courses/pharmacy/central/rrb-pharmacist.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>RRB Pharmacist</span>
+                                    </a>
+                                    <a href="/courses/pharmacy/central/upsc-drug-inspector.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>UPSC Drug Inspector</span>
+                                    </a>
+                                    <a href="/courses/pharmacy/central/vssc-pharmacist.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></div>
+                                        <span>VSSC Pharmacist</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="course-section">
+                                <h5 class="course-section-title">
+                                    <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                                    GCC Exams
+                                </h5>
+
+                                <div class="course-subsection">
+                                    <h6 class="course-subsection-title">Prometric Licensing Exams</h6>
+                                    <div class="course-grid">
+                                        <a href="/courses/pharmacy/gcc/bahrain-pharmacy-prometric.html" class="course-card">
+                                            <div class="course-icon"><i class="fa-solid fa-pills" aria-hidden="true"></i></div>
+                                            <span>Bahrain Pharmacy</span>
+                                        </a>
+                                        <a href="/courses/pharmacy/gcc/dha-pharmacy-prometric.html" class="course-card">
+                                            <div class="course-icon"><i class="fa-solid fa-pills" aria-hidden="true"></i></div>
+                                            <span>DHA Pharmacy (Dubai)</span>
+                                        </a>
+                                        <a href="/courses/pharmacy/gcc/moh-pharmacy-prometric.html" class="course-card">
+                                            <div class="course-icon"><i class="fa-solid fa-pills" aria-hidden="true"></i></div>
+                                            <span>MOH Pharmacy</span>
+                                        </a>
+                                        <a href="/courses/pharmacy/gcc/qatar-pharmacy-prometric.html" class="course-card">
+                                            <div class="course-icon"><i class="fa-solid fa-pills" aria-hidden="true"></i></div>
+                                            <span>Qatar Pharmacy</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="course-subsection">
+                                    <h6 class="course-subsection-title">Pearson VUE Licensing Exams</h6>
+                                    <div class="course-grid">
+                                        <a href="/courses/pharmacy/gcc/haad-pharmacy-pearson-vue.html" class="course-card">
+                                            <div class="course-icon"><i class="fa-solid fa-pills" aria-hidden="true"></i></div>
+                                            <span>HAAD Pharmacy (Abu Dhabi)</span>
+                                        </a>
+                                        <a href="/courses/pharmacy/gcc/oman-pharmacy-pearson-vue.html" class="course-card">
+                                            <div class="course-icon"><i class="fa-solid fa-pills" aria-hidden="true"></i></div>
+                                            <span>Oman Pharmacy</span>
+                                        </a>
+                                        <a href="/courses/pharmacy/gcc/saudi-pharmacy-pearson-vue.html" class="course-card">
+                                            <div class="course-icon"><i class="fa-solid fa-pills" aria-hidden="true"></i></div>
+                                            <span>Saudi Pharmacy</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <!-- Pharmacy Panel -->
-                        <div class="category-panel" id="pharmacy">
-                            <div class="course-grid">
-                                <a href="courses/pharmacy/DHS-pharmacist.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-mortar-pestle"></i></div>
-                                    <span>DHS Pharmacist</span>
-                                </a>
-                                <a href="courses/pharmacy/DME-pharmacist.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-mortar-pestle"></i></div>
-                                    <span>DME Pharmacist</span>
-                                </a>
-                                <a href="courses/pharmacy/RRB-pharmacist.html" class="course-card">
-                                    <div class="course-icon"><i class="fa-solid fa-mortar-pestle"></i></div>
-                                    <span>RRB Pharmacist</span>
-                                </a>
+                        <!-- ===================== MLT PANEL ===================== -->
+                        <div class="category-panel" id="mlt" role="tabpanel" aria-labelledby="mlt-tab">
+
+                            <div class="course-section">
+                                <h5 class="course-section-title">
+                                    <i class="fa-solid fa-map-marker-alt" aria-hidden="true"></i>
+                                    Kerala PSC Exams
+                                </h5>
+                                <div class="course-grid">
+                                    <a href="/courses/mlt/kerala/dhs-lab-technician.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-microscope" aria-hidden="true"></i></div>
+                                        <span>DHS Lab Technician</span>
+                                    </a>
+                                    <a href="/courses/mlt/kerala/ims-homeo-ayurveda-lab-technician.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-microscope" aria-hidden="true"></i></div>
+                                        <span>IMS / Homeo / Ayurveda</span>
+                                    </a>
+                                    <a href="/courses/mlt/kerala/jla-lab-technician.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-microscope" aria-hidden="true"></i></div>
+                                        <span>JLA</span>
+                                    </a>
+                                </div>
                             </div>
+
+                            <div class="course-section">
+                                <h5 class="course-section-title">
+                                    <i class="fa-solid fa-landmark" aria-hidden="true"></i>
+                                    Central Exams
+                                </h5>
+                                <div class="course-grid">
+                                    <a href="/courses/mlt/central/cre-lab-technician.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-microscope" aria-hidden="true"></i></div>
+                                        <span>CRE</span>
+                                    </a>
+                                    <a href="/courses/mlt/central/rrb-lab-technician.html" class="course-card">
+                                        <div class="course-icon"><i class="fa-solid fa-microscope" aria-hidden="true"></i></div>
+                                        <span>RRB Lab Technician</span>
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
             </div>

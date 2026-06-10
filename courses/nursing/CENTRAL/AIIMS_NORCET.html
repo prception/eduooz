@@ -14,6 +14,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
     <link rel="stylesheet" href="../../../assets/css/header-footer.css">
     <link rel="stylesheet" href="../../../assets/css/courses-landing.css">
@@ -24,6 +25,7 @@
     window.EXAM_CONFIG = {
         examName: "AIIMS NORCET",
         fullName: "Nursing Officer Recruitment Common Eligibility Test",
+        examSlug: "aiims-norcet",
     
         // Eligibility checker rules (used by interactive tool)
         eligibilityRules: {
@@ -738,7 +740,7 @@
             </div>
             <div class="syllabus-subjects-grid" id="syllabus-grid"></div>
             <div class="text-center">
-                <a href="#" class="btn-download-syllabus g-exam-reveal">
+                <a href="" class="btn-download-syllabus g-exam-reveal">
                     <i class="fa-solid fa-download"></i> Download Official Syllabus PDF
                 </a>
             </div>
@@ -1067,8 +1069,308 @@
                 <div class="section-label"><span class="label-dot"></span> Test Yourself</div>
                 <h2 class="section-title">Free Practice <span class="text-gradient">Tests.</span></h2>
             </div>
-            <div class="practice-grid" id="practice-grid">
-                <!-- Rendered by JS -->
+            <div class="practice-tests-grid" id="practice-tests-grid">
+
+                <!-- ═══ MOCK TEST SYSTEM ═══ -->
+                <div class="mts-wrapper" id="mts-wrapper">
+
+                    <!-- SCREEN 1: WELCOME -->
+                    <div class="mts-screen mts-welcome-screen" id="mts-welcome">
+                        <div class="mts-welcome-icon-ring">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </div>
+                        <div class="mts-welcome-badge">AIIMS NORCET</div>
+                        <h3 class="mts-welcome-title">Full Length Mock Test</h3>
+                        <p class="mts-welcome-sub">Simulates the real CBT exam environment. Sections unlock sequentially.</p>
+                        <div class="mts-welcome-meta">
+                            <div class="mts-meta-item"><i class="fa-solid fa-layer-group"></i><strong>5</strong><span>Sections</span></div>
+                            <div class="mts-meta-div"></div>
+                            <div class="mts-meta-item"><i class="fa-solid fa-circle-question"></i><strong>25</strong><span>Per Section</span></div>
+                            <div class="mts-meta-div"></div>
+                            <div class="mts-meta-item"><i class="fa-solid fa-list-check"></i><strong>125</strong><span>Total Qs</span></div>
+                            <div class="mts-meta-div"></div>
+                            <div class="mts-meta-item"><i class="fa-solid fa-trophy"></i><strong>125</strong><span>Total Marks</span></div>
+                        </div>
+                        <div class="mts-welcome-rules">
+                            <div class="mts-rule"><i class="fa-solid fa-circle-info"></i> +1 for correct · 0 for wrong · No negative marking</div>
+                            <div class="mts-rule"><i class="fa-solid fa-clock"></i> No time limit — answer at your own pace</div>
+                        </div>
+
+                        <!-- Category Selection -->
+                        <div class="mts-cat-select">
+                            <div class="mts-cat-select-label">Choose a category:</div>
+                            <div class="mts-cat-grid" id="mts-cat-grid">
+                                <button class="mts-cat-card mts-cat-active" data-cat="0" style="--cat-color:#ef4444">
+                                    <i class="fa-solid fa-heart-pulse"></i>
+                                    <span class="mts-cat-name">Cardiology</span>
+                                    <span class="mts-cat-count">5 Sections · 125 Qs</span>
+                                </button>
+                                <button class="mts-cat-card" data-cat="1" style="--cat-color:#8b5cf6">
+                                    <i class="fa-solid fa-brain"></i>
+                                    <span class="mts-cat-name">CNS</span>
+                                    <span class="mts-cat-count">5 Sections · 125 Qs</span>
+                                </button>
+                                <button class="mts-cat-card" data-cat="2" style="--cat-color:#f59e0b">
+                                    <i class="fa-solid fa-utensils"></i>
+                                    <span class="mts-cat-name">GI System</span>
+                                    <span class="mts-cat-count">5 Sections · 125 Qs</span>
+                                </button>
+                                <button class="mts-cat-card" data-cat="3" style="--cat-color:#10b981">
+                                    <i class="fa-solid fa-bone"></i>
+                                    <span class="mts-cat-name">Musculo Skeletal</span>
+                                    <span class="mts-cat-count">5 Sections · 125 Qs</span>
+                                </button>
+                                <button class="mts-cat-card" data-cat="4" style="--cat-color:#06b6d4">
+                                    <i class="fa-solid fa-lungs"></i>
+                                    <span class="mts-cat-name">Respiratory</span>
+                                    <span class="mts-cat-count">5 Sections · 125 Qs</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button class="mts-start-btn" id="mts-start-btn">
+                            <i class="fa-solid fa-play"></i> Start Mock Test
+                        </button>
+                    </div>
+
+                    <!-- SCREEN 2: EXAM INTERFACE -->
+                    <div class="mts-screen mts-exam-screen mts-hidden" id="mts-exam">
+
+                        <!-- Section Tabs -->
+                        <div class="mts-tabs-bar" id="mts-tabs-bar">
+                            <div class="mts-tabs-scroll" id="mts-tabs-scroll">
+                                <!-- built by JS -->
+                            </div>
+                            <button class="mts-switch-cat-btn" id="mts-switch-cat-btn" title="Switch Category">
+                                <i class="fa-solid fa-shuffle"></i> Category
+                            </button>
+                            <button class="mts-exit-btn" id="mts-exit-btn" title="Exit Test">
+                                <i class="fa-solid fa-xmark"></i> Exit
+                            </button>
+                        </div>
+
+                        <!-- Category switcher modal -->
+                        <div class="mts-cat-modal mts-hidden" id="mts-cat-modal">
+                            <div class="mts-cat-modal-box">
+                                <div class="mts-cat-modal-header">
+                                    <h3 class="mts-cat-modal-title">Switch Category</h3>
+                                    <button class="mts-cat-modal-close" id="mts-cat-modal-close"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                                <p class="mts-cat-modal-sub">Current progress will be reset. Select a category to start fresh.</p>
+                                <div class="mts-cat-modal-grid">
+                                    <button class="mts-cat-modal-card" data-cat="0" style="--cat-color:#ef4444">
+                                        <i class="fa-solid fa-heart-pulse"></i>
+                                        <span>Cardiology</span>
+                                        <span class="mts-cat-modal-count">125 Qs</span>
+                                    </button>
+                                    <button class="mts-cat-modal-card" data-cat="1" style="--cat-color:#8b5cf6">
+                                        <i class="fa-solid fa-brain"></i>
+                                        <span>CNS</span>
+                                        <span class="mts-cat-modal-count">125 Qs</span>
+                                    </button>
+                                    <button class="mts-cat-modal-card" data-cat="2" style="--cat-color:#f59e0b">
+                                        <i class="fa-solid fa-utensils"></i>
+                                        <span>GI System</span>
+                                        <span class="mts-cat-modal-count">125 Qs</span>
+                                    </button>
+                                    <button class="mts-cat-modal-card" data-cat="3" style="--cat-color:#10b981">
+                                        <i class="fa-solid fa-bone"></i>
+                                        <span>Musculo Skeletal</span>
+                                        <span class="mts-cat-modal-count">125 Qs</span>
+                                    </button>
+                                    <button class="mts-cat-modal-card" data-cat="4" style="--cat-color:#06b6d4">
+                                        <i class="fa-solid fa-lungs"></i>
+                                        <span>Respiratory</span>
+                                        <span class="mts-cat-modal-count">125 Qs</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exit confirm modal -->
+                        <div class="mts-exit-modal mts-hidden" id="mts-exit-modal">
+                            <div class="mts-exit-modal-box">
+                                <div class="mts-exit-modal-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                <h3 class="mts-exit-modal-title">Exit Test?</h3>
+                                <p class="mts-exit-modal-msg">Your progress will be lost. Are you sure you want to exit?</p>
+                                <div class="mts-exit-modal-actions">
+                                    <button class="mts-exit-cancel-btn" id="mts-exit-cancel-btn">Keep Going</button>
+                                    <button class="mts-exit-confirm-btn" id="mts-exit-confirm-btn">Exit Test</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Body -->
+                        <div class="mts-exam-body">
+
+                            <!-- LEFT: Question panel -->
+                            <div class="mts-q-panel">
+
+                                <!-- Progress header -->
+                                <div class="mts-q-header">
+                                    <div class="mts-q-progress-info">
+                                        <span class="mts-q-counter" id="mts-q-counter">Question 1 of 25</span>
+                                        <span class="mts-section-badge" id="mts-section-badge">Section 1</span>
+                                    </div>
+                                    <div class="mts-progress-track">
+                                        <div class="mts-progress-fill" id="mts-progress-fill" style="width:0%"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Question card -->
+                                <div class="mts-question-card" id="mts-question-card">
+                                    <p class="mts-q-num" id="mts-q-num">Q1.</p>
+                                    <p class="mts-q-text" id="mts-q-text"></p>
+                                    <div class="mts-options" id="mts-options"></div>
+                                    <button class="mts-submit-btn" id="mts-submit-btn">
+                                        <i class="fa-solid fa-paper-plane"></i> Submit Answer
+                                    </button>
+                                </div>
+
+                                <!-- Feedback card (shown after submit) -->
+                                <div class="mts-feedback-card mts-hidden" id="mts-feedback-card">
+                                    <div class="mts-feedback-result" id="mts-feedback-result"></div>
+                                    <div class="mts-feedback-answer mts-hidden" id="mts-correct-reveal"></div>
+                                    <div class="mts-explanation" id="mts-explanation"></div>
+                                </div>
+
+                                <!-- Navigation -->
+                                <div class="mts-nav-bar mts-hidden" id="mts-nav-bar">
+                                    <button class="mts-nav-btn mts-btn-ghost" id="mts-prev-btn">
+                                        <i class="fa-solid fa-chevron-left"></i> Previous
+                                    </button>
+                                    <div class="mts-nav-center" id="mts-nav-center"></div>
+                                    <button class="mts-nav-btn mts-btn-cyan" id="mts-next-btn">
+                                        Next <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Section complete card -->
+                                <div class="mts-section-done mts-hidden" id="mts-section-done">
+                                    <div class="mts-done-icon"><i class="fa-solid fa-circle-check"></i></div>
+                                    <h3 class="mts-done-title" id="mts-done-title">Section 1 Completed!</h3>
+                                    <div class="mts-done-stats" id="mts-done-stats"></div>
+                                    <button class="mts-next-section-btn" id="mts-next-section-btn">
+                                        Go to Section 2 <i class="fa-solid fa-arrow-right"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <!-- RIGHT: Score panel -->
+                            <div class="mts-score-panel" id="mts-score-panel">
+                                <div class="mts-score-title">Live Score</div>
+                                <div class="mts-score-section-label" id="mts-score-section">Section 1</div>
+                                <div class="mts-score-grid">
+                                    <div class="mts-score-card mts-score-answered">
+                                        <i class="fa-solid fa-check-double"></i>
+                                        <strong id="sc-answered">0</strong>
+                                        <span>Answered</span>
+                                    </div>
+                                    <div class="mts-score-card mts-score-correct">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        <strong id="sc-correct">0</strong>
+                                        <span>Correct</span>
+                                    </div>
+                                    <div class="mts-score-card mts-score-wrong">
+                                        <i class="fa-solid fa-circle-xmark"></i>
+                                        <strong id="sc-wrong">0</strong>
+                                        <span>Wrong</span>
+                                    </div>
+                                    <div class="mts-score-card mts-score-total">
+                                        <i class="fa-solid fa-star"></i>
+                                        <strong id="sc-score">0</strong>
+                                        <span>Score</span>
+                                    </div>
+                                </div>
+                                <div class="mts-accuracy-bar-wrap">
+                                    <div class="mts-acc-label">
+                                        <span>Accuracy</span>
+                                        <span id="sc-accuracy">0%</span>
+                                    </div>
+                                    <div class="mts-acc-track">
+                                        <div class="mts-acc-fill" id="sc-acc-fill" style="width:0%"></div>
+                                    </div>
+                                </div>
+                                <div class="mts-sections-mini" id="mts-sections-mini">
+                                    <!-- section summary rows built by JS -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- SCREEN 3: FINAL RESULTS -->
+                    <div class="mts-screen mts-results-screen mts-hidden" id="mts-results">
+                        <div class="mts-results-header">
+                            <div class="mts-results-trophy"><i class="fa-solid fa-trophy"></i></div>
+                            <h2 class="mts-results-title">Mock Test Completed!</h2>
+                            <p class="mts-results-sub" id="mts-results-sub"></p>
+                        </div>
+
+                        <div class="mts-results-body">
+
+                            <!-- Left column -->
+                            <div class="mts-results-left">
+
+                                <!-- Score summary -->
+                                <div class="mts-res-card">
+                                    <h4 class="mts-res-card-title"><i class="fa-solid fa-chart-bar"></i> Section-wise Score</h4>
+                                    <div class="mts-section-scores" id="mts-section-scores"></div>
+                                    <div class="mts-total-score-row" id="mts-total-score-row"></div>
+                                </div>
+
+                                <!-- Analytics -->
+                                <div class="mts-res-card">
+                                    <h4 class="mts-res-card-title"><i class="fa-solid fa-magnifying-glass-chart"></i> Analytics</h4>
+                                    <div class="mts-analytics-grid" id="mts-analytics-grid"></div>
+                                </div>
+
+                                <!-- Bar chart -->
+                                <div class="mts-res-card">
+                                    <h4 class="mts-res-card-title"><i class="fa-solid fa-chart-simple"></i> Section Performance</h4>
+                                    <canvas id="mts-bar-chart" height="180"></canvas>
+                                </div>
+
+                            </div>
+
+                            <!-- Right column -->
+                            <div class="mts-results-right">
+
+                                <!-- Donut chart -->
+                                <div class="mts-res-card mts-donut-card">
+                                    <h4 class="mts-res-card-title"><i class="fa-solid fa-circle-half-stroke"></i> Overall Accuracy</h4>
+                                    <div class="mts-donut-wrap">
+                                        <canvas id="mts-donut-chart" width="200" height="200"></canvas>
+                                        <div class="mts-donut-center" id="mts-donut-center"></div>
+                                    </div>
+                                    <div class="mts-donut-legend" id="mts-donut-legend"></div>
+                                </div>
+
+                                <!-- Question review -->
+                                <div class="mts-res-card mts-review-card">
+                                    <h4 class="mts-res-card-title"><i class="fa-solid fa-list-check"></i> Question Review</h4>
+                                    <div class="mts-review-filter" id="mts-review-filter">
+                                        <button class="mts-filter-btn mts-filter-active" data-filter="all">All</button>
+                                        <button class="mts-filter-btn" data-filter="correct">Correct</button>
+                                        <button class="mts-filter-btn" data-filter="wrong">Wrong</button>
+                                    </div>
+                                    <div class="mts-review-list" id="mts-review-list"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="mts-results-actions">
+                            <button class="mts-retest-btn" id="mts-retest-btn">
+                                <i class="fa-solid fa-rotate-left"></i> Retest
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ═══ END MOCK TEST SYSTEM ═══ -->
+
             </div>
         </div>
     </section>
@@ -1086,171 +1388,113 @@
         </div>
     </section>
 
-    <!-- SECTION 15: FACULTY CAROUSEL -->
+    <!-- SECTION 15: FACULTY SHOWCASE CAROUSEL -->
     <section class="fac-showcase-section" id="faculty">
+        <div class="fac-ambient">
+            <div class="fac-blob-1"></div>
+            <div class="fac-blob-2"></div>
+            <div class="fac-particles" id="fac-particles"></div>
+        </div>
         <div class="container">
             <div class="text-center g-exam-reveal">
-                <div class="section-label"><span class="label-dot"></span> The Team of Our Success</div>
-                <h2 class="section-title">Expert-Led <span class="text-gradient">NORCET Coaching.</span></h2>
-                <p class="fac-section-sub">Our faculty combines NORCET rank holders, ex-AIIMS professionals, and clinical specialists — unified by one mission: your selection.</p>
+                <div class="section-label"><span class="label-dot"></span> Meet Your Mentors</div>
+                <h2 class="section-title">Learn From The Experts Behind<br><span class="text-gradient">Thousands Of NORCET Success Stories.</span></h2>
+                <p class="fac-section-sub">Guidance from experienced educators, subject specialists, rank holders, and exam strategists who understand exactly what it takes to crack NORCET.</p>
             </div>
 
-            <!-- <div class="fac-car-root g-exam-reveal"> -->
-                <!-- LEFT: Featured expertise panel -->
-                <!-- <button class="fac-car-arrow fac-car-prev" id="fac-car-prev" aria-label="Previous faculty">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <div class="fac-car-stage" id="fac-car-stage">
-                    <div class="fac-car-track" id="fac-car-track">
-
-                        <div class="fac-car-card" data-accent="cyan">
-                            <div class="fac-car-icon-area">
-                                <div class="fac-car-icon-ring"><i class="fa-solid fa-chess"></i></div>
-                                <span class="fac-car-cred-badge"><i class="fa-solid fa-trophy"></i> NORCET Rank Holders</span>
-                            </div>
-                            <div class="fac-car-body">
-                                <h3 class="fac-car-name">NORCET Strategy &amp; Exam Prep</h3>
-                                <p class="fac-car-role">Strategy Specialists · Former NORCET Rank Holders</p>
-                                <p class="fac-car-desc">NORCET rank holders who have mastered the art of cracking CBT exams. They decode patterns and teach the exact techniques that push scores from 140 to 185+.</p>
-                                <div class="fac-car-topics">
-                                    <span class="fac-car-topic">Pattern Analysis</span>
-                                    <span class="fac-car-topic">Time Management</span>
-                                    <span class="fac-car-topic">High-Yield Topics</span>
-                                    <span class="fac-car-topic">Mock Strategy</span>
-                                </div>
-                            </div>
-                            <div class="fac-car-foot">
-                                <div class="fac-car-stat"><strong>10+</strong><span>Rank Holders</span></div>
-                                <div class="fac-car-stat"><strong>3000+</strong><span>Selected</span></div>
-                                <div class="fac-car-stat"><strong>96%</strong><span>Pass Rate</span></div>
-                            </div>
-                        </div>
-
-                        <div class="fac-car-card" data-accent="blue">
-                            <div class="fac-car-icon-area">
-                                <div class="fac-car-icon-ring"><i class="fa-solid fa-kit-medical"></i></div>
-                                <span class="fac-car-cred-badge"><i class="fa-solid fa-hospital"></i> Ex-AIIMS Faculty</span>
-                            </div>
-                            <div class="fac-car-body">
-                                <h3 class="fac-car-name">Medical-Surgical Nursing</h3>
-                                <p class="fac-car-role">Clinical Specialists · Ex-AIIMS Delhi Faculty</p>
-                                <p class="fac-car-desc">Former AIIMS faculty who blend clinical experience with exam strategy, transforming complex Med-Surg scenarios into logical, scoring frameworks.</p>
-                                <div class="fac-car-topics">
-                                    <span class="fac-car-topic">Critical Care</span>
-                                    <span class="fac-car-topic">Perioperative Nursing</span>
-                                    <span class="fac-car-topic">Clinical MCQs</span>
-                                    <span class="fac-car-topic">Emergency Nursing</span>
-                                </div>
-                            </div>
-                            <div class="fac-car-foot">
-                                <div class="fac-car-stat"><strong>15+</strong><span>Yrs Experience</span></div>
-                                <div class="fac-car-stat"><strong>1200+</strong><span>Selected</span></div>
-                                <div class="fac-car-stat"><strong>98%</strong><span>Pass Rate</span></div>
-                            </div>
-                        </div>
-
-                        <div class="fac-car-card" data-accent="purple">
-                            <div class="fac-car-icon-area">
-                                <div class="fac-car-icon-ring"><i class="fa-solid fa-pills"></i></div>
-                                <span class="fac-car-cred-badge"><i class="fa-solid fa-flask"></i> Clinical Pharmacologists</span>
-                            </div>
-                            <div class="fac-car-body">
-                                <h3 class="fac-car-name">Pharmacology &amp; Drug Therapy</h3>
-                                <p class="fac-car-role">Pharmacology Experts · Clinical Practice Leaders</p>
-                                <p class="fac-car-desc">Master the most feared NORCET subject with structured mnemonics and proven shortcuts. Drug classifications to nursing implications — simplified.</p>
-                                <div class="fac-car-topics">
-                                    <span class="fac-car-topic">Drug Classifications</span>
-                                    <span class="fac-car-topic">Nursing Implications</span>
-                                    <span class="fac-car-topic">Adverse Effects</span>
-                                    <span class="fac-car-topic">High-Yield Drugs</span>
-                                </div>
-                            </div>
-                            <div class="fac-car-foot">
-                                <div class="fac-car-stat"><strong>200+</strong><span>Drug Mnemonics</span></div>
-                                <div class="fac-car-stat"><strong>1500+</strong><span>Selected</span></div>
-                                <div class="fac-car-stat"><strong>94%</strong><span>Pass Rate</span></div>
-                            </div>
-                        </div>
-
-                        <div class="fac-car-card" data-accent="teal">
-                            <div class="fac-car-icon-area">
-                                <div class="fac-car-icon-ring"><i class="fa-solid fa-heart-pulse"></i></div>
-                                <span class="fac-car-cred-badge"><i class="fa-solid fa-eye"></i> Visual Framework Experts</span>
-                            </div>
-                            <div class="fac-car-body">
-                                <h3 class="fac-car-name">Anatomy &amp; Physiology</h3>
-                                <p class="fac-car-role">Visual Framework Specialists · Systemic A&amp;P Experts</p>
-                                <p class="fac-car-desc">Anatomy taught through premium visual mind maps and systemic deep-dives. Diagram-based teaching proven to double retention in CBT settings.</p>
-                                <div class="fac-car-topics">
-                                    <span class="fac-car-topic">Systemic Anatomy</span>
-                                    <span class="fac-car-topic">Physiology Deep-Dives</span>
-                                    <span class="fac-car-topic">Visual Mind Maps</span>
-                                    <span class="fac-car-topic">High-Yield MCQs</span>
-                                </div>
-                            </div>
-                            <div class="fac-car-foot">
-                                <div class="fac-car-stat"><strong>500+</strong><span>Visual Diagrams</span></div>
-                                <div class="fac-car-stat"><strong>2000+</strong><span>Selected</span></div>
-                                <div class="fac-car-stat"><strong>95%</strong><span>Pass Rate</span></div>
-                            </div>
-                        </div>
-
-                        <div class="fac-car-card" data-accent="amber">
-                            <div class="fac-car-icon-area">
-                                <div class="fac-car-icon-ring"><i class="fa-solid fa-house-medical"></i></div>
-                                <span class="fac-car-cred-badge"><i class="fa-solid fa-shield-halved"></i> Public Health Specialists</span>
-                            </div>
-                            <div class="fac-car-body">
-                                <h3 class="fac-car-name">Community Health Nursing</h3>
-                                <p class="fac-car-role">Public Health Experts · National Health Program Specialists</p>
-                                <p class="fac-car-desc">National health programs, epidemiology, and maternal &amp; child health mapped to actual NORCET question types — making the highest-scoring subject even easier.</p>
-                                <div class="fac-car-topics">
-                                    <span class="fac-car-topic">National Health Programs</span>
-                                    <span class="fac-car-topic">Epidemiology</span>
-                                    <span class="fac-car-topic">Maternal &amp; Child Health</span>
-                                    <span class="fac-car-topic">Biostatistics</span>
-                                </div>
-                            </div>
-                            <div class="fac-car-foot">
-                                <div class="fac-car-stat"><strong>100+</strong><span>Programs Covered</span></div>
-                                <div class="fac-car-stat"><strong>1800+</strong><span>Selected</span></div>
-                                <div class="fac-car-stat"><strong>97%</strong><span>Pass Rate</span></div>
-                            </div>
-                        </div>
-
-                        <div class="fac-car-card" data-accent="pink">
-                            <div class="fac-car-icon-area">
-                                <div class="fac-car-icon-ring"><i class="fa-solid fa-laptop-code"></i></div>
-                                <span class="fac-car-cred-badge"><i class="fa-solid fa-microchip"></i> Technology Experts</span>
-                            </div>
-                            <div class="fac-car-body">
-                                <h3 class="fac-car-name">CBT Practice &amp; Analysis</h3>
-                                <p class="fac-car-role">Exam Technology Specialists · Score Optimization Experts</p>
-                                <p class="fac-car-desc">Master the AIIMS NORCET CBT interface before exam day. Speed optimization, negative marking strategy, and real-time decision making — mastered.</p>
-                                <div class="fac-car-topics">
-                                    <span class="fac-car-topic">CBT Interface Mastery</span>
-                                    <span class="fac-car-topic">Speed Optimization</span>
-                                    <span class="fac-car-topic">Negative Marking</span>
-                                    <span class="fac-car-topic">Post-Test Analysis</span>
-                                </div>
-                            </div>
-                            <div class="fac-car-foot">
-                                <div class="fac-car-stat"><strong>50+</strong><span>Full Mock Tests</span></div>
-                                <div class="fac-car-stat"><strong>800+</strong><span>Selected</span></div>
-                                <div class="fac-car-stat"><strong>93%</strong><span>Pass Rate</span></div>
-                            </div>
-                        </div>
-
+            <div class="marquee-wrapper">
+                <div class="marquee-track track-right">
+                    <div class="marquee-text">
+                        <span>15+ YEARS EXPERIENCE • 500+ RANK HOLDERS • EXPERT FACULTY • PROVEN RESULTS •</span>
+                        <span>15+ YEARS EXPERIENCE • 500+ RANK HOLDERS • EXPERT FACULTY • PROVEN RESULTS •</span>
                     </div>
                 </div>
-                <button class="fac-car-arrow fac-car-next" id="fac-car-next" aria-label="Next faculty">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-            </div> -->
 
-            <!-- <div class="fac-car-dots" id="fac-car-dots"></div> -->
+                <div class="marquee-track track-left">
+                    <div class="marquee-text">
+                        <span>NURSING • PHARMACY • LAB TECHNOLOGY • COMPETITIVE EXAMS • INTERNATIONAL LICENSING •</span>
+                        <span>NURSING • PHARMACY • LAB TECHNOLOGY • COMPETITIVE EXAMS • INTERNATIONAL LICENSING •</span>
+                    </div>
+                </div>
+            </div>
 
-            
+            <div class="alumni-showcase-grid container">
+                
+                <div class="alumni-card-wrapper" data-speed="0.12">
+                    <div class="alumni-cycle-animator">
+                        <div class="prismatic-card">
+                            <div class="card-glare-light"></div>
+                            <div class="card-content-3d">
+                                <div class="alumni-img-box">
+                                    <img src="assets/images/faculties/SHINE.png" alt="Shine Stephen">
+                                    <div class="rank-badge">MSc (N) - PGIMER</div>
+                                    <div class="alumni-text-overlay">
+                                        <h3>Shine Stephen</h3>
+                                            <p class="exam-name">Asst. Professor (Ex-AIIMS)</p>
+                                        </div>
+                                </div>
+                                <div class="alumni-info">
+                                    <div class="placement-dest">
+                                        <span class="dest-icon"><i class="fa-solid fa-trophy"></i></span>
+                                        <span>A PGIMER & INC-WHO PhD Scholar, former AIIMS faculty, and multi-rank holder in KPSC exams.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alumni-card-wrapper" data-speed="-0.1">
+                    <div class="alumni-cycle-animator">
+                        <div class="prismatic-card">
+                            <div class="card-glare-light"></div>
+                            <div class="card-content-3d">
+                                <div class="alumni-img-box">
+                                    <img src="assets/images/faculties/NAYANA.jpeg" alt="Nayana Shaji">
+                                    <div class="rank-badge">GPAT Ranker</div>
+                                    <div class="alumni-text-overlay">
+                                        <h3>Nayana Shaji</h3>
+                                        <p class="exam-name">M Pharm Pharmacology</p>
+                                    </div>
+                                </div>
+                                <div class="alumni-info">
+                                    <div class="placement-dest">
+                                        <span class="dest-icon"><i class="fa-solid fa-award"></i></span>
+                                        <span>A GPAT Ranker and distinction holder across various Kerala & Central competitive pharmacy exams.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alumni-card-wrapper" data-speed="0.08">
+                    <div class="alumni-cycle-animator">
+                        <div class="prismatic-card">
+                            <div class="card-glare-light"></div>
+                            <div class="card-content-3d">
+                                <div class="alumni-img-box">
+                                    <img src="assets/images/faculties/VIDHU.JPG.jpeg" alt="Vidhu R Vijayan">
+                                    <div class="rank-badge">NCLEX RN</div>
+                                    <div class="alumni-text-overlay">
+                                        <h3>Vidhu R Vijayan</h3>
+                                        <p class="exam-name">MSc Nursing (Orthopedic)</p>
+                                    </div>
+                                </div>
+                                <div class="alumni-info">
+                                    <div class="placement-dest">
+                                        <span class="dest-icon"><i class="fa-solid fa-stethoscope"></i></span>
+                                        <span>An Orthopedic Nursing specialist who successfully passed the international NCLEX RN certification.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="fac-car-dots" id="fac-car-dots"></div>
         </div>
     </section>
 
@@ -1525,6 +1769,140 @@
             <div class="resources-pills" id="resources-pills">
                 <!-- Rendered by JS -->
             </div>
+        </div>
+    </section>
+
+     <!-- FAQ SECTION -->
+    <section class="faq-elite-section" id="faq">
+        
+        <div class="faq-ambient-glow"></div>
+
+        <div class="container relative-z">
+            
+            <div class="faq-header text-center g-faq-reveal">
+                <div class="frost-pill-light mx-auto">
+                    <span class="glowing-dot-cyan"></span> Clarity & Transparency
+                </div>
+                
+                <h2 class="faq-title">
+                    Everything you
+                    <span class="text-italic-cyan">need to know.</span>
+                </h2>
+                
+                <p class="faq-subtitle mx-auto">
+                    From curriculum specifics to international placement assistance, find the answers to your most pressing questions.
+                </p>
+            </div>
+
+            <div class="faq-2col-wrapper g-faq-reveal" id="faq-accordion">
+                
+                <div class="faq-column">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-num">01</span>
+                            <span class="faq-text">What makes Eduooz different from local coaching centers?</span>
+                            <div class="faq-toggle">
+                                <div class="horizontal-line"></div>
+                                <div class="vertical-line"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer-inner">
+                                <p>Unlike traditional centers, Eduooz is a fully integrated digital ecosystem. We combine Rank-1 experienced faculty with a proprietary mobile app, delivering highly structured, data-driven preparation that adapts to your performance.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-num">02</span>
+                            <span class="faq-text">Can I access the live classes and mock tests on my phone?</span>
+                            <div class="faq-toggle">
+                                <div class="horizontal-line"></div>
+                                <div class="vertical-line"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer-inner">
+                                <p>Absolutely. Our premium mobile application gives you 24/7 access to live classes, recorded sessions, granular performance tracking, and high-frequency mock tests, allowing you to study anywhere.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-num">03</span>
+                            <span class="faq-text">What happens if I miss a live interactive session?</span>
+                            <div class="faq-toggle">
+                                <div class="horizontal-line"></div>
+                                <div class="vertical-line"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer-inner">
+                                <p>Every single live session is recorded in ultra-high definition and uploaded directly to your student dashboard within 2 hours. You can review complex topics as many times as you need.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-column">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-num">04</span>
+                            <span class="faq-text">Do you provide guidance for international exams like DHA or HAAD?</span>
+                            <div class="faq-toggle">
+                                <div class="horizontal-line"></div>
+                                <div class="vertical-line"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer-inner">
+                                <p>Yes. We have dedicated curriculum tracks tailored specifically for international health authorities, including DHA (Dubai), HAAD (Abu Dhabi), MOH, and Prometric. We also provide documentation assistance.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-num">05</span>
+                            <span class="faq-text">Are the mock tests based on the latest exam patterns?</span>
+                            <div class="faq-toggle">
+                                <div class="horizontal-line"></div>
+                                <div class="vertical-line"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer-inner">
+                                <p>Our testing engine is updated continuously. We analyze previous year question papers from AIIMS, Kerala PSC, and RRB to ensure our test series mirrors the exact difficulty and high-yield topics of the real exams.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-num">06</span>
+                            <span class="faq-text">How do the 1-on-1 mentorship sessions work?</span>
+                            <div class="faq-toggle">
+                                <div class="horizontal-line"></div>
+                                <div class="vertical-line"></div>
+                            </div>
+                        </button>
+                        <div class="faq-answer-wrapper">
+                            <div class="faq-answer-inner">
+                                <p>Students are assigned a dedicated rank-holding mentor. You can schedule private sessions to clear specific doubts, analyze your mock test performance, and refine your study strategy for maximum yield.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="faq-footer text-center g-faq-reveal">
+                <p class="support-text">Still have questions?</p>
+                <a href="#contact" class="btn-liquid-purple magnetic-btn">Contact Support <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 5px; font-size: 0.85em;"></i></a>
+            </div>
+
         </div>
     </section>
 

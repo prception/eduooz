@@ -1,0 +1,281 @@
+{
+  "meta": {
+    "baseUrl": "https://eduooz.com",
+    "siteName": "Eduooz International Academy",
+    "siteLogoUrl": "/assets/images/logo.png",
+    "defaultOgImage": "/assets/images/og-default.jpg",
+    "questionPapersBase": "/question-papers"
+  },
+
+  "exams": [
+    {
+      "slug": "aiims-norcet",
+      "name": "AIIMS NORCET",
+      "fullName": "AIIMS Nursing Officer Recruitment Common Eligibility Test",
+      "description": "AIIMS NORCET is a national-level nursing officer recruitment examination conducted by AIIMS New Delhi for recruitment across all AIIMS institutions. It is one of the most prestigious nursing exams in India.",
+      "conducting_body": "All India Institute of Medical Sciences (AIIMS), New Delhi",
+      "frequency": "Once a year",
+      "vacancies_approx": "3000+",
+      "exam_mode": "Computer Based Test (CBT)",
+      "question_count": 200,
+      "duration": "90 minutes",
+      "subjects": ["Medical-Surgical Nursing", "Community Health Nursing", "Pharmacology", "Anatomy & Physiology", "Pediatric Nursing", "Mental Health Nursing"],
+      "official_website": "https://aiimsexams.ac.in"
+    }
+  ],
+
+  "papers": [
+    {
+      "slug": "aiims-norcet-2024-morning-shift",
+      "id": "norcet-5-2024-s1",
+      "title": "AIIMS NORCET 2024 (NORCET 5) Morning Shift Question Paper PDF",
+      "shortTitle": "NORCET 5 — Morning Shift",
+      "h1": "AIIMS NORCET 2024 Morning Shift (NORCET 5) Question Paper with Answer Key",
+      "exam": "AIIMS NORCET",
+      "examSlug": "aiims-norcet",
+      "year": "2024",
+      "edition": "NORCET 5",
+      "shift": "Morning Shift",
+      "date": "2024-07-15",
+      "questionCount": 200,
+      "duration": "90 minutes",
+      "difficulty": "moderate",
+      "pages": 24,
+      "topics": ["Medical-Surgical Nursing", "Community Health Nursing", "Pharmacology", "Anatomy & Physiology"],
+      "subjectWiseBreakdown": [
+        { "subject": "Medical-Surgical Nursing", "questions": 60, "percent": 30 },
+        { "subject": "Community Health Nursing", "questions": 50, "percent": 25 },
+        { "subject": "Pharmacology", "questions": 40, "percent": 20 },
+        { "subject": "Anatomy & Physiology", "questions": 30, "percent": 15 },
+        { "subject": "Others", "questions": 20, "percent": 10 }
+      ],
+      "pdfUrl": null,
+      "previewAvailable": false,
+      "free": true,
+      "description": "Download AIIMS NORCET 2024 (NORCET 5) Morning Shift question paper PDF with complete answer key. Contains 200 MCQs covering all nursing subjects — ideal for NORCET 6 preparation.",
+      "keywords": [
+        "AIIMS NORCET 2024 question paper",
+        "NORCET 5 morning shift PDF",
+        "AIIMS NORCET 2024 morning shift PDF download",
+        "NORCET question paper 2024",
+        "AIIMS nursing officer exam 2024"
+      ],
+      "preparationNotes": "This paper had heavy emphasis on Medical-Surgical Nursing (30%) and Community Health Nursing (25%). Critical care nursing, respiratory disorders, and national health programs were frequently tested. Pharmacology questions focused on drug classifications and nursing implications.",
+      "faqs": [
+        { "question": "How many questions were in AIIMS NORCET 2024 Morning Shift?", "answer": "AIIMS NORCET 2024 (NORCET 5) Morning Shift contained 200 Multiple Choice Questions to be solved in 90 minutes." },
+        { "question": "Is there negative marking in AIIMS NORCET 2024?", "answer": "No, AIIMS NORCET does not have negative marking. Each correct answer carries 1 mark and wrong/unattempted answers carry 0 marks." },
+        { "question": "Which subjects are most important for AIIMS NORCET?", "answer": "Medical-Surgical Nursing (30%), Community Health Nursing (25%), and Pharmacology (20%) together account for 75% of the paper." },
+        { "question": "Was the 2024 Morning Shift easier or harder than 2023?", "answer": "NORCET 5 (2024) was considered moderately difficult, similar to NORCET 4 (2023), with increased emphasis on clinical case-based questions." }
+      ],
+      "relatedPapers": ["aiims-norcet-2024-evening-shift", "aiims-norcet-2023-morning-shift", "aiims-norcet-2023-evening-shift"]
+    },
+
+    {
+      "slug": "aiims-norcet-2024-evening-shift",
+      "id": "norcet-5-2024-s2",
+      "title": "AIIMS NORCET 2024 (NORCET 5) Evening Shift Question Paper PDF",
+      "shortTitle": "NORCET 5 — Evening Shift",
+      "h1": "AIIMS NORCET 2024 Evening Shift (NORCET 5) Question Paper with Answer Key",
+      "exam": "AIIMS NORCET",
+      "examSlug": "aiims-norcet",
+      "year": "2024",
+      "edition": "NORCET 5",
+      "shift": "Evening Shift",
+      "date": "2024-07-15",
+      "questionCount": 200,
+      "duration": "90 minutes",
+      "difficulty": "moderate",
+      "pages": 24,
+      "topics": ["Medical-Surgical Nursing", "Pharmacology", "Community Health Nursing", "Mental Health Nursing"],
+      "subjectWiseBreakdown": [
+        { "subject": "Medical-Surgical Nursing", "questions": 58, "percent": 29 },
+        { "subject": "Community Health Nursing", "questions": 48, "percent": 24 },
+        { "subject": "Pharmacology", "questions": 44, "percent": 22 },
+        { "subject": "Anatomy & Physiology", "questions": 30, "percent": 15 },
+        { "subject": "Others", "questions": 20, "percent": 10 }
+      ],
+      "pdfUrl": null,
+      "previewAvailable": false,
+      "free": true,
+      "description": "Download AIIMS NORCET 2024 (NORCET 5) Evening Shift question paper PDF with complete answer key. Contains 200 MCQs with slightly higher pharmacology coverage than the morning shift.",
+      "keywords": [
+        "AIIMS NORCET 2024 evening shift question paper",
+        "NORCET 5 evening shift PDF",
+        "AIIMS NORCET 2024 shift 2 PDF download",
+        "NORCET evening shift 2024"
+      ],
+      "preparationNotes": "Evening shift had higher pharmacology coverage (22% vs 20% in morning). Mental health nursing appeared more prominently. Several questions on drug interactions and adverse effects were noted by test-takers.",
+      "faqs": [
+        { "question": "Was the Evening Shift harder than the Morning Shift in NORCET 5?", "answer": "The Evening Shift was reported to be slightly harder, with more pharmacology-based clinical scenario questions." },
+        { "question": "How many shifts does AIIMS NORCET have?", "answer": "AIIMS NORCET typically has 2 shifts — Morning and Evening — on the same exam date." },
+        { "question": "Are the questions different in Morning and Evening shifts?", "answer": "Yes, AIIMS NORCET uses different question sets for each shift, though the difficulty level and syllabus coverage are similar." },
+        { "question": "Can I practice NORCET 5 Evening Shift as a mock test?", "answer": "Yes, you can use this paper for timed practice. Aim to solve 200 questions in 90 minutes to simulate real exam conditions." }
+      ],
+      "relatedPapers": ["aiims-norcet-2024-morning-shift", "aiims-norcet-2024-answer-key", "aiims-norcet-2023-evening-shift"]
+    },
+
+    {
+      "slug": "aiims-norcet-2024-answer-key",
+      "id": "norcet-5-2024-key",
+      "title": "AIIMS NORCET 2024 (NORCET 5) Official Answer Key PDF",
+      "shortTitle": "NORCET 5 — Official Answer Key",
+      "h1": "AIIMS NORCET 2024 (NORCET 5) Official Answer Key — All Sets",
+      "exam": "AIIMS NORCET",
+      "examSlug": "aiims-norcet",
+      "year": "2024",
+      "edition": "NORCET 5",
+      "shift": "All Sets",
+      "date": "2024-07-28",
+      "questionCount": 200,
+      "duration": null,
+      "difficulty": null,
+      "pages": 8,
+      "topics": ["All Subjects"],
+      "subjectWiseBreakdown": [],
+      "pdfUrl": null,
+      "previewAvailable": false,
+      "free": true,
+      "description": "Download the official AIIMS NORCET 2024 (NORCET 5) answer key PDF released by AIIMS New Delhi. Contains correct answers for all sets of Morning and Evening shifts.",
+      "keywords": [
+        "AIIMS NORCET 2024 answer key",
+        "NORCET 5 official answer key PDF",
+        "AIIMS NORCET 2024 answer key download",
+        "NORCET answer key 2024 official"
+      ],
+      "preparationNotes": "Compare your answers with the official key. Identify weak areas and revise those chapters before the next attempt.",
+      "faqs": [
+        { "question": "When was the AIIMS NORCET 2024 answer key released?", "answer": "AIIMS released the NORCET 5 (2024) provisional answer key approximately 10 days after the exam date." },
+        { "question": "How do I raise an objection against the NORCET answer key?", "answer": "Candidates can raise objections through the AIIMS Exams portal at aiimsexams.ac.in within the specified challenge window (usually 7 days)." },
+        { "question": "Is the final answer key different from the provisional one?", "answer": "Sometimes yes — if valid objections are received, AIIMS revises the key and releases a final answer key before declaring results." },
+        { "question": "How do I calculate my score from the answer key?", "answer": "Count 1 mark for each correct answer. There is no negative marking, so your score equals the number of correct responses." }
+      ],
+      "relatedPapers": ["aiims-norcet-2024-morning-shift", "aiims-norcet-2024-evening-shift", "aiims-norcet-2023-answer-key"]
+    },
+
+    {
+      "slug": "aiims-norcet-2023-morning-shift",
+      "id": "norcet-4-2023-s1",
+      "title": "AIIMS NORCET 2023 (NORCET 4) Morning Shift Question Paper PDF",
+      "shortTitle": "NORCET 4 — Morning Shift",
+      "h1": "AIIMS NORCET 2023 Morning Shift (NORCET 4) Question Paper with Answer Key",
+      "exam": "AIIMS NORCET",
+      "examSlug": "aiims-norcet",
+      "year": "2023",
+      "edition": "NORCET 4",
+      "shift": "Morning Shift",
+      "date": "2023-11-20",
+      "questionCount": 200,
+      "duration": "90 minutes",
+      "difficulty": "moderate",
+      "pages": 22,
+      "topics": ["Medical-Surgical Nursing", "Community Health Nursing", "Pharmacology", "Pediatric Nursing"],
+      "subjectWiseBreakdown": [
+        { "subject": "Medical-Surgical Nursing", "questions": 62, "percent": 31 },
+        { "subject": "Community Health Nursing", "questions": 50, "percent": 25 },
+        { "subject": "Pharmacology", "questions": 38, "percent": 19 },
+        { "subject": "Anatomy & Physiology", "questions": 28, "percent": 14 },
+        { "subject": "Others", "questions": 22, "percent": 11 }
+      ],
+      "pdfUrl": null,
+      "previewAvailable": false,
+      "free": true,
+      "description": "Download AIIMS NORCET 2023 (NORCET 4) Morning Shift question paper PDF with complete answer key. Highly relevant for NORCET 6 preparation as question patterns repeat.",
+      "keywords": [
+        "AIIMS NORCET 2023 question paper",
+        "NORCET 4 morning shift PDF",
+        "AIIMS NORCET 2023 morning shift PDF download",
+        "NORCET question paper 2023"
+      ],
+      "preparationNotes": "NORCET 4 Morning Shift was slightly easier than the evening shift. High-yield areas: perioperative nursing, MCH programs, antihypertensive drugs. Several questions repeated from NORCET 3.",
+      "faqs": [
+        { "question": "How was the difficulty of AIIMS NORCET 2023 Morning Shift?", "answer": "NORCET 4 Morning Shift was rated moderately difficult by most test-takers. Medical-Surgical had more clinical case scenarios than previous years." },
+        { "question": "Are NORCET 2023 questions useful for NORCET 6 preparation?", "answer": "Yes, AIIMS NORCET follows consistent question patterns. Approximately 20-30% of questions from previous years reappear in modified forms." },
+        { "question": "What was the cutoff for AIIMS NORCET 2023?", "answer": "The expected cutoff for General category in NORCET 4 was approximately 130-140 out of 200." },
+        { "question": "Which AIIMS institutions recruit through NORCET?", "answer": "All 25 AIIMS institutions including AIIMS New Delhi, Bhopal, Bhubaneswar, Jodhpur, Patna, Raipur, Rishikesh, and others recruit through NORCET." }
+      ],
+      "relatedPapers": ["aiims-norcet-2023-evening-shift", "aiims-norcet-2024-morning-shift", "aiims-norcet-2023-answer-key"]
+    },
+
+    {
+      "slug": "aiims-norcet-2023-evening-shift",
+      "id": "norcet-4-2023-s2",
+      "title": "AIIMS NORCET 2023 (NORCET 4) Evening Shift Question Paper PDF",
+      "shortTitle": "NORCET 4 — Evening Shift",
+      "h1": "AIIMS NORCET 2023 Evening Shift (NORCET 4) Question Paper with Answer Key",
+      "exam": "AIIMS NORCET",
+      "examSlug": "aiims-norcet",
+      "year": "2023",
+      "edition": "NORCET 4",
+      "shift": "Evening Shift",
+      "date": "2023-11-20",
+      "questionCount": 200,
+      "duration": "90 minutes",
+      "difficulty": "hard",
+      "pages": 22,
+      "topics": ["Medical-Surgical Nursing", "Pharmacology", "Mental Health Nursing", "Community Health Nursing"],
+      "subjectWiseBreakdown": [
+        { "subject": "Medical-Surgical Nursing", "questions": 60, "percent": 30 },
+        { "subject": "Community Health Nursing", "questions": 48, "percent": 24 },
+        { "subject": "Pharmacology", "questions": 46, "percent": 23 },
+        { "subject": "Anatomy & Physiology", "questions": 26, "percent": 13 },
+        { "subject": "Others", "questions": 20, "percent": 10 }
+      ],
+      "pdfUrl": null,
+      "previewAvailable": false,
+      "free": true,
+      "description": "Download AIIMS NORCET 2023 (NORCET 4) Evening Shift question paper PDF with answer key. Notable for higher pharmacology emphasis and tricky clinical scenarios.",
+      "keywords": [
+        "AIIMS NORCET 2023 evening shift question paper",
+        "NORCET 4 evening shift PDF",
+        "AIIMS NORCET 2023 shift 2 download",
+        "NORCET evening shift 2023"
+      ],
+      "preparationNotes": "Evening shift was harder — pharmacology was 23% (higher than usual). Drug mechanisms, antidotes, and high-alert medications were prominent. Several mental health nursing case studies appeared.",
+      "faqs": [
+        { "question": "Was AIIMS NORCET 2023 Evening Shift harder than Morning Shift?", "answer": "Yes, the Evening Shift of NORCET 4 (2023) was considered harder by most aspirants, particularly due to increased pharmacology and clinical reasoning questions." },
+        { "question": "What are the high-yield pharmacology topics for AIIMS NORCET?", "answer": "Key pharmacology topics: antihypertensives, antidiabetics, antibiotics, opioid analgesics, antidotes, cardiac drugs, and high-alert medications." },
+        { "question": "Can I use NORCET 4 Evening Shift paper for practice?", "answer": "Absolutely. It is one of the best papers to practice from as it closely mirrors the current NORCET difficulty trend." },
+        { "question": "What is the selection process after AIIMS NORCET?", "answer": "After the written exam, shortlisted candidates appear for document verification. Final selection is based on NORCET score merit and preference of AIIMS institution." }
+      ],
+      "relatedPapers": ["aiims-norcet-2023-morning-shift", "aiims-norcet-2023-answer-key", "aiims-norcet-2024-evening-shift"]
+    },
+
+    {
+      "slug": "aiims-norcet-2023-answer-key",
+      "id": "norcet-4-2023-key",
+      "title": "AIIMS NORCET 2023 (NORCET 4) Official Answer Key PDF",
+      "shortTitle": "NORCET 4 — Official Answer Key",
+      "h1": "AIIMS NORCET 2023 (NORCET 4) Official Answer Key — All Sets",
+      "exam": "AIIMS NORCET",
+      "examSlug": "aiims-norcet",
+      "year": "2023",
+      "edition": "NORCET 4",
+      "shift": "All Sets",
+      "date": "2023-12-01",
+      "questionCount": 200,
+      "duration": null,
+      "difficulty": null,
+      "pages": 6,
+      "topics": ["All Subjects"],
+      "subjectWiseBreakdown": [],
+      "pdfUrl": null,
+      "previewAvailable": false,
+      "free": true,
+      "description": "Download the official AIIMS NORCET 2023 (NORCET 4) answer key PDF. Contains correct answers for Morning and Evening shifts. Use for result estimation and preparation analysis.",
+      "keywords": [
+        "AIIMS NORCET 2023 answer key",
+        "NORCET 4 official answer key PDF",
+        "AIIMS NORCET 2023 answer key download",
+        "NORCET 4 answer key official"
+      ],
+      "preparationNotes": "Cross-check every answer with the key and maintain an error log. Track which subjects and topics you consistently miss — those are your priority revision areas.",
+      "faqs": [
+        { "question": "When was the AIIMS NORCET 2023 answer key released?", "answer": "AIIMS released the NORCET 4 (2023) answer key approximately 10-12 days after the exam." },
+        { "question": "How many questions had objections in NORCET 4?", "answer": "Based on available information, approximately 8-12 questions were challenged in NORCET 4, with a few answers revised in the final key." },
+        { "question": "How do I estimate my NORCET 4 score?", "answer": "Count 1 mark for each correct answer. Add all correct responses from both attempted sections. There is no negative marking." },
+        { "question": "Where can I find previous year AIIMS NORCET answer keys?", "answer": "Official answer keys are published at aiimsexams.ac.in. Previous keys (NORCET 1 through 4) are also available on Eduooz for download." }
+      ],
+      "relatedPapers": ["aiims-norcet-2023-morning-shift", "aiims-norcet-2023-evening-shift", "aiims-norcet-2024-answer-key"]
+    }
+  ]
+}

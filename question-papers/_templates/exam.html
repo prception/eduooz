@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{EXAM_NAME}} Previous Year Question Papers | Eduooz</title>
+    <meta name="description" content="{{EXAM_DESCRIPTION}}">
+    <link rel="canonical" href="{{CANONICAL_URL}}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{EXAM_NAME}} Previous Year Question Papers | Eduooz">
+    <meta property="og:description" content="{{EXAM_DESCRIPTION}}">
+    <meta property="og:url" content="{{CANONICAL_URL}}">
+    <meta property="og:site_name" content="Eduooz International Academy">
+    <script type="application/ld+json">{{BREADCRUMB_SCHEMA}}</script>
+    <script type="application/ld+json">{{WEBPAGE_SCHEMA}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{BASE_URL}}/assets/css/header-footer.css">
+    <link rel="stylesheet" href="{{BASE_URL}}/assets/css/courses-landing.css">
+    <link rel="stylesheet" href="{{BASE_URL}}/assets/css/paper-page.css">
+</head>
+<body class="paper-page-body">
+    <div id="header-container"></div>
+
+    <nav class="pp-breadcrumb-bar" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="pp-breadcrumb">
+                <li><a href="{{BASE_URL}}/">Home</a></li>
+                <li><a href="{{BASE_URL}}/question-papers/">Question Papers</a></li>
+                <li aria-current="page">{{EXAM_NAME}}</li>
+            </ol>
+        </div>
+    </nav>
+
+    <section class="pp-hero pp-hero-exam">
+        <div class="container">
+            <div class="pp-hero-badge">
+                <span class="pp-badge-pill"><i class="fa-solid fa-layer-group"></i> Question Paper Library</span>
+            </div>
+            <h1 class="pp-h1">{{EXAM_NAME}} Previous Year Question Papers</h1>
+            <p class="pp-hero-sub">{{EXAM_DESCRIPTION}}</p>
+            <div class="pp-year-tabs-row">
+                <a href="{{CANONICAL_URL}}" class="pp-year-tab-link pp-year-tab-active">All Years</a>
+                {{YEAR_TABS}}
+            </div>
+        </div>
+    </section>
+
+    <main class="pp-main">
+        <div class="container">
+
+            <div class="pp-exam-stats">
+                <div class="pp-estat"><strong>{{PAPER_COUNT}}</strong><span>Papers Available</span></div>
+                <div class="pp-estat"><strong>{{YEAR_RANGE}}</strong><span>Years Covered</span></div>
+                <div class="pp-estat"><strong>Free</strong><span>Download</span></div>
+            </div>
+
+            <div class="pp-search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="exam-search" placeholder="Search papers by year, shift..." autocomplete="off">
+            </div>
+
+            <div class="pp-paper-list" id="exam-paper-list">
+                {{PAPER_CARDS}}
+            </div>
+
+            <div class="pp-empty" id="exam-empty" style="display:none">
+                <i class="fa-solid fa-folder-open"></i>
+                <p>No papers found for your search.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        (function() {
+            function loadComponent(id, url) {
+                var el = document.getElementById(id);
+                if (!el) return;
+                fetch(url).then(function(r) { return r.text(); })
+                    .then(function(html) { el.innerHTML = html; }).catch(function() {});
+            }
+            loadComponent('header-container', '{{BASE_URL}}/assets/partials/header.html');
+            loadComponent('footer-container', '{{BASE_URL}}/assets/partials/footer.html');
+
+            var input = document.getElementById('exam-search');
+            var list = document.getElementById('exam-paper-list');
+            var empty = document.getElementById('exam-empty');
+            if (!input || !list) return;
+
+            input.addEventListener('input', function() {
+                var q = input.value.toLowerCase().trim();
+                var cards = list.querySelectorAll('.pp-list-card');
+                var visible = 0;
+                cards.forEach(function(card) {
+                    var match = !q || card.textContent.toLowerCase().includes(q);
+                    card.style.display = match ? '' : 'none';
+                    if (match) visible++;
+                });
+                if (empty) empty.style.display = visible === 0 ? '' : 'none';
+            });
+        })();
+    </script>
+</body>
+</html>
