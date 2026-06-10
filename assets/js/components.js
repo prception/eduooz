@@ -149,31 +149,50 @@
 
     /**
      * Initialize Mega Menu functionality (Desktop)
-     * - Handles category switching on hover
+     * - Handles category switching on hover and keyboard (Enter/Space)
+     * - Tracks aria-expanded on the trigger link
      */
     function initMegaMenu() {
         const sidebarItems = document.querySelectorAll('.sidebar-item');
         const panels = document.querySelectorAll('.category-panel');
+        const dropdownWrapper = document.querySelector('.nav-item.dropdown');
+        const trigger = document.getElementById('courses-menu-trigger');
 
         if (!sidebarItems.length || !panels.length) return;
 
+        function activateCategory(category) {
+            sidebarItems.forEach(si => {
+                si.classList.remove('active');
+                si.setAttribute('aria-selected', 'false');
+            });
+            panels.forEach(panel => {
+                panel.classList.remove('active');
+                if (panel.id === category) panel.classList.add('active');
+            });
+            const active = document.querySelector('.sidebar-item[data-category="' + category + '"]');
+            if (active) {
+                active.classList.add('active');
+                active.setAttribute('aria-selected', 'true');
+            }
+        }
+
         sidebarItems.forEach(item => {
             item.addEventListener('mouseenter', function() {
-                const category = this.getAttribute('data-category');
-                
-                // Update Sidebar
-                sidebarItems.forEach(si => si.classList.remove('active'));
-                this.classList.add('active');
+                activateCategory(this.getAttribute('data-category'));
+            });
 
-                // Update Panels
-                panels.forEach(panel => {
-                    panel.classList.remove('active');
-                    if (panel.id === category) {
-                        panel.classList.add('active');
-                    }
-                });
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    activateCategory(this.getAttribute('data-category'));
+                }
             });
         });
+
+        if (dropdownWrapper && trigger) {
+            dropdownWrapper.addEventListener('mouseenter', () => trigger.setAttribute('aria-expanded', 'true'));
+            dropdownWrapper.addEventListener('mouseleave', () => trigger.setAttribute('aria-expanded', 'false'));
+        }
     }
 
     /**

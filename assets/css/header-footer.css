@@ -1616,6 +1616,57 @@ body.chat-is-open .scroll-to-top {
     color: #fff;
 }
 
+/* Course Section Dividers */
+.course-section {
+    margin-bottom: 28px;
+}
+
+.course-section:last-child {
+    margin-bottom: 0;
+}
+
+.course-section-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--brand-cyan);
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-main);
+}
+
+.glass-header.light-mode .course-section-title {
+    color: var(--brand-purple);
+    border-bottom-color: rgba(0, 0, 0, 0.07);
+}
+
+.course-subsection {
+    margin-bottom: 18px;
+}
+
+.course-subsection:last-child {
+    margin-bottom: 0;
+}
+
+.course-subsection-title {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(255, 255, 255, 0.38);
+    margin: 0 0 10px;
+    font-family: var(--font-main);
+}
+
+.glass-header.light-mode .course-subsection-title {
+    color: rgba(0, 0, 0, 0.38);
+}
+
 .dropdown-caret {
     font-size: 0.7rem;
     margin-left: 5px;
