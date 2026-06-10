@@ -1322,8 +1322,8 @@
 }
 
 /* Each subject gets its own icon colour */
-#syl-tab-awareness .syl-tab-icon, 
-#syl-tab-aptitude .syl-tab-icon, 
+#syl-tab-awareness .syl-tab-icon,
+#syl-tab-aptitude .syl-tab-icon,
 #syl-tab-nursing .syl-tab-icon {
   background: rgba(191, 38, 211, 0);
   color: var(--brand-magenta);
@@ -1338,14 +1338,12 @@
   color: #fff;
 }
 
-
 /* Active tab text colours to match */
 #syl-tab-awareness.active,
 #syl-tab-aptitude.active,
 #syl-tab-nursing.active {
   color: white;
 }
-
 
 /* --- Panel container --- */
 .syllabus-tab-panels {
@@ -2977,7 +2975,7 @@
 }
 
 .greview-trust-badge {
-  font-size:  1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #475569;
   display: flex;
@@ -3061,14 +3059,14 @@
 }
 
 .why-card h4 {
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 8px;
 }
 
 .why-card p {
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #64748b;
   line-height: 1.5;
 }
@@ -4166,7 +4164,7 @@
   border: 1px solid rgba(0, 0, 0, 0.06);
   background: rgba(248, 250, 252, 0.7);
   color: #64748b;
-  font-size: 0.8rem;
+  font-size: 0.93rem;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
@@ -4174,7 +4172,7 @@
   transition: all 0.2s ease;
 }
 .mts-left-cat i {
-  font-size: 1.30rem;
+  font-size: 1.3rem;
   color: var(--cat-col, #64748b);
   flex-shrink: 0;
   margin-top: 10px;
@@ -4216,7 +4214,7 @@
   min-width: 0;
 }
 .mts-left-nav-title {
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -4966,7 +4964,7 @@
 .mts-acc-label {
   display: flex;
   justify-content: space-between;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #64748b;
   margin-bottom: 6px;
@@ -4999,7 +4997,9 @@
   border-radius: 10px;
   background: rgba(248, 250, 252, 0.8);
   cursor: pointer;
-  transition: background 0.15s, transform 0.15s;
+  transition:
+    background 0.15s,
+    transform 0.15s;
   user-select: none;
 }
 .mts-mini-section:hover {
@@ -5935,7 +5935,6 @@ p {
   transition: opacity 0.3s ease;
 }
 
-
 .age-explorer-card::before {
   background: linear-gradient(90deg, #c026d3, #a21caf);
 }
@@ -6209,20 +6208,21 @@ p {
   font-size: 0.9rem;
 }
 
-/* Glowing vertical divider */
+/* Simple elegant glowing vertical divider */
 .split-divider {
-  width: 1px;
-  min-height: 100%;
+  width: 2px;
+  align-self: stretch;
+  flex-shrink: 0;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 
 .split-divider .divider-glow {
   width: 1px;
   height: 80%;
-  min-height: 300px;
   background: linear-gradient(
     180deg,
     transparent,
@@ -6231,7 +6231,7 @@ p {
     var(--brand-magenta),
     transparent
   );
-  opacity: 0.4;
+  opacity: 0.45;
   border-radius: 1px;
   position: relative;
 }
@@ -6405,21 +6405,7 @@ p {
     gap: 40px;
   }
   .split-divider {
-    width: 100%;
-    min-height: auto;
-    height: 1px;
-  }
-  .split-divider .divider-glow {
-    width: 80%;
-    height: 1px;
-    min-height: auto;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--brand-cyan),
-      var(--brand-purple),
-      transparent
-    );
+    display: none;
   }
   .split-column {
     padding: 0;
@@ -6673,6 +6659,7 @@ p {
 .journey-detail-cards {
   display: grid;
   margin-top: 36px;
+  border-radius: 20px;
 }
 
 .journey-card {
@@ -6719,7 +6706,7 @@ p {
     var(--brand-purple),
     var(--brand-magenta)
   );
-  border-radius: 20px 20px 0 0;
+  /* border-radius: 20px 20px 0 0; */
   opacity: 0.7;
 }
 
@@ -7052,7 +7039,7 @@ p {
 
   /* Journey milestones tighter label */
   .milestone-label {
-    font-size: 0.75rem;
+    font-size: 1.35rem;
   }
 
   /* Buttons */
@@ -7084,5 +7071,432 @@ p {
   .vfc-stat-chip {
     flex: none;
     width: calc(50% - 4px);
+  }
+}
+
+/* ============================================================
+   ELIG SCROLL-LOCK — full-viewport two-column sticky experience
+   ============================================================ */
+
+/* Scene: min-height keeps the sticky section in range by 2px;
+   JS wheel interception holds the page in place while columns scroll */
+.elig-scroll-scene {
+  position: relative;
+  min-height: calc(100vh + 2px);
+}
+
+/* Sticky panel: pins to top of viewport, fills it entirely */
+.elig-scroll-scene .elig-age-split-section {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  z-index: 10;
+}
+
+/* Inner container fills sticky panel */
+.elig-sticky-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Section header — fixed size at top */
+.elig-section-head {
+  flex-shrink: 0;
+  margin-bottom: 1.25rem;
+}
+
+/* Grid: stretch so all three columns fill the remaining height */
+.elig-scroll-scene .elig-age-split-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+
+/* Each split-column fills its grid cell */
+.elig-scroll-scene .split-column {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.68, 0, 1.2),
+    transform 0.7s cubic-bezier(0.22, 0.68, 0, 1.2);
+}
+
+.elig-scroll-scene .split-column.elig-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.elig-scroll-scene #elig-carousel-col {
+  transition-delay: 0s;
+}
+.elig-scroll-scene #age-carousel-col {
+  transition-delay: 0.15s;
+}
+
+/* LEFT scroll pane: fills remaining column height, intercepted by JS wheel handler */
+.elig-col-pane {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.elig-col-pane::-webkit-scrollbar {
+  display: none;
+}
+
+/* RIGHT column pane: static reference panel — all cards visible, no scroll, no fade */
+#age-col-pane {
+  overflow: hidden;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+#age-col-pane .elig-col-track {
+  gap: 6px;
+  padding: 0.25rem;
+}
+
+#age-col-pane .age-explorer-front {
+  padding: 10px 16px;
+  gap: 12px;
+}
+
+#age-col-pane .age-explorer-icon {
+  width: 36px;
+  height: 36px;
+  font-size: 0.9rem;
+}
+
+#age-col-pane .age-explorer-info h4 {
+  font-size: 0.85rem;
+}
+
+.elig-col-track {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem 0.25rem;
+}
+
+/* --- Tablet (768–1024px): tighter padding, still locked --- */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .elig-sticky-container {
+    padding-top: 1.25rem;
+    padding-bottom: 1rem;
+  }
+  .elig-section-head {
+    margin-bottom: 1rem;
+  }
+}
+
+/* --- Mobile (<768px): normal page flow, columns stacked --- */
+@media (max-width: 767px) {
+  /* Disable sticky lock entirely on mobile */
+  .elig-scroll-scene {
+    min-height: 0 !important;
+  }
+  .elig-scroll-scene .elig-age-split-section {
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .elig-sticky-container {
+    height: auto !important;
+    overflow: visible !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  .elig-scroll-scene .elig-age-split-grid {
+    display: block !important;
+  }
+  .elig-col-pane {
+    flex: none !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+  .split-divider {
+    display: none !important;
+  }
+  .elig-scroll-scene .split-column {
+    height: auto !important;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .elig-scroll-scene .split-column.elig-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   MOBILE-ONLY RESPONSIVENESS FIXES (max-width: 767px)
+   Do NOT modify tablet (768px+) or desktop behaviour.
+   ============================================================ */
+
+/* ── 1. ABOUT SECTION: Reorder content above carousel ──────── */
+@media (max-width: 767px) {
+  /* Convert grid to flex column so order works on all descendants */
+  .aev-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Remove box from content col so its children become direct flex items */
+  .aev-content-col {
+    display: contents;
+  }
+
+  /* Order: heading → desc → carousel → badges */
+  .aev-heading {
+    order: 1;
+  }
+  .aev-desc {
+    order: 2;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .aev-carousel-col {
+    order: 3;
+  }
+  .aev-badges {
+    order: 4;
+  }
+
+  /* Ensure carousel col overrides the 1024px order rule */
+  .aev-carousel-col {
+    order: 3;
+  }
+}
+
+/* ── 2. ELIGIBILITY SECTION: Center-align headings ─────────── */
+@media (max-width: 767px) {
+  .split-col-header,
+  .split-col-header.content-left,
+  .split-col-header.content-right {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ── 3. STUDY PLAN: Reduce .step-duration font size ────────── */
+@media (max-width: 767px) {
+  .prepare-step .step-duration {
+    font-size: 0.72rem;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+}
+
+/* ── 4. MILESTONE LABELS: Increase font size ───────────────── */
+@media (max-width: 767px) {
+  .milestone-label {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}
+
+/* ── 5. SECTION TITLES: Fix over-reduced mobile size ───────── */
+@media (max-width: 767px) {
+  .section-title {
+    font-size: 1.9rem;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+}
+
+/* ── 6. MOCK TEST: Center category cards ───────────────────── */
+@media (max-width: 767px) {
+  .mts-cat-select {
+    padding: 20px 12px;
+  }
+  .mts-cat-select-label {
+    text-align: center;
+  }
+  .mts-cat-grid {
+    justify-items: center;
+  }
+  .mts-cat-card {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+  .mts-cat-card i {
+    display: block;
+    margin: 0 auto 4px;
+  }
+  .mts-cat-name {
+    text-align: center;
+  }
+}
+
+/* ── 7. GOOGLE REVIEWS & TRUST WALL: Center all elements ───── */
+@media (max-width: 767px) {
+  .greview-section .text-center {
+    text-align: center;
+  }
+  .greview-rating-hero {
+    align-items: center;
+    width: 100%;
+  }
+  .greview-trust-row {
+    justify-content: center;
+    text-align: center;
+  }
+  .greview-trust-badge {
+    justify-content: center;
+  }
+  .greview-dots {
+    justify-content: center;
+  }
+  .greview-carousel-wrap {
+    justify-content: center;
+  }
+}
+
+/* ── 8. DOWNLOAD APP: Center all content ───────────────────── */
+@media (max-width: 767px) {
+  .dapp-grid {
+    text-align: center;
+  }
+  .dapp-image-col {
+    justify-content: center;
+  }
+  .dapp-content-col {
+    align-items: center;
+  }
+  .dapp-heading,
+  .dapp-desc {
+    text-align: center;
+  }
+  .dapp-features {
+    justify-content: center;
+    align-items: center;
+  }
+  .dapp-cta {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* ── 9. REVIEW STATS BAR: Fix overflow & responsiveness ────── */
+@media (max-width: 767px) {
+  .greview-stats-bar {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 16px;
+    gap: 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .greview-divider-v {
+    display: none;
+  }
+  .greview-counter-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 20px;
+    width: 100%;
+    justify-items: center;
+    flex: none;
+  }
+  .greview-counter-item {
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+  .greview-count {
+    font-size: 1.6rem;
+  }
+  .greview-counter-item span {
+    font-size: 0.85rem;
+  }
+}
+
+/* ── 10. GENERAL OVERFLOW / SCROLLING FIXES ────────────────── */
+@media (max-width: 767px) {
+  /* Prevent page-wide horizontal scroll */
+  .greview-section,
+  .practice-section,
+  .about-exam-section,
+  .greview-carousel-wrap {
+    overflow-x: hidden;
+  }
+
+  /* Carousel viewport must stay within screen */
+  .greview-carousel-viewport {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* Snapshot grid: ensure cards wrap cleanly */
+  .snapshot-grid {
+    overflow: hidden;
+  }
+
+  /* Ensure review cards don't force horizontal scroll */
+  .greview-card {
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}
+
+/* ── Extra small (≤480px) additional tightening ─────────────── */
+@media (max-width: 480px) {
+  /* Stretch trust badges full-width */
+  .greview-trust-badge {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Milestone label stays visible */
+  .milestone-label {
+    font-size: 0.88rem;
+  }
+
+  /* Step duration stays compact */
+  .prepare-step .step-duration {
+    font-size: 0.68rem;
   }
 }

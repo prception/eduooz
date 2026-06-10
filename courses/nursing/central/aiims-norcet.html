@@ -410,10 +410,12 @@
         </div>
     </section>
 
-    <!-- SECTION 5  ELIGIBILITY & AGE RELAXATION SPLIT -->
+    <!-- SECTION 5  ELIGIBILITY & AGE RELAXATION — STICKY SCROLL -->
+    <div class="elig-scroll-scene" id="elig-scroll-scene">
     <section class="elig-age-split-section" id="eligibility">
-        <div class="container">
-            <div class="text-center">
+        <div class="container elig-sticky-container">
+
+            <div class="text-center elig-section-head">
                 <div class="section-label"><span class="label-dot"></span> Who Can Apply & Age Criteria</div>
                 <h2 class="section-title">Eligibility & Age <span class="text-gradient">Requirements.</span></h2>
             </div>
@@ -426,21 +428,17 @@
 
                 <!-- LEFT COLUMN: Eligibility Criteria -->
                 <div class="split-column" id="elig-carousel-col">
-                    <div class="split-col-header content-right">
-                        <div class="split-col-badge"><i class="fa-solid fa-user-check"></i> Eligibility Explorer</div>
-                    </div>
-                    <div class="vcarousel-wrapper">
-                        <div class="vcarousel-viewport" id="elig-vcarousel" data-autoplay="8000">
-                            <div class="vcarousel-track">
+                    <div class="elig-col-pane" id="elig-col-pane">
+                        <div class="elig-col-track" id="elig-col-track">
                             <div class="elig-card">
                                 <div class="elig-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                                 <h4>Educational Qualification</h4>
-                                <p>B.Sc. Nursing (4 years) from a recognized university OR Post Basic B.Sc. Nursing OR Diploma in General Nursing & Midwifery (GNM) with minimum 2 years clinical experience in a 50+ bed hospital.</p>
+                                <p>B.Sc. Nursing (4 years) from a recognized university OR Post Basic B.Sc. Nursing OR Diploma in General Nursing &amp; Midwifery (GNM) with minimum 2 years clinical experience in a 50+ bed hospital.</p>
                             </div>
                             <div class="elig-card">
                                 <div class="elig-icon"><i class="fa-solid fa-id-card"></i></div>
                                 <h4>Registration Requirement</h4>
-                                <p>Must hold valid and active Registration as Nurse & Midwife (RN/RM) from any State Nursing Council of India. Registration must be valid on the date of appointment.</p>
+                                <p>Must hold valid and active Registration as Nurse &amp; Midwife (RN/RM) from any State Nursing Council of India. Registration must be valid on the date of appointment.</p>
                             </div>
                             <div class="elig-card">
                                 <div class="elig-icon"><i class="fa-solid fa-briefcase"></i></div>
@@ -463,24 +461,18 @@
                                 <p>Candidates must be medically fit as per the standards prescribed by AIIMS. A medical fitness certificate from a registered medical practitioner will be required at the time of joining.</p>
                             </div>
                         </div>
-                        <div class="vcarousel-dots" id="elig-dots"></div>
-                        </div>
                     </div>
                 </div>
 
-                <!-- GLOWING DIVIDER -->
+                <!-- CENTER DIVIDER -->
                 <div class="split-divider">
                     <div class="divider-glow"></div>
                 </div>
 
                 <!-- RIGHT COLUMN: Age Relaxation -->
                 <div class="split-column" id="age-carousel-col">
-                    <div class="split-col-header content-left">
-                        <div class="split-col-badge"><i class="fa-solid fa-hourglass-half"></i> Age Relaxation Guide</div>
-                    </div>
-                    <div class="vcarousel-wrapper">
-                        <div class="vcarousel-viewport" id="age-vcarousel" data-autoplay="9000">
-                            <div class="vcarousel-track">
+                    <div class="elig-col-pane" id="age-col-pane">
+                        <div class="elig-col-track" id="age-col-track">
                             <div class="age-explorer-card">
                                 <div class="age-explorer-front">
                                     <div class="age-explorer-icon"><i class="fa-solid fa-user"></i></div>
@@ -573,13 +565,13 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="vcarousel-dots" id="age-dots"></div>
-                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
+    </div>
 
      <!-- SECTION 6: ELIGIBILITY CHECKER -->
     <section class="elig-checker-section" id="elig-checker">
@@ -1139,8 +1131,8 @@
                             <i class="fa-solid fa-file-pen"></i>
                         </div>
                         <div class="mts-welcome-badge">AIIMS NORCET</div>
-                        <h3 class="mts-welcome-title">Full Length Mock Test</h3>
-                        <p class="mts-welcome-sub">Jump between sections freely — practice at your own pace.</p>
+                        <h3 class="mts-welcome-title">Mock Test</h3>
+                        <p class="mts-welcome-sub">Jump between sections freely - practice at your own pace.</p>
                         <div class="mts-welcome-meta">
                             <div class="mts-meta-item"><i class="fa-solid fa-layer-group"></i><strong>5</strong><span>Sections</span></div>
                             <div class="mts-meta-div"></div>
@@ -1152,7 +1144,7 @@
                         </div>
                         <div class="mts-welcome-rules">
                             <div class="mts-rule"><i class="fa-solid fa-circle-info"></i> +1 for correct · 0 for wrong · No negative marking</div>
-                            <div class="mts-rule"><i class="fa-solid fa-clock"></i> No time limit — answer at your own pace</div>
+                            <div class="mts-rule"><i class="fa-solid fa-clock"></i> No time limit - answer at your own pace</div>
                         </div>
 
                         <!-- Category Selection -->
@@ -1769,6 +1761,7 @@
                 <div class="dapp-image-col">
                     <img src="../../../assets/images/phone-mockup.png" alt="Eduooz Mobile App" class="dapp-phone">
                 </div>
+    
                 <div class="dapp-content-col">
                     <h3 class="dapp-heading">Your NORCET Preparation, Always in Your Pocket</h3>
                     <p class="dapp-desc">Access live classes, mock tests, study materials, and performance analytics anywhere, anytime. The Eduooz app puts the entire AIIMS NORCET preparation ecosystem at your fingertips.</p>
@@ -2021,6 +2014,236 @@
     <div id="footer-container"></div>
     <div id="chat-container"></div>
 
+    <!-- ═══ VITAL CARD — PREMIUM 3D HOVER ═══ -->
+    <script>
+    (function vfcTilt3D() {
+        'use strict';
+
+        function init() {
+            var card = document.getElementById('vital-card');
+            if (!card) return;
+
+            /* ── Perspective container ── */
+            var wrapper = card.closest('.course-vital-wrapper');
+            if (wrapper) {
+                wrapper.style.perspective       = '1200px';
+                wrapper.style.perspectiveOrigin = '50% 40%';
+            }
+            card.style.transformStyle = 'preserve-3d';
+            card.style.willChange     = 'transform';
+            card.style.transition     = 'none';
+
+            /* ── Enable preserve-3d on the feature card chain ── */
+            ['.vfc-grid-wrap', '.vfc-slide', '.vfc-card-grid'].forEach(function (sel) {
+                var el = card.querySelector(sel);
+                if (el) {
+                    el.style.transformStyle = 'preserve-3d';
+                }
+            });
+
+            /* ── Moving light reflection overlay ── */
+            var light = document.createElement('div');
+            light.style.cssText = [
+                'position:absolute', 'inset:0', 'border-radius:inherit',
+                'pointer-events:none', 'z-index:200',
+                'opacity:0', 'transition:opacity 0.35s ease',
+                'background:radial-gradient(circle at 50% 50%,rgba(255,255,255,0.14) 0%,rgba(255,255,255,0.05) 38%,transparent 60%)',
+                'mix-blend-mode:overlay', 'will-change:background,opacity'
+            ].join(';');
+            card.appendChild(light);
+
+            /* ── Layer parallax config ── */
+            var LAYER_DEFS = [
+                { sel: '.vfc-header',    factor: 0.10 },
+                { sel: '.vfc-stats',     factor: 0.18 },
+                { sel: '.vfc-grid-wrap', factor: 0.28 },
+                { sel: '.vfc-footer',    factor: 0.36 }
+            ];
+            var MAX_PARALLAX = 11;
+
+            var layers = [];
+            LAYER_DEFS.forEach(function (cfg) {
+                var el = card.querySelector(cfg.sel);
+                if (el) {
+                    el.style.willChange = 'transform';
+                    el.style.transition = 'none';
+                    layers.push({ el: el, factor: cfg.factor });
+                }
+            });
+
+            /* ── Animation state ── */
+            var isHovered = false;
+            var mouseNX = 0, mouseNY = 0;
+            var curRX = 0, curRY = 0;
+            var curTX = 0, curTY = 0;
+            var curLX = 0, curLY = 0;
+            var tgtRX = 0, tgtRY = 0;
+            var tgtTX = 0, tgtTY = 0;
+            var rafId  = null;
+
+            var LERP_R  = 0.075;
+            var LERP_T  = 0.055;
+            var LERP_L  = 0.065;
+            var MAX_ROT = 6;
+            var MAX_FLT = 6;
+            var EPS     = 0.005;
+
+            function lerp(c, t, f) { return c + (t - c) * f; }
+
+            /* ── rAF loop ── */
+            function animate() {
+                curRX = lerp(curRX, tgtRX, LERP_R);
+                curRY = lerp(curRY, tgtRY, LERP_R);
+                curTX = lerp(curTX, tgtTX, LERP_T);
+                curTY = lerp(curTY, tgtTY, LERP_T);
+                curLX = lerp(curLX, mouseNX, LERP_L);
+                curLY = lerp(curLY, mouseNY, LERP_L);
+
+                card.style.transform =
+                    'rotateX(' + curRX.toFixed(3) + 'deg) ' +
+                    'rotateY(' + curRY.toFixed(3) + 'deg) ' +
+                    'translateX(' + curTX.toFixed(3) + 'px) ' +
+                    'translateY(' + curTY.toFixed(3) + 'px)';
+
+                layers.forEach(function (l) {
+                    var tx = curLX * MAX_PARALLAX * l.factor;
+                    var ty = curLY * MAX_PARALLAX * l.factor;
+                    l.el.style.transform =
+                        'translateX(' + tx.toFixed(3) + 'px) translateY(' + ty.toFixed(3) + 'px)';
+                });
+
+                var settled =
+                    Math.abs(curRX - tgtRX) < EPS && Math.abs(curRY - tgtRY) < EPS &&
+                    Math.abs(curTX - tgtTX) < EPS && Math.abs(curTY - tgtTY) < EPS &&
+                    Math.abs(curLX - mouseNX) < EPS && Math.abs(curLY - mouseNY) < EPS;
+
+                if (!settled || isHovered) {
+                    rafId = requestAnimationFrame(animate);
+                } else {
+                    rafId = null;
+                    if (!isHovered) {
+                        card.style.transform = 'rotateX(0deg) rotateY(0deg) translateX(0) translateY(0)';
+                        layers.forEach(function (l) { l.el.style.transform = 'translateX(0) translateY(0)'; });
+                    }
+                }
+            }
+
+            /* ── mouseenter ── */
+            card.addEventListener('mouseenter', function () {
+                isHovered = true;
+                light.style.opacity = '1';
+                card.style.transition = 'none';
+                layers.forEach(function (l) { l.el.style.transition = 'none'; });
+                if (!rafId) rafId = requestAnimationFrame(animate);
+            });
+
+            /* ── mousemove ── */
+            card.addEventListener('mousemove', function (e) {
+                var rect = card.getBoundingClientRect();
+                var x = (e.clientX - rect.left) / rect.width;
+                var y = (e.clientY - rect.top)  / rect.height;
+                mouseNX = x * 2 - 1;
+                mouseNY = y * 2 - 1;
+
+                tgtRY =  mouseNX * MAX_ROT;
+                tgtRX = -mouseNY * MAX_ROT;
+                tgtTX =  mouseNX * MAX_FLT * 0.45;
+                tgtTY =  mouseNY * MAX_FLT * 0.45;
+
+                light.style.background =
+                    'radial-gradient(circle at ' + (x * 100).toFixed(1) + '% ' + (y * 100).toFixed(1) + '%, ' +
+                    'rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 38%, transparent 60%)';
+            });
+
+            /* ── mouseleave ── */
+            card.addEventListener('mouseleave', function () {
+                isHovered = false;
+                mouseNX = 0; mouseNY = 0;
+                tgtRX = 0; tgtRY = 0;
+                tgtTX = 0; tgtTY = 0;
+                light.style.opacity = '0';
+
+                if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+
+                /* Smooth CSS spring-back */
+                card.style.transition = 'transform 0.6s cubic-bezier(0.22,1,0.36,1)';
+                card.style.transform  = 'rotateX(0deg) rotateY(0deg) translateX(0) translateY(0)';
+
+                layers.forEach(function (l) {
+                    l.el.style.transition = 'transform 0.6s cubic-bezier(0.22,1,0.36,1)';
+                    l.el.style.transform  = 'translateX(0) translateY(0)';
+                });
+
+                /* Reset any active feature-box lift */
+                card.querySelectorAll('.vfc-card').forEach(function (vc) {
+                    vc.style.transition  = 'transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.45s ease, opacity 0.45s ease, background 0.45s ease';
+                    vc.style.transform   = 'translateZ(0) translateY(0) scale(1)';
+                    vc.style.boxShadow   = '';
+                    vc.style.opacity     = '1';
+                    vc.style.background  = '';
+                });
+
+                setTimeout(function () {
+                    if (!isHovered) {
+                        card.style.transition = 'none';
+                        curRX = 0; curRY = 0; curTX = 0; curTY = 0;
+                        curLX = 0; curLY = 0;
+                        layers.forEach(function (l) { l.el.style.transition = 'none'; });
+                    }
+                }, 660);
+            });
+
+            /* ── Feature-box 3D lift (translateZ + Y + scale) ── */
+            var allVfcCards = Array.prototype.slice.call(card.querySelectorAll('.vfc-card'));
+            allVfcCards.forEach(function (vc) {
+                vc.style.willChange = 'transform, box-shadow, opacity';
+
+                vc.addEventListener('mouseenter', function () {
+                    var grid = vc.closest('.vfc-card-grid');
+                    var siblings = grid
+                        ? Array.prototype.slice.call(grid.querySelectorAll('.vfc-card'))
+                        : [vc];
+
+                    siblings.forEach(function (other) {
+                        if (other === vc) {
+                            other.style.transition = 'transform 0.26s cubic-bezier(0.22,1,0.36,1), box-shadow 0.26s ease, opacity 0.26s ease, background 0.26s ease';
+                            other.style.transform  = 'translateZ(24px) translateY(-5px) scale(1.03)';
+                            other.style.boxShadow  = '0 20px 48px rgba(0,0,0,0.4), 0 0 22px rgba(6,182,212,0.22)';
+                            other.style.background = 'rgba(255,255,255,0.12)';
+                            other.style.opacity    = '1';
+                        } else {
+                            other.style.transition = 'transform 0.26s cubic-bezier(0.22,1,0.36,1), opacity 0.26s ease';
+                            other.style.transform  = 'translateZ(-7px) translateY(2px) scale(0.972)';
+                            other.style.opacity    = '0.65';
+                        }
+                    });
+                });
+
+                vc.addEventListener('mouseleave', function () {
+                    var grid = vc.closest('.vfc-card-grid');
+                    var siblings = grid
+                        ? Array.prototype.slice.call(grid.querySelectorAll('.vfc-card'))
+                        : [vc];
+
+                    siblings.forEach(function (other) {
+                        other.style.transition = 'transform 0.42s cubic-bezier(0.22,1,0.36,1), box-shadow 0.42s ease, opacity 0.42s ease, background 0.42s ease';
+                        other.style.transform  = 'translateZ(0) translateY(0) scale(1)';
+                        other.style.boxShadow  = '';
+                        other.style.background = '';
+                        other.style.opacity    = '1';
+                    });
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+
     <button class="scroll-to-top" id="scrollTopBtn" aria-label="Scroll to top">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
@@ -2093,6 +2316,145 @@
             timer = setInterval(function() {
                 if (!isHovered) goTo((current + 1) % slides.length);
             }, DURATION);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+
+    <!-- ELIG SCROLL-LOCK SYSTEM -->
+    <script>
+    (function () {
+        'use strict';
+
+        /* ---- Age relaxation accordion ---- */
+        function initAccordion() {
+            document.querySelectorAll('#elig-scroll-scene .age-explorer-card').forEach(function (card) {
+                card.addEventListener('click', function () {
+                    var isOpen = card.classList.contains('expanded');
+                    document.querySelectorAll('#elig-scroll-scene .age-explorer-card.expanded')
+                        .forEach(function (c) { c.classList.remove('expanded'); });
+                    if (!isOpen) card.classList.add('expanded');
+                });
+            });
+        }
+
+        /* ---- Slide-in entry animation ---- */
+        function initEntryAnim() {
+            var scene = document.getElementById('elig-scroll-scene');
+            if (!scene) return;
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) {
+                    if (en.isIntersecting) {
+                        en.target.classList.add('elig-visible');
+                        io.unobserve(en.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            scene.querySelectorAll('.split-column').forEach(function (c) { io.observe(c); });
+        }
+
+        /* ====================================================
+           SCROLL-LOCK ENGINE
+           Wheel events are intercepted while the sticky section
+           is in the viewport. ONLY the left (Eligibility) column
+           scrolls as a vertical carousel — the right column is a
+           static reference panel showing all cards at once.
+
+           Page scroll resumes only when:
+             - scrolling DOWN: left column reaches its bottom
+             - scrolling UP:   left column returns to its top
+           ==================================================== */
+        function initScrollLock() {
+            var scene    = document.getElementById('elig-scroll-scene');
+            var leftPane = document.getElementById('elig-col-pane');
+
+            if (!scene || !leftPane) return;
+
+            /* Skip on touch/mobile — CSS resets the sticky layout there */
+            var mq = window.matchMedia('(max-width: 767px)');
+            if (mq.matches) return;
+            mq.addEventListener('change', function (e) {
+                if (e.matches) document.removeEventListener('wheel', onWheel);
+                else           document.addEventListener('wheel', onWheel, { passive: false });
+            });
+
+            var justUnlocked = false;
+            var unlockTimer  = null;
+            var vel          = 0;
+            var rafId        = null;
+
+            /* ---- Helpers ---- */
+            function isInLockZone() {
+                var r = scene.getBoundingClientRect();
+                return r.top <= 2 && r.bottom > window.innerHeight * 0.05;
+            }
+
+            function leftAtEdge(goingDown) {
+                var max = leftPane.scrollHeight - leftPane.clientHeight;
+                if (max <= 1) return true; /* not scrollable — treat as done */
+                return goingDown ? leftPane.scrollTop >= max - 4 : leftPane.scrollTop <= 4;
+            }
+
+            function normDelta(e) {
+                if (e.deltaMode === 1) return e.deltaY * 20;
+                if (e.deltaMode === 2) return e.deltaY * window.innerHeight;
+                return e.deltaY;
+            }
+
+            function setJustUnlocked() {
+                justUnlocked = true;
+                clearTimeout(unlockTimer);
+                unlockTimer = setTimeout(function () { justUnlocked = false; }, 350);
+            }
+
+            /* ---- Momentum animation loop (left column only) ---- */
+            function tick() {
+                if (Math.abs(vel) > 0.3) {
+                    var maxL = leftPane.scrollHeight - leftPane.clientHeight;
+                    leftPane.scrollTop = Math.max(0, Math.min(maxL, leftPane.scrollTop + vel));
+                    vel *= 0.87;
+                    rafId = requestAnimationFrame(tick);
+                } else {
+                    vel = 0;
+                    rafId = null;
+                }
+            }
+
+            /* ---- Wheel handler ---- */
+            function onWheel(e) {
+                if (justUnlocked)    return;
+                if (!isInLockZone()) return;
+
+                var goingDown = e.deltaY > 0;
+
+                if (leftAtEdge(goingDown)) {
+                    setJustUnlocked();
+                    vel = 0;
+                    return; /* let page scroll through */
+                }
+
+                e.preventDefault();
+
+                var delta   = normDelta(e);
+                var MAX_VEL = 55;
+                vel = Math.max(-MAX_VEL, Math.min(MAX_VEL, vel + delta * 0.75));
+
+                if (!rafId) rafId = requestAnimationFrame(tick);
+            }
+
+            document.addEventListener('wheel', onWheel, { passive: false });
+        }
+
+        /* ---- Bootstrap ---- */
+        function init() {
+            initAccordion();
+            initEntryAnim();
+            initScrollLock();
         }
 
         if (document.readyState === 'loading') {
