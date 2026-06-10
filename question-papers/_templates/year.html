@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{EXAM_NAME}} {{YEAR}} Question Papers | Eduooz</title>
+    <meta name="description" content="Download all {{EXAM_NAME}} {{YEAR}} question papers with answer keys. Free PDF download for NORCET aspirants.">
+    <link rel="canonical" href="{{CANONICAL_URL}}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{EXAM_NAME}} {{YEAR}} Question Papers | Eduooz">
+    <meta property="og:url" content="{{CANONICAL_URL}}">
+    <script type="application/ld+json">{{BREADCRUMB_SCHEMA}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{BASE_URL}}/assets/css/header-footer.css">
+    <link rel="stylesheet" href="{{BASE_URL}}/assets/css/courses-landing.css">
+    <link rel="stylesheet" href="{{BASE_URL}}/assets/css/paper-page.css">
+</head>
+<body class="paper-page-body">
+    <div id="header-container"></div>
+
+    <nav class="pp-breadcrumb-bar" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="pp-breadcrumb">
+                <li><a href="{{BASE_URL}}/">Home</a></li>
+                <li><a href="{{BASE_URL}}/question-papers/">Question Papers</a></li>
+                <li><a href="{{EXAM_URL}}">{{EXAM_NAME}}</a></li>
+                <li aria-current="page">{{YEAR}}</li>
+            </ol>
+        </div>
+    </nav>
+
+    <section class="pp-hero pp-hero-year">
+        <div class="container">
+            <div class="pp-hero-badge">
+                <span class="pp-badge-pill"><i class="fa-solid fa-calendar"></i> {{YEAR}}</span>
+            </div>
+            <h1 class="pp-h1">{{EXAM_NAME}} {{YEAR}} Question Papers</h1>
+            <p class="pp-hero-sub">All shifts and answer keys from the {{YEAR}} {{EXAM_NAME}} examination. Free PDF download.</p>
+            <div class="pp-other-years">
+                <span class="pp-oy-label">Other years:</span>
+                {{OTHER_YEAR_LINKS}}
+            </div>
+        </div>
+    </section>
+
+    <main class="pp-main">
+        <div class="container">
+            <div class="pp-paper-list">{{PAPER_CARDS}}</div>
+            <div class="pp-back-link">
+                <a href="{{EXAM_URL}}"><i class="fa-solid fa-arrow-left"></i> All {{EXAM_NAME}} Papers</a>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        (function() {
+            function loadComponent(id, url) {
+                var el = document.getElementById(id);
+                if (!el) return;
+                fetch(url).then(function(r) { return r.text(); })
+                    .then(function(html) { el.innerHTML = html; }).catch(function() {});
+            }
+            loadComponent('header-container', '{{BASE_URL}}/assets/partials/header.html');
+            loadComponent('footer-container', '{{BASE_URL}}/assets/partials/footer.html');
+        })();
+    </script>
+</body>
+</html>
