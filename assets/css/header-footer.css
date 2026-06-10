@@ -14,13 +14,13 @@
     align-items: center;
     padding: 15px 30px;
     z-index: 100;
-    background: rgba(10, 5, 20, 0.4);
+    background: rgba(230, 215, 255, 0.28);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--glass-border);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(200, 175, 255, 0.35);
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
     border-radius: 20px;
-    box-shadow: var(--glass-shadow);
+    box-shadow: 0 8px 32px rgba(91, 33, 182, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     transition: all 0.4s ease;
 }
 
@@ -46,9 +46,14 @@
     display: flex;
     gap: 40px;
 }
+.glass-header{
+    background:	rgba(10, 5, 20, 0.4);
+    border:#0ea5e9	var(--glass-border);	
+    border-top:	rgba(255,255,255,0.3);	
+}
 
 .glass-header.light-mode {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow: 0 10px 30px rgba(76, 18, 126, 0.05);
 }
@@ -1403,14 +1408,14 @@ body.chat-is-open .scroll-to-top {
     transform: translateX(-50%) translateY(10px) scale(0.98);
     width: 950px;
     max-width: calc(100vw - 40px);
-    background: rgba(10, 5, 20, 0.95);
+    background: rgba(244, 238, 255, 0.972);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(180, 150, 255, 0.22);
     border-radius: 24px;
-    box-shadow: 
-        0 30px 100px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 30px 100px rgba(91, 33, 182, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
     display: flex;
     overflow: hidden;
     opacity: 0;
@@ -1450,8 +1455,8 @@ body.chat-is-open .scroll-to-top {
 /* Sidebar */
 .mega-menu-sidebar {
     width: 320px;
-    background: rgba(255, 255, 255, 0.03);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(91, 33, 182, 0.05);
+    border-right: 1px solid rgba(91, 33, 182, 0.12);
     padding: 24px 0;
     display: flex;
     flex-direction: column;
@@ -1473,7 +1478,7 @@ body.chat-is-open .scroll-to-top {
 }
 
 .sidebar-info h4 {
-    color: #fff;
+    color: #1e0a3c;
     font-size: 1rem;
     font-weight: 700;
     margin: 0;
@@ -1481,7 +1486,7 @@ body.chat-is-open .scroll-to-top {
 }
 
 .sidebar-info p {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(30, 10, 60, 0.55);
     font-size: 0.78rem;
     margin: 4px 0 0;
     font-weight: 500;
@@ -1491,13 +1496,13 @@ body.chat-is-open .scroll-to-top {
 .glass-header.light-mode .sidebar-info p { color: #666; }
 
 .sidebar-item i {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(91, 33, 182, 0.4);
     font-size: 0.8rem;
     transition: all 0.3s ease;
 }
 
 .sidebar-item:hover, .sidebar-item.active {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(91, 33, 182, 0.08);
 }
 
 .sidebar-item.active::before {
@@ -1507,11 +1512,11 @@ body.chat-is-open .scroll-to-top {
     top: 0;
     bottom: 0;
     width: 4px;
-    background: var(--brand-cyan);
+    background: var(--brand-purple);
 }
 
-.sidebar-item.active .sidebar-info h4 { color: var(--brand-cyan); }
-.sidebar-item.active i { color: var(--brand-cyan); transform: translateX(3px); }
+.sidebar-item.active .sidebar-info h4 { color: var(--brand-purple); }
+.sidebar-item.active i { color: var(--brand-purple); transform: translateX(3px); }
 
 .glass-header.light-mode .sidebar-item.active { background: rgba(0, 0, 0, 0.04); }
 .glass-header.light-mode .sidebar-item.active .sidebar-info h4 { color: var(--brand-purple); }
@@ -1522,7 +1527,7 @@ body.chat-is-open .scroll-to-top {
 .mega-menu-content {
     flex: 1;
     padding: 32px;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.12);
     overflow-y: auto;
     max-height: 75vh; /* More dynamic height */
 }
@@ -1548,8 +1553,8 @@ body.chat-is-open .scroll-to-top {
 }
 
 .course-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(91, 33, 182, 0.1);
     border-radius: 16px;
     padding: 16px;
     display: flex;
@@ -1569,11 +1574,11 @@ body.chat-is-open .scroll-to-top {
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: rgba(var(--brand-cyan-rgb), 0.1);
+    background: rgba(91, 33, 182, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--brand-cyan);
+    color: var(--brand-purple);
     font-size: 1.1rem;
     transition: all 0.3s ease;
 }
@@ -1584,7 +1589,7 @@ body.chat-is-open .scroll-to-top {
 }
 
 .course-card span {
-    color: #fff;
+    color: #1e0a3c;
     font-size: 0.9rem;
     font-weight: 600;
     font-family: var(--font-main);
@@ -1594,9 +1599,9 @@ body.chat-is-open .scroll-to-top {
 
 .course-card:hover {
     transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--brand-cyan);
-    box-shadow: 0 10px 30px rgba(0, 242, 255, 0.15);
+    background: rgba(255, 255, 255, 0.92);
+    border-color: var(--brand-purple);
+    box-shadow: 0 10px 30px rgba(91, 33, 182, 0.15);
 }
 
 .glass-header.light-mode .course-card:hover {
@@ -1607,8 +1612,8 @@ body.chat-is-open .scroll-to-top {
 
 .course-card:hover .course-icon {
     transform: scale(1.1);
-    background: var(--brand-cyan);
-    color: #000;
+    background: var(--brand-purple);
+    color: #fff;
 }
 
 .glass-header.light-mode .course-card:hover .course-icon {
@@ -1630,10 +1635,10 @@ body.chat-is-open .scroll-to-top {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    color: var(--brand-cyan);
+    color: var(--brand-purple);
     margin: 0 0 14px;
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(91, 33, 182, 0.12);
     display: flex;
     align-items: center;
     gap: 7px;
@@ -1658,7 +1663,7 @@ body.chat-is-open .scroll-to-top {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.8px;
-    color: rgba(255, 255, 255, 0.38);
+    color: rgba(91, 33, 182, 0.5);
     margin: 0 0 10px;
     font-family: var(--font-main);
 }
@@ -1682,11 +1687,11 @@ body.chat-is-open .scroll-to-top {
     width: 5px;
 }
 .mega-menu-content::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(91, 33, 182, 0.04);
     border-radius: 10px;
 }
 .mega-menu-content::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(91, 33, 182, 0.2);
     border-radius: 10px;
     border: 1px solid transparent;
     background-clip: content-box;

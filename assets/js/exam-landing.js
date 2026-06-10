@@ -834,37 +834,112 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- INITIALIZE ALL ---
-    renderSnapshot();
-    renderAbout();
-    renderEligibility();
-    initEligibilityChecker();
-    renderAgeRelaxation();
-    renderSyllabus();
-    renderPreparation();
-    renderProcess();
-    renderWhyEduooz();
-    renderPapers();
-    renderPracticeTests();
-    renderMaterials();
-    renderResources();
-    renderFAQ();
-    initFaqAccordion();
-    initStickyNav();
+    // Renders are isolated too: a bad CONFIG section won't block later steps.
+    [
+        renderSnapshot, renderAbout, renderEligibility, initEligibilityChecker,
+        renderAgeRelaxation, renderSyllabus, renderPreparation, renderProcess,
+        renderWhyEduooz, renderPapers, renderPracticeTests, renderMaterials,
+        renderResources, renderFAQ, initFaqAccordion, initStickyNav,
+        initSyllabusTabs, initPrepareAccordion
+    ].forEach(fn => {
+        try { fn(); }
+        catch (e) { console.warn('[Render Init] ' + fn.name + ' failed:', e); }
+    });
 
     // --- PREMIUM INTERACTIONS ---
-    initSnapshotCarousel();
-    initWhyShowcase();
-    initAgeExplorer();
-    initVerticalCarousels();
-    initJourneyTimeline();
-    initFacultyCarousel();
-    initReviewCounters();
-    initReviewCarousel();
-    initMockTestSystem();
+    // Each init is isolated: one failure cannot cascade to the next.
+    [
+        initWhyShowcase,
+        initAgeExplorer,
+        initVerticalCarousels,
+        initJourneyTimeline,
+        initFacultyCarousel,
+        initReviewCounters,
+        initReviewCarousel,
+        initMockTestSystem
+    ].forEach(fn => {
+        try { fn(); }
+        catch (e) { console.warn('[Carousel Init] ' + fn.name + ' failed:', e); }
+    });
 
     // Delay animations to let DOM render
-    setTimeout(initAnimations, 100);
+    setTimeout(() => { try { initAnimations(); } catch(e) { console.warn('[Init] initAnimations failed:', e); } }, 100);
 });
+
+// ===========================================
+// WHY EDUOOZ — Rotating Feature Showcase
+// Slides between two sets of why-cards with
+// CSS-driven progress-bar dots and auto-advance.
+// ===========================================
+function initWhyShowcase() {
+    const wrapper = document.getElementById('why-showcase');
+    if (!wrapper) return;
+
+    const slides = Array.from(wrapper.querySelectorAll('.why-showcase-slide'));
+    const dots   = Array.from(wrapper.querySelectorAll('.progress-dot'));
+    if (slides.length < 2) return;
+
+    let current  = 0;
+    let timer    = null;
+    const DELAY  = 4500; // must match CSS @keyframes progress-fill duration
+
+    function goTo(idx) {
+        const prev = current;
+        current = ((idx % slides.length) + slides.length) % slides.length;
+        if (prev === current) return;
+
+        // Exit old slide with left-slide animation
+        slides[prev].classList.add('exit-left');
+        slides[prev].classList.remove('active');
+        setTimeout(() => slides[prev].classList.remove('exit-left'), 700);
+
+        // Activate incoming slide
+        slides[current].classList.add('active');
+
+        // Restart dot progress animation: remove then force reflow then re-add
+        dots.forEach((d, i) => {
+            d.classList.remove('active');
+            if (i === current) {
+                void d.offsetWidth; // flush so CSS animation restarts
+                d.classList.add('active');
+            }
+        });
+    }
+
+    function next() { goTo(current + 1); }
+
+    function startAuto() {
+        clearInterval(timer);
+        timer = setInterval(next, DELAY);
+    }
+
+    // Dot clicks
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => { goTo(i); startAuto(); });
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    wrapper.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+        clearInterval(timer);
+    }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) dx < 0 ? next() : goTo(current - 1);
+        startAuto();
+    }, { passive: true });
+
+    // Hover pause (CSS pauses the ::after fill animation; JS pauses the interval)
+    wrapper.addEventListener('mouseenter', () => clearInterval(timer));
+    wrapper.addEventListener('mouseleave', startAuto);
+
+    // Ensure clean initial state
+    slides.forEach((s, i) => { s.classList.toggle('active', i === 0); s.classList.remove('exit-left'); });
+    dots.forEach((d, i)   => d.classList.toggle('active', i === 0));
+
+    startAuto();
+}
 
 // --- FACULTY SHOWCASE CAROUSEL ---
 function initFacultyCarousel() {
@@ -1392,149 +1467,141 @@ function initMockTestSystem() {
           {
             name: 'CNS I',
             questions: [
-          { q:'The maximum possible Glasgow Coma Scale (GCS) score is:', opts:['10','12','13','15'], ans:3, exp:'GCS max = 15 (E4 + V5 + M6): spontaneous eye opening, oriented speech, obeys commands. Min = 3.' },
-          { q:'Recommended head-of-bed elevation for increased intracranial pressure (ICP) is:', opts:['Flat (0Â°)','15Â°','30Â° with midline head alignment','90Â° (high Fowler\'s)'], ans:2, exp:'30Â° HOB elevation with neutral neck alignment promotes venous drainage from the brain, reducing ICP.' },
-          { q:"Cushing's triad â€” a late sign of impending brainstem herniation â€” consists of:", opts:['Tachycardia, hypotension, and tachypnea','Bradycardia, widening pulse pressure, and irregular respirations','Fever, dilated pupils, and tachycardia','Hypotension, bradycardia, and shallow respirations'], ans:1, exp:"Cushing's triad: hypertension (widened pulse pressure), bradycardia, and irregular respirations â€” a neurosurgical emergency." },
-          { q:'First-line pharmacological treatment for status epilepticus is:', opts:['IV phenytoin loading dose','IV benzodiazepine (lorazepam or diazepam)','IV valproic acid','Oral levetiracetam'], ans:1, exp:'IV benzodiazepines are first-line for acute seizure termination. Add phenytoin or valproate if ineffective.' },
-          { q:'The FAST acronym for stroke recognition stands for:', opts:['Fever, Airway, Skin, Temperature','Face drooping, Arm weakness, Speech difficulty, Time to act','Focal weakness, Altered consciousness, Seizure, Tachycardia','Fatigue, Arm pain, Slurred speech, Tingling'], ans:1, exp:'FAST = Face drooping, Arm weakness, Speech difficulty, Time to call emergency services immediately.' },
-          { q:'The time window for IV alteplase (tPA) in ischemic stroke is:', opts:['Within 1 hour of onset','Within 4.5 hours of symptom onset','Within 12 hours','Anytime if CT is negative'], ans:1, exp:'IV tPA is indicated within 4.5 hours of ischemic stroke onset in eligible patients (no hemorrhage, BP controlled).' },
-          { q:"Kernig's sign (positive in meningitis) is:", opts:['Neck flexion causing hip and knee flexion','Inability to fully extend the knee when hip is flexed to 90Â°','Facial twitching on cheek tap','Pain on straight-leg raise'], ans:1, exp:"Kernig's sign: pain/resistance to knee extension with hip at 90Â° â€” meningeal irritation sign." },
-          { q:"Brudzinski's sign (positive in meningitis) is:", opts:['Resistance to knee extension with hip at 90Â°','Passive neck flexion causing involuntary hip and knee flexion','Foot dorsiflexion causing toe extension','Calf pain on dorsiflexion'], ans:1, exp:"Brudzinski's sign: passive neck flexion â†’ involuntary flexion of hips and knees â€” meningeal irritation." },
-          { q:'Decorticate posturing involves:', opts:['Extension of all four extremities','Flexion of arms/wrists/fingers with leg extension','Extension of arms and internal rotation with leg extension','Flaccidity of all limbs'], ans:1, exp:'Decorticate: arms flex inward (toward core), legs extend. Worse prognosis = decerebrate (all extend).' },
-          { q:'A spinal cord injury at C4 most likely requires:', opts:['Forearm crutches for ambulation','Mechanical ventilatory support (diaphragm paralysis)','Manual wheelchair only','Below-elbow prosthetic'], ans:1, exp:'C3-C5 innervates the diaphragm (phrenic nerve). C4 injury impairs diaphragm function, requiring ventilator support.' },
-          { q:'Parkinson disease results from degeneration of dopaminergic neurons in the:', opts:['Cerebellum','Substantia nigra of the basal ganglia','Broca area of the frontal cortex','Hippocampus'], ans:1, exp:'Loss of dopamine-producing neurons in the substantia nigra causes classic TRAP: Tremor, Rigidity, Akinesia, Postural instability.' },
-          { q:'Multiple sclerosis (MS) is characterized by:', opts:['Progressive motor neuron destruction with no sensory loss','CNS demyelination causing relapsing-remitting neurological symptoms','Dopamine deficiency causing tremor','Meningeal inflammation with fever'], ans:1, exp:'MS = autoimmune demyelination of CNS white matter. Symptoms vary by plaque location; may relapse and remit.' },
-          { q:'The optimal patient position for a lumbar puncture (LP) is:', opts:['Prone with arms at sides','High Fowler with neck extended','Lateral recumbent with knees drawn to chest (fetal position)','Supine with HOB at 30Â°'], ans:2, exp:'Lateral fetal position (or sitting hunched forward) maximizes intervertebral space at L3-L4 or L4-L5.' },
-          { q:'Myasthenia gravis is caused by:', opts:['Excess acetylcholine at the NMJ','Autoimmune antibodies destroying acetylcholine receptors at the NMJ','Dopamine pathway destruction','Demyelination of peripheral motor nerves'], ans:1, exp:'MG = IgG antibodies block/destroy AChR at NMJ causing fatigable muscle weakness, ptosis, diplopia.' },
-          { q:'Guillain-Barre syndrome classically presents as:', opts:['Descending spastic paralysis with hyperreflexia','Ascending flaccid paralysis with areflexia, often post-infectious','Sudden hemiplegia with aphasia','Episodic weakness triggered by heat'], ans:1, exp:'GBS: post-infectious immune attack on peripheral myelin causing ascending flaccid paralysis, areflexia. Respiratory failure is the key complication.' },
-          { q:'Priority nursing care during an active tonic-clonic seizure:', opts:['Restrain the patient firmly to prevent injury','Insert an oral airway and apply O2 by BVM','Protect airway, time the seizure, position on the side','Administer IV diazepam immediately without an order'], ans:2, exp:'During seizure: do NOT restrain. Side-position, protect from injury, time seizure, clear area, call for help.' },
-          { q:'Nimodipine is given after subarachnoid hemorrhage (SAH) to:', opts:['Dissolve the subarachnoid clot','Prevent delayed cerebral vasospasm','Directly reduce ICP','Provide sedation and pain control'], ans:1, exp:'Vasospasm after SAH peaks days 4-14; nimodipine (oral 60 mg q4h x 21 days) is the prophylaxis.' },
-          { q:'An early sign of uncal herniation is:', opts:['Bilateral miosis (pinpoint pupils)','Ipsilateral fixed dilated pupil with decreasing consciousness','Hyperactive DTRs bilaterally','Bilateral extensor plantar response only'], ans:1, exp:'CN III compression by the uncus causes ipsilateral blown pupil and decreasing LOC â€” neurosurgical emergency.' },
-          { q:'A patient on pyridostigmine develops bradycardia, excessive secretions, and muscle weakness. This indicates:', opts:['Myasthenic crisis (too little drug)','Cholinergic crisis (too much drug â€” excess ACh)','Neuroleptic malignant syndrome','Autonomic dysreflexia'], ans:1, exp:'Cholinergic crisis: anticholinesterase overdose causes excess ACh causing SLUDGE + muscle weakness. Tx: atropine, hold drug.' },
-          { q:'ALS (motor neuron disease) is distinguished by:', opts:['Sensory loss and ataxia as primary features','Both upper and lower motor neuron signs with intact sensation','Dementia as the initial symptom','Mainly affecting young women'], ans:1, exp:'ALS: both UMN (spasticity, hyperreflexia) and LMN (atrophy, fasciculations) signs. Sensory function is PRESERVED.' },
-          { q:'A patient with head injury has GCS of 8. Priority intervention:', opts:['Administer IV mannitol immediately','Ensure airway protection â€” GCS 8 or less is the intubation threshold','Position Trendelenburg to increase cerebral blood flow','Apply cervical collar only'], ans:1, exp:'GCS 8 or less = severe TBI. Airway is always priority 1; these patients often cannot protect their own airway.' },
-          { q:'Which finding best indicates increased intracranial pressure (ICP)?', opts:['Hyperthermia and rash','Papilledema, worsening headache, and altered consciousness','Peripheral neuropathy with tingling','Orthostatic hypotension'], ans:1, exp:"Classic ICP signs: headache (worst in morning), papilledema, projectile vomiting, altered consciousness, Cushing triad (late)." },
-          { q:'The NIH Stroke Scale (NIHSS) is used to:', opts:['Predict mortality in TBI','Quantify stroke severity to guide treatment decisions including tPA eligibility','Assess dementia severity','Diagnose Parkinson disease'], ans:1, exp:'NIHSS (0-42) assesses neurological deficits and guides acute stroke management including tPA decisions.' },
-          { q:'After a lumbar puncture, instruct the patient to:', opts:['Sit upright for 4 hours and avoid fluids','Lie flat for 1-4 hours and drink liberal fluids to prevent post-LP headache','Ambulate immediately to prevent stiffness','Avoid all movement for 24 hours'], ans:1, exp:'Post-LP headache (low CSF pressure) is reduced by lying flat and aggressive hydration. Persistent headache: epidural blood patch.' },
-          { q:'Brain death is confirmed when:', opts:['GCS is 3 and patient is unresponsive to verbal stimuli','No brainstem reflexes AND apnea test is positive (no respiratory effort at PaCO2 60 mmHg or above)','EEG shows flat activity only','CT shows cerebral edema'], ans:1, exp:'Brain death: irreversible cessation of all brain function. Requires coma + absent brainstem reflexes + positive apnea test.' }
+          { q:'Which structure is responsible for generating and transmitting the nerve impulse and is known as the working unit of the nervous system?', opts:['Neuroglia','Astrocyte','Schwann cell','Neuron'], ans:3, exp:'Neurons are identified as the working unit of the nervous system, responsible for generating and transmitting the nerve impulse.' },
+          { q:'What is the typical duration of the action potential produced by nervous tissue?', opts:['1 second','1 minute','1 millisecond','1 microsecond'], ans:2, exp:'Nervous tissue has the property to produce action potential, which has a 1 millisecond duration.' },
+          { q:'The nerve cell body, also known as the soma or perikaryon, contains all of the following components EXCEPT:', opts:['Mitochondria','Nissl bodies','Cell membrane','Neurotransmitters'], ans:3, exp:'The cell body consists of cytoplasm, nucleus, lysosomes, mitochondria, Nissl bodies, and Golgi complex. Neurotransmitters are synthesized in pre-synaptic neurons and stored in vesicles.' },
+          { q:'Nissl bodies are composed of:', opts:['Cytoplasm and Golgi complex','Lysosomes and mitochondria','Polysomes and rough endoplasmic reticulum','Synaptic vesicles and neurofilaments'], ans:2, exp:'Nissl bodies are characteristic of nerve cells and consist of polysomes and rough endoplasmic reticulum.' },
+          { q:'Nissl bodies are present in which parts of the neuron?', opts:['Axons only','Nerve cell bodies and axons','Dendrites and axons','Nerve cell bodies and dendrites'], ans:3, exp:'Nissl bodies are present in nerve cell bodies and dendrites but are absent in axons.' },
+          { q:'A genetic defect in the synthesis of lysosomal enzymes results in which specific storage disease?', opts:['Multiple sclerosis','Tay-Sachs disease','Gliosis',"Parkinson's disease"], ans:1, exp:'A genetic defect in the synthesis of lysosomal enzymes results in the storage disease, Tay-Sachs disease.' },
+          { q:'Which part of the neuron conducts in a decremental fashion and transmits synaptic input toward the cell body?', opts:['Axon','Myelin sheath','Dendrites','Nodes of Ranvier'], ans:2, exp:'Dendrites receive synaptic input, transmit it toward the cell body, and conduct in a decremental fashion.' },
+          { q:'In a myelinated nerve fiber, the myelin sheath is produced in the Peripheral Nervous System (PNS) by:', opts:['Oligodendrocytes','Astrocytes','Schwann cells','Ependymal cells'], ans:2, exp:'The myelin sheath is produced in the PNS by Schwann cells.' },
+          { q:'Where is the myelin sheath absent at regular intervals along a nerve fiber?', opts:['Pre-synaptic membrane','Synaptic cleft','Nodes of Ranvier','Perikaryon'], ans:2, exp:'The myelin sheath is absent at regular intervals, and these absent areas are called nodes of Ranvier.' },
+          { q:'Which type of neuroglia are the largest glial cells, star-shaped, and play a role in forming the Blood-Brain Barrier (BBB)?', opts:['Microglia','Oligodendrocytes','Astrocytes','Schwann cells'], ans:2, exp:'Astrocytes are described as star-shaped, the largest glial cells, and they help to form the BBB.' },
+          { q:'The process where Astrocytes form glial scars in damaged areas of the brain is known as:', opts:['Phagocytosis','Remyelination','Gliosis','Synaptic input'], ans:2, exp:'Astrocytes form glial scars in damaged areas of the brain, a process called gliosis.' },
+          { q:'Damage or destruction to which type of glial cell is associated with multiple sclerosis?', opts:['Astrocytes','Microglia','Ependymal cells','Oligodendrocytes'], ans:3, exp:'Oligodendrocytes, the myelin-forming cells of the CNS, are destroyed in multiple sclerosis.' },
+          { q:'Which neuroglia line the central canal of the spinal cord and the ventricles of the brain, and are involved in CSF secretion?', opts:['Astrocytes','Ependymal cells','Microglia','Satellite cells'], ans:1, exp:'Ependymal cells line these structures and are involved in the secretion of cerebrospinal fluid (CSF).' },
+          { q:'Which small glial cells arise from monocytes entering the CNS from the blood and function as macrophages in damaged tissue?', opts:['Oligodendrocytes','Astrocytes','Microglia','Schwann cells'], ans:2, exp:'Microglia arise from monocytes and function as macrophages when activated by inflammatory or degenerative processes.' },
+          { q:'What is the total number of pairs of cranial nerves that arise from the brain?', opts:['10 pairs','31 pairs','12 pairs','20 pairs'], ans:2, exp:'Cranial nerves arise from the brain, and there is a total of 12 pairs.' },
+          { q:'Visceral neurons (autonomic nerve fibers) are classified based on distribution because they supply the:', opts:['Skeletal muscles of the body','Internal organs of the body','Brain and spinal cord','Skin receptors'], ans:1, exp:'Visceral neurons/autonomic nerve fibers supply the internal organs of the body.' },
+          { q:'Neurons that conduct sensory impulses toward the brain or spinal cord are classified as:', opts:['Motor neurons','Efferent neurons','Afferent neurons','Somatic neurons'], ans:2, exp:'Sensory neurons/Afferent neurons conduct sensory impulses towards the brain or spinal cord.' },
+          { q:'What is the minute space between the presynaptic and postsynaptic neurons called?', opts:['Synaptic junction','Synaptic vesicle','Synaptic cleft','Synaptic body'], ans:2, exp:'The minute space between pre and post-synaptic neurons is called a synaptic cleft.' },
+          { q:'In a chemical synapse, where is the neurotransmitter synthesized and stored before transmission?', opts:['Synaptic cleft','Post-synaptic membrane','Myelin sheath','Pre-synaptic neurons'], ans:3, exp:'Neurotransmitter is synthesized by the pre-synaptic neurons and stored in vesicles.' },
+          { q:'Electrical synapses, or ephapses, are characterized by consisting of:', opts:['Neurotransmitter receptors','Polysomes','Gap junctions','Myelin sheaths'], ans:2, exp:'Electrical synapses (ephapses) consist of gap junctions and allow ions to pass from cell to cell.' },
+          { q:'Satellite cells are glial cells of the PNS that perform what function?', opts:['Form myelin sheath on PNS neurons','Enclose cell bodies of sensory neurons in spinal ganglia','Function as macrophages','Line the central canal'], ans:1, exp:'Satellite cells enclose the cell bodies of sensory neurons in the spinal ganglia.' },
+          { q:'How many total pairs of spinal nerves arise from the spinal cord?', opts:['12 pairs','30 pairs','31 pairs','40 pairs'], ans:2, exp:'Spinal nerves arise from the spinal cord, and there is a total of 31 pairs.' },
+          { q:'Motor neurons (efferent neurons) carry impulses from the CNS to stimulate:', opts:['Sensory input','Contraction in muscle tissue','Secretion in glandular tissue','Both B and C'], ans:3, exp:'Motor neurons carry impulses from the CNS to either muscle tissue (stimulates contraction) or glandular tissue (stimulates secretion).' },
+          { q:'Neuroglia cells are generally different from neurons because neuroglia cells:', opts:['Are excitable','Are non-excitable and capable of cell division throughout life','Generate action potentials','Transmit nerve impulses'], ans:1, exp:'Neuroglia are non-excitable glial cells and are capable of cell division throughout life.' }
             ]
           },
           {
             name: 'CNS II',
             questions: [
-          { q:'Hemorrhagic stroke appears on CT scan as:', opts:['Hypodense (dark) area early','Hyperdense (bright white) area due to acute blood'], ans:1, exp:'Acute hemorrhage is hyperdense (bright white) on CT. Early ischemic stroke may appear normal on CT; changes (hypodensity) appear 24-48 hours later.' },
-          { q:'Blood pressure management in acute ischemic stroke (before tPA):', opts:['Aggressively lower to 120/80 immediately','Permit up to 220/120 mmHg (penumbral perfusion) unless giving tPA (lower to 185/110 first)','Lower to 140/90 regardless','Keep systolic above 180 always'], ans:1, exp:'Before tPA: lower BP only if above 185/110. Without tPA: allow up to 220/120 for first 24 hours. Post-tPA target: below 180/105.' },
-          { q:'Left MCA stroke causes:', opts:['Right-sided hemiplegia only','Left-sided hemiplegia and neglect','Right hemiplegia and aphasia (dominant hemisphere)','Cerebellar ataxia'], ans:2, exp:'Left MCA territory: Broca and Wernicke area (aphasia) + right motor/sensory cortex (right hemiplegia). Left hemisphere is dominant for language in most people.' },
-          { q:'TIA (transient ischemic attack) is defined by:', opts:['Stroke symptoms lasting less than 24 hours with infarct on MRI','Focal neurological deficit fully resolving within 24 hours without tissue infarction'], ans:1, exp:'TIA: transient focal deficit without infarction. High stroke risk within 48 hours. Requires urgent evaluation and secondary prevention.' },
-          { q:'The ABCD2 score after TIA estimates:', opts:['Risk of hemorrhagic transformation','Short-term stroke risk to guide hospitalization decision'], ans:1, exp:'ABCD2 (Age, BP, Clinical features, Duration, Diabetes): 2-day stroke risk post-TIA. Score 4 or above = hospitalize for urgent workup.' },
-          { q:'Secondary stroke prevention in AF-related ischemic stroke uses:', opts:['Aspirin alone','Long-term anticoagulation (DOACs preferred: apixaban, rivaroxaban, or warfarin)'], ans:1, exp:'AF is the most common cardiac embolic source. DOACs preferred over warfarin for non-valvular AF. Start anticoagulation 2-14 days post-stroke depending on infarct size.' },
-          { q:'Contraindications to tPA in ischemic stroke include:', opts:['Age above 55 years only','Active internal bleeding, hemorrhagic stroke history, BP above 185/110, recent surgery within 14 days, INR above 1.7'], ans:1, exp:'Absolute tPA contraindications: hemorrhagic stroke history, intracranial neoplasm, recent surgery/trauma, active bleeding, uncontrolled hypertension, coagulopathy.' },
-          { q:'Carotid endarterectomy is recommended for symptomatic carotid stenosis of:', opts:['Above 30%','Above 70% (high-grade stenosis)'], ans:1, exp:'CEA: recommended for symptomatic stenosis 70% or above (strongly reduces stroke risk). Also considered 50-69% in experienced centers. Benefit greatest within 2 weeks of TIA/stroke.' },
-          { q:'Subarachnoid hemorrhage (SAH) classically presents with:', opts:['Gradual progressive headache over weeks','Sudden thunderclap headache â€” worst headache of life'], ans:1, exp:'SAH (usually ruptured berry aneurysm): sudden severe headache maximal at onset. CT head then LP (xanthochromia) if CT negative.' },
-          { q:'Nimodipine in SAH is given because:', opts:['It dissolves the aneurysm clot','It prevents delayed cerebral vasospasm (peaks days 4-14 after SAH)'], ans:1, exp:'Nimodipine 60 mg q4h x 21 days: reduces vasospasm-related ischemia and improves neurological outcomes. Does not prevent vasospasm but reduces ischemic injury.' },
-          { q:'Post-stroke dysphagia assessment should occur:', opts:['After 48 hours of NPO observation','Before any oral intake including medications'], ans:1, exp:'Dysphagia screen BEFORE oral intake prevents aspiration pneumonia. 3-oz water test or standardized protocol. Failed screen: speech therapy consult, modified diet or NG tube.' },
-          { q:'Wallenberg syndrome results from occlusion of:', opts:['Middle cerebral artery','Posterior inferior cerebellar artery (PICA)'], ans:1, exp:'Wallenberg (lateral medullary syndrome): PICA occlusion. Ipsilateral: Horner syndrome, facial numbness, dysphagia, ataxia. Contralateral: body pain/temp loss. No hemiplegia.' },
-          { q:'Locked-in syndrome results from:', opts:['Bilateral cerebral hemisphere damage','Ventral pontine infarction (basilar artery occlusion)'], ans:1, exp:'Locked-in: bilateral ventral pontine infarct. Fully conscious but quadriplegic and anarthric. Only vertical eye movements preserved. Patients can communicate via eye blinking.' },
-          { q:'The most common modifiable risk factor for stroke is:', opts:['Atrial fibrillation','Hypertension'], ans:1, exp:'Hypertension is the single most important modifiable stroke risk factor, increasing risk 3-5 times. Optimal BP control is primary prevention.' },
-          { q:'Cerebral perfusion pressure (CPP) formula is:', opts:['CPP = MAP minus CVP','CPP = MAP minus ICP (normal 60-70 mmHg)'], ans:1, exp:'CPP = MAP minus ICP. Target CPP 60-70 mmHg in TBI. Low CPP = cerebral ischemia. Raise MAP or lower ICP to maintain adequate CPP.' },
-          { q:'Global aphasia (large left MCA stroke) involves:', opts:['Only expressive deficit (Broca area)','Both receptive and expressive aphasia â€” severely impaired language comprehension and production'], ans:1, exp:'Global aphasia: damage to both Broca and Wernicke areas. Severely impaired understanding, production, and repetition. Worst prognosis for language recovery.' },
-          { q:'Hypertensive encephalopathy MAP should be reduced by:', opts:['To normal within 1 hour','20-25% in the first hour using IV antihypertensives'], ans:1, exp:'Hypertensive emergency: reduce MAP by 20-25% in first hour. Rapid normalization can cause ischemic stroke (autoregulation disrupted). IV labetalol or nicardipine preferred.' },
-          { q:'Hemorrhagic transformation of ischemic stroke risk is increased by:', opts:['Small lacunar infarcts','Large cardioembolic infarcts and early anticoagulation within 24 hours'], ans:1, exp:'Hemorrhagic transformation: large embolic infarcts, severe initial ischemia, hypertension, early anticoagulation. Monitor neurologically after tPA and report any deterioration immediately.' },
-          { q:'CT brain in acute ischemic stroke within 6 hours typically shows:', opts:['Clear hypodense infarct area','Normal or subtle early changes (loss of insular ribbon, effaced sulci, hyperdense artery sign)'], ans:1, exp:'Early ischemic stroke CT: normal or subtle signs â€” hyperdense MCA (thrombus), loss of insular cortex (insular ribbon sign), sulcal effacement. Definitive changes at 24-48 hours.' },
-          { q:'Stroke rehabilitation should begin:', opts:['After 3 months of complete bed rest','As early as 24-48 hours post-stroke if neurologically stable (early mobilization improves outcomes)'], ans:1, exp:'Early mobilization (sitting, standing, walking practice with PT) within 24-48 hours of stroke improves functional outcomes. Avoid early mobilization in severe stroke with hemodynamic instability.' },
-          { q:'Vertebrobasilar territory stroke typically presents with:', opts:['Aphasia and right hemiplegia','Vertigo, diplopia, dysarthria, ataxia, and crossed neurological signs'], ans:1, exp:'Posterior (vertebrobasilar) strokes: brainstem and cerebellum involvement. Crossed signs (ipsilateral face + contralateral body), dysphagia, vertigo, diplopia, nystagmus, gait ataxia. No aphasia.' },
-          { q:'Statin therapy after ischemic stroke is given to:', opts:['Only patients with LDL above 200','All patients regardless of LDL â€” reduces recurrent stroke risk and stabilizes atherosclerotic plaques'], ans:1, exp:'High-intensity statin therapy post-stroke: reduces recurrent stroke and cardiovascular events regardless of baseline LDL. Atorvastatin 80 mg or rosuvastatin 20-40 mg (SPARCL trial).' },
-          { q:'Anticoagulation after hemorrhagic stroke is typically restarted:', opts:['Immediately to prevent rebound clot formation','4-8 weeks after hemorrhage at earliest, weighing bleed recurrence vs thromboembolism risk'], ans:1, exp:'After ICH: anticoagulation typically held 4-8 weeks minimum. Restart decision based on hemorrhage location, size, indication (AF stroke risk), and patient-specific factors.' },
-          { q:'Hunt and Hess grade IV subarachnoid hemorrhage describes:', opts:['Asymptomatic or mild headache','Stupor with moderate to severe hemiparesis'], ans:1, exp:'Hunt-Hess scale: I = mild headache; II = moderate headache, nuchal rigidity; III = drowsy, mild deficit; IV = stupor, hemiparesis; V = deep coma, decerebrate posturing.' },
-          { q:'Primary prevention of stroke includes:', opts:['Aspirin for all adults above 50','BP control, smoking cessation, anticoagulation for AF, statin therapy, diabetes management, healthy lifestyle'], ans:1, exp:'Stroke prevention: control hypertension (#1), treat AF (anticoagulation), statins for dyslipidemia, smoking cessation, diabetes control, physical activity, moderate alcohol consumption.' }
+          { q:'A nurse is preparing a client for a CT scan using contrast dye. Which pre-procedural action is essential?', opts:['Placing the client in a prone position for 2 hours','Withholding all caffeine and stimulants for 48 hours','Assessing for allergies to iodine, contrast dyes, or shellfish','Ensuring all metal objects are removed from the client'], ans:2, exp:'Pre-procedural interventions for a CT scan using dye include assessing the client for allergies to iodine, contrast dyes, or shellfish. Option A relates to Lumbar Puncture, B to EEG, D to MRI.' },
+          { q:"During the injection of contrast dye for a CT scan, the client reports a hot, flushed sensation and a metallic taste in their mouth. What is the nurse's priority action?", opts:['Stop the injection immediately and assess for anaphylaxis','Administer replacement fluids to prevent dehydration','Inform the client that this is a normal expected sensation','Check the dye injection site for hematoma formation'], ans:2, exp:'A hot, flushed sensation and metallic taste when contrast dye is injected are normal expected findings that the nurse should inform the client about beforehand.' },
+          { q:'Following a CT scan with contrast dye, which assessment should the nurse perform regarding the injection site?', opts:['Monitor the site for CSF leakage','Check for the presence of a hematoma or bleeding','Assess for pain on the outer part of the elbow',"Check for a positive Phalen's sign"], ans:1, exp:'Post-procedure interventions include assessing the injection site for bleeding or hematoma, and monitoring the extremity for color, warmth, and distal pulses.' },
+          { q:'A Lumbar Puncture is contraindicated in clients diagnosed with which condition?', opts:['Carpal tunnel syndrome','Hypotension','Increased Intracranial Pressure (ICP)',"Positive Phalen's sign"], ans:2, exp:'A Lumbar Puncture is specifically contraindicated in clients with increased ICP.' },
+          { q:'Where is the spinal needle inserted during a standard Lumbar Puncture procedure?', opts:['Into the subarachnoid space through the L3-L4 interspace','Over the median nerve in the wrist','Into the lateral epicondyle','Through the occipital lobe'], ans:0, exp:'A Lumbar Puncture involves the insertion of a spinal needle through the L3-L4 interspace into the lumbar subarachnoid space.' },
+          { q:'Post-procedure care following a Lumbar Puncture requires placing the patient in a prone position for what duration?', opts:['6 hours','60 seconds','2 hours','24-48 hours'], ans:2, exp:'Post-procedure interventions for a Lumbar Puncture require placing the patient in a prone position for 2 hours.' },
+          { q:'What potential post-procedure complication should the nurse monitor for specifically after a Lumbar Puncture?', opts:['Hot, flushed sensation in the mouth','CSF leakage or headache','Compression of the radial nerve','Development of Beta waves'], ans:1, exp:'Post-procedure interventions for a Lumbar Puncture include monitoring for headache and checking for the presence of CSF leakage.' },
+          { q:'Which dietary instruction is appropriate for a client preparing for an EEG?', opts:['Allow the client to have breakfast','Withhold all oral intake for 8 hours','Restrict fluid intake due to expected diuresis','Withhold only medications, not beverages'], ans:0, exp:'A key pre-procedural intervention for an EEG is to allow the client to have breakfast.' },
+          { q:'Which normal adult brain wave pattern is associated with being awake with mental activity?', opts:['Alpha (8-13 Hz)','Theta (4-7 Hz)','Delta (<3.5 Hz)','Beta (14-30 Hz)'], ans:3, exp:'The Beta wave (14-30 Hz) is the normal adult brain wave associated with being awake with mental activity.' },
+          { q:'What brain wave pattern is characteristic of deep sleep?', opts:['Beta','Alpha','Delta','Gamma'], ans:2, exp:'Delta waves (<3.5 Hz) are the brain waves associated with deep sleep.' },
+          { q:'A GCS score less than 8 indicates which state?', opts:['Minor injury','Moderate injury','Coma','Awake and resting'], ans:2, exp:'A score less than 8 on the GCS indicates coma.' },
+          { q:'Which clinical manifestation is characteristic of Carpal Tunnel Syndrome?', opts:['Pain on the outer part of the elbow','Impaired sensation in the distribution of the median nerve','Compression on the nerve from walking with crutches','Brain wave activity of 8-13 Hz'], ans:1, exp:'Clinical manifestations of CTS include weakness, pain, numbness and tingling sensation, and impaired sensation in the distribution of the median nerve.' },
+          { q:"A positive response to Phalen's sign is identified by which finding?", opts:['An immediate hot, flushed sensation','Tingling in the distribution of the median nerve over the hand','Point tenderness over the lateral epicondyle','A GCS score of 9-12'], ans:1, exp:"Both Tinel's sign and Phalen's sign are positive if there is a sensation of tingling in the distribution of the median nerve over the hand." },
+          { q:'Radial tunnel syndrome is also known by which common name?', opts:['Saturday night palsy','Crutch palsy','Persistent tennis elbow','Honeymoon palsy'], ans:2, exp:'Radial tunnel syndrome is also known as persistent tennis elbow.' },
+          { q:'Which is a characteristic clinical feature of Tennis Elbow (Lateral Epicondylitis)?', opts:['Numbness and tingling in the median nerve distribution','Point tenderness over the lateral epicondyle','Tingling sensation when tapping the wrist','Compression of the L3-L4 interspace'], ans:1, exp:'Clinical features of Tennis Elbow include pain on the outer part of the elbow and point tenderness over the lateral epicondyle.' },
+          { q:'Which alias for Radial Nerve Palsy is specifically associated with compression due to falling asleep with the back of the arm compressed, often related to alcohol intake?', opts:['Honeymoon palsy','Crutch palsy','Squash palsy','Saturday night palsy'], ans:3, exp:'Saturday night palsy is an alias for Radial Nerve Palsy, where alcohol is sometimes a factor as a person falls asleep with the back of their arm compressed.' }
             ]
           },
           {
             name: 'CNS III',
             questions: [
-          { q:'Tonic-clonic seizure phases include:', opts:['Only the clonic phase with muscle jerking','Tonic phase (stiffening) followed by clonic phase (rhythmic jerking), then postictal phase'], ans:1, exp:'Tonic phase: muscle rigidity, apnea, cyanosis. Clonic phase: rhythmic jerking. Postictal: confusion, fatigue, headache, possible Todd paralysis.' },
-          { q:'Status epilepticus is defined as:', opts:['Any seizure lasting more than 1 minute','Seizure lasting 5 minutes or more OR two or more seizures without full recovery between them'], ans:1, exp:'Status epilepticus: single seizure 5+ minutes or repeated seizures without baseline recovery. Neurological emergency causing hypoxia and brain injury if untreated.' },
-          { q:'Second-line treatment for status epilepticus after failed benzodiazepines:', opts:['Oral carbamazepine loading','IV fosphenytoin, valproate, or levetiracetam'], ans:1, exp:'Status protocol: benzo first (lorazepam/diazepam). If fails: IV fosphenytoin 20 mg PE/kg, valproate 40 mg/kg, or levetiracetam 60 mg/kg. Third-line: general anesthesia.' },
-          { q:'Phenytoin therapeutic serum level is:', opts:['1-5 mcg/mL','10-20 mcg/mL'], ans:1, exp:'Phenytoin therapeutic range: 10-20 mcg/mL. Toxicity: nystagmus above 20, ataxia above 30, AMS above 40. IV phenytoin max rate: 50 mg/min (cardiac toxicity risk).' },
-          { q:'The postictal phase after tonic-clonic seizure is characterized by:', opts:['Immediate full alertness','Confusion, headache, fatigue, and transient focal weakness (Todd paralysis)'], ans:1, exp:'Postictal phase lasts minutes to hours. Todd paralysis (transient unilateral weakness) can mimic stroke â€” resolves spontaneously unlike true stroke deficits.' },
-          { q:'Absence seizures (petit mal) are characterized by:', opts:['Tonic-clonic movements lasting 2-3 minutes','Brief 5-30 sec staring spells with abrupt onset/offset â€” no postictal phase'], ans:1, exp:'Absence seizures: blank stare 5-30 seconds, lip smacking, eye fluttering. No postictal confusion. EEG: 3 Hz spike-and-wave. First-line: ethosuximide (absence only) or valproate.' },
-          { q:'Nursing care during an active seizure includes:', opts:['Restraining the patient to prevent self-injury','Protecting from injury, positioning on the side, cushioning head, timing seizure, calling for help'], ans:1, exp:'During seizure: clear area, protect head, turn on side (prevents aspiration), time the event, call for help. NEVER restrain or insert fingers or objects in mouth.' },
-          { q:'Febrile seizures in children ages 6 months to 5 years are:', opts:['Always indicative of epilepsy requiring long-term AEDs','Usually brief, generalized, associated with rapid fever rise â€” benign and rarely require AEDs'], ans:1, exp:'Simple febrile seizure: less than 15 minutes, generalized, once per febrile illness. Risk of epilepsy only slightly elevated. Treat the fever; AEDs not routinely indicated.' },
-          { q:'Temporal lobe complex partial seizures may include:', opts:['Only tonic-clonic movements','Automatisms (lip smacking, chewing), altered consciousness, deja vu, olfactory auras'], ans:1, exp:'Temporal lobe seizures: auras (deja vu, rising epigastric sensation, olfactory/gustatory hallucinations), automatisms, altered consciousness. Most common focal seizure type.' },
-          { q:'Valproate (valproic acid) is contraindicated in:', opts:['Generalized epilepsy','Pregnancy (neural tube defects) and liver disease'], ans:1, exp:'Valproate teratogenicity: neural tube defects (spina bifida) 1-2% risk. Hepatotoxic â€” avoid in liver disease. Monitor LFTs, ammonia, CBC (thrombocytopenia risk).' },
-          { q:'Carbamazepine requires monitoring of:', opts:['Blood glucose only','CBC, sodium (SIADH-hyponatremia), LFTs, and drug levels'], ans:1, exp:'Carbamazepine: CBC (agranulocytosis risk), hyponatremia (SIADH-like), LFTs, drug levels. CYP3A4 inducer (multiple drug interactions). HLA-B*1502 test in Asian patients (Stevens-Johnson risk).' },
-          { q:'Lamotrigine serious dermatological side effect is:', opts:['Acne vulgaris','Stevens-Johnson syndrome â€” risk increased with rapid titration or valproate co-administration'], ans:1, exp:'Lamotrigine + valproate: valproate inhibits lamotrigine metabolism causing elevated levels and higher SJS risk. Titrate slowly. SJS: mucous membrane involvement, skin sloughing â€” discontinue immediately.' },
-          { q:'Diazepam rectal gel is used for:', opts:['Daily maintenance seizure control','Acute seizure rescue at home when IV access is unavailable'], ans:1, exp:'Rectal diazepam (Diastat): used by caregivers for acute prolonged or cluster seizures at home. Peak effect 5-15 minutes. Alternative: intranasal midazolam.' },
-          { q:'Lorazepam IV is preferred over diazepam IV for status epilepticus because:', opts:['It is cheaper','It has longer CNS duration (4-6 hours vs 15-30 min) due to less redistribution'], ans:1, exp:'Diazepam: highly lipophilic, rapid CNS entry but quick redistribution shortens brain effect. Lorazepam: longer CNS duration. Midazolam IM now also first-line when IV access is unavailable.' },
-          { q:'Eclamptic seizures are managed with:', opts:['IV phenytoin loading dose','IV magnesium sulfate (prevents and treats seizures) and antihypertensives'], ans:1, exp:'Eclampsia: IV magnesium sulfate is both treatment and prevention. NOT a traditional AED. Monitor reflexes, RR, urine output. Antidote for toxicity: calcium gluconate 1g IV.' },
-          { q:'Seizure precautions for hospitalized patients include:', opts:['Absolute bed rest always','Padded rails up when in bed, low bed position, call light within reach, no unsupervised bathing'], ans:1, exp:'Seizure precautions: padded rails, low bed, call light accessible, suction at bedside, no tub baths alone, patent IV access, oxygen available. Document seizure activity in detail.' },
-          { q:'SUDEP risk is highest in patients with:', opts:['Well-controlled absence seizures','Frequent uncontrolled generalized tonic-clonic seizures â€” nocturnal, prone position'], ans:1, exp:'SUDEP (sudden unexpected death in epilepsy): uncontrolled GTCS most common setting, often nocturnal, found prone. Mechanism unclear. Better seizure control reduces risk.' },
-          { q:'Levetiracetam (Keppra) common behavioral side effect is:', opts:['Sedation only','Irritability, aggression, and mood changes (Keppra rage)'], ans:1, exp:'Levetiracetam: psychiatric side effects (irritability, mood changes) in up to 15%. Often dose-dependent. Adding pyridoxine (B6) may help. No hepatotoxicity or major drug interactions.' },
-          { q:'Absence seizure EEG pattern is:', opts:['Theta waves bilaterally','3 Hz generalized spike-and-slow wave discharges'], ans:1, exp:'Absence seizure EEG: 3 Hz generalized spike-and-wave complexes â€” pathognomonic for childhood absence epilepsy. Triggered by hyperventilation during EEG.' },
-          { q:'Magnesium toxicity signs (from IV magnesium sulfate) include:', opts:['Tachycardia, hypertension, hyperreflexia','Loss of deep tendon reflexes, respiratory depression, cardiac arrest'], ans:1, exp:'Mg toxicity: DTR loss (first sign at 7-10 mEq/L), respiratory depression (10-13), cardiac arrest (above 15). Antidote: calcium gluconate 1g IV. Monitor reflexes q1h during infusion.' },
-          { q:'AED monitoring during pregnancy requires:', opts:['Stopping all AEDs in first trimester','Monthly drug levels (may drop 50%), seizure control maintenance, folic acid 4-5 mg/day'], ans:1, exp:'Pregnancy alters AED pharmacokinetics (increased volume of distribution, renal clearance). Levels can drop significantly requiring dose adjustments. Seizure control protects mother and fetus.' },
-          { q:'The vagal nerve stimulator (VNS) for epilepsy works by:', opts:['Curing epilepsy through neural pathway rewiring','Stimulating the left vagus nerve intermittently â€” adjunctive therapy reducing seizure frequency in drug-resistant epilepsy'], ans:1, exp:'VNS: implanted pulse generator stimulates left vagus nerve. About 50% of patients get 50%+ seizure reduction. Patient can activate with magnet during aura to abort or shorten seizure.' },
-          { q:'Sodium valproate broad-spectrum action covers:', opts:['Only absence seizures','Generalized tonic-clonic, absence, myoclonic, and focal seizures'], ans:1, exp:'Valproate: broad-spectrum AED. Effective for GTCS, absence, myoclonic (JME), and focal seizures. First-line for juvenile myoclonic epilepsy. Avoid in women of childbearing age if possible.' },
-          { q:'A patient with epilepsy on carbamazepine develops fatigue and confusion. Sodium level is 122 mEq/L. This indicates:', opts:['Carbamazepine toxicity at therapeutic level','Carbamazepine-induced SIADH causing hyponatremia'], ans:1, exp:'Carbamazepine (and oxcarbazepine) cause SIADH-like hyponatremia. Monitor sodium especially in elderly. Manage: fluid restriction, reduce or change AED if severe.' },
-          { q:'Phenobarbital use in neonatal seizures:', opts:['Contraindicated in all neonates','First-line for neonatal seizures â€” loading dose 20 mg/kg IV'], ans:1, exp:'Phenobarbital remains first-line for neonatal seizures. Loading dose: 20 mg/kg IV. Maintenance: 3-5 mg/kg/day. Monitor respiratory depression and sedation in neonates.' }
+          { q:'Meningitis is pathologically defined as the inflammation involving which specific layers of the Central Nervous System (CNS)?', opts:['Dura mater and subarachnoid space','White and grey matter of the brain','Arachnoid and pia mater of the brain and spinal cord','Brain parenchymal tissue and cerebrum'], ans:2, exp:'Meningitis is the inflammation of the meninges, specifically the arachnoid and pia mater of the brain and spinal cord.' },
+          { q:'Which of the following classifications of meningitis is also known as "Septic Meningitis"?', opts:['Tuberculous bacilli meningitis (TBM)','Aseptic meningitis','Bacterial meningitis (Pyogenic)','Viral meningitis'], ans:2, exp:'Bacterial meningitis is referred to as septic meningitis or Pyogenic meningitis.' },
+          { q:'The organism responsible for causing infection of the meninges typically enters the Central Nervous System (CNS) through which primary route(s)?', opts:['Direct inoculation via lumbar puncture','Gastrointestinal tract invasion','Upper respiratory tract or bloodstream','Direct spread from the inner ear'], ans:2, exp:'The causative organism enters into the CNS through the upper respiratory tract or bloodstream.' },
+          { q:'Septic Meningitis is most frequently observed in which demographic?', opts:['Adults aged 20 to 40 years','Age group 6 to 24 months','Birth to 2 months','Immunocompromised elderly patients'], ans:2, exp:'Septic meningitis (Bacterial meningitis) is most common from birth to 2 months.' },
+          { q:'Which clinical manifestation is uniquely associated with meningococcal meningitis, differentiating it from other forms?', opts:['Seizure activity','Nuchal rigidity','Red macular (petechial) rash',"Positive Brudzinski's sign"], ans:2, exp:'A red macular (petechial) rash specifically occurs in meningococcal meningitis only.' },
+          { q:'Seizure activity is a common complication in meningitis, reported to occur in what fraction of cases?', opts:['Half of cases','1/4th cases','1/3rd cases','2/3rds cases'], ans:2, exp:'Seizure occurs in 1/3rd cases of meningitis.' },
+          { q:"A nurse assesses a patient for meningeal irritation. A positive Kernig's Sign is elicited when:", opts:['Neck flexion results in involuntary hip flexion','Neck flexion produces an electric shock sensation radiating down the spine','The extension of the knee is painful or limited when the knee and hip are both flexed to 90 degrees','The patient exhibits extreme neck stiffness (nuchal rigidity)'], ans:2, exp:"Kernig's Sign is positive when the knee is flexed to 90 degrees, the hip is flexed to 90 degrees, and the subsequent extension of the knee is painful or limited." },
+          { q:'Which etiological agent is responsible for Tuberculous Bacilli Meningitis (TBM)?', opts:['Neisseria meningitidis','Tubercle bacilli (acid-fast bacilli) or mycobacterium tuberculosis','Mycoplasma','Herpes simplex'], ans:1, exp:'TBM is caused by tubercle bacilli (acid-fast bacilli) or mycobacterium tuberculosis.' },
+          { q:'In the cerebrospinal fluid (CSF) analysis of Bacterial Meningitis, which combination of findings is expected regarding appearance and glucose levels?', opts:['Clear appearance; Normal glucose','Clear appearance; Decreased glucose','Turbid appearance; Decreased glucose (<40 mg/dL)','Turbid appearance; Normal glucose'], ans:2, exp:'Bacterial Meningitis is characterized by Turbid appearance and Decreased glucose levels (<40 mg/dL).' },
+          { q:'A lumbar puncture performed on a client suspected of having Viral Meningitis would typically yield CSF with which characteristics regarding WBC count and Glucose level?', opts:['WBC >1000 cells/uL; Decreased glucose','WBC <500 cells/uL; Low or absent glucose','WBC <300 cells/uL with Lymphocytic predominance; Normal glucose','WBC 25-300 microl; Normal glucose'], ans:2, exp:'Viral Meningitis CSF analysis shows WBC count <300 with Lymphocytic predominance and Normal glucose (50-80 mg/dL).' },
+          { q:'Which CSF finding is commonly associated with Fungal Meningitis?', opts:['Protein levels 15-45 mg/dL','Opening pressure below 90 mm Hg','WBC count >1000 cells/uL','Protein levels >200 mg/dL'], ans:3, exp:'Fungal Meningitis is associated with Protein levels >200 mg/dL and Normal-Elevated Opening Pressure.' },
+          { q:'In the pharmacological management of Meningitis, which medication class is specifically advised for headache relief?', opts:['Steroids (Dexamethasone)','Antivirals (Acyclovir)','Anti-seizure medications','Analgesics (Codeine)'], ans:3, exp:'Management for meningitis includes Analgesics (Codeine for headache).' },
+          { q:'The definitive description of Encephalitis involves the inflammation of which specific components of the brain?', opts:['The meninges (arachnoid and pia mater)','Cranial nerves and spinal nerve roots','Brain parenchymal tissue and white and grey matter of the brain','Cerebral cortex and the ventricles'], ans:2, exp:'Encephalitis is the inflammation of the brain parenchymal tissue and inflammation of white and grey matter of the brain.' },
+          { q:'Which specific viral pathogen is listed as an etiology for Encephalitis?', opts:['Mumps virus','Enterovirus','Arbovirus','Cytomegalovirus (CMV)'], ans:3, exp:'Viral etiologies for Encephalitis include CMV, HSV, EBV, and Measles virus.' },
+          { q:'If a patient with Encephalitis is managed to control increased Intracranial Pressure (ICP), the Head of Bed (HOB) should be elevated to what range?', opts:['15-20 degrees','30-45 degrees','60 degrees','90 degrees'], ans:1, exp:'Management for Encephalitis includes elevating HOB 30-45 degrees to help control ICP.' },
+          { q:'Brain Abscess is defined as a pathological condition characterized by:', opts:['Chronic demyelination of CNS neurons','Inflammation restricted to the gray matter','Accumulation of pus within the brain tissue resulting from local or systemic infection','Inflammation of the brain and spinal cord meninges'], ans:2, exp:'Brain abscess is the accumulation of pus within the brain tissue that can result from a local or systemic infection.' },
+          { q:'When comparing CSF analysis results for Encephalitis and Brain Abscess, a key distinction is often seen in the glucose level:', opts:['Encephalitis glucose is decreased; Brain Abscess glucose is normal','Encephalitis glucose is Normal; Brain Abscess glucose is Low or absent','Both conditions typically show decreased glucose','Both conditions typically show normal glucose'], ans:1, exp:'In Encephalitis, glucose is Normal. In Brain Abscess, glucose is Low or absent.' },
+          { q:'Multiple Sclerosis (MS) is classified as a chronic, progressive, degenerative disorder resulting from the destruction of which vital component for nerve conduction in the CNS?', opts:['Astrocyte connections','Pia mater','Myelin sheath of neurons','Oligodendrocytes themselves'], ans:2, exp:'MS occurs due to the destruction of the myelin sheath of neurons in the CNS, which is essential for normal conduction of nerve impulses.' },
+          { q:'Multiple Sclerosis is also commonly known by which two alternative names?', opts:['Septic meningitis and TBM',"Kernig's disease and Brudzinski's syndrome",'Disseminated sclerosis or Encephalomyelitis disseminate','Acute disseminated encephalomyelitis (ADEM)'], ans:2, exp:'MS is known as disseminated sclerosis or Encephalomyelitis disseminate.' },
+          { q:'Multiple Sclerosis exhibits a specific gender prevalence, affecting women approximately:', opts:['Three times as much as men','Twice as much as men','Equally as much as men','Half as much as men'], ans:1, exp:'MS affects the 20 to 40 years age range, and women are affected twice as much as men.' },
+          { q:"A patient with Multiple Sclerosis experiences an electric shock-like sensation radiating down the spine upon neck flexion. This sign, known as Lhermitte's Sign, is also referred to as the:", opts:['Positive Babinski reflex','Spasticity phenomenon','Barber chair phenomenon',"Uhthoff's phenomenon"], ans:2, exp:"Lhermitte's sign, described as the electric shock-like sensation on neck flexion, is also known as the Barber chair phenomenon." },
+          { q:'Which clinical manifestation of Multiple Sclerosis is defined as the paralysis of all four limbs due to bilateral lesion of the pyramidal tract at the cervical region?', opts:['Hemiplegia','Paraplegia','Quadriplegia/tetraplegia','Diplegia'], ans:2, exp:'Quadriplegia/tetraplegia is defined as the paralysis of all 4 limbs due to bilateral lesion of the pyramidal tract at the cervical region.' },
+          { q:'Which factor is listed as a potential risk factor that may trigger relapses or exacerbations in a client with Multiple Sclerosis?', opts:['High protein diet','Elevated blood sugar','Stress','High potassium intake'], ans:2, exp:'Risk factors for MS exacerbations include Pregnancy, Fatigue, Stress, Trauma, and Infection.' },
+          { q:'In the diagnostic workup for Multiple Sclerosis, which specific immunological finding in CSF analysis supports the diagnosis?', opts:['Decreased CSF glucose level','Normal serum globulin level','Increased oligoclonal antibody level','Decreased protein level'], ans:2, exp:'Diagnosis via LP and CSF analysis shows Elevated proteins, Increased oligoclonal antibody level, and Increased gamma globulin level.' },
+          { q:'A core nursing intervention to address constipation in a client with Multiple Sclerosis involves advising which specific dietary modification?', opts:['Low-fat, low-fiber diet with fluid restriction','High protein, low potassium diet','Balanced diet: low-fat, high fiber diet','High carbohydrate diet to increase energy'], ans:2, exp:'Nursing care advice includes a balanced diet: low-fat, high fiber diet to relieve constipation, along with high protein, potassium-rich diet and increased fluids.' }
             ]
           },
           {
             name: 'CNS IV',
             questions: [
-          { q:'Normal intracranial pressure (ICP) range in adults is:', opts:['0-5 mmHg','5-15 mmHg','15-25 mmHg','25-35 mmHg'], ans:1, exp:'Normal ICP: 5-15 mmHg. Above 20 mmHg = elevated ICP requiring treatment. Most TBI protocols treat sustained ICP above 20-25 mmHg.' },
-          { q:'Mannitol reduces ICP by:', opts:['Reducing cerebral metabolic rate','Drawing fluid from brain tissue via osmotic gradient and reducing blood viscosity'], ans:1, exp:'Mannitol 0.25-1 g/kg IV bolus: osmotic gradient draws water out of brain tissue. Reduces ICP within 15-30 min. Monitor osmolality (target below 320 mOsm/L) and electrolytes.' },
-          { q:'CSF findings in bacterial meningitis include:', opts:['Clear CSF, lymphocytes, low protein, normal glucose','Turbid CSF, elevated neutrophils, elevated protein, low glucose (below 45 mg/dL or below 2/3 serum glucose)'], ans:1, exp:'Bacterial meningitis CSF: turbid, WBC elevated (neutrophil predominant above 1000/mcL), protein elevated (above 100 mg/dL), glucose low. Gram stain and culture identify organism.' },
-          { q:'Viral (aseptic) meningitis CSF findings are:', opts:['Identical to bacterial meningitis','Clear/slightly turbid, lymphocyte predominant, mildly elevated protein, normal glucose'], ans:1, exp:'Viral meningitis CSF: lymphocytic pleocytosis (usually below 300 cells/mcL), mildly elevated protein, normal glucose. Usually self-limiting; supportive treatment.' },
-          { q:'Antibiotics in bacterial meningitis should be initiated:', opts:['Only after LP confirms diagnosis','Immediately â€” within 30-60 minutes of suspicion, even before LP if delay expected'], ans:1, exp:'Do NOT delay antibiotics for LP. If CT scan required first (focal signs/raised ICP): blood cultures then immediate empiric antibiotics, then CT, then LP. Every hour of delay worsens outcome.' },
-          { q:'Dexamethasone with antibiotics in bacterial meningitis reduces:', opts:['Duration of antibiotic treatment needed','Cerebral edema and neurological sequelae â€” especially hearing loss in Hib and pneumococcal meningitis'], ans:1, exp:'Adjunctive dexamethasone: reduces meningeal inflammation, lowers TNF-alpha, decreases hearing loss risk, reduces mortality in pneumococcal meningitis. Give before or with first antibiotic dose.' },
-          { q:'Obstructive hydrocephalus differs from communicating hydrocephalus in that:', opts:['Both types are clinically identical','Obstructive: CSF flow blocked within ventricular system; Communicating: impaired reabsorption at arachnoid granulations'], ans:1, exp:'Obstructive: tumor, aqueductal stenosis block CSF flow. Communicating: post-meningitis or post-SAH scarring impairs reabsorption. Both cause elevated ICP. Treatment: CSF diversion.' },
-          { q:'VP shunt infection most commonly caused by:', opts:['E. coli','S. epidermidis and S. aureus (skin flora at implantation)'], ans:1, exp:'VP shunt infection: S. epidermidis (most common, coagulase-negative staph), S. aureus. Signs: fever, meningismus, shunt malfunction, wound infection. Requires shunt externalization and antibiotics.' },
-          { q:'Subdural hematoma: acute vs chronic differentiation:', opts:['Both appear the same on CT','Acute SDH: hyperdense on CT, significant trauma; Chronic SDH: iso- or hypodense, often elderly with minor trauma'], ans:1, exp:'Acute SDH: within 24 hours, high density on CT, associated with significant trauma, rapid deterioration. Chronic SDH: weeks after minor trauma (elderly, alcoholics), isodense on CT, gradual cognitive decline.' },
-          { q:'Epidural hematoma classic presentation includes:', opts:['Gradual progressive headache over days','Lucid interval after head trauma, then rapid neurological deterioration'], ans:1, exp:'EDH: middle meningeal artery bleeding (temporal bone fracture). CT: biconvex (lens-shaped) hyperdense mass. Classic lucid interval then rapid herniation as hematoma expands. Neurosurgical emergency.' },
-          { q:'Hyperventilation for raised ICP is used as:', opts:['First-line long-term ICP management','Temporary bridging measure â€” reduces PaCO2 causing cerebral vasoconstriction and ICP reduction'], ans:1, exp:'Hyperventilation target PaCO2 35-40 mmHg (briefly below 35 in acute herniation): cerebral vasoconstriction reduces ICP quickly. Effect lasts only hours; prolonged use causes cerebral ischemia.' },
-          { q:'External ventricular drain (EVD) allows:', opts:['Monitoring only','Both ICP monitoring AND therapeutic CSF drainage to reduce ICP'], ans:1, exp:'EVD: intraventricular catheter monitors ICP and drains CSF to reduce ICP. Gold standard for ICP monitoring. Risks: ventriculitis (infection), hemorrhage, blockage.' },
-          { q:'Uncal herniation pupillary sign is:', opts:['Bilateral miosis (pinpoint pupils)','Ipsilateral fixed dilated (blown) pupil from CN III compression'], ans:1, exp:'Uncal herniation: medial temporal lobe herniates over tentorium, compresses CN III. Ipsilateral parasympathetic failure: fixed dilated pupil. Emergency: osmotherapy, neurosurgery, decompression.' },
-          { q:'Lumbar puncture is contraindicated when:', opts:['Viral meningitis is suspected','Significantly raised ICP with papilledema or focal neurological signs is present'], ans:1, exp:'LP contraindicated if elevated ICP suspected (mass lesion, papilledema, focal signs): risk of cerebellar tonsillar herniation. CT head first to rule out mass. If bacterial meningitis suspected: antibiotics before CT.' },
-          { q:'Spinal shock differs from neurogenic shock:', opts:['They are the same condition','Spinal shock: temporary flaccid paralysis and areflexia below injury level; Neurogenic shock: hemodynamic instability from sympathetic loss'], ans:1, exp:'Spinal shock: loss of all reflexes and motor below SCI level (temporary). Neurogenic shock: hemodynamic â€” hypotension + bradycardia + warm periphery from sympathetic disruption above T6.' },
-          { q:'Autonomic dysreflexia immediate management includes:', opts:['Laying patient flat and giving IV fluids','Sitting patient upright and relieving the triggering stimulus (bladder, bowel)'], ans:1, exp:'AD management: sit up immediately (postural BP reduction), identify trigger (bladder #1 â€” check catheter), relieve impaction. Nifedipine or hydralazine if BP remains critically elevated.' },
-          { q:'Neurogenic fever after brain injury:', opts:['Always indicates infection â€” culture immediately','Results from hypothalamic damage; treat with antipyretics and cooling â€” normothermia prevents secondary brain injury'], ans:1, exp:'Neurogenic fever: hypothalamic dysregulation, not infection. Each 1 degree C temperature increase worsens neurological outcome. Treat aggressively with acetaminophen and cooling blankets.' },
-          { q:'Decompressive craniectomy is performed to:', opts:['Remove blood clots','Remove skull portion allowing swollen brain to expand without fatal compression'], ans:1, exp:'Decompressive craniectomy: removes skull to reduce ICP by allowing brain expansion. Used in refractory malignant cerebral edema (large MCA stroke, severe TBI). Skull replaced later (cranioplasty).' },
-          { q:'FOUR score advantage over GCS includes:', opts:['It is identical to GCS','Incorporates brainstem reflexes (pupil, corneal) and respiratory pattern â€” distinguishes locked-in from vegetative state'], ans:1, exp:'FOUR (Full Outline of UnResponsiveness) score: eye, motor, brainstem, respiration. Better detects locked-in syndrome (GCS 3 but FOUR greater than 0) and has better ICU prognostic value.' },
-          { q:'Post-LP headache characteristics are:', opts:['Constant, unrelated to position','Positional â€” worse upright, better lying flat; from CSF leakage through dural puncture'], ans:1, exp:'Post-dural puncture headache: bilateral, positional (worse sitting/standing, better supine). Treat: bed rest, fluids, caffeine, analgesics. Persistent: epidural blood patch is definitive treatment.' },
-          { q:'Ventriculitis in EVD patients is prevented by:', opts:['Routine prophylactic IV antibiotics for all EVD patients','Strict aseptic technique, minimizing EVD manipulation and sampling frequency'], ans:1, exp:'EVD infection prevention: sterile insertion, closed drainage system, minimize CSF sampling, routine site care, antibiotic-impregnated catheters (evidence limited). Replace EVD if infection suspected.' },
-          { q:'Mannitol is contraindicated in:', opts:['Elevated ICP from head trauma','Congestive heart failure or renal failure (initial volume expansion causes pulmonary edema risk)'], ans:1, exp:'Mannitol initially expands intravascular volume before diuresis â€” dangerous in CHF/pulmonary edema. Also contraindicated if serum osmolality above 320 mOsm/L (risk of acute renal failure).' },
-          { q:'Cerebral salt wasting (CSW) vs SIADH in brain injury differ:', opts:['Both are treated identically with fluid restriction','CSW: hyponatremia with volume DEPLETION (replace sodium and fluid); SIADH: hyponatremia with normal or increased volume (fluid restrict)'], ans:1, exp:'CSW: brain injury causes renal sodium wasting â€” hyponatremia + hypovolemia. Treat with IV normal saline + sodium replacement. SIADH: fluid restrict. Distinguishing them is critical.' },
-          { q:'The Hunt-Hess grading scale for SAH grade V describes:', opts:['Asymptomatic or mild headache','Deep coma with decerebrate posturing â€” worst prognosis'], ans:1, exp:'Hunt-Hess: I=mild headache; II=moderate headache, nuchal rigidity; III=drowsy, mild deficit; IV=stupor, moderate-severe hemiparesis; V=deep coma, decerebrate. Grade V: mortality above 80%.' }
+          { q:'The underlying mechanism of muscle weakness in Myasthenia Gravis (MG) involves antibodies that specifically target and destroy which structure?', opts:['Dopamine receptors in the substantia nigra','Acetylcholine receptors at the neuromuscular junction','Gamma-aminobutyric acid (GABA) receptors in the brain','Motor end plates, causing hyperpolarization'], ans:1, exp:'Myasthenia Gravis is an autoimmune disease where antibodies destroy the acetylcholine receptor at the neuromuscular junction, causing decreased functional ACh receptors and lack of Na+ influx preventing muscle contraction.' },
+          { q:'A patient presenting with Myasthenia Gravis exhibits severe generalized weakness that is notably worse in the late afternoon or evening. This manifestation is best described as:', opts:['Tremor (Pill rolling)','Rigidity (Stiffness)','Extreme weakness and fatigue in the evening','Loss of automatic movements'], ans:2, exp:'Extreme weakness and fatigue in the evening is a clinical manifestation of MG. The weakness is characterized as fluctuating weakness of skeletal muscles, particularly those used for chewing, speaking, breathing, and eye muscles.' },
+          { q:'Which finding, if noted during the assessment of a patient experiencing a Myasthenic Crisis, is considered an acute life-threatening sign?', opts:['Ptosis and Diplopia','Decreased urine output','Respiratory paralysis and failure','Bowel and bladder incontinence'], ans:2, exp:'Clinical manifestations of Myasthenia Gravis include respiratory paralysis and failure. Myasthenic crisis is defined as an acute attack or acute exacerbation of the disease.' },
+          { q:'The Tensilon test involves administering Edrophonium. If the patient has Myasthenia Gravis, what result is expected?', opts:['Muscle strength is not improved, indicating the weakness is due to other reasons','Muscle strength is improved, indicating possibly Myasthenia Gravis','Severe cholinergic side effects immediately necessitate administering atropine','An acute exacerbation of the disease occurs'], ans:1, exp:"During the Tensilon test, if Edrophonium is injected and the patient's muscle strength is improved, it indicates possibly Myasthenia Gravis." },
+          { q:'In Myasthenia Gravis, the diagnosis process often includes screening for Thymoma. Which diagnostic studies are specifically mentioned for detecting this condition?', opts:['Nerve conduction study and EMG','Lumbar puncture and CSF analysis','CT or MRI Scan','Tensilon Test'], ans:2, exp:'CT and MRI Scans are used to detect Thymoma. Other diagnostic methods include the Tensilon test, Nerve conduction study, and EMG.' },
+          { q:'A Myasthenic Crisis (acute attack of myasthenia gravis) can be caused by:', opts:['Overmedication with anticholinesterase drugs','Excessive secretion of cholinesterase','A rapid unrecognized progression of the disease, such as due to infection or inadequate medication','Anticholinergic drug administration'], ans:2, exp:'A Myasthenic crisis is caused by a rapid unrecognized progression of the disease. Specific factors include inadequate medication, infection, fatigue, and stress.' },
+          { q:'The initial cause of muscle contraction failure in Myasthenia Gravis at the neuromuscular junction is due to:', opts:['Excessive cholinesterase destroying acetylcholine','Insufficient secretion of sodium (Na+)','Destruction of acetylcholine receptors leading to a lack of Na+ influx','Depolarization of the motor end plates'], ans:2, exp:'In Myasthenia Gravis, autoantibodies cause acetylcholine receptors to be internalized and degraded, leading to a lack of Na+ influx which prevents muscle contraction.' },
+          { q:'Plasmapheresis (Plasma exchange therapy) is utilized in the management of Myasthenia Gravis for what specific purpose?', opts:['To increase dopamine levels in the brain','To remove circulating anti-Ach receptor antibody','To prevent the destruction of levodopa by the liver','To depolarize the motor end plates'], ans:1, exp:'Plasmapheresis is used in management to remove circulating anti-Ach receptor antibody.' },
+          { q:'A patient is diagnosed with Cholinergic Crisis. The nurse recognizes that this crisis is typically caused by:', opts:['Infection or fatigue','Inadequate amount of medication','Overmedication with anticholinesterase','Degeneration of dopamine-producing cells'], ans:2, exp:'Cholinergic crisis is caused by overmedication with anticholinesterase.' },
+          { q:'For a patient experiencing Cholinergic Crisis, the priority nursing intervention related to medication administration involves:', opts:['Administering IV immunoglobulin','Administering Bromocriptine','Administering the antidote atropine sulfate','Providing a high-calorie, protein, and fiber diet'], ans:2, exp:'The interventions for Cholinergic Crisis are to withhold anticholinesterase medication and administer antidote atropine sulfate.' },
+          { q:'In addition to fluctuating muscle weakness in the eyes and face, which two related swallowing and respiratory findings are characteristic clinical manifestations of Myasthenia Gravis?', opts:['Dysphagia and Hoarseness in voice','Micrographia and Monotonous speech','Constipation and Amnesia','Rigidity and Bradykinesia'], ans:0, exp:'Clinical manifestations include dysphagia (difficulty chewing and swallowing) and hoarseness in voice.' },
+          { q:'Which assessment finding is unique to the assessment of Myasthenic Crisis, indicating severe systemic stress and deterioration?', opts:['Loss of ability to control body movements','Absent cough and swallow reflex','Tremors in hands and fingers at rest','Insufficient secretion of acetylcholine'], ans:1, exp:'Assessment findings during a Myasthenic Crisis include absent cough and swallow reflex, along with increased pulse, respiration, and BP, dyspnea, anoxia, cyanosis, and decreased urine output.' },
+          { q:'The use of immunosuppressants such as Azathioprine and Cyclosporine, along with surgery like Thymectomy, are categorized under which component of Myasthenia Gravis care?', opts:['Diagnosis','Assessment','Complication','Management'], ans:3, exp:'Immunosuppressants (Azathioprine, Cyclosporine) and surgery (Thymectomy) are listed under the Management section for the disease.' },
+          { q:"Parkinson's Disease (PD) is fundamentally characterized by the degeneration of dopamine-producing cells located in which specific brain structure?", opts:['Thalamus','Globus pallidus','Basal ganglia','Substantia nigra'], ans:3, exp:"Parkinson's Disease occurs due to the degeneration of dopamine-producing cells in the substantia nigra (nuclei in the extrapyramidal system of the midbrain)." },
+          { q:"The characteristic triad of cardinal features used in the clinical diagnosis of Parkinson's Disease includes:", opts:['Dysphagia, Ptosis, and Diplopia','Tremor (Pill rolling), Rigidity (Stiffness), and Bradykinesia (Abnormal slow movement)','Akinesia, Micrographia, and Amnesia','Monotonous speech, Constipation, and Loss of automatic movements'], ans:1, exp:"The three cardinal features of Parkinson's Disease are Tremor (Pill rolling), Rigidity (Stiffness), and Bradykinesia (Abnormal slow movement)." },
+          { q:"The purpose of Carbidopa when administered in combination with Levodopa for Parkinson's Disease management is:", opts:['To block reuptake of dopamine into presynaptic neurons','To activate dopamine receptors in the CNS','To convert L-dopa to dopamine in the brain','To prevent the destruction of levodopa by the liver and from early metabolism'], ans:3, exp:'Carbidopa must be given because it prevents the destruction of levodopa by the liver and from early metabolism.' },
+          { q:"The primary reason a combination of Carbidopa and Levodopa is administered to Parkinson's patients, rather than dopamine alone, is:", opts:['Dopamine cannot cross the blood-brain barrier (BBB)','L-dopa is a dopamine antagonist','Carbidopa causes excessive secretion of cholinesterase','L-dopa is required to treat associated psychiatric symptoms'], ans:0, exp:'The combination is used because dopamine itself cannot cross the blood-brain barrier (BBB). L-dopa (precursor of dopamine) is converted to dopamine in the brain.' },
+          { q:"Which clinical manifestation of Parkinson's Disease describes the progressively smaller handwriting often seen in patients?", opts:['Akinesia','Bradykinesia','Micrographia','Diplopia'], ans:2, exp:'Handwriting that becomes progressively smaller is described as micrographia.' },
+          { q:"In Parkinson's Disease, loss of automatic movements, such as eye blinking and arm swinging while walking, is a clinical manifestation listed alongside:", opts:['Myasthenic crisis','Decreased functional acetylcholine receptors','Constipation and monotonous speech','Absent cough reflex'], ans:2, exp:"The loss of automatic movements is listed alongside Constipation and Monotonous speech (quick, soft, slurred speech) as clinical manifestations of Parkinson's Disease." },
+          { q:'What specific dietary advice is given to patients taking antiparkinson medication?', opts:['Avoid high-calorie, protein, fiber, and soft diet','Avoid food rich in Vitamin B6 (fish, beef liver, organ meat)','Increase intake of foods rich in Vitamin B6','Avoid atropine sulfate'], ans:1, exp:'Patients should be advised to avoid food rich in Vitamin B6 (fish, beef liver, organ meat) because it blocks the effect of antiparkinson medication.' },
+          { q:"Anticholinergic drugs, such as Atropine, Benztropine, and Trihexyphenidyl, are used in the management of Parkinson's Disease primarily to:", opts:['Increase dopamine secretion','Prevent levodopa destruction','Control tremor and hypersecretion of the body','Treat Myasthenic crisis'], ans:2, exp:'Anticholinergics (e.g., Atropine, Benztropine, Trihexyphenidyl) are used to control tremor and hypersecretion of the body.' },
+          { q:'Which class of medication, including Bromocriptine, Selegeline, and Pramipexole, is used in PD management because it activates dopamine receptors in the CNS to increase dopamine secretion?', opts:['Anticholinergics','Anti-cholinesterase','Dopamine agonists','Antivirals (Amantadine)'], ans:2, exp:'Dopamine agonists, such as Bromocriptine, Selegeline, and Pramipexole, activate the dopamine receptor in the CNS to increase the secretion of dopamine.' },
+          { q:"What type of surgery involves the placement of a neurostimulator (brain pacemaker) that sends electrical impulses through implanted electrodes to specific targets in the brain for Parkinson's Disease?", opts:['Thymectomy','Ablation surgery (Thalamotomy)','Deep Brain Stimulation (DBS)','Fetal neural tissue transplantation'], ans:2, exp:'The placement of a medical device - a neurostimulator (brain pacemaker) - which sends electrical impulses through implanted electrodes to specific targets in the brain is known as Deep Brain Stimulation.' },
+          { q:'Amantadine, classified as an antiviral drug, helps reduce the effects of parkinsonism by performing what action?', opts:['Blocking reuptake of dopamine into presynaptic neurons','Activating the acetylcholine receptor','Preventing dopamine from crossing the BBB','Destroying cholinesterase enzymes'], ans:0, exp:'Amantadine (an antiviral drug) blocks reuptake of dopamine into presynaptic neurons and reduces the effects of parkinsonism.' },
+          { q:"Ablation surgery for Parkinson's Disease includes which of the following specific procedures targeting areas in the brain?", opts:['Thymectomy, Plasmapheresis, and Transplantation','Thalamotomy, Pallidotomy, and Subthalamic Nucleotomy','Deep Brain Stimulation only','EMG and Nerve conduction study'], ans:1, exp:'Ablation surgery involves the stereotactic ablation of areas in the thalamus (thalamotomy), globus pallidus (pallidotomy), and subthalamic nucleus (subthalamic nucleotomy).' }
             ]
           },
           {
             name: 'CNS V',
             questions: [
-          { q:'Levodopa-carbidopa for Parkinson disease should be taken:', opts:['With high-protein meals','30-60 minutes before meals â€” protein competes with levodopa absorption'], ans:1, exp:'Levodopa competes with dietary amino acids for intestinal absorption and blood-brain barrier transport. Take 30-60 min before or 1 hour after protein-containing meals for optimal effect.' },
-          { q:'Levodopa-induced dyskinesia is managed by:', opts:['Increasing levodopa dose','Reducing individual doses, more frequent smaller doses, or adding amantadine'], ans:1, exp:'Levodopa-induced dyskinesia (choreiform movements at peak dose): reduce dose frequency/size, add amantadine (reduces dyskinesias). DBS (deep brain stimulation) for refractory cases.' },
-          { q:'Cholinesterase inhibitors in Alzheimer disease provide:', opts:['Cure by removing amyloid plaques','Modest symptomatic improvement in cognition and ADLs â€” do not alter disease progression'], ans:1, exp:'Donepezil, rivastigmine, galantamine: prevent ACh breakdown. Modest benefit in cognition, daily function, and BPSD. Side effects: GI upset, bradycardia. Do not stop disease progression.' },
-          { q:'Memantine in Alzheimer disease works by:', opts:['Increasing dopamine in striatum','Blocking excessive glutamate (NMDA receptor antagonist) to prevent excitotoxicity'], ans:1, exp:'Memantine: voltage-dependent NMDA antagonist reduces glutamate excitotoxicity. Approved for moderate-severe AD. Often combined with cholinesterase inhibitor for additive benefit.' },
-          { q:'MS and heat (Uhthoff phenomenon) means:', opts:['Heat improves MS symptoms','Increased body temperature worsens conduction in demyelinated nerves causing temporary symptom worsening'], ans:1, exp:'Uhthoff phenomenon: increased temperature worsens conduction in demyelinated nerves. Avoid hot baths, hot environments. Symptoms return to baseline when cooled. Not a relapse.' },
-          { q:'GBS respiratory monitoring uses:', opts:['Daily ABG only','Serial vital capacity (VC) and negative inspiratory force (NIF) â€” intubate if VC below 20 mL/kg'], ans:1, exp:'GBS: ascending paralysis reaches respiratory muscles in 30% of cases. Monitor VC q4-8h. Intubation threshold: VC below 20 mL/kg, NIF below -25 cmH2O, or declining SpO2. Rule of 20-30-40.' },
-          { q:'GBS treatment is:', opts:['Steroids as first-line','IVIg 2 g/kg over 5 days OR plasmapheresis â€” both equally effective; steroids do not work'], ans:1, exp:'GBS: IVIg or plasmapheresis reduce duration and severity. Steroids are ineffective (unlike most autoimmune conditions). Supportive care: ventilation, DVT prophylaxis, pain management, PT.' },
-          { q:'Distinguishing myasthenic from cholinergic crisis:', opts:['Impossible clinically','Myasthenic: under-treatment (more drug helps); Cholinergic: over-treatment with SLUDGE symptoms (less drug, atropine)'], ans:1, exp:'Myasthenic crisis: insufficient AChE inhibitor, weakness from disease. Cholinergic crisis: excess drug, weakness plus bradycardia, salivation, lacrimation, urination, defecation, GI cramps, emesis (SLUDGE).' },
-          { q:'Trigeminal neuralgia first-line treatment:', opts:['Opioid analgesics','Carbamazepine (sodium channel blocker reduces paroxysmal facial pain)'], ans:1, exp:'Trigeminal neuralgia: lancinating facial pain along CN V distribution triggered by touch, chewing, talking. Carbamazepine first-line. Surgical: microvascular decompression or Gamma Knife radiosurgery.' },
-          { q:'Bell palsy nursing care includes:', opts:['Patch the eye at night only','Eye protection (artificial tears, taped closure at night), facial exercises, and steroids within 72 hours'], ans:1, exp:'Bell palsy: idiopathic unilateral facial nerve (CN VII) palsy. Lagophthalmos causes corneal exposure risk. Eye lubrication and patch critical. Prednisone within 72 hours improves recovery.' },
-          { q:'Opioid analgesics in TBI patients are problematic because:', opts:['They reduce ICP directly','They cause miosis (masking pupil assessment), sedation (masking GCS), and hypercapnia (raising ICP)'], ans:1, exp:'Opioids in TBI: miosis prevents pupillary monitoring, sedation prevents GCS assessment, respiratory depression raises PaCO2 which vasodilates cerebral vessels and raises ICP. Use short-acting cautiously.' },
-          { q:'Cholinergic crisis antidote is:', opts:['Neostigmine','Atropine (reverses muscarinic symptoms) and pralidoxime if organophosphate cause'], ans:1, exp:'Cholinergic crisis from anticholinesterase overdose or organophosphate: atropine blocks muscarinic excess (SLUDGE symptoms). Pralidoxime regenerates AChE if given early (before aging).' },
-          { q:'Methylprednisolone in acute SCI is:', opts:['Standard of care â€” mandatory within 8 hours','No longer recommended â€” evidence of harm outweighs uncertain benefit'], ans:1, exp:'High-dose methylprednisolone in acute SCI: NASCIS trials showed modest benefit but NASCIS III showed increased infection and GI bleeding. Current guidelines do not recommend as standard of care.' },
-          { q:'Gabapentin and pregabalin treat neuropathic pain by:', opts:['Acting on opioid receptors','Binding alpha-2-delta calcium channel subunits reducing neurotransmitter release from dorsal horn neurons'], ans:1, exp:'Gabapentin/pregabalin: reduce central sensitization and synaptic transmission in neuropathic pain. First-line for diabetic neuropathy, post-herpetic neuralgia, fibromyalgia. Side effects: sedation, dizziness.' },
-          { q:'Huntington disease inheritance is:', opts:['Autosomal recessive','Autosomal dominant with 100% penetrance (CAG repeat expansion on chromosome 4)'], ans:1, exp:'Huntington: CAG trinucleotide repeat expansion, autosomal dominant, 100% penetrance. Anticipation (earlier onset in subsequent generations). Features: chorea, psychiatric changes, dementia.' },
-          { q:'RASS target for most mechanically ventilated patients is:', opts:['Deep sedation RASS -4 to -5','Light sedation RASS 0 to -2 (alert/calm or lightly sedated)'], ans:0, exp:'Light sedation target (RASS 0 to -2): less delirium, shorter ventilation, better outcomes. Deep sedation only for specific indications (refractory ICP, severe ARDS, neuromuscular blockade).' },
-          { q:'The Babinski reflex in adults indicates:', opts:['Normal finding if bilateral','Upper motor neuron (corticospinal tract) damage'], ans:1, exp:'Babinski (extensor plantar response): stroking lateral sole causes great toe dorsiflexion + fanning. Normal in infants under 12 months. In adults: UMN lesion (stroke, MS, TBI, spinal cord compression).' },
-          { q:'Dexmedetomidine advantage in neurological ICU:', opts:['Provides deeper sedation than propofol','Sedation without respiratory depression, patients are arousable for neurological assessment, reduces delirium'], ans:1, exp:'Dexmedetomidine (alpha-2 agonist): sedation + analgesia without respiratory depression. Patients arousable to verbal stimuli (neurological exam preserved). Less ICU delirium vs benzodiazepines.' },
-          { q:'Haloperidol in neurological ICU patients:', opts:['Preferred choice with no concerns','Used cautiously â€” lowers seizure threshold, prolongs QT, EPS side effects'], ans:1, exp:'Haloperidol: treats hyperactive delirium but lowers seizure threshold (avoid in epilepsy), QT prolongation risk, EPS. Prefer dexmedetomidine or quetiapine when possible in neurological patients.' },
-          { q:'EVD: sudden bloody CSF from previously clear drainage indicates:', opts:['Normal variation in critically ill patients','New intracranial hemorrhage or vascular injury â€” report immediately'], ans:1, exp:'Sudden bloody EVD drainage = new ICH or vascular injury from catheter. Clamp EVD, notify neurosurgeon immediately, urgent CT head. Do not continue draining until evaluated.' },
-          { q:'TBI cognitive rehabilitation involves:', opts:['Complete bed rest until spontaneous recovery','Structured exercises for attention, memory, executive function via neuropsychology, OT, and speech therapy'], ans:1, exp:'TBI rehabilitation: multidisciplinary approach. Neuropsychology (cognitive rehab), OT (ADLs, memory strategies), SLP (communication, swallowing), PT (balance, mobility). Environment modification, caregiver education.' },
-          { q:'Ventriculitis EVD prevention includes:', opts:['Routine prophylactic IV antibiotics for all patients','Strict aseptic technique and minimizing manipulation of the drainage system'], ans:1, exp:'EVD infection prevention: sterile insertion and dressing technique, closed drainage system, minimize CSF sampling frequency, routine site care. Antibiotic-impregnated catheters reduce but do not eliminate risk.' },
-          { q:'Neurogenic pulmonary edema after SAH or TBI occurs due to:', opts:['Aspiration of gastric contents only','Massive catecholamine surge damaging pulmonary vasculature causing non-cardiogenic pulmonary edema'], ans:1, exp:'Neurogenic pulmonary edema: massive sympathetic discharge after catastrophic brain injury causes pulmonary capillary injury and fluid leak. Treat with mechanical ventilation (PEEP), supportive care.' },
-          { q:'Chronic traumatic encephalopathy (CTE) is associated with:', opts:['Single severe TBI only','Repeated subconcussive and concussive head impacts (contact sports, military blast injuries)'], ans:1, exp:'CTE: tau protein accumulation from repetitive head trauma. Found in NFL players, boxers, military veterans. Presents with depression, cognitive decline, behavioral changes years after exposure.' }
+          { q:'Which of the following is considered the most sensitive and earliest clinical manifestation of increased Intracranial Pressure (ICP)?', opts:['Projectile vomiting','Bradycardia','Altered Level of Consciousness (LOC)','Papilledema'], ans:2, exp:'Altered LOC is listed as the most sensitive and earliest indication of increased ICP.' },
+          { q:"The pathological changes in Alzheimer's Disease are associated with the abnormal formation of which specific proteins?", opts:['Glucagon and Insulin','Serotonin and Dopamine','Tau and Beta Amyloid','Albumin and Globulin'], ans:2, exp:"Pathological changes in the brain associated with Alzheimer's Disease involve the abnormal formation of Tau and Beta Amyloid proteins, which lead to plaque formation and disrupt normal function." },
+          { q:"A patient with Alzheimer's Disease is demonstrating an inability to execute familiar skillful activities, such as brushing their teeth or buttoning a shirt. This clinical manifestation is known as:", opts:['Amnesia','Agnosia','Apraxia','Aphasia'], ans:2, exp:'Apraxia is defined as the inability to execute familiar skillful activities.' },
+          { q:"The Cholinergic hypothesis of Alzheimer's Disease suggests that the primary cause is a reduction in which specific neurotransmitter?", opts:['Epinephrine','Dopamine','Gamma-aminobutyric acid (GABA)','Acetylcholine (Ach)'], ans:3, exp:"The Cholinergic hypothesis posits that a reduction in Ach causes Alzheimer's Disease (AD)." },
+          { q:"Which of the following medications is a centrally-acting acetylcholinesterase inhibitor listed for the management of Alzheimer's Disease?", opts:['Carbamazepine','Prednisolone','Donepezil (Aricept)','Neostigmine bromide'], ans:2, exp:'Aricept (Donepezil) is listed as a centrally-acting acetylcholinesterase inhibitor, along with Tacrine (Cognex), Rivastigmine (Exelon), and Galantamine (Reminyl).' },
+          { q:"Which factor is specifically listed as a risk factor for Alzheimer's Disease (AD)?", opts:['Type 2 Diabetes Mellitus','Chronic Kidney Disease','Downs syndrome','Severe Hypertension'], ans:2, exp:"Downs syndrome is explicitly listed as a risk factor for AD, along with advanced age, family history, obesity, dyslipidemia, and brain injury." },
+          { q:'Trigeminal neuralgia (Tic Douloureux) is a disorder affecting which branch of the V cranial nerve (trigeminal nerve)?', opts:['The motor branch','The efferent branch','The sensory or afferent branch','The autonomic branch'], ans:2, exp:'Trigeminal neuralgia is a disorder of the sensory or afferent branch of the V cranial nerve (trigeminal nerve).' },
+          { q:'A patient experiencing sharp facial pain associated with Trigeminal Neuralgia reports that the pain is often triggered by simple activities. Which of the following is listed as a common trigger?', opts:['Lying supine','Washing the face','Mild ambient temperature changes','Taking warm baths'], ans:1, exp:'Conditions may be triggered by cold and hot substances, washing the face, chewing foods, or extremely hot or cold fluids.' },
+          { q:'In the management of Trigeminal Neuralgia, nursing interventions regarding nutrition include:', opts:['Encouraging large, solid, high-fiber meals','Providing hot beverages and cold desserts','Instructing the patient to chew food on the unaffected side','Administering analgesics for mealtime pain relief'], ans:2, exp:'Nursing management includes instructing the patient to chew food on the unaffected side and providing small feedings of liquids and soft foods.' },
+          { q:'Which class of medication is considered the first-line therapy for Trigeminal Neuralgia?', opts:['Antivirals (Acyclovir)','Anticonvulsants (Carbamazepine)','Anticholinesterases (Neostigmine)','Corticosteroids (Prednisolone)'], ans:1, exp:'Anti-convulsants (e.g., Carbamazepine, valproate, phenytoin) are considered the first-line therapy for trigeminal neuralgia to decrease trigeminal nerve activity.' },
+          { q:"Bell's Palsy is a disease affecting the motor branch of which specific cranial nerve?", opts:['CN V (Trigeminal)','CN VII (Facial)','CN IX (Glossopharyngeal)','CN XII (Hypoglossal)'], ans:1, exp:"Bell's Palsy is a disease of the motor branch of the facial nerve (VII cranial nerve)." },
+          { q:"Which symptom is characteristic of Bell's Palsy clinical manifestations?", opts:['Pain lasting 1-15 minutes along the trigeminal nerve','Bilateral facial paralysis','Unilateral loss of taste','Atrophy of the cerebral cortex'], ans:2, exp:"Clinical manifestations of Bell's Palsy include flaccid facial muscles, inability to raise the eyebrow/smile/close the eyeball, and unilateral loss of taste." },
+          { q:"In the nursing management of Bell's Palsy, which intervention is crucial to prevent the loss of muscle tone?", opts:['Protecting the eye with artificial tear instillation','Promoting frequent oral care','Encouraging the patient to do facial exercises','Instructing the client to chew on the unaffected side'], ans:2, exp:'Nursing interventions include encouraging the patient to do facial exercises to prevent the loss of muscle tone.' },
+          { q:"Which antiviral medication is listed for the management of Bell's Palsy?", opts:['Pyridostigmine','Acyclovir','Gabapentin','Mannitol'], ans:1, exp:"Antiviral - Acyclovir is listed under the management for Bell's Palsy." },
+          { q:'What is the established normal range for Intracranial Pressure (ICP) measurement?', opts:['1-5 mm Hg','7-15 mm Hg','16-20 mm Hg','20-30 mm Hg'], ans:1, exp:'The Normal ICP is specified as 7-15 mm Hg.' },
+          { q:'According to the Monroe Kellie Doctrine, if there is an increase in the volume of the brain tissue within the skull, what must occur to maintain a constant pressure?', opts:['The overall volume must increase, leading to a seizure','The CSF volume must increase','There must be a decrease in one or both of the other components (blood or CSF)','Cerebral perfusion pressure will drop instantly to zero'], ans:2, exp:'The Monroe Kellie Doctrine states that the volume of blood, brain, and CSF is constant, and an increase in any component leads to a decrease in one or both components from the cranium.' },
+          { q:'In the context of Cerebral Blood Flow (CBF), a hike (increase) in PaCO2 results in which physiological change?', opts:['Cerebral vasoconstriction, leading to decreased ICP','Systemic hypotension, stabilizing ICP','Cerebral vasodilatation, resulting in increased ICP','Autoregulation failure, regardless of MAP'], ans:2, exp:'A hike in PaCO2 results in cerebral vasodilatation, and hence, ICP will also increase.' },
+          { q:'Cerebral Perfusion Pressure (CPP) is calculated using which formula?', opts:['CPP = ICP + Mean Arterial Pressure (MAP)','CPP = MAP - Intracranial Pressure (ICP)','CPP = Systolic Blood Pressure (SBP) - Diastolic Blood Pressure (DBP)','CPP = ICP - MAP'], ans:1, exp:'The formula provided is CPP = Mean Arterial Pressure (MAP) - Intracranial Pressure (ICP).' },
+          { q:"Which combination of vital signs is characteristic of Cushing's triad, a classical sign of increased ICP?", opts:['Hypotension, Tachycardia, Rapid/Deep respirations','Systolic HTN, Narrowed pulse pressure, Tachycardia','Systolic HTN, Widening of pulse pressure, Bradycardia','Hypotension, Bradycardia, Irregular heart rhythm'], ans:2, exp:"Cushing's triad consists of Systolic HTN, Widening of pulse pressure, and Bradycardia, often accompanied by irregular respiration or bradypnea." },
+          { q:'A patient with severe increased ICP exhibits Decorticate (flexor) posturing. This specific posturing pattern is associated with a lesion in which area?', opts:['Brainstem (Pons, mid-brain)','Spinal cord','Cortex','Cerebellum'], ans:2, exp:'Decorticate (Flexor) posturing is associated with a Cortex lesion.' },
+          { q:'Which clinical manifestation is listed as a late sign of increased ICP?', opts:['Altered LOC','Headache','Projectile vomiting','Lethargy'], ans:2, exp:'Projectile vomiting is a severe manifestation associated with significantly elevated ICP, listed as a classical sign when pressure is significantly high.' },
+          { q:'In the management of increased ICP, the head of the bed should be elevated to what degree?', opts:['15 degrees','30 degrees','45 degrees','60 degrees'], ans:1, exp:'Management includes elevating the head of the bed to 30 degrees.' },
+          { q:'Which type of pharmacological agent is specifically used in ICP management to decrease the production of CSF?', opts:['Osmotic diuretic (Mannitol)','Antihypertensives','Anticonvulsants','Carbonic anhydrase inhibitors'], ans:3, exp:'Carbonic anhydrase inhibitors are used to decrease the production of CSF and lower ICP.' },
+          { q:"Autoregulation, the brain's ability to maintain a steady cerebral blood flow (CBF), is unable to function when the Mean Arterial Pressure (MAP) is below which critical threshold?", opts:['Less than 15 mm Hg','Less than 50 mm Hg','Greater than 150 mm Hg','Between 70 and 100 mm Hg'], ans:1, exp:'When the mean arterial pressure (MAP) is less than 50 mm Hg or greater than 150 mm Hg, the arterioles are unable to autoregulate.' },
+          { q:'Which surgical intervention is used to divert CSF from the ventricles to the peritoneum for the management of increased ICP?', opts:['Craniotomy','Endarterectomy','VP shunt','External ventricular drain (EVD)'], ans:2, exp:'VP shunt is listed under surgical management to divert CSF from ventricles to the peritoneum.' }
             ]
           }
         ]
@@ -1971,7 +2038,6 @@ function initMockTestSystem() {
     let SECTIONS = [];
 
     // ── State ──────────────────────────────────────────────────
-    const QS_PER_SECTION  = 25;
     let state = {};
 
     function resetState(catIdx) {
@@ -1988,8 +2054,8 @@ function initMockTestSystem() {
             currentSection:  0,
             currentQuestion: 0,
             selectedCategory: singleCat ? catIdx : null,
-            sectionStates:   SECTIONS.map((_, i) => i === 0 ? 'active' : 'locked'),
-            answers:        SECTIONS.map(() => Array(QS_PER_SECTION).fill(null)),
+            sectionStates:   SECTIONS.map(() => 'active'),
+            answers:        SECTIONS.map(sec => Array(sec.questions.length).fill(null)),
             sectionResults: SECTIONS.map(() => null),
             chartInstances: {}
         };
@@ -2037,24 +2103,51 @@ function initMockTestSystem() {
         if (target) target.classList.remove('mts-hidden');
     }
 
+    let pendingCatIdx = null;
+
+    // ── Category Nav (left panel) ───────────────────────────────
+    function buildCatNav() {
+        const catNav = document.getElementById('mts-cat-nav');
+        if (!catNav) return;
+        catNav.innerHTML = CATEGORIES.map((cat, i) => {
+            const isActive = i === state.selectedCategory;
+            return `<button class="mts-left-cat${isActive ? ' mts-left-cat-active' : ''}" data-cat-idx="${i}" style="--cat-col:${cat.color}">
+                <i class="fa-solid ${cat.icon}"></i>
+                <span>${cat.name}</span>
+            </button>`;
+        }).join('');
+        catNav.querySelectorAll('.mts-left-cat').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.dataset.catIdx);
+                if (idx === state.selectedCategory) return;
+                pendingCatIdx = idx;
+                openCatConfirm();
+            });
+        });
+    }
+
     // ── Tabs ───────────────────────────────────────────────────
     function buildTabs() {
         if (!tabsScroll) return;
-        tabsScroll.innerHTML = state.sectionStates.map((st, i) => {
-            let cls = 'mts-tab ';
+        tabsScroll.innerHTML = SECTIONS.map((sec, i) => {
+            const ans = state.answers[i];
+            const answered = ans.filter(a => a !== null).length;
+            const allDone = answered === sec.questions.length;
+            const isCurrent = i === state.currentSection;
+
+            let cls = 'mts-tab';
             let icon = '';
-            if (st === 'active')    { cls += 'mts-tab-active'; icon = '<i class="fa-solid fa-circle-dot"></i> '; }
-            else if (st === 'done') { cls += 'mts-tab-done';   icon = '<i class="fa-solid fa-check"></i> '; }
-            else                    { cls += 'mts-tab-locked';  icon = '<i class="fa-solid fa-lock"></i> '; }
-            const disabled = (st === 'locked') ? 'disabled' : '';
-            const score = state.sectionResults[i] ? `${state.sectionResults[i].correct}/${QS_PER_SECTION}` : '';
-            return `<button class="${cls}" data-sec="${i}" ${disabled}>${icon}Section ${i+1}${score ? ' · ' + score : ''}</button>`;
+            if (isCurrent)    { cls += ' mts-tab-active'; icon = '<i class="fa-solid fa-circle-dot"></i> '; }
+            else if (allDone) { cls += ' mts-tab-done';   icon = '<i class="fa-solid fa-check"></i> '; }
+
+            const scoreEl = answered > 0
+                ? `<span class="mts-tab-score">${answered}/${sec.questions.length}</span>`
+                : '';
+            return `<button class="${cls}" data-sec="${i}"><span>${icon}Section ${i + 1}</span>${scoreEl}</button>`;
         }).join('');
-        tabsScroll.querySelectorAll('.mts-tab:not([disabled])').forEach(btn => {
+        tabsScroll.querySelectorAll('.mts-tab').forEach(btn => {
             btn.addEventListener('click', () => {
-                const si = parseInt(btn.dataset.sec);
-                if (state.sectionStates[si] === 'locked') return;
-                state.currentSection = si;
+                state.currentSection  = parseInt(btn.dataset.sec);
                 state.currentQuestion = 0;
                 renderQuestion();
             });
@@ -2076,20 +2169,37 @@ function initMockTestSystem() {
         if (scScore)    scScore.textContent     = correct;
         if (scAccuracy) scAccuracy.textContent  = acc + '%';
         if (scAccFill)  scAccFill.style.width   = acc + '%';
-        if (scoreSection) scoreSection.textContent = SECTIONS[sec].name;
+        if (scoreSection) scoreSection.textContent = 'Section ' + (sec + 1);
 
         if (sectionsMini) {
             sectionsMini.innerHTML = SECTIONS.map((s, i) => {
-                const st = state.sectionStates[i];
-                const res = state.sectionResults[i];
+                const ans = state.answers[i];
+                const answered = ans.filter(a => a !== null).length;
+                const allDone = answered === s.questions.length;
+                const isCurrent = i === sec;
+                const correctCount = ans.filter(a => a && a.correct).length;
+
                 let cls = 'mts-mini-section';
-                let label = SECTIONS[i].name;
+                if (isCurrent)    { cls += ' mts-mini-active'; }
+                else if (allDone) { cls += ' mts-mini-done'; }
+
                 let right = '';
-                if (i === sec && st === 'active') { cls += ' mts-mini-active'; right = `${state.answers[i].filter(a=>a!==null).length}/25`; }
-                else if (st === 'done' && res) { cls += ' mts-mini-done'; right = `<span class="mts-mini-score">${res.correct}/25</span>`; }
-                else { right = '<i class="fa-solid fa-lock" style="opacity:0.4"></i>'; }
-                return `<div class="${cls}"><span>${label}</span>${right}</div>`;
+                if (isCurrent) {
+                    right = `${answered}/${s.questions.length}`;
+                } else if (answered > 0) {
+                    right = `<span class="mts-mini-score">${correctCount}✓ &nbsp;${answered}/${s.questions.length}</span>`;
+                } else {
+                    right = '<span style="opacity:0.4;font-size:0.72rem">Not started</span>';
+                }
+                return `<div class="${cls}" data-jump-sec="${i}"><span>Section ${i + 1}</span>${right}</div>`;
             }).join('');
+            sectionsMini.querySelectorAll('[data-jump-sec]').forEach(row => {
+                row.addEventListener('click', () => {
+                    state.currentSection  = parseInt(row.dataset.jumpSec);
+                    state.currentQuestion = 0;
+                    renderQuestion();
+                });
+            });
         }
     }
 
@@ -2106,9 +2216,9 @@ function initMockTestSystem() {
 
         if (qNum)     qNum.textContent      = `Q${qi + 1}.`;
         if (qText)    qText.textContent     = q.q;
-        if (qCounter) qCounter.textContent  = `Question ${qi + 1} of ${QS_PER_SECTION}`;
-        if (sectionBadge) sectionBadge.textContent = SECTIONS[sec].name;
-        if (progressFill) progressFill.style.width = ((qi + (answered ? 1 : 0)) / QS_PER_SECTION * 100) + '%';
+        if (qCounter) qCounter.textContent  = `Question ${qi + 1} of ${SECTIONS[sec].questions.length}`;
+        if (sectionBadge) sectionBadge.textContent = 'Section ' + (sec + 1);
+        if (progressFill) progressFill.style.width = ((qi + (answered ? 1 : 0)) / SECTIONS[sec].questions.length * 100) + '%';
 
         // Build options
         if (optionsWrap) {
@@ -2151,6 +2261,7 @@ function initMockTestSystem() {
             hide(navBar);
         }
 
+        buildCatNav();
         buildTabs();
         updateScorePanel();
     }
@@ -2180,24 +2291,15 @@ function initMockTestSystem() {
 
     // ── Nav buttons ────────────────────────────────────────────
     function updateNavButtons(sec, qi) {
-        const totalAnswered = state.answers[sec].filter(a => a !== null).length;
-        const sectionComplete = totalAnswered === QS_PER_SECTION;
-        const isLast = qi === QS_PER_SECTION - 1;
-
         if (prevBtn) prevBtn.style.visibility = qi > 0 ? 'visible' : 'hidden';
         if (nextBtn) {
-            if (isLast && sectionComplete) {
-                nextBtn.innerHTML = 'Complete Section <i class="fa-solid fa-flag-checkered"></i>';
-                nextBtn.className = 'mts-nav-btn mts-btn-cyan';
-            } else {
-                nextBtn.innerHTML = 'Next <i class="fa-solid fa-chevron-right"></i>';
-                nextBtn.className = 'mts-nav-btn mts-btn-cyan';
-                nextBtn.disabled = false;
-            }
+            nextBtn.innerHTML = 'Next <i class="fa-solid fa-chevron-right"></i>';
+            nextBtn.className = 'mts-nav-btn mts-btn-cyan';
+            nextBtn.disabled = (qi >= SECTIONS[sec].questions.length - 1);
         }
         if (navCenter) {
             const secAns = state.answers[sec].filter(a => a !== null).length;
-            navCenter.textContent = `${secAns} / ${QS_PER_SECTION} answered`;
+            navCenter.textContent = `${secAns} / ${SECTIONS[sec].questions.length} answered`;
         }
     }
 
@@ -2215,42 +2317,14 @@ function initMockTestSystem() {
         renderQuestion();
     }
 
-    // ── Complete section ───────────────────────────────────────
+    // ── Complete section (saves results; no longer blocks navigation) ─────
     function completeSection() {
         const sec = state.currentSection;
         const ans = state.answers[sec];
         const correct = ans.filter(a => a && a.correct).length;
         const wrong   = ans.filter(a => a && !a.correct).length;
-
         state.sectionResults[sec] = { correct, wrong, score: correct };
-        state.sectionStates[sec] = 'done';
-
-        const isLast     = sec === SECTIONS.length - 1;
-        if (!isLast) state.sectionStates[sec + 1] = 'active';
-
-        hide(document.getElementById('mts-question-card'));
-        hide(feedbackCard);
-        hide(navBar);
-        show(sectionDone);
-
-        if (doneTitle) doneTitle.textContent = `${SECTIONS[sec].name} — Completed!`;
-        if (doneStats) {
-            doneStats.innerHTML = [
-                ['25', 'Questions'],
-                [correct, 'Correct'],
-                [wrong, 'Wrong'],
-                [`${correct}/25`, 'Score']
-            ].map(([v,l]) => `<div class="mts-done-stat"><strong>${v}</strong><span>${l}</span></div>`).join('');
-        }
-        if (nextSectionBtn) {
-            nextSectionBtn.disabled = false;
-            if (isLast) {
-                nextSectionBtn.innerHTML = '<i class="fa-solid fa-trophy"></i> View Results';
-            } else {
-                const nextName = SECTIONS[sec + 1].name;
-                nextSectionBtn.innerHTML = `${nextName} <i class="fa-solid fa-arrow-right"></i>`;
-            }
-        }
+        buildCatNav();
         buildTabs();
         updateScorePanel();
     }
@@ -2259,9 +2333,16 @@ function initMockTestSystem() {
     function showResults() {
         showScreen('results');
 
-        // Only count sections that were actually attempted
-        const attempted  = state.sectionResults.map((r, i) => r ? { i, r } : null).filter(Boolean);
-        const totalQs    = attempted.length * QS_PER_SECTION;
+        // Compute results from answers (all attempted sections)
+        const attempted = SECTIONS.map((sec, i) => {
+            const ans = state.answers[i];
+            const answered = ans.filter(a => a !== null).length;
+            if (answered === 0) return null;
+            const correct = ans.filter(a => a && a.correct).length;
+            const wrong   = answered - correct;
+            return { i, r: { correct, wrong, score: correct } };
+        }).filter(Boolean);
+        const totalQs    = attempted.reduce((sum, {i}) => sum + SECTIONS[i].questions.length, 0);
         const totCorrect = attempted.reduce((s, {r}) => s + r.correct, 0);
         const totWrong   = attempted.reduce((s, {r}) => s + r.wrong, 0);
         const totalScore = totCorrect;
@@ -2275,11 +2356,11 @@ function initMockTestSystem() {
         const secScoresEl = document.getElementById('mts-section-scores');
         if (secScoresEl) {
             secScoresEl.innerHTML = attempted.map(({i, r}) => {
-                const pctW = Math.round(r.correct / QS_PER_SECTION * 100);
+                const pctW = Math.round(r.correct / SECTIONS[i].questions.length * 100);
                 return `<div class="mts-sec-score-row">
                     <span class="mts-sec-score-label">${SECTIONS[i].name}</span>
                     <div class="mts-sec-score-bar-wrap"><div class="mts-sec-score-bar" style="width:0%" data-target="${pctW}"></div></div>
-                    <span class="mts-sec-score-val">${r.correct}/25</span>
+                    <span class="mts-sec-score-val">${r.correct}/${SECTIONS[i].questions.length}</span>
                 </div>`;
             }).join('');
             setTimeout(() => {
@@ -2307,8 +2388,8 @@ function initMockTestSystem() {
                 ['Total Correct', totCorrect, `of ${totalQs}`],
                 ['Total Wrong', totWrong, `of ${totalQs}`],
                 ...(scores.length > 1 ? [
-                    ['Strongest', SECTIONS[best.i].name, `${best.correct}/25`],
-                    ['Weakest',   SECTIONS[worst.i].name, `${worst.correct}/25`]
+                    ['Strongest', SECTIONS[best.i].name, `${best.correct}/${SECTIONS[best.i].questions.length}`],
+                    ['Weakest',   SECTIONS[worst.i].name, `${worst.correct}/${SECTIONS[worst.i].questions.length}`]
                 ] : []),
                 ['Status', passed ? 'PASS' : 'FAIL', '']
             ].map(([lbl, val, sub]) =>
@@ -2321,7 +2402,7 @@ function initMockTestSystem() {
         }
 
         // Charts
-        buildCharts(totCorrect, totWrong, scores);
+        buildCharts(totCorrect, totWrong, scores, totalQs);
 
         // Question review
         buildReviewList('all');
@@ -2336,7 +2417,7 @@ function initMockTestSystem() {
     }
 
     // ── Charts ─────────────────────────────────────────────────
-    function buildCharts(totCorrect, totWrong, scores) {
+    function buildCharts(totCorrect, totWrong, scores, totalQs) {
         if (typeof Chart === 'undefined') return;
 
         Object.values(state.chartInstances).forEach(c => { try { c.destroy(); } catch(e) {} });
@@ -2359,7 +2440,7 @@ function initMockTestSystem() {
         }
         const centerEl = document.getElementById('mts-donut-center');
         if (centerEl) {
-            const pct = Math.round(totCorrect / 125 * 100);
+            const pct = totalQs > 0 ? Math.round(totCorrect / totalQs * 100) : 0;
             centerEl.innerHTML = `<strong>${pct}%</strong><span>Accuracy</span>`;
         }
         const legendEl = document.getElementById('mts-donut-legend');
@@ -2372,6 +2453,7 @@ function initMockTestSystem() {
         // Bar
         const barCtx = document.getElementById('mts-bar-chart');
         if (barCtx) {
+            const maxQs = Math.max(...scores.map(s => SECTIONS[s.i].questions.length));
             state.chartInstances.bar = new Chart(barCtx, {
                 type: 'bar',
                 data: {
@@ -2383,9 +2465,9 @@ function initMockTestSystem() {
                     }]
                 },
                 options: {
-                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` Score: ${ctx.raw}/25` } } },
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` Score: ${ctx.raw}/${SECTIONS[scores[ctx.dataIndex].i].questions.length}` } } },
                     scales: {
-                        y: { min: 0, max: 25, ticks: { stepSize: 5, font: { size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
+                        y: { min: 0, max: maxQs, ticks: { stepSize: Math.ceil(maxQs / 5), font: { size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
                         x: { ticks: { font: { size: 11 } }, grid: { display: false } }
                     },
                     animation: { duration: 800 }
@@ -2462,15 +2544,7 @@ function initMockTestSystem() {
     });
 
     if (nextBtn) nextBtn.addEventListener('click', () => {
-        const sec = state.currentSection;
-        const qi  = state.currentQuestion;
-        const ans = state.answers[sec];
-        const isLast = qi === QS_PER_SECTION - 1;
-        const sectionComplete = ans.filter(a => a !== null).length === QS_PER_SECTION;
-
-        if (isLast && sectionComplete) {
-            completeSection();
-        } else if (qi < QS_PER_SECTION - 1) {
+        if (state.currentQuestion < SECTIONS[state.currentSection].questions.length - 1) {
             state.currentQuestion++;
             renderQuestion();
         }
@@ -2483,12 +2557,11 @@ function initMockTestSystem() {
         } else {
             state.currentSection  = next;
             state.currentQuestion = 0;
-            showScreen('exam');
             renderQuestion();
         }
     });
 
-    const retestBtn = document.getElementById('mts-retest-btn');
+    const retestBtn  = document.getElementById('mts-retest-btn');
     if (retestBtn) retestBtn.addEventListener('click', retest);
 
     // Exit button — show confirm modal
@@ -2511,337 +2584,151 @@ function initMockTestSystem() {
         if (e.target === exitModal) closeExitModal();
     });
 
-    // ── Category switcher (during exam) ───────────────────────
-    const switchCatBtn  = document.getElementById('mts-switch-cat-btn');
-    const catModal      = document.getElementById('mts-cat-modal');
-    const catModalClose = document.getElementById('mts-cat-modal-close');
+    // ── Category switch confirmation (from left nav) ────────────
+    const catConfirmModal = document.getElementById('mts-cat-confirm-modal');
+    const catCancelBtn    = document.getElementById('mts-cat-cancel-btn');
+    const catConfirmBtn   = document.getElementById('mts-cat-confirm-btn');
 
-    function openCatModal()  { if (catModal) catModal.classList.remove('mts-hidden'); }
-    function closeCatModal() { if (catModal) catModal.classList.add('mts-hidden'); }
+    function openCatConfirm()  { if (catConfirmModal) catConfirmModal.classList.remove('mts-hidden'); }
+    function closeCatConfirm() { if (catConfirmModal) catConfirmModal.classList.add('mts-hidden'); }
 
-    if (switchCatBtn)  switchCatBtn.addEventListener('click', openCatModal);
-    if (catModalClose) catModalClose.addEventListener('click', closeCatModal);
-    if (catModal) {
-        catModal.querySelectorAll('.mts-cat-modal-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const idx = parseInt(card.dataset.cat);
-                selectedCatIdx = idx;
-                closeCatModal();
-                resetState(idx);
-                showScreen('exam');
-                renderQuestion();
-            });
-        });
-        catModal.addEventListener('click', e => { if (e.target === catModal) closeCatModal(); });
-    }
+    if (catCancelBtn) catCancelBtn.addEventListener('click', () => { pendingCatIdx = null; closeCatConfirm(); });
+    if (catConfirmBtn) catConfirmBtn.addEventListener('click', () => {
+        if (pendingCatIdx !== null) {
+            selectedCatIdx = pendingCatIdx;
+            const idx = pendingCatIdx;
+            pendingCatIdx = null;
+            closeCatConfirm();
+            resetState(idx);
+            showScreen('exam');
+            renderQuestion();
+        }
+    });
+    if (catConfirmModal) catConfirmModal.addEventListener('click', e => {
+        if (e.target === catConfirmModal) { pendingCatIdx = null; closeCatConfirm(); }
+    });
 
     // Init: disable submit until option selected
     if (submitBtn) submitBtn.disabled = true;
 }
 
 // ===========================================
-// PREMIUM: Exam Snapshot — Horizontal Carousel
-// Auto-play, drag, touch, keyboard, dots
+// HOW TO PREPARE — Accordion
+// Hover on desktop, click on touch devices
 // ===========================================
-function initSnapshotCarousel() {
-    const carousel = document.getElementById('snap-carousel');
-    if (!carousel) return;
+function initPrepareAccordion() {
+    const steps = document.querySelectorAll('.prepare-timeline .prepare-step');
+    if (!steps.length) return;
 
-    const viewport = carousel.querySelector('.snap-carousel-viewport');
-    const track = viewport ? viewport.querySelector('.snapshot-marquee-track') : null;
-    const dotsContainer = document.getElementById('snap-dots');
-    const prevBtn = carousel.querySelector('.snap-arrow-left');
-    const nextBtn = carousel.querySelector('.snap-arrow-right');
-    if (!viewport || !track) return;
+    const isTouch = () => window.matchMedia('(hover: none)').matches;
+    let openStep = null;
 
-    // Get original cards and clone for infinite loop
-    const originalCards = Array.from(track.querySelectorAll('.snapshot-card'));
-    if (originalCards.length === 0) return;
-    const totalCards = originalCards.length;
-
-    // Clone cards for seamless infinite loop (prepend + append copies)
-    const CLONE_COUNT = totalCards;
-    originalCards.forEach(card => {
-        const clone = card.cloneNode(true);
-        track.appendChild(clone);
-    });
-    originalCards.forEach(card => {
-        const clone = card.cloneNode(true);
-        track.insertBefore(clone, track.firstChild);
-    });
-
-    const allCards = Array.from(track.querySelectorAll('.snapshot-card'));
-    let currentIndex = CLONE_COUNT; // Start at first real card
-    let isPaused = false;
-    let autoplayInterval = null;
-    const AUTOPLAY_DELAY = 3500;
-
-    // Spotlight element
-    const spotlight = document.createElement('div');
-    spotlight.className = 'snap-carousel-spotlight';
-    viewport.appendChild(spotlight);
-
-    // --- Helpers ---
-    function getCardWidth() {
-        return allCards[0] ? allCards[0].offsetWidth + 20 : 310; // card + gap
+    function open(step) {
+        if (openStep && openStep !== step) close(openStep);
+        step.classList.add('is-open');
+        step.setAttribute('aria-expanded', 'true');
+        openStep = step;
     }
 
-    function getVisibleCount() {
-        const vw = viewport.offsetWidth;
-        if (vw >= 1024) return 4;
-        if (vw >= 768) return 2;
-        return 1;
+    function close(step) {
+        step.classList.remove('is-open');
+        step.setAttribute('aria-expanded', 'false');
+        if (openStep === step) openStep = null;
     }
 
-    function goToCard(index, smooth = true) {
-        const cardW = getCardWidth();
-        const visibleCount = getVisibleCount();
-        // Center the active card
-        const vpWidth = viewport.offsetWidth;
-        const offset = index * cardW - (vpWidth / 2 - cardW / 2);
-        if (smooth) track.classList.add('smooth-transition');
-        else track.classList.remove('smooth-transition');
-        track.style.transform = `translateX(-${offset}px)`;
-        currentIndex = index;
-        updateActiveStates();
-        updateDots();
-
-        // Seamless loop: snap back if in clone zone
-        if (smooth) {
-            setTimeout(() => {
-                if (currentIndex >= CLONE_COUNT + totalCards) {
-                    goToCard(currentIndex - totalCards, false);
-                } else if (currentIndex < CLONE_COUNT) {
-                    goToCard(currentIndex + totalCards, false);
-                }
-            }, 520);
-        }
+    function toggle(step) {
+        step.classList.contains('is-open') ? close(step) : open(step);
     }
 
-    function updateActiveStates() {
-        allCards.forEach((card, i) => {
-            card.classList.remove('is-active', 'is-nearby');
-            if (i === currentIndex) card.classList.add('is-active');
-            else if (Math.abs(i - currentIndex) === 1) card.classList.add('is-nearby');
+    steps.forEach(step => {
+        // Desktop: hover
+        step.addEventListener('mouseenter', () => {
+            if (!isTouch()) open(step);
         });
-    }
-
-    // --- Dots ---
-    function buildDots() {
-        if (!dotsContainer) return;
-        dotsContainer.innerHTML = '';
-        for (let i = 0; i < totalCards; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'snap-dot' + (i === 0 ? ' active' : '');
-            dot.dataset.index = i;
-            dot.addEventListener('click', () => {
-                goToCard(CLONE_COUNT + i);
-                resetAutoplay();
-            });
-            dotsContainer.appendChild(dot);
-        }
-    }
-
-    function updateDots() {
-        if (!dotsContainer) return;
-        const realIndex = ((currentIndex - CLONE_COUNT) % totalCards + totalCards) % totalCards;
-        dotsContainer.querySelectorAll('.snap-dot').forEach((dot, i) => {
-            dot.classList.toggle('active', i === realIndex);
+        step.addEventListener('mouseleave', () => {
+            if (!isTouch()) close(step);
         });
-    }
 
-    // --- Navigation ---
-    function next() { goToCard(currentIndex + 1); }
-    function prev() { goToCard(currentIndex - 1); }
+        // Touch: click/tap
+        step.addEventListener('click', () => {
+            if (isTouch()) toggle(step);
+        });
 
-    if (nextBtn) nextBtn.addEventListener('click', () => { next(); resetAutoplay(); });
-    if (prevBtn) prevBtn.addEventListener('click', () => { prev(); resetAutoplay(); });
-
-    // --- Autoplay ---
-    function startAutoplay() {
-        stopAutoplay();
-        autoplayInterval = setInterval(() => {
-            if (!isPaused) next();
-        }, AUTOPLAY_DELAY);
-    }
-    function stopAutoplay() {
-        if (autoplayInterval) clearInterval(autoplayInterval);
-    }
-    function resetAutoplay() { stopAutoplay(); startAutoplay(); }
-
-    // --- Pause on hover ---
-    carousel.addEventListener('mouseenter', () => { isPaused = true; });
-    carousel.addEventListener('mouseleave', () => { isPaused = false; });
-
-    // --- Mouse drag ---
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragStartTranslate = 0;
-
-    function getCurrentTranslate() {
-        const st = window.getComputedStyle(track).transform;
-        if (st === 'none') return 0;
-        const matrix = new DOMMatrix(st);
-        return matrix.m41;
-    }
-
-    viewport.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        viewport.classList.add('is-dragging');
-        dragStartX = e.pageX;
-        dragStartTranslate = getCurrentTranslate();
-        track.classList.remove('smooth-transition');
-        isPaused = true;
-        e.preventDefault();
+        // Keyboard: Enter / Space always works
+        step.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggle(step);
+            }
+        });
     });
-
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const delta = e.pageX - dragStartX;
-        track.style.transform = `translateX(${dragStartTranslate + delta}px)`;
-    });
-
-    document.addEventListener('mouseup', (e) => {
-        if (!isDragging) return;
-        isDragging = false;
-        viewport.classList.remove('is-dragging');
-        isPaused = false;
-        const delta = e.pageX - dragStartX;
-        const threshold = getCardWidth() * 0.2;
-        if (Math.abs(delta) > threshold) {
-            delta < 0 ? next() : prev();
-        } else {
-            goToCard(currentIndex);
-        }
-        resetAutoplay();
-    });
-
-    // --- Touch swipe ---
-    let touchStartX = 0;
-    let touchStartTranslate = 0;
-
-    viewport.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartTranslate = getCurrentTranslate();
-        track.classList.remove('smooth-transition');
-        isPaused = true;
-    }, { passive: true });
-
-    viewport.addEventListener('touchmove', (e) => {
-        const delta = e.touches[0].clientX - touchStartX;
-        track.style.transform = `translateX(${touchStartTranslate + delta}px)`;
-    }, { passive: true });
-
-    viewport.addEventListener('touchend', (e) => {
-        const delta = e.changedTouches[0].clientX - touchStartX;
-        const threshold = getCardWidth() * 0.2;
-        if (Math.abs(delta) > threshold) {
-            delta < 0 ? next() : prev();
-        } else {
-            goToCard(currentIndex);
-        }
-        isPaused = false;
-        resetAutoplay();
-    });
-
-    // --- Mouse wheel ---
-    carousel.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-            e.deltaX > 0 ? next() : prev();
-        } else {
-            e.deltaY > 0 ? next() : prev();
-        }
-        resetAutoplay();
-    }, { passive: false });
-
-    // --- Keyboard navigation ---
-    carousel.setAttribute('tabindex', '0');
-    carousel.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') { prev(); resetAutoplay(); }
-        if (e.key === 'ArrowRight') { next(); resetAutoplay(); }
-    });
-
-    // --- Spotlight follow mouse ---
-    viewport.addEventListener('mousemove', (e) => {
-        const rect = viewport.getBoundingClientRect();
-        spotlight.style.left = (e.clientX - rect.left) + 'px';
-        spotlight.style.top = (e.clientY - rect.top) + 'px';
-    });
-
-    // --- Init ---
-    buildDots();
-    goToCard(CLONE_COUNT, false);
-    startAutoplay();
 }
 
 // ===========================================
-// PREMIUM INTERACTION: Why Eduooz Showcase
+// SYLLABUS TAB EXPLORER
 // ===========================================
-function initWhyShowcase() {
-    const wrapper = document.getElementById('why-showcase');
-    if (!wrapper) return;
+function initSyllabusTabs() {
+    const tabs = document.querySelectorAll('.syl-tab');
+    const panels = document.querySelectorAll('.syl-panel');
+    if (!tabs.length) return;
 
-    const slides = wrapper.querySelectorAll('.why-showcase-slide');
-    const dots = wrapper.querySelectorAll('.progress-dot');
-    if (slides.length < 2) return;
+    function activateTab(tab) {
+        const target = tab.dataset.tab;
 
-    let current = 0;
-    let interval = null;
-    let isPaused = false;
+        tabs.forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+            t.setAttribute('tabindex', '-1');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        tab.setAttribute('tabindex', '0');
 
-    function goToSlide(index) {
-        // Exit current
-        slides[current].classList.remove('active');
-        slides[current].classList.add('exit-left');
-        dots[current].classList.remove('active');
-
-        // Enter new
-        current = index;
-        slides[current].classList.remove('exit-left');
-        slides[current].classList.add('active');
-        dots[current].classList.add('active');
-
-        // Clean exit class after transition
-        setTimeout(() => {
-            slides.forEach((s, i) => {
-                if (i !== current) s.classList.remove('exit-left');
-            });
-        }, 700);
+        panels.forEach(p => {
+            p.classList.remove('active', 'entering');
+        });
+        const panel = document.getElementById(`syl-panel-${target}`);
+        if (panel) {
+            panel.classList.add('active');
+            void panel.offsetWidth; // force reflow to restart animation
+            panel.classList.add('entering');
+        }
     }
 
-    function next() {
-        const nextIndex = (current + 1) % slides.length;
-        goToSlide(nextIndex);
-    }
-
-    function startAutoplay() {
-        stopAutoplay();
-        interval = setInterval(() => {
-            if (!isPaused) next();
-        }, 4500);
-    }
-
-    function stopAutoplay() {
-        if (interval) clearInterval(interval);
-    }
-
-    // Pause on hover
-    wrapper.addEventListener('mouseenter', () => { isPaused = true; });
-    wrapper.addEventListener('mouseleave', () => { isPaused = false; });
-
-    // Dot click navigation
-    dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-            const index = parseInt(dot.dataset.index);
-            if (index !== current) {
-                goToSlide(index);
-                startAutoplay(); // Reset timer
+    tabs.forEach((tab, idx) => {
+        tab.setAttribute('tabindex', idx === 0 ? '0' : '-1');
+        tab.addEventListener('click', () => activateTab(tab));
+        tab.addEventListener('keydown', (e) => {
+            const arr = Array.from(tabs);
+            const i = arr.indexOf(tab);
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                const next = arr[(i + 1) % arr.length];
+                next.focus();
+                activateTab(next);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                const prev = arr[(i - 1 + arr.length) % arr.length];
+                prev.focus();
+                activateTab(prev);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                arr[0].focus();
+                activateTab(arr[0]);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                arr[arr.length - 1].focus();
+                activateTab(arr[arr.length - 1]);
             }
         });
     });
 
-    startAutoplay();
+    // Trigger entrance animation on first panel
+    const firstPanel = document.querySelector('.syl-panel.active');
+    if (firstPanel) {
+        void firstPanel.offsetWidth;
+        firstPanel.classList.add('entering');
+    }
 }
 
 // ===========================================
@@ -2874,40 +2761,30 @@ function initVerticalCarousels() {
     document.querySelectorAll('.vcarousel-viewport').forEach(viewport => {
         const track = viewport.querySelector('.vcarousel-track');
         const dotsContainer = viewport.querySelector('.vcarousel-dots');
-        const column = viewport.closest('.split-column');
-        const upBtn = column ? column.querySelector('.vc-up') : null;
-        const downBtn = column ? column.querySelector('.vc-down') : null;
         if (!track) return;
 
         const cards = Array.from(track.children);
         const totalCards = cards.length;
         if (totalCards === 0) return;
         const visibleCount = 2;
-        const autoplayDelay = parseInt(viewport.dataset.autoplay) || 4000;
+        const autoplayDelay = parseInt(viewport.dataset.autoplay) || 8000;
+        const transitionDuration = '1s cubic-bezier(0.25, 1, 0.5, 1)';
 
         let currentSlide = 0;
         let interval = null;
         let isPaused = false;
         let isCardExpanded = false;
+        let wheelLocked = false;
         const totalSlides = Math.ceil(totalCards / visibleCount);
 
-        // --- Helpers ---
-        function getSlideOffset() {
-            if (!cards[0]) return 0;
-            const cardHeight = cards[0].offsetHeight;
-            const gap = 16;
-            return currentSlide * (cardHeight * visibleCount + gap * visibleCount);
-        }
-
         function goToSlide(index, smooth = true) {
-            // Infinite loop
             if (index >= totalSlides) index = 0;
             if (index < 0) index = totalSlides - 1;
             currentSlide = index;
             const cardHeight = cards[0] ? cards[0].offsetHeight : 180;
             const gap = 16;
             const offset = currentSlide * (cardHeight * visibleCount + gap * visibleCount);
-            track.style.transition = smooth ? 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
+            track.style.transition = smooth ? `transform ${transitionDuration}` : 'none';
             track.style.transform = `translateY(-${offset}px)`;
             updateDots();
             updateActiveCards();
@@ -2916,7 +2793,6 @@ function initVerticalCarousels() {
         function next() { goToSlide(currentSlide + 1); }
         function prev() { goToSlide(currentSlide - 1); }
 
-        // --- Active card highlight ---
         function updateActiveCards() {
             cards.forEach((card, i) => {
                 card.classList.remove('is-active');
@@ -2929,15 +2805,13 @@ function initVerticalCarousels() {
 
         // --- Dots ---
         if (dotsContainer) {
+            dotsContainer.innerHTML = ''; // clear any stale dots from prior init
             dotsContainer.classList.add('vertical-dots');
             for (let i = 0; i < totalSlides; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'vdot' + (i === 0 ? ' active' : '');
                 dot.dataset.index = i;
-                dot.addEventListener('click', () => {
-                    goToSlide(i);
-                    resetAutoplay();
-                });
+                dot.addEventListener('click', () => { goToSlide(i); resetAutoplay(); });
                 dotsContainer.appendChild(dot);
             }
         }
@@ -2949,7 +2823,7 @@ function initVerticalCarousels() {
             });
         }
 
-        // --- Autoplay ---
+        // --- Autoplay (independent per viewport) ---
         function startAutoplay() {
             stopAutoplay();
             interval = setInterval(() => {
@@ -2961,23 +2835,22 @@ function initVerticalCarousels() {
         }
         function resetAutoplay() { stopAutoplay(); startAutoplay(); }
 
-        // --- Pause on hover ---
+        // --- Hover pause (only this column) ---
         viewport.addEventListener('mouseenter', () => { isPaused = true; });
         viewport.addEventListener('mouseleave', () => { isPaused = false; });
 
-        // --- Arrow buttons ---
-        if (upBtn) upBtn.addEventListener('click', () => { prev(); resetAutoplay(); });
-        if (downBtn) downBtn.addEventListener('click', () => { next(); resetAutoplay(); });
-
-        // --- Mouse wheel ---
+        // --- Mouse wheel with debounce (only this column) ---
         viewport.addEventListener('wheel', (e) => {
             e.preventDefault();
+            if (wheelLocked) return;
+            wheelLocked = true;
             if (e.deltaY > 0) next();
             else prev();
             resetAutoplay();
+            setTimeout(() => { wheelLocked = false; }, 900);
         }, { passive: false });
 
-        // --- Touch swipe ---
+        // --- Touch swipe (only this column) ---
         let touchStartY = 0;
         viewport.addEventListener('touchstart', (e) => {
             touchStartY = e.touches[0].clientY;
@@ -2994,7 +2867,7 @@ function initVerticalCarousels() {
             resetAutoplay();
         }, { passive: true });
 
-        // --- Keyboard navigation ---
+        // --- Keyboard navigation (only when focused) ---
         viewport.setAttribute('tabindex', '0');
         viewport.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp') { e.preventDefault(); prev(); resetAutoplay(); }
@@ -3006,25 +2879,20 @@ function initVerticalCarousels() {
         ageCards.forEach(card => {
             const front = card.querySelector('.age-explorer-front');
             if (!front) return;
-
-            // Remove old listeners by cloning
             const newFront = front.cloneNode(true);
             front.parentNode.replaceChild(newFront, front);
-
             newFront.addEventListener('click', () => {
                 const isExpanded = card.classList.contains('expanded');
-                // Close all in same track
                 ageCards.forEach(c => c.classList.remove('expanded'));
                 if (!isExpanded) {
                     card.classList.add('expanded');
-                    isCardExpanded = true; // Pause auto-scroll
+                    isCardExpanded = true;
                 } else {
-                    isCardExpanded = false; // Resume
+                    isCardExpanded = false;
                 }
             });
         });
 
-        // --- Init ---
         goToSlide(0, false);
         startAutoplay();
     });
@@ -3039,89 +2907,85 @@ function initJourneyTimeline() {
     if (!section) return;
 
     const milestones = Array.from(section.querySelectorAll('.journey-milestone'));
-    const cards = Array.from(section.querySelectorAll('.journey-card'));
-    const progressFill = document.getElementById('journey-progress-fill');
+    const cards      = Array.from(section.querySelectorAll('.journey-card'));
+    const progressFill   = document.getElementById('journey-progress-fill');
     const counterCurrent = document.getElementById('journey-current');
     const prevBtn = document.getElementById('journey-prev');
     const nextBtn = document.getElementById('journey-next');
-    if (milestones.length === 0) return;
+    if (!milestones.length || !cards.length) return;
 
     const totalSteps = milestones.length;
-    let currentStep = 0;
+    let currentStep = -1; // -1 forces first activate(0) to run fully
 
-    function goToStep(index) {
-        if (index < 0 || index >= totalSteps) return;
-
-        // Remove active from all
-        milestones.forEach(m => m.classList.remove('active'));
-        cards.forEach(c => {
-            c.classList.remove('active');
-            // Clear any stale GSAP inline styles
-            if (typeof gsap !== 'undefined') gsap.set(c, { clearProps: 'all' });
-        });
-
-        // Set new active using data-step attribute
+    function activate(index) {
+        if (index < 0 || index >= totalSteps || index === currentStep) return;
         currentStep = index;
-        const activeMilestone = milestones.find(m => parseInt(m.dataset.step) === index);
-        const activeCard = cards.find(c => parseInt(c.dataset.step) === index);
 
-        if (activeMilestone) activeMilestone.classList.add('active');
-        if (activeCard) {
-            activeCard.classList.add('active');
-            // GSAP reveal animation
-            if (typeof gsap !== 'undefined') {
-                gsap.fromTo(activeCard,
-                    { y: 20, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }
-                );
-            }
+        // Milestones
+        milestones.forEach((m, i) => m.classList.toggle('active', i === index));
+
+        // Exit all cards, then force a reflow so the entrance transition fires from opacity:0
+        cards.forEach(c => c.classList.remove('active'));
+        const nextCard = cards[index];
+        if (nextCard) {
+            void nextCard.offsetWidth; // flush style so transition starts from hidden state
+            nextCard.classList.add('active');
         }
 
-        // Update progress line
-        const progressPct = (currentStep / (totalSteps - 1)) * 100;
-        if (progressFill) progressFill.style.width = progressPct + '%';
-        // Update counter
-        if (counterCurrent) counterCurrent.textContent = currentStep + 1;
-        // Update button states
-        if (prevBtn) prevBtn.disabled = currentStep === 0;
-        if (nextBtn) nextBtn.disabled = currentStep === totalSteps - 1;
-        // Scroll milestone into view on mobile
-        if (activeMilestone) activeMilestone.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        // Progress bar
+        const pct = totalSteps > 1 ? (index / (totalSteps - 1)) * 100 : 100;
+        if (progressFill) progressFill.style.width = pct + '%';
+
+        // Counter
+        if (counterCurrent) counterCurrent.textContent = index + 1;
+
+        // Button states
+        if (prevBtn) prevBtn.disabled = index === 0;
+        if (nextBtn) nextBtn.disabled = index === totalSteps - 1;
+
+        // Scroll milestone into view only on small screens
+        if (milestones[index] && window.innerWidth <= 768) {
+            milestones[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
     }
 
     // Milestone clicks
-    milestones.forEach((m, i) => {
-        m.addEventListener('click', () => goToStep(i));
-    });
+    milestones.forEach((m, i) => m.addEventListener('click', () => activate(i)));
 
     // Nav buttons
-    if (prevBtn) prevBtn.addEventListener('click', () => goToStep(currentStep - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => goToStep(currentStep + 1));
+    if (prevBtn) prevBtn.addEventListener('click', () => activate(currentStep - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => activate(currentStep + 1));
 
-    // Keyboard navigation
+    // Keyboard
     section.setAttribute('tabindex', '0');
     section.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goToStep(currentStep - 1); }
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goToStep(currentStep + 1); }
+        if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    { e.preventDefault(); activate(currentStep - 1); }
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  { e.preventDefault(); activate(currentStep + 1); }
     });
 
-    // Touch swipe on milestone area
+    // Swipe on roadmap
     const roadmap = section.querySelector('.journey-roadmap');
     if (roadmap) {
         let touchStartX = 0;
-        roadmap.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-        }, { passive: true });
-        roadmap.addEventListener('touchend', (e) => {
+        roadmap.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+        roadmap.addEventListener('touchend',   (e) => {
             const delta = e.changedTouches[0].clientX - touchStartX;
-            if (Math.abs(delta) > 40) {
-                delta < 0 ? goToStep(currentStep + 1) : goToStep(currentStep - 1);
-            }
+            if (Math.abs(delta) > 40) activate(delta < 0 ? currentStep + 1 : currentStep - 1);
         }, { passive: true });
     }
 
-    // Initialize first step
-    goToStep(0);
+    // Swipe on detail cards area too
+    const detailCards = section.querySelector('.journey-detail-cards');
+    if (detailCards) {
+        let touchStartX = 0;
+        detailCards.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+        detailCards.addEventListener('touchend',   (e) => {
+            const delta = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(delta) > 40) activate(delta < 0 ? currentStep + 1 : currentStep - 1);
+        }, { passive: true });
+    }
+
+    activate(0);
 }
 
 
@@ -3152,14 +3016,14 @@ function initJourneyTimeline() {
     const activeWrappers = document.querySelectorAll('.alumni-card-wrapper');
     const facultyDOMNodes = Array.from(activeWrappers).map(wrapper => {
         return {
-            wrapper: wrapper,
-            cycleNode: wrapper.querySelector('.alumni-cycle-animator') || wrapper, // Decoupled transitional boundary
-            img: wrapper.querySelector('img'),
-            badge: wrapper.querySelector('.rank-badge'),
-            name: wrapper.querySelector('.alumni-info h3'),
-            role: wrapper.querySelector('.exam-name'),
-            icon: wrapper.querySelector('.dest-icon'),
-            desc: wrapper.querySelector('.placement-dest span:last-child')
+            wrapper:   wrapper,
+            cycleNode: wrapper.querySelector('.alumni-cycle-animator') || wrapper,
+            img:       wrapper.querySelector('img'),
+            badge:     wrapper.querySelector('.rank-badge'),
+            name:      wrapper.querySelector('.alumni-text-overlay h3') || wrapper.querySelector('h3'),
+            role:      wrapper.querySelector('.exam-name'),
+            icon:      wrapper.querySelector('.dest-icon'),
+            desc:      wrapper.querySelector('.placement-dest span:last-child')
         };
     });
 

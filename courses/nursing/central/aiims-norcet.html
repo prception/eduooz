@@ -254,12 +254,7 @@
                 <h2 class="section-title">AIIMS NORCET Exam <span class="text-gradient">Snapshot.</span></h2>
             </div>
 
-            <!-- PREMIUM HORIZONTAL CAROUSEL -->
-            <div class="snap-carousel" id="snap-carousel">
-                
-                <div class="snap-carousel-viewport">
-                <div class="snapshot-marquee-track">
-                    <!-- Original cards -->
+            <div class="snapshot-grid">
                     <div class="snapshot-card">
                         <div class="snap-icon"><i class="fa-solid fa-building-columns"></i></div>
                         <div class="snap-label">Conducted By</div>
@@ -315,12 +310,6 @@
                         <div class="snap-label">Official Website</div>
                         <div class="snap-value"><a href="http://www.aiims.edu" target="_blank">www.aiims.edu</a> / AIIMS NORCET Portal</div>
                     </div>
-                </div>
-                <div class="snap-carousel-controls">
-                    <button class="snap-arrow snap-arrow-left" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
-                    <div class="snap-carousel-dots" id="snap-dots"></div>
-                    <button class="snap-arrow snap-arrow-right" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
-                </div>
             </div>
         </div>
     </section>
@@ -421,7 +410,7 @@
         </div>
     </section>
 
-    <!-- SECTION 5+7 MERGED: ELIGIBILITY & AGE RELAXATION SPLIT -->
+    <!-- SECTION 5  ELIGIBILITY & AGE RELAXATION SPLIT -->
     <section class="elig-age-split-section" id="eligibility">
         <div class="container">
             <div class="text-center">
@@ -438,15 +427,10 @@
                 <!-- LEFT COLUMN: Eligibility Criteria -->
                 <div class="split-column" id="elig-carousel-col">
                     <div class="split-col-header content-right">
-                        <div class="vcarousel-controls">
-                            <button class="vc-arrow vc-up" data-target="elig-vcarousel"><i class="fa-solid fa-chevron-up"></i></button>
-                            <button class="vc-arrow vc-down" data-target="elig-vcarousel"><i class="fa-solid fa-chevron-down"></i></button>
-                        </div>
-                        <div class="split-col-badge "><i class="fa-solid fa-user-check"></i> Eligibility Explorer</div>
-
+                        <div class="split-col-badge"><i class="fa-solid fa-user-check"></i> Eligibility Explorer</div>
                     </div>
                     <div class="vcarousel-wrapper">
-                        <div class="vcarousel-viewport" id="elig-vcarousel" data-autoplay="4000">
+                        <div class="vcarousel-viewport" id="elig-vcarousel" data-autoplay="8000">
                             <div class="vcarousel-track">
                             <div class="elig-card">
                                 <div class="elig-icon"><i class="fa-solid fa-graduation-cap"></i></div>
@@ -492,14 +476,10 @@
                 <!-- RIGHT COLUMN: Age Relaxation -->
                 <div class="split-column" id="age-carousel-col">
                     <div class="split-col-header content-left">
-                        <div class="split-col-badge "><i class="fa-solid fa-hourglass-half"></i> Age Relaxation Guide</div>
-                        <div class="vcarousel-controls">
-                            <button class="vc-arrow vc-up" data-target="age-vcarousel"><i class="fa-solid fa-chevron-up"></i></button>
-                            <button class="vc-arrow vc-down" data-target="age-vcarousel"><i class="fa-solid fa-chevron-down"></i></button>
-                        </div>
+                        <div class="split-col-badge"><i class="fa-solid fa-hourglass-half"></i> Age Relaxation Guide</div>
                     </div>
                     <div class="vcarousel-wrapper">
-                        <div class="vcarousel-viewport" id="age-vcarousel" data-autoplay="5000">
+                        <div class="vcarousel-viewport" id="age-vcarousel" data-autoplay="9000">
                             <div class="vcarousel-track">
                             <div class="age-explorer-card">
                                 <div class="age-explorer-front">
@@ -664,81 +644,115 @@
                 <div class="section-label"><span class="label-dot"></span> Complete Curriculum</div>
                 <h2 class="section-title">Official Exam <span class="text-gradient">Syllabus.</span></h2>
             </div>
-           
-            <div class="syllabus-subjects-grid" id="syllabus-grid">
-                <div class="subject-card g-exam-reveal" data-subject="nursing-foundations">
-                    <i class="fa-solid fa-book"></i>
-                    <h4>General Awareness</h4>
-                    <ul class="syllabus-list"></ul>
-                    <ul class="syllabus-list">
-                        <li><i class="fa-solid fa-chevron-right"></i> Indian Current Affairs</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Indian Politics</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Indian Rivers</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Lakes & Seas</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Indian History</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Indian Famous Places</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Indian Parliament</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> General Sciences</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Indian Tourism</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Indian Sports (Latest Updates)</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Indian Artists, Countries, Capitals, and Civics</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Famous Authors and Books</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> National and International News Updates</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Inventions and Discoveries</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Famous Dates and Days</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Indian Environmental Issues</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Latest General Knowledge</li>
-                    </ul>
+
+            <!-- Tab Navigation -->
+            <div class="syllabus-tabs-nav" role="tablist" aria-label="Syllabus subjects">
+                <button class="syl-tab active" role="tab" aria-selected="true" id="syl-tab-awareness" aria-controls="syl-panel-awareness" data-tab="awareness">
+                    <span class="syl-tab-icon"><i class="fa-solid fa-book"></i></span>
+                    <span class="syl-tab-label">General Awareness</span>
+                </button>
+                <button class="syl-tab" role="tab" aria-selected="false" id="syl-tab-aptitude" aria-controls="syl-panel-aptitude" data-tab="aptitude">
+                    <span class="syl-tab-icon"><i class="fa-solid fa-calculator"></i></span>
+                    <span class="syl-tab-label">Aptitude Test</span>
+                </button>
+                <button class="syl-tab" role="tab" aria-selected="false" id="syl-tab-nursing" aria-controls="syl-panel-nursing" data-tab="nursing">
+                    <span class="syl-tab-icon"><i class="fa-solid fa-hospital"></i></span>
+                    <span class="syl-tab-label">Nursing</span>
+                </button>
             </div>
 
-                <div class="subject-card g-exam-reveal" data-subject="aptitude-test">
-                    <i class="fa-solid fa-calculator"></i>
-                    <h4>Aptitude Test</h4>
-                    <ul class="syllabus-list">
-                        <li><i class="fa-solid fa-chevron-right"></i> Number System</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Percentage</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Time and Distance</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Time and Work</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Profit and Loss</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Simple Interest</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Compound Interest</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Permutation and Combination</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Ratio and Proportion</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Mixture and Alligation</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Height and Distance</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> 2D and 3D</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Trains and Distance</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Boat and Stream</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Problem on Ages</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Discount</li>
-                    </ul>
+            <!-- Tab Panels -->
+            <div class="syllabus-tab-panels">
+
+                <!-- General Awareness -->
+                <div class="syl-panel active" id="syl-panel-awareness" role="tabpanel" aria-labelledby="syl-tab-awareness">
+                    <div class="syl-panel-inner">
+                        <div class="syl-panel-lists">
+                            <ul class="syllabus-list">
+                                <li><i class="fa-solid fa-chevron-right"></i> Indian Current Affairs</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Indian Politics</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Indian Rivers</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Lakes &amp; Seas</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Indian History</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Indian Famous Places</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Indian Parliament</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> General Sciences</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Indian Tourism</li>
+                            </ul>
+                            <ul class="syllabus-list">
+                                <li><i class="fa-solid fa-chevron-right"></i> Indian Sports (Latest Updates)</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Indian Artists, Countries, Capitals, and Civics</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Famous Authors and Books</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> National and International News Updates</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Inventions and Discoveries</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Famous Dates and Days</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Indian Environmental Issues</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Latest General Knowledge</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="subject-card g-exam-reveal" data-subject="nursing">
-                    <i class="fa-solid fa-hospital"></i>
-                    <h4>Nursing</h4>
-                    <ul class="syllabus-list">
-                        <li><i class="fa-solid fa-chevron-right"></i> Human Anatomy & Physiology</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Hospital & Clinical Pharmacy</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Community Health</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Nursing Midwifery & Gynecological Nursing</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Health Education & Community Pharmacy</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Microbiology</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Environmental Hygiene</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Drug Store Management</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Biochemistry</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Pharmaceutical</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Psychology</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Toxicology</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Basic Information of Nursing Subject</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Fundamental of Nursing</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Medical Surgical Nursing</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Mental Health</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Biochemistry</li>
-                        <li><i class="fa-solid fa-chevron-right"></i> Nursing Management</li>
-                    </ul>
-            </div>
-            <div class="syllabus-subjects-grid" id="syllabus-grid"></div>
+                <!-- Aptitude Test -->
+                <div class="syl-panel" id="syl-panel-aptitude" role="tabpanel" aria-labelledby="syl-tab-aptitude">
+                    <div class="syl-panel-inner">
+                        <div class="syl-panel-lists">
+                            <ul class="syllabus-list">
+                                <li><i class="fa-solid fa-chevron-right"></i> Number System</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Percentage</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Time and Distance</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Time and Work</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Profit and Loss</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Simple Interest</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Compound Interest</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Permutation and Combination</li>
+                            </ul>
+                            <ul class="syllabus-list">
+                                <li><i class="fa-solid fa-chevron-right"></i> Ratio and Proportion</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Mixture and Alligation</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Height and Distance</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> 2D and 3D</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Trains and Distance</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Boat and Stream</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Problem on Ages</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Discount</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nursing -->
+                <div class="syl-panel" id="syl-panel-nursing" role="tabpanel" aria-labelledby="syl-tab-nursing">
+                    <div class="syl-panel-inner">
+                        <div class="syl-panel-lists">
+                            <ul class="syllabus-list">
+                                <li><i class="fa-solid fa-chevron-right"></i> Human Anatomy &amp; Physiology</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Hospital &amp; Clinical Pharmacy</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Community Health</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Nursing Midwifery &amp; Gynecological Nursing</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Health Education &amp; Community Pharmacy</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Microbiology</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Environmental Hygiene</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Drug Store Management</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Biochemistry</li>
+                            </ul>
+                            <ul class="syllabus-list">
+                                <li><i class="fa-solid fa-chevron-right"></i> Pharmaceutical</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Psychology</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Toxicology</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Basic Information of Nursing Subject</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Fundamental of Nursing</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Medical Surgical Nursing</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Mental Health</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Biochemistry</li>
+                                <li><i class="fa-solid fa-chevron-right"></i> Nursing Management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /syllabus-tab-panels -->
+
             <div class="text-center">
                 <a href="" class="btn-download-syllabus g-exam-reveal">
                     <i class="fa-solid fa-download"></i> Download Official Syllabus PDF
@@ -755,30 +769,75 @@
                 <h2 class="section-title">How To <span class="text-gradient">Prepare.</span></h2>
             </div>
             <div class="prepare-timeline" id="prepare-timeline">
-                <div class="prepare-step g-exam-reveal" data-step="01">
-                    <h4>Understand the Exam Pattern and Syllabus</h4>
-                    <p>Begin by thoroughly studying the AIIMS NORCET exam pattern — 200 MCQs in 90 minutes with 1/3rd negative marking. Map out subject-wise weightage and identify high-yield areas. Download the official syllabus and create a structured study plan covering all 6 major nursing subjects.</p>
-                    <span class="step-duration"><i class="fa-regular fa-clock"></i> Week 1-2</span>
+                <div class="prepare-step g-exam-reveal" data-step="01" tabindex="0" aria-expanded="false">
+                    <div class="prepare-step-header">
+                        <h4>Understand the Exam Pattern and Syllabus</h4>
+                        <div class="prepare-step-meta">
+                            <span class="step-duration"><i class="fa-regular fa-clock"></i> Week 1-2</span>
+                            <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                    </div>
+                    <div class="prepare-step-body">
+                        <div class="prepare-step-body-inner">
+                            <p>Begin by thoroughly studying the AIIMS NORCET exam pattern — 200 MCQs in 90 minutes with 1/3rd negative marking. Map out subject-wise weightage and identify high-yield areas. Download the official syllabus and create a structured study plan covering all 6 major nursing subjects.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="prepare-step g-exam-reveal" data-step="02">
-                    <h4>Focus on Core Nursing Subjects</h4>
-                    <p>Dedicate focused study time to Medical-Surgical Nursing, Community Health Nursing, OBG, Pediatrics, Mental Health Nursing, and Nursing Foundations. Use clinical case-based learning, visual aids, and mnemonics for better retention of complex concepts. Prioritize topics that appear repeatedly in previous papers.</p>
-                    <span class="step-duration"><i class="fa-regular fa-clock"></i> Weeks 3-10</span>
+                <div class="prepare-step g-exam-reveal" data-step="02" tabindex="0" aria-expanded="false">
+                    <div class="prepare-step-header">
+                        <h4>Focus on Core Nursing Subjects</h4>
+                        <div class="prepare-step-meta">
+                            <span class="step-duration"><i class="fa-regular fa-clock"></i> Weeks 3-10</span>
+                            <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                    </div>
+                    <div class="prepare-step-body">
+                        <div class="prepare-step-body-inner">
+                            <p>Dedicate focused study time to Medical-Surgical Nursing, Community Health Nursing, OBG, Pediatrics, Mental Health Nursing, and Nursing Foundations. Use clinical case-based learning, visual aids, and mnemonics for better retention of complex concepts. Prioritize topics that appear repeatedly in previous papers.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="prepare-step g-exam-reveal" data-step="03">
-                    <h4>Practice Mock Tests and Previous Papers</h4>
-                    <p>Solve at least 5 years of previous AIIMS NORCET papers to understand question trends, difficulty levels, and frequently tested topics. Take full-length CBT mock tests under timed conditions to build exam stamina and improve time management skills.</p>
-                    <span class="step-duration"><i class="fa-regular fa-clock"></i> Weeks 11-16</span>
+                <div class="prepare-step g-exam-reveal" data-step="03" tabindex="0" aria-expanded="false">
+                    <div class="prepare-step-header">
+                        <h4>Practice Mock Tests and Previous Papers</h4>
+                        <div class="prepare-step-meta">
+                            <span class="step-duration"><i class="fa-regular fa-clock"></i> Weeks 11-16</span>
+                            <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                    </div>
+                    <div class="prepare-step-body">
+                        <div class="prepare-step-body-inner">
+                            <p>Solve at least 5 years of previous AIIMS NORCET papers to understand question trends, difficulty levels, and frequently tested topics. Take full-length CBT mock tests under timed conditions to build exam stamina and improve time management skills.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="prepare-step g-exam-reveal" data-step="04">
-                    <h4>Review Regularly and Reinforce Key Concepts</h4>
-                    <p>Schedule periodic revision sessions to reinforce learned concepts. Use flashcards, quick revision notes, and spaced repetition techniques. Analyze your mock test performance to identify weak areas and allocate extra revision time to those subjects.</p>
-                    <span class="step-duration"><i class="fa-regular fa-clock"></i> Weeks 17-20</span>
+                <div class="prepare-step g-exam-reveal" data-step="04" tabindex="0" aria-expanded="false">
+                    <div class="prepare-step-header">
+                        <h4>Review Regularly and Reinforce Key Concepts</h4>
+                        <div class="prepare-step-meta">
+                            <span class="step-duration"><i class="fa-regular fa-clock"></i> Weeks 17-20</span>
+                            <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                    </div>
+                    <div class="prepare-step-body">
+                        <div class="prepare-step-body-inner">
+                            <p>Schedule periodic revision sessions to reinforce learned concepts. Use flashcards, quick revision notes, and spaced repetition techniques. Analyze your mock test performance to identify weak areas and allocate extra revision time to those subjects.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="prepare-step g-exam-reveal" data-step="05">
-                    <h4>Get Expert Guidance and Mentorship</h4>
-                    <p>Join a structured coaching program with experienced NORCET-qualified faculty. Leverage 1-on-1 mentorship for personalized strategy sessions, doubt clearing, and performance analysis. An expert mentor can help you optimize your preparation in the final crucial weeks.</p>
-                    <span class="step-duration"><i class="fa-regular fa-clock"></i> Throughout Preparation</span>
+                <div class="prepare-step g-exam-reveal" data-step="05" tabindex="0" aria-expanded="false">
+                    <div class="prepare-step-header">
+                        <h4>Get Expert Guidance and Mentorship</h4>
+                        <div class="prepare-step-meta">
+                            <span class="step-duration"><i class="fa-regular fa-clock"></i> Throughout Preparation</span>
+                            <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                    </div>
+                    <div class="prepare-step-body">
+                        <div class="prepare-step-body-inner">
+                            <p>Join a structured coaching program with experienced NORCET-qualified faculty. Leverage 1-on-1 mentorship for personalized strategy sessions, doubt clearing, and performance analysis. An expert mentor can help you optimize your preparation in the final crucial weeks.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1081,7 +1140,7 @@
                         </div>
                         <div class="mts-welcome-badge">AIIMS NORCET</div>
                         <h3 class="mts-welcome-title">Full Length Mock Test</h3>
-                        <p class="mts-welcome-sub">Simulates the real CBT exam environment. Sections unlock sequentially.</p>
+                        <p class="mts-welcome-sub">Jump between sections freely — practice at your own pace.</p>
                         <div class="mts-welcome-meta">
                             <div class="mts-meta-item"><i class="fa-solid fa-layer-group"></i><strong>5</strong><span>Sections</span></div>
                             <div class="mts-meta-div"></div>
@@ -1103,27 +1162,22 @@
                                 <button class="mts-cat-card mts-cat-active" data-cat="0" style="--cat-color:#ef4444">
                                     <i class="fa-solid fa-heart-pulse"></i>
                                     <span class="mts-cat-name">Cardiology</span>
-                                    <span class="mts-cat-count">5 Sections · 125 Qs</span>
                                 </button>
                                 <button class="mts-cat-card" data-cat="1" style="--cat-color:#8b5cf6">
                                     <i class="fa-solid fa-brain"></i>
                                     <span class="mts-cat-name">CNS</span>
-                                    <span class="mts-cat-count">5 Sections · 125 Qs</span>
                                 </button>
                                 <button class="mts-cat-card" data-cat="2" style="--cat-color:#f59e0b">
                                     <i class="fa-solid fa-utensils"></i>
                                     <span class="mts-cat-name">GI System</span>
-                                    <span class="mts-cat-count">5 Sections · 125 Qs</span>
                                 </button>
                                 <button class="mts-cat-card" data-cat="3" style="--cat-color:#10b981">
                                     <i class="fa-solid fa-bone"></i>
                                     <span class="mts-cat-name">Musculo Skeletal</span>
-                                    <span class="mts-cat-count">5 Sections · 125 Qs</span>
                                 </button>
                                 <button class="mts-cat-card" data-cat="4" style="--cat-color:#06b6d4">
                                     <i class="fa-solid fa-lungs"></i>
                                     <span class="mts-cat-name">Respiratory</span>
-                                    <span class="mts-cat-count">5 Sections · 125 Qs</span>
                                 </button>
                             </div>
                         </div>
@@ -1135,57 +1189,6 @@
 
                     <!-- SCREEN 2: EXAM INTERFACE -->
                     <div class="mts-screen mts-exam-screen mts-hidden" id="mts-exam">
-
-                        <!-- Section Tabs -->
-                        <div class="mts-tabs-bar" id="mts-tabs-bar">
-                            <div class="mts-tabs-scroll" id="mts-tabs-scroll">
-                                <!-- built by JS -->
-                            </div>
-                            <button class="mts-switch-cat-btn" id="mts-switch-cat-btn" title="Switch Category">
-                                <i class="fa-solid fa-shuffle"></i> Category
-                            </button>
-                            <button class="mts-exit-btn" id="mts-exit-btn" title="Exit Test">
-                                <i class="fa-solid fa-xmark"></i> Exit
-                            </button>
-                        </div>
-
-                        <!-- Category switcher modal -->
-                        <div class="mts-cat-modal mts-hidden" id="mts-cat-modal">
-                            <div class="mts-cat-modal-box">
-                                <div class="mts-cat-modal-header">
-                                    <h3 class="mts-cat-modal-title">Switch Category</h3>
-                                    <button class="mts-cat-modal-close" id="mts-cat-modal-close"><i class="fa-solid fa-xmark"></i></button>
-                                </div>
-                                <p class="mts-cat-modal-sub">Current progress will be reset. Select a category to start fresh.</p>
-                                <div class="mts-cat-modal-grid">
-                                    <button class="mts-cat-modal-card" data-cat="0" style="--cat-color:#ef4444">
-                                        <i class="fa-solid fa-heart-pulse"></i>
-                                        <span>Cardiology</span>
-                                        <span class="mts-cat-modal-count">125 Qs</span>
-                                    </button>
-                                    <button class="mts-cat-modal-card" data-cat="1" style="--cat-color:#8b5cf6">
-                                        <i class="fa-solid fa-brain"></i>
-                                        <span>CNS</span>
-                                        <span class="mts-cat-modal-count">125 Qs</span>
-                                    </button>
-                                    <button class="mts-cat-modal-card" data-cat="2" style="--cat-color:#f59e0b">
-                                        <i class="fa-solid fa-utensils"></i>
-                                        <span>GI System</span>
-                                        <span class="mts-cat-modal-count">125 Qs</span>
-                                    </button>
-                                    <button class="mts-cat-modal-card" data-cat="3" style="--cat-color:#10b981">
-                                        <i class="fa-solid fa-bone"></i>
-                                        <span>Musculo Skeletal</span>
-                                        <span class="mts-cat-modal-count">125 Qs</span>
-                                    </button>
-                                    <button class="mts-cat-modal-card" data-cat="4" style="--cat-color:#06b6d4">
-                                        <i class="fa-solid fa-lungs"></i>
-                                        <span>Respiratory</span>
-                                        <span class="mts-cat-modal-count">125 Qs</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- Exit confirm modal -->
                         <div class="mts-exit-modal mts-hidden" id="mts-exit-modal">
@@ -1200,65 +1203,98 @@
                             </div>
                         </div>
 
+                        <!-- Category switch confirmation modal -->
+                        <div class="mts-exit-modal mts-hidden" id="mts-cat-confirm-modal">
+                            <div class="mts-exit-modal-box">
+                                <div class="mts-exit-modal-icon" style="background:rgba(6,182,212,0.1);color:#06b6d4"><i class="fa-solid fa-shuffle"></i></div>
+                                <h3 class="mts-exit-modal-title">Switch Category?</h3>
+                                <p class="mts-exit-modal-msg">Switching category will reset your current progress. Continue?</p>
+                                <div class="mts-exit-modal-actions">
+                                    <button class="mts-exit-cancel-btn" id="mts-cat-cancel-btn">Cancel</button>
+                                    <button class="mts-exit-confirm-btn" id="mts-cat-confirm-btn" style="background:linear-gradient(135deg,#06b6d4,#0891b2);box-shadow:0 4px 14px rgba(6,182,212,0.3)">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Body -->
                         <div class="mts-exam-body">
 
-                            <!-- LEFT: Question panel -->
-                            <div class="mts-q-panel">
+                            <!-- LEFT NAV: Category navigation -->
+                            <nav class="mts-left-nav" id="mts-left-nav">
+                                <div class="mts-left-nav-title"><i class="fa-solid fa-layer-group"></i> Category</div>
+                                <div id="mts-cat-nav"><!-- built by JS --></div>
+                            </nav>
 
-                                <!-- Progress header -->
-                                <div class="mts-q-header">
-                                    <div class="mts-q-progress-info">
-                                        <span class="mts-q-counter" id="mts-q-counter">Question 1 of 25</span>
-                                        <span class="mts-section-badge" id="mts-section-badge">Section 1</span>
+                            <!-- RIGHT AREA: tabs row + content row -->
+                            <div class="mts-exam-right-area">
+
+                                <!-- Row 1: Section tabs + Exit button -->
+                                <div class="mts-section-tabs-bar">
+                                    <div id="mts-tabs-scroll"><!-- built by JS --></div>
+                                    <button class="mts-exit-btn" id="mts-exit-btn" title="Exit Test">
+                                        <i class="fa-solid fa-xmark"></i> Exit Test
+                                    </button>
+                                </div>
+
+                                <!-- Row 2: Question panel + Score panel -->
+                                <div class="mts-exam-content">
+
+                                    <!-- Question panel -->
+                                    <div class="mts-q-panel">
+
+                                        <!-- Progress header -->
+                                        <div class="mts-q-header">
+                                            <div class="mts-q-progress-info">
+                                                <span class="mts-q-counter" id="mts-q-counter">Question 1 of 25</span>
+                                                <span class="mts-section-badge" id="mts-section-badge">Section 1</span>
+                                            </div>
+                                            <div class="mts-progress-track">
+                                                <div class="mts-progress-fill" id="mts-progress-fill" style="width:0%"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Question card -->
+                                        <div class="mts-question-card" id="mts-question-card">
+                                            <p class="mts-q-num" id="mts-q-num">Q1.</p>
+                                            <p class="mts-q-text" id="mts-q-text"></p>
+                                            <div class="mts-options" id="mts-options"></div>
+                                            <button class="mts-submit-btn" id="mts-submit-btn">
+                                                <i class="fa-solid fa-paper-plane"></i> Submit Answer
+                                            </button>
+                                        </div>
+
+                                        <!-- Feedback card (shown after submit) -->
+                                        <div class="mts-feedback-card mts-hidden" id="mts-feedback-card">
+                                            <div class="mts-feedback-result" id="mts-feedback-result"></div>
+                                            <div class="mts-feedback-answer mts-hidden" id="mts-correct-reveal"></div>
+                                            <div class="mts-explanation" id="mts-explanation"></div>
+                                        </div>
+
+                                        <!-- Navigation -->
+                                        <div class="mts-nav-bar mts-hidden" id="mts-nav-bar">
+                                            <button class="mts-nav-btn mts-btn-ghost" id="mts-prev-btn">
+                                                <i class="fa-solid fa-chevron-left"></i> Previous
+                                            </button>
+                                            <div class="mts-nav-center" id="mts-nav-center"></div>
+                                            <button class="mts-nav-btn mts-btn-cyan" id="mts-next-btn">
+                                                Next <i class="fa-solid fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Section complete card -->
+                                        <div class="mts-section-done mts-hidden" id="mts-section-done">
+                                            <div class="mts-done-icon"><i class="fa-solid fa-circle-check"></i></div>
+                                            <h3 class="mts-done-title" id="mts-done-title">Section 1 Completed!</h3>
+                                            <div class="mts-done-stats" id="mts-done-stats"></div>
+                                            <button class="mts-next-section-btn" id="mts-next-section-btn">
+                                                Go to Section 2 <i class="fa-solid fa-arrow-right"></i>
+                                            </button>
+                                        </div>
+
                                     </div>
-                                    <div class="mts-progress-track">
-                                        <div class="mts-progress-fill" id="mts-progress-fill" style="width:0%"></div>
-                                    </div>
-                                </div>
 
-                                <!-- Question card -->
-                                <div class="mts-question-card" id="mts-question-card">
-                                    <p class="mts-q-num" id="mts-q-num">Q1.</p>
-                                    <p class="mts-q-text" id="mts-q-text"></p>
-                                    <div class="mts-options" id="mts-options"></div>
-                                    <button class="mts-submit-btn" id="mts-submit-btn">
-                                        <i class="fa-solid fa-paper-plane"></i> Submit Answer
-                                    </button>
-                                </div>
-
-                                <!-- Feedback card (shown after submit) -->
-                                <div class="mts-feedback-card mts-hidden" id="mts-feedback-card">
-                                    <div class="mts-feedback-result" id="mts-feedback-result"></div>
-                                    <div class="mts-feedback-answer mts-hidden" id="mts-correct-reveal"></div>
-                                    <div class="mts-explanation" id="mts-explanation"></div>
-                                </div>
-
-                                <!-- Navigation -->
-                                <div class="mts-nav-bar mts-hidden" id="mts-nav-bar">
-                                    <button class="mts-nav-btn mts-btn-ghost" id="mts-prev-btn">
-                                        <i class="fa-solid fa-chevron-left"></i> Previous
-                                    </button>
-                                    <div class="mts-nav-center" id="mts-nav-center"></div>
-                                    <button class="mts-nav-btn mts-btn-cyan" id="mts-next-btn">
-                                        Next <i class="fa-solid fa-chevron-right"></i>
-                                    </button>
-                                </div>
-
-                                <!-- Section complete card -->
-                                <div class="mts-section-done mts-hidden" id="mts-section-done">
-                                    <div class="mts-done-icon"><i class="fa-solid fa-circle-check"></i></div>
-                                    <h3 class="mts-done-title" id="mts-done-title">Section 1 Completed!</h3>
-                                    <div class="mts-done-stats" id="mts-done-stats"></div>
-                                    <button class="mts-next-section-btn" id="mts-next-section-btn">
-                                        Go to Section 2 <i class="fa-solid fa-arrow-right"></i>
-                                    </button>
-                                </div>
-
-                            </div>
-
-                            <!-- RIGHT: Score panel -->
-                            <div class="mts-score-panel" id="mts-score-panel">
+                                    <!-- Score panel -->
+                                    <div class="mts-score-panel" id="mts-score-panel">
                                 <div class="mts-score-title">Live Score</div>
                                 <div class="mts-score-section-label" id="mts-score-section">Section 1</div>
                                 <div class="mts-score-grid">
@@ -1292,13 +1328,16 @@
                                         <div class="mts-acc-fill" id="sc-acc-fill" style="width:0%"></div>
                                     </div>
                                 </div>
-                                <div class="mts-sections-mini" id="mts-sections-mini">
-                                    <!-- section summary rows built by JS -->
-                                </div>
-                            </div>
+                                    <div class="mts-sections-mini" id="mts-sections-mini">
+                                        <!-- section summary rows built by JS -->
+                                    </div>
+                                </div><!-- /mts-score-panel -->
 
-                        </div>
-                    </div>
+                                </div><!-- /mts-exam-content -->
+                            </div><!-- /mts-exam-right-area -->
+
+                        </div><!-- /mts-exam-body -->
+                    </div><!-- /mts-exam-screen -->
 
                     <!-- SCREEN 3: FINAL RESULTS -->
                     <div class="mts-screen mts-results-screen mts-hidden" id="mts-results">
@@ -1757,8 +1796,6 @@
 
 
 
-
-
     <!-- SECTION 17: RELATED RESOURCES -->
     <section class="resources-section" id="resources">
         <div class="container">
@@ -1784,12 +1821,12 @@
                     <span class="glowing-dot-cyan"></span> Clarity & Transparency
                 </div>
                 
-                <h2 class="faq-title">
+                <h2 class="section-title">
                     Everything you
-                    <span class="text-italic-cyan">need to know.</span>
+                    <span class="text-gradient">need to know.</span>
                 </h2>
                 
-                <p class="faq-subtitle mx-auto">
+                <p class="fac-section-sub mx-auto">
                     From curriculum specifics to international placement assistance, find the answers to your most pressing questions.
                 </p>
             </div>
