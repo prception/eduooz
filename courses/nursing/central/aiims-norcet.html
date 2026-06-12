@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
     <script src="../../../assets/js/course-landing.js" defer></script>
 
-    <!-- â•â•â• PREMIUM APP SHOWCASE â€” STYLES â•â•â• -->
+    <!--PREMIUM APP SHOWCASE STYLES-->
     <style>
       /* â”€â”€ Section shell â€” LIGHT THEME â”€â”€ */
       .pas-section {
@@ -5341,7 +5341,7 @@
       <i class="fa-solid fa-arrow-up"></i>
     </button>
 
-    <!-- â•â•â• PREMIUM APP SHOWCASE â€” SCRIPT â•â•â• -->
+    <!-- PREMIUM APP SHOWCASE  SCRIPT -->
     <script>
       (function pasInit() {
         "use strict";
@@ -5351,9 +5351,7 @@
           "(prefers-reduced-motion: reduce)",
         ).matches;
 
-        /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-           1. SCREEN CAROUSEL
-        â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        /* 1. SCREEN CAROUSEL */
         var slides = Array.prototype.slice.call(
           document.querySelectorAll(".pas-slide"),
         );
@@ -5395,9 +5393,7 @@
           }
         }
 
-        /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-           2. NOTIFICATION QUEUE
-        â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        /* 2. NOTIFICATION QUEUE */
         var notifications = [
           {
             icon: "fa-check-circle",
@@ -5529,15 +5525,13 @@
           });
         }
 
-        /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-           3b. MOUSE EFFECTS: spotlight Â· rim light Â· scale lift
-        â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        /*  3b. MOUSE EFFECTS: spotlight Â· rim light Â· scale lift */
         (function () {
           if (!phoneScene || !phoneFrame || prefersReduced) return;
 
           var phoneScreenEl = phoneFrame.querySelector(".pas-screen");
 
-          /* â”€â”€ Spotlight overlay injected into the screen â”€â”€ */
+          /*  Spotlight overlay injected into the screen  */
           var spotlight = document.createElement("div");
           spotlight.style.cssText =
             "position:absolute;inset:0;border-radius:44px;" +
@@ -5624,7 +5618,7 @@
             if (!efxRaf) efxRaf = requestAnimationFrame(efxTick);
           });
 
-          /* mouseenter â€” show effects, scale lift */
+          /* mouseenter  show effects, scale lift */
           phoneScene.addEventListener("mouseenter", function () {
             isOver = true;
             spotlight.style.opacity = "1";
@@ -5662,9 +5656,7 @@
           });
         })();
 
-        /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-           4. FEATURE CARD â†’ SWITCH SCREEN
-        â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        /* 4. FEATURE CARD â†’ SWITCH SCREEN */
         var featureCards = Array.prototype.slice.call(
           document.querySelectorAll(".pas-feature-card"),
         );
@@ -5683,9 +5675,7 @@
           });
         });
 
-        /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-           5. INTERSECTION OBSERVER â€” entrance + stats
-        â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        /* 5. INTERSECTION OBSERVER â€” entrance + stats  */
         var statsAnimated = false;
 
         function animateStats() {
