@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(sort)",
+      "PowerShell(uniq -d)",
+      "Read(//c/Users/acer/.claude/projects/d--Eduooz-eduooz/0dd0a8c9-2f34-4897-8db9-eddac62c4230/**)",
+      "PowerShell(& \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\Temp\\\\write_cns.ps1\")",
+      "PowerShell(& \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\Temp\\\\splice_cns.ps1\")",
+      "PowerShell(& \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\Temp\\\\do_splice.ps1\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\acer\\AppData\\Local\\Temp"
+    ]
+  }
+}
