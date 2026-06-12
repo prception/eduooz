@@ -99,3 +99,14 @@ JLA
 
 CRE
 RRB
+
+
+
+
+question and answer updation
+
+How to Add the Next Exam Type
+
+Create components/question-banks/<key>.html — copy nursing-central.html, replace the question array
+On the course page: add data-question-bank="<key>" to #mts-wrapper and the same two script tags
+No changes to practice-test.js, course-landing.js, or any CSS
