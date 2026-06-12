@@ -3652,3 +3652,1002 @@ function initJourneyTimeline() {
         y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out",
         clearProps: "filter,transform"
     });
+
+
+/* ==========================================================
+   VFC TILT 3D — Vital Feature Card 3D Hover
+   ========================================================== */
+      (function vfcTilt3D() {
+        "use strict";
+
+        function init() {
+          var card = document.getElementById("vital-card");
+          if (!card) return;
+
+          /* â”€â”€ Perspective container â”€â”€ */
+          var wrapper = card.closest(".course-vital-wrapper");
+          if (wrapper) {
+            wrapper.style.perspective = "1200px";
+            wrapper.style.perspectiveOrigin = "50% 40%";
+          }
+          card.style.transformStyle = "preserve-3d";
+          card.style.willChange = "transform";
+          card.style.transition = "none";
+
+          /* â”€â”€ Enable preserve-3d on the feature card chain â”€â”€ */
+          [".vfc-grid-wrap", ".vfc-slide", ".vfc-card-grid"].forEach(
+            function (sel) {
+              var el = card.querySelector(sel);
+              if (el) {
+                el.style.transformStyle = "preserve-3d";
+              }
+            },
+          );
+
+          /* â”€â”€ Moving light reflection overlay â”€â”€ */
+          var light = document.createElement("div");
+          light.style.cssText = [
+            "position:absolute",
+            "inset:0",
+            "border-radius:inherit",
+            "pointer-events:none",
+            "z-index:200",
+            "opacity:0",
+            "transition:opacity 0.35s ease",
+            "background:radial-gradient(circle at 50% 50%,rgba(255,255,255,0.14) 0%,rgba(255,255,255,0.05) 38%,transparent 60%)",
+            "mix-blend-mode:overlay",
+            "will-change:background,opacity",
+          ].join(";");
+          card.appendChild(light);
+
+          /* â”€â”€ Layer parallax config â”€â”€ */
+          var LAYER_DEFS = [
+            { sel: ".vfc-header", factor: 0.1 },
+            { sel: ".vfc-stats", factor: 0.18 },
+            { sel: ".vfc-grid-wrap", factor: 0.28 },
+            { sel: ".vfc-footer", factor: 0.36 },
+          ];
+          var MAX_PARALLAX = 11;
+
+          var layers = [];
+          LAYER_DEFS.forEach(function (cfg) {
+            var el = card.querySelector(cfg.sel);
+            if (el) {
+              el.style.willChange = "transform";
+              el.style.transition = "none";
+              layers.push({ el: el, factor: cfg.factor });
+            }
+          });
+
+          /* â”€â”€ Animation state â”€â”€ */
+          var isHovered = false;
+          var mouseNX = 0,
+            mouseNY = 0;
+          var curRX = 0,
+            curRY = 0;
+          var curTX = 0,
+            curTY = 0;
+          var curLX = 0,
+            curLY = 0;
+          var tgtRX = 0,
+            tgtRY = 0;
+          var tgtTX = 0,
+            tgtTY = 0;
+          var rafId = null;
+
+          var LERP_R = 0.075;
+          var LERP_T = 0.055;
+          var LERP_L = 0.065;
+          var MAX_ROT = 6;
+          var MAX_FLT = 6;
+          var EPS = 0.005;
+
+          function lerp(c, t, f) {
+            return c + (t - c) * f;
+          }
+
+          /* â”€â”€ rAF loop â”€â”€ */
+          function animate() {
+            curRX = lerp(curRX, tgtRX, LERP_R);
+            curRY = lerp(curRY, tgtRY, LERP_R);
+            curTX = lerp(curTX, tgtTX, LERP_T);
+            curTY = lerp(curTY, tgtTY, LERP_T);
+            curLX = lerp(curLX, mouseNX, LERP_L);
+            curLY = lerp(curLY, mouseNY, LERP_L);
+
+            card.style.transform =
+              "rotateX(" +
+              curRX.toFixed(3) +
+              "deg) " +
+              "rotateY(" +
+              curRY.toFixed(3) +
+              "deg) " +
+              "translateX(" +
+              curTX.toFixed(3) +
+              "px) " +
+              "translateY(" +
+              curTY.toFixed(3) +
+              "px)";
+
+            layers.forEach(function (l) {
+              var tx = curLX * MAX_PARALLAX * l.factor;
+              var ty = curLY * MAX_PARALLAX * l.factor;
+              l.el.style.transform =
+                "translateX(" +
+                tx.toFixed(3) +
+                "px) translateY(" +
+                ty.toFixed(3) +
+                "px)";
+            });
+
+            var settled =
+              Math.abs(curRX - tgtRX) < EPS &&
+              Math.abs(curRY - tgtRY) < EPS &&
+              Math.abs(curTX - tgtTX) < EPS &&
+              Math.abs(curTY - tgtTY) < EPS &&
+              Math.abs(curLX - mouseNX) < EPS &&
+              Math.abs(curLY - mouseNY) < EPS;
+
+            if (!settled || isHovered) {
+              rafId = requestAnimationFrame(animate);
+            } else {
+              rafId = null;
+              if (!isHovered) {
+                card.style.transform =
+                  "rotateX(0deg) rotateY(0deg) translateX(0) translateY(0)";
+                layers.forEach(function (l) {
+                  l.el.style.transform = "translateX(0) translateY(0)";
+                });
+              }
+            }
+          }
+
+          /* â”€â”€ mouseenter â”€â”€ */
+          card.addEventListener("mouseenter", function () {
+            isHovered = true;
+            light.style.opacity = "1";
+            card.style.transition = "none";
+            layers.forEach(function (l) {
+              l.el.style.transition = "none";
+            });
+            if (!rafId) rafId = requestAnimationFrame(animate);
+          });
+
+          /* â”€â”€ mousemove â”€â”€ */
+          card.addEventListener("mousemove", function (e) {
+            var rect = card.getBoundingClientRect();
+            var x = (e.clientX - rect.left) / rect.width;
+            var y = (e.clientY - rect.top) / rect.height;
+            mouseNX = x * 2 - 1;
+            mouseNY = y * 2 - 1;
+
+            tgtRY = mouseNX * MAX_ROT;
+            tgtRX = -mouseNY * MAX_ROT;
+            tgtTX = mouseNX * MAX_FLT * 0.45;
+            tgtTY = mouseNY * MAX_FLT * 0.45;
+
+            light.style.background =
+              "radial-gradient(circle at " +
+              (x * 100).toFixed(1) +
+              "% " +
+              (y * 100).toFixed(1) +
+              "%, " +
+              "rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 38%, transparent 60%)";
+          });
+
+          /* â”€â”€ mouseleave â”€â”€ */
+          card.addEventListener("mouseleave", function () {
+            isHovered = false;
+            mouseNX = 0;
+            mouseNY = 0;
+            tgtRX = 0;
+            tgtRY = 0;
+            tgtTX = 0;
+            tgtTY = 0;
+            light.style.opacity = "0";
+
+            if (rafId) {
+              cancelAnimationFrame(rafId);
+              rafId = null;
+            }
+
+            /* Smooth CSS spring-back */
+            card.style.transition =
+              "transform 0.6s cubic-bezier(0.22,1,0.36,1)";
+            card.style.transform =
+              "rotateX(0deg) rotateY(0deg) translateX(0) translateY(0)";
+
+            layers.forEach(function (l) {
+              l.el.style.transition =
+                "transform 0.6s cubic-bezier(0.22,1,0.36,1)";
+              l.el.style.transform = "translateX(0) translateY(0)";
+            });
+
+            /* Reset any active feature-box lift */
+            card.querySelectorAll(".vfc-card").forEach(function (vc) {
+              vc.style.transition =
+                "transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.45s ease, opacity 0.45s ease, background 0.45s ease";
+              vc.style.transform = "translateZ(0) translateY(0) scale(1)";
+              vc.style.boxShadow = "";
+              vc.style.opacity = "1";
+              vc.style.background = "";
+            });
+
+            setTimeout(function () {
+              if (!isHovered) {
+                card.style.transition = "none";
+                curRX = 0;
+                curRY = 0;
+                curTX = 0;
+                curTY = 0;
+                curLX = 0;
+                curLY = 0;
+                layers.forEach(function (l) {
+                  l.el.style.transition = "none";
+                });
+              }
+            }, 660);
+          });
+
+          /* â”€â”€ Feature-box 3D lift (translateZ + Y + scale) â”€â”€ */
+          var allVfcCards = Array.prototype.slice.call(
+            card.querySelectorAll(".vfc-card"),
+          );
+          allVfcCards.forEach(function (vc) {
+            vc.style.willChange = "transform, box-shadow, opacity";
+
+            vc.addEventListener("mouseenter", function () {
+              var grid = vc.closest(".vfc-card-grid");
+              var siblings = grid
+                ? Array.prototype.slice.call(grid.querySelectorAll(".vfc-card"))
+                : [vc];
+
+              siblings.forEach(function (other) {
+                if (other === vc) {
+                  other.style.transition =
+                    "transform 0.26s cubic-bezier(0.22,1,0.36,1), box-shadow 0.26s ease, opacity 0.26s ease, background 0.26s ease";
+                  other.style.transform =
+                    "translateZ(24px) translateY(-5px) scale(1.03)";
+                  other.style.boxShadow =
+                    "0 20px 48px rgba(0,0,0,0.4), 0 0 22px rgba(6,182,212,0.22)";
+                  other.style.background = "rgba(255,255,255,0.12)";
+                  other.style.opacity = "1";
+                } else {
+                  other.style.transition =
+                    "transform 0.26s cubic-bezier(0.22,1,0.36,1), opacity 0.26s ease";
+                  other.style.transform =
+                    "translateZ(-7px) translateY(2px) scale(0.972)";
+                  other.style.opacity = "0.65";
+                }
+              });
+            });
+
+            vc.addEventListener("mouseleave", function () {
+              var grid = vc.closest(".vfc-card-grid");
+              var siblings = grid
+                ? Array.prototype.slice.call(grid.querySelectorAll(".vfc-card"))
+                : [vc];
+
+              siblings.forEach(function (other) {
+                other.style.transition =
+                  "transform 0.42s cubic-bezier(0.22,1,0.36,1), box-shadow 0.42s ease, opacity 0.42s ease, background 0.42s ease";
+                other.style.transform = "translateZ(0) translateY(0) scale(1)";
+                other.style.boxShadow = "";
+                other.style.background = "";
+                other.style.opacity = "1";
+              });
+            });
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+      })();
+    
+
+/* ==========================================================
+   PREMIUM APP SHOWCASE (PAS) — Initialization
+   ========================================================== */
+      (function pasInit() {
+        "use strict";
+
+        var CIRCUMFERENCE = 207.3;
+        var prefersReduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        /* 1. SCREEN CAROUSEL */
+        var slides = Array.prototype.slice.call(
+          document.querySelectorAll(".pas-slide"),
+        );
+        var currentSlide = 0;
+        var carouselTimer = null;
+        var phoneHovered = false;
+
+        function goToSlide(idx) {
+          var prev = currentSlide;
+          currentSlide =
+            ((idx % slides.length) + slides.length) % slides.length;
+          if (prev === currentSlide) return;
+
+          slides[prev].classList.add("pas-slide-exit");
+          slides[prev].classList.remove("pas-slide-active");
+
+          setTimeout(function () {
+            slides[prev].classList.remove("pas-slide-exit");
+          }, 520);
+
+          slides[currentSlide].classList.add("pas-slide-active");
+        }
+
+        function startCarousel() {
+          clearInterval(carouselTimer);
+          carouselTimer = setInterval(function () {
+            if (!phoneHovered) goToSlide(currentSlide + 1);
+          }, 3500);
+        }
+
+        function goToScreenByKey(screenKey) {
+          var idx = slides.findIndex(function (s) {
+            return s.getAttribute("data-screen") === screenKey;
+          });
+          if (idx !== -1 && idx !== currentSlide) {
+            goToSlide(idx);
+            clearInterval(carouselTimer);
+            startCarousel();
+          }
+        }
+
+        /* 2. NOTIFICATION QUEUE */
+        var notifications = [
+          {
+            icon: "fa-check-circle",
+            title: "Mock Test Completed!",
+            sub: "Score: 178/200 Â· Rank Top 5%",
+            color: "#10b981",
+          },
+          {
+            icon: "fa-arrow-trend-up",
+            title: "Your Rank Improved!",
+            sub: "Up 24 positions â†’ AIR 42",
+            color: "#06b6d4",
+          },
+          {
+            icon: "fa-bell",
+            title: "New AIIMS NORCET Notification",
+            sub: "Application window opens tomorrow",
+            color: "#c026d3",
+          },
+          {
+            icon: "fa-video",
+            title: "Live Class Starts in 15 Minutes",
+            sub: "Pharmacology Â· Prof. Shine Stephen",
+            color: "#f59e0b",
+          },
+        ];
+        var notifIdx = 0;
+        var notifBadge = document.getElementById("pasNotifBadge");
+        var notifTitle = document.getElementById("pasNotifTitle");
+        var notifSub = document.getElementById("pasNotifSub");
+        var notifIcon = document.getElementById("pasNotifIcon");
+
+        function showNotif() {
+          if (!notifBadge) return;
+          var n = notifications[notifIdx % notifications.length];
+          notifIdx++;
+
+          /* Update content */
+          notifTitle.textContent = n.title;
+          notifSub.textContent = n.sub;
+          notifIcon.className = "fa-solid " + n.icon;
+          notifIcon.parentElement.style.background =
+            "linear-gradient(135deg, " + n.color + ", " + n.color + "88)";
+
+          /* Slide in */
+          notifBadge.classList.add("pas-notif-visible");
+
+          /* Fade out after 2.4s */
+          setTimeout(function () {
+            notifBadge.classList.remove("pas-notif-visible");
+          }, 2400);
+        }
+
+        function scheduleNotifs() {
+          setTimeout(function loop() {
+            showNotif();
+            setTimeout(loop, 7000 + Math.random() * 3000);
+          }, 2000);
+        }
+
+        /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+           3. 3D TILT (phone frame only, not wrapper)
+        â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        var phoneScene = document.getElementById("pasPhoneScene");
+        var phoneWrapper = document.getElementById("pasPhoneWrapper");
+        var phoneFrame = document.getElementById("pasPhoneFrame");
+        var phoneShadow = document.getElementById("pasPhoneShadow");
+
+        if (phoneScene && phoneFrame && !prefersReduced) {
+          var tgtRX = 0,
+            tgtRY = 0;
+          var curRX = 0,
+            curRY = 0;
+          var tiltRaf = null;
+
+          function tiltTick() {
+            curRX += (tgtRX - curRX) * 0.08;
+            curRY += (tgtRY - curRY) * 0.08;
+
+            phoneFrame.style.transform =
+              "rotateX(" +
+              curRX.toFixed(3) +
+              "deg) rotateY(" +
+              curRY.toFixed(3) +
+              "deg)";
+
+            /* Shadow shifts opposite to tilt */
+            if (phoneShadow) {
+              var sx = 50 + curRY * 1.5;
+              var sy = 50 + curRX * 1.5;
+              phoneShadow.style.transform =
+                "translateX(" + (curRY * 2).toFixed(1) + "px)";
+            }
+
+            var settled =
+              Math.abs(curRX - tgtRX) < 0.02 && Math.abs(curRY - tgtRY) < 0.02;
+            if (!settled || phoneHovered) {
+              tiltRaf = requestAnimationFrame(tiltTick);
+            } else {
+              tiltRaf = null;
+            }
+          }
+
+          phoneScene.addEventListener("mousemove", function (e) {
+            var rect = phoneScene.getBoundingClientRect();
+            var nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            var ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+            tgtRY = nx * 10;
+            tgtRX = -ny * 8;
+            if (!tiltRaf) tiltRaf = requestAnimationFrame(tiltTick);
+          });
+
+          phoneScene.addEventListener("mouseleave", function () {
+            phoneHovered = false;
+            tgtRX = 0;
+            tgtRY = 0;
+            if (!tiltRaf) tiltRaf = requestAnimationFrame(tiltTick);
+
+            /* Spring back phone frame */
+            phoneFrame.style.transition =
+              "transform 0.6s cubic-bezier(0.22,1,0.36,1)";
+            setTimeout(function () {
+              phoneFrame.style.transition = "";
+            }, 640);
+          });
+
+          phoneScene.addEventListener("mouseenter", function () {
+            phoneHovered = true;
+          });
+        }
+
+        /*  3b. MOUSE EFFECTS: spotlight Â· rim light Â· scale lift */
+        (function () {
+          if (!phoneScene || !phoneFrame || prefersReduced) return;
+
+          var phoneScreenEl = phoneFrame.querySelector(".pas-screen");
+
+          /*  Spotlight overlay injected into the screen  */
+          var spotlight = document.createElement("div");
+          spotlight.style.cssText =
+            "position:absolute;inset:0;border-radius:44px;" +
+            "pointer-events:none;z-index:30;" +
+            "opacity:0;transition:opacity 0.4s ease;" +
+            "mix-blend-mode:soft-light;" +
+            "background:radial-gradient(circle 110px at 50% 50%," +
+            "rgba(200,180,255,0.55) 0%,transparent 70%)";
+          if (phoneScreenEl) phoneScreenEl.appendChild(spotlight);
+
+          /* â”€â”€ Rim-glow overlay behind the frame â”€â”€ */
+          var rimEl = document.createElement("div");
+          rimEl.style.cssText =
+            "position:absolute;inset:-3px;border-radius:58px;" +
+            "pointer-events:none;z-index:-1;" +
+            "opacity:0;transition:opacity 0.4s ease;" +
+            "background:transparent;" +
+            "filter:blur(8px)";
+          phoneFrame.style.position = "relative";
+          phoneFrame.style.overflow = "visible";
+          phoneFrame.insertBefore(rimEl, phoneFrame.firstChild);
+
+          /* â”€â”€ Lerp state â”€â”€ */
+          var tSpotX = 50, tSpotY = 50;
+          var cSpotX = 50, cSpotY = 50;
+          var tRimX = 0, tRimY = 0;
+          var cRimX = 0, cRimY = 0;
+          var efxRaf = null;
+          var isOver = false;
+
+          /* base box-shadow tokens */
+          var BASE_SHADOW =
+            "0 0 0 1px rgba(0,0,0,0.14)," +
+            "0 40px 80px rgba(15,23,42,0.28)," +
+            "0 14px 36px rgba(91,33,182,0.2)," +
+            "0 3px 8px rgba(0,0,0,0.1)";
+
+          function efxTick() {
+            var L = 0.1;
+            cSpotX += (tSpotX - cSpotX) * L;
+            cSpotY += (tSpotY - cSpotY) * L;
+            cRimX  += (tRimX  - cRimX)  * L;
+            cRimY  += (tRimY  - cRimY)  * L;
+
+            /* spotlight */
+            spotlight.style.background =
+              "radial-gradient(circle 110px at " +
+              cSpotX.toFixed(1) + "% " + cSpotY.toFixed(1) + "%," +
+              "rgba(200,180,255,0.55) 0%," +
+              "rgba(167,139,250,0.2) 45%," +
+              "transparent 70%)";
+
+            /* rim glow â€” directional */
+            var mag = Math.sqrt(cRimX * cRimX + cRimY * cRimY);
+            var opa = Math.min(mag * 0.65, 0.75).toFixed(2);
+            var ox  = (cRimX * 10).toFixed(1);
+            var oy  = (cRimY * 10).toFixed(1);
+            phoneFrame.style.boxShadow =
+              BASE_SHADOW + "," +
+              ox + "px " + oy + "px 28px rgba(167,139,250," + opa + ")," +
+              "0 0 48px 4px rgba(139,92,246," + (opa * 0.35).toFixed(2) + ")";
+
+            var settled =
+              Math.abs(cSpotX - tSpotX) < 0.3 &&
+              Math.abs(cSpotY - tSpotY) < 0.3 &&
+              Math.abs(cRimX  - tRimX)  < 0.005 &&
+              Math.abs(cRimY  - tRimY)  < 0.005;
+
+            if (!settled || isOver) efxRaf = requestAnimationFrame(efxTick);
+            else efxRaf = null;
+          }
+
+          /* mousemove â€” update targets */
+          phoneScene.addEventListener("mousemove", function (e) {
+            var fr = phoneFrame.getBoundingClientRect();
+            var nx = (e.clientX - fr.left)  / fr.width;
+            var ny = (e.clientY - fr.top)   / fr.height;
+
+            tSpotX = nx * 100;
+            tSpotY = ny * 100;
+            tRimX  = nx * 2 - 1;
+            tRimY  = ny * 2 - 1;
+
+            if (!efxRaf) efxRaf = requestAnimationFrame(efxTick);
+          });
+
+          /* mouseenter  show effects, scale lift */
+          phoneScene.addEventListener("mouseenter", function () {
+            isOver = true;
+            spotlight.style.opacity = "1";
+            rimEl.style.opacity     = "1";
+
+            if (phoneWrapper) {
+              phoneWrapper.style.transition =
+                "transform 0.45s cubic-bezier(0.22,1,0.36,1)";
+              phoneWrapper.style.transform = "scale(1.045)";
+            }
+            if (!efxRaf) efxRaf = requestAnimationFrame(efxTick);
+          });
+
+          /* mouseleave â€” hide effects, spring back */
+          phoneScene.addEventListener("mouseleave", function () {
+            isOver = false;
+            spotlight.style.opacity = "0";
+            rimEl.style.opacity     = "0";
+            tRimX = 0; tRimY = 0;
+
+            /* restore base shadow smoothly */
+            setTimeout(function () {
+              if (!isOver) phoneFrame.style.boxShadow = BASE_SHADOW;
+            }, 420);
+
+            if (phoneWrapper) {
+              phoneWrapper.style.transition =
+                "transform 0.55s cubic-bezier(0.22,1,0.36,1)";
+              phoneWrapper.style.transform = "";
+              setTimeout(function () {
+                if (!isOver) phoneWrapper.style.transition = "";
+              }, 570);
+            }
+            if (!efxRaf) efxRaf = requestAnimationFrame(efxTick);
+          });
+        })();
+
+        /* 4. FEATURE CARD â†’ SWITCH SCREEN */
+        var featureCards = Array.prototype.slice.call(
+          document.querySelectorAll(".pas-feature-card"),
+        );
+
+        featureCards.forEach(function (card) {
+          card.addEventListener("mouseenter", function () {
+            var screenKey = card.getAttribute("data-screen");
+            featureCards.forEach(function (c) {
+              c.classList.remove("pas-card-active");
+            });
+            card.classList.add("pas-card-active");
+            goToScreenByKey(screenKey);
+          });
+          card.addEventListener("mouseleave", function () {
+            card.classList.remove("pas-card-active");
+          });
+        });
+
+        /* 5. INTERSECTION OBSERVER â€” entrance + stats  */
+        var statsAnimated = false;
+
+        function animateStats() {
+          if (statsAnimated) return;
+          statsAnimated = true;
+
+          /* Circular SVG progress + counters */
+          var progEls = Array.prototype.slice.call(
+            document.querySelectorAll(".pas-circle-progress"),
+          );
+          progEls.forEach(function (el, i) {
+            var pct = parseInt(el.getAttribute("data-pct"), 10) || 0;
+            var offset = CIRCUMFERENCE * (1 - pct / 100);
+
+            setTimeout(function () {
+              el.style.strokeDashoffset = offset;
+            }, i * 120);
+          });
+
+          /* Number counter */
+          var numEls = Array.prototype.slice.call(
+            document.querySelectorAll(".pas-circle-num"),
+          );
+          numEls.forEach(function (el, i) {
+            var target = parseInt(el.getAttribute("data-target"), 10) || 0;
+            var start = 0;
+            var delay = i * 120;
+            var dur = prefersReduced ? 0 : 1200;
+            var startTs = null;
+
+            setTimeout(function () {
+              function step(ts) {
+                if (!startTs) startTs = ts;
+                var progress = Math.min((ts - startTs) / dur, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(eased * target);
+                if (progress < 1) requestAnimationFrame(step);
+                else el.textContent = target;
+              }
+              if (dur === 0) {
+                el.textContent = target;
+              } else requestAnimationFrame(step);
+            }, delay);
+          });
+
+          /* Stat items fade in */
+          var statItems = Array.prototype.slice.call(
+            document.querySelectorAll(".pas-stat-item"),
+          );
+          statItems.forEach(function (item, i) {
+            setTimeout(function () {
+              item.classList.add("pas-stat-visible");
+            }, i * 100);
+          });
+        }
+
+        function animateEntrance() {
+          /* Cards stagger */
+          var cards = Array.prototype.slice.call(
+            document.querySelectorAll(".pas-feature-card"),
+          );
+          cards.forEach(function (card, i) {
+            setTimeout(
+              function () {
+                card.classList.add("pas-card-visible");
+              },
+              300 + i * 80,
+            );
+          });
+
+          /* CTA */
+          var cta = document.getElementById("pasCta");
+          if (cta)
+            setTimeout(function () {
+              cta.classList.add("pas-cta-visible");
+            }, 600);
+        }
+
+        var sectionObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (en) {
+              if (en.isIntersecting) {
+                animateEntrance();
+                animateStats();
+                sectionObserver.disconnect();
+              }
+            });
+          },
+          { threshold: 0.15 },
+        );
+
+        var pasSection = document.querySelector(".pas-section");
+        if (pasSection) sectionObserver.observe(pasSection);
+
+        /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+           6. BOOTSTRAP
+        â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        function init() {
+          if (!slides.length) return;
+
+          /* Pause float on hover */
+          if (phoneWrapper) {
+            phoneWrapper.addEventListener("mouseenter", function () {
+              phoneHovered = true;
+              phoneWrapper.style.animationPlayState = "paused";
+              var shadow = document.getElementById("pasPhoneShadow");
+              if (shadow) shadow.style.animationPlayState = "paused";
+            });
+            phoneWrapper.addEventListener("mouseleave", function () {
+              phoneHovered = false;
+              phoneWrapper.style.animationPlayState = "running";
+              var shadow = document.getElementById("pasPhoneShadow");
+              if (shadow) shadow.style.animationPlayState = "running";
+            });
+          }
+
+          startCarousel();
+          if (!prefersReduced) scheduleNotifs();
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+      })();
+    
+
+/* ==========================================================
+   VFC CAROUSEL — Vital Feature Card Auto-Slide
+   ========================================================== */
+      (function vfcInit() {
+        var DURATION = 4000;
+        var current = 0;
+        var timer = null;
+        var isHovered = false;
+        var slides, dots, progressFill;
+
+        function init() {
+          var card = document.getElementById("vital-card");
+          if (!card) return;
+
+          slides = Array.prototype.slice.call(
+            card.querySelectorAll(".vfc-slide"),
+          );
+          dots = Array.prototype.slice.call(card.querySelectorAll(".vfc-dot"));
+          progressFill = document.getElementById("vfc-progress");
+
+          if (!slides.length) return;
+
+          /* Dot click handlers */
+          dots.forEach(function (dot, idx) {
+            dot.addEventListener("click", function () {
+              goTo(idx);
+            });
+          });
+
+          /* Pause on hover */
+          card.addEventListener("mouseenter", function () {
+            isHovered = true;
+            if (progressFill) progressFill.classList.add("vfc-paused");
+          });
+          card.addEventListener("mouseleave", function () {
+            isHovered = false;
+            if (progressFill) progressFill.classList.remove("vfc-paused");
+          });
+
+          goTo(0);
+          startTimer();
+        }
+
+        function goTo(idx) {
+          var prev = current;
+          current = ((idx % slides.length) + slides.length) % slides.length;
+
+          slides[prev].classList.remove("active");
+          slides[current].classList.add("active");
+
+          dots.forEach(function (d, i) {
+            d.classList.toggle("active", i === current);
+          });
+
+          resetProgress();
+        }
+
+        function resetProgress() {
+          if (!progressFill) return;
+          progressFill.classList.remove("vfc-animating", "vfc-paused");
+          void progressFill.offsetWidth; /* force reflow â€” restarts CSS animation */
+          progressFill.classList.add("vfc-animating");
+          if (isHovered) progressFill.classList.add("vfc-paused");
+        }
+
+        function startTimer() {
+          clearInterval(timer);
+          timer = setInterval(function () {
+            if (!isHovered) goTo((current + 1) % slides.length);
+          }, DURATION);
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+      })();
+    
+
+/* ==========================================================
+   ELIGIBILITY SCROLL-LOCK SYSTEM
+   ========================================================== */
+      (function () {
+        "use strict";
+
+        /* ---- Age relaxation accordion ---- */
+        function initAccordion() {
+          document
+            .querySelectorAll("#elig-scroll-scene .age-explorer-card")
+            .forEach(function (card) {
+              card.addEventListener("click", function () {
+                var isOpen = card.classList.contains("expanded");
+                document
+                  .querySelectorAll(
+                    "#elig-scroll-scene .age-explorer-card.expanded",
+                  )
+                  .forEach(function (c) {
+                    c.classList.remove("expanded");
+                  });
+                if (!isOpen) card.classList.add("expanded");
+              });
+            });
+        }
+
+        /* ---- Slide-in entry animation ---- */
+        function initEntryAnim() {
+          var scene = document.getElementById("elig-scroll-scene");
+          if (!scene) return;
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (en) {
+                if (en.isIntersecting) {
+                  en.target.classList.add("elig-visible");
+                  io.unobserve(en.target);
+                }
+              });
+            },
+            { threshold: 0.12 },
+          );
+          scene.querySelectorAll(".split-column").forEach(function (c) {
+            io.observe(c);
+          });
+        }
+
+        /* ====================================================
+           SCROLL-LOCK ENGINE
+           Wheel events are intercepted while the sticky section
+           is in the viewport. ONLY the left (Eligibility) column
+           scrolls as a vertical carousel â€” the right column is a
+           static reference panel showing all cards at once.
+
+           Page scroll resumes only when:
+             - scrolling DOWN: left column reaches its bottom
+             - scrolling UP:   left column returns to its top
+           ==================================================== */
+        function initScrollLock() {
+          var scene = document.getElementById("elig-scroll-scene");
+          var leftPane = document.getElementById("elig-col-pane");
+
+          if (!scene || !leftPane) return;
+
+          /* Skip on touch/mobile â€” CSS resets the sticky layout there */
+          var mq = window.matchMedia("(max-width: 767px)");
+          if (mq.matches) return;
+          mq.addEventListener("change", function (e) {
+            if (e.matches) document.removeEventListener("wheel", onWheel);
+            else
+              document.addEventListener("wheel", onWheel, { passive: false });
+          });
+
+          var justUnlocked = false;
+          var unlockTimer = null;
+          var vel = 0;
+          var rafId = null;
+
+          /* ---- Helpers ---- */
+          function isInLockZone() {
+            var r = scene.getBoundingClientRect();
+            return r.top <= 2 && r.bottom > window.innerHeight * 0.05;
+          }
+
+          function leftAtEdge(goingDown) {
+            var max = leftPane.scrollHeight - leftPane.clientHeight;
+            if (max <= 1) return true; /* not scrollable â€” treat as done */
+            return goingDown
+              ? leftPane.scrollTop >= max - 4
+              : leftPane.scrollTop <= 4;
+          }
+
+          function normDelta(e) {
+            if (e.deltaMode === 1) return e.deltaY * 20;
+            if (e.deltaMode === 2) return e.deltaY * window.innerHeight;
+            return e.deltaY;
+          }
+
+          function setJustUnlocked() {
+            justUnlocked = true;
+            clearTimeout(unlockTimer);
+            unlockTimer = setTimeout(function () {
+              justUnlocked = false;
+            }, 350);
+          }
+
+          /* ---- Momentum animation loop (left column only) ---- */
+          function tick() {
+            if (Math.abs(vel) > 0.3) {
+              var maxL = leftPane.scrollHeight - leftPane.clientHeight;
+              leftPane.scrollTop = Math.max(
+                0,
+                Math.min(maxL, leftPane.scrollTop + vel),
+              );
+              vel *= 0.87;
+              rafId = requestAnimationFrame(tick);
+            } else {
+              vel = 0;
+              rafId = null;
+            }
+          }
+
+          /* ---- Wheel handler ---- */
+          function onWheel(e) {
+            if (justUnlocked) return;
+            if (!isInLockZone()) return;
+
+            var goingDown = e.deltaY > 0;
+
+            if (leftAtEdge(goingDown)) {
+              setJustUnlocked();
+              vel = 0;
+              return; /* let page scroll through */
+            }
+
+            e.preventDefault();
+
+            var delta = normDelta(e);
+            var MAX_VEL = 55;
+            vel = Math.max(-MAX_VEL, Math.min(MAX_VEL, vel + delta * 0.75));
+
+            if (!rafId) rafId = requestAnimationFrame(tick);
+          }
+
+          document.addEventListener("wheel", onWheel, { passive: false });
+        }
+
+        /* ---- Bootstrap ---- */
+        function init() {
+          initAccordion();
+          initEntryAnim();
+          initScrollLock();
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+      })();
+    
