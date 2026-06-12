@@ -245,6 +245,7 @@ body {
 .text-gradient-cyan {
   background: linear-gradient(135deg, #fff 0%, var(--brand-accent) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -4899,9 +4900,9 @@ body {
     border-radius: 20px;
   }
   .esn-btn {
-    width: 42px;
-    height: 42px;
-    font-size: 0.88rem;
+    width: 40px;
+    height: 40px;
+    font-size: 0.82rem;
   }
   .esn-track {
     gap: 0;
@@ -6811,6 +6812,7 @@ body {
   margin: 0 0 18px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -11116,9 +11118,7 @@ p {
   transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.vcarousel-viewport:hover .vcarousel-track {
-  /* Pause handled by JS */
-}
+/* .vcarousel-viewport:hover .vcarousel-track — pause handled by JS */
 
 /* Elig cards inside carousel — keep existing styles, just ensure single column */
 .vcarousel-track .elig-card {
