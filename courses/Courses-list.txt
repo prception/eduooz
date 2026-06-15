@@ -103,7 +103,19 @@ RRB
 
 
 
-question and answer updation
+
+Nursing  = 11 + 13 + 7 = 31
+
+Pharmacy = 7 + 5 + 4 + 3 = 19
+
+MLT = 3 + 2 = 5
+
+Total  = 55
+
+
+
+
+practice Test question and answer updation
 
 How to Add the Next Exam Type
 
