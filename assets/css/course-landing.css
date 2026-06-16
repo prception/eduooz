@@ -5379,6 +5379,7 @@ body {
   border-radius: 13px;
   transition: all 0.28s cubic-bezier(0.25, 1, 0.5, 1);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+
 }
 
 .aev-badge:hover {
@@ -5418,6 +5419,7 @@ body {
   font-weight: 700;
   color: #1e293b;
   display: block;
+  text-align:start
 }
 
 .aev-badge > div:last-child span {
@@ -5993,7 +5995,12 @@ body {
 #syl-tab-basic .syl-tab-icon,
 #syl-tab-core .syl-tab-icon,
 #syl-tab-clinical .syl-tab-icon,
-#syl-tab-admin .syl-tab-icon {
+#syl-tab-admin .syl-tab-icon,
+#syl-tab-physics .syl-tab-icon,
+#syl-tab-chemistry .syl-tab-icon,
+#syl-tab-botany .syl-tab-icon,
+#syl-tab-zoology .syl-tab-icon,
+#syl-tab-maths .syl-tab-icon {
   background: rgba(191, 38, 211, 0);
   color: var(--brand-magenta);
 }
@@ -6013,7 +6020,12 @@ body {
 #syl-tab-basic.active .syl-tab-icon,
 #syl-tab-core.active .syl-tab-icon,
 #syl-tab-clinical.active .syl-tab-icon,
-#syl-tab-admin.active .syl-tab-icon {
+#syl-tab-admin.active .syl-tab-icon,
+#syl-tab-physics.active .syl-tab-icon,
+#syl-tab-chemistry.active .syl-tab-icon,
+#syl-tab-botany.active .syl-tab-icon,
+#syl-tab-zoology.active .syl-tab-icon,
+#syl-tab-maths.active .syl-tab-icon {
   background: var(--brand-purple);
   color: #fff;
 }
@@ -6032,7 +6044,14 @@ body {
 #syl-tab-basic.active,
 #syl-tab-core.active,
 #syl-tab-clinical.active,
-#syl-tab-admin.active {
+#syl-tab-admin.active,
+#syl-tab-physics.active,
+#syl-tab-chemistry.active,
+#syl-tab-botany.active,
+#syl-tab-zoology.active,
+#syl-tab-maths.active
+#syl-tab-bpl.active
+#syl-tab-other.active  {
   color: white;
 }
 
@@ -6106,7 +6125,7 @@ body {
 .syl-panel-inner .syllabus-list li {
   padding: 14px 0;
   font-size: 1.22rem;
-  color: #475569;
+  color: #64748b;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
@@ -6118,7 +6137,7 @@ body {
 }
 
 .syl-panel-inner .syllabus-list li:hover {
-  color: #1e0a3c;
+  color: #64748b;
   padding-left: 4px;
 }
 
@@ -6627,7 +6646,14 @@ body {
   z-index: 10;
   padding: 80px 0;
 }
-
+.why-desc{
+  max-width: 600px;
+  margin: 16px auto 0;
+  color: #475569;
+  font-size: 1.125rem;
+  font-family:var(--font-main);
+}
+              
 /* --- DOWNLOAD APP GRID --- */
 .dapp-grid {
   display: grid;
@@ -8014,7 +8040,7 @@ body {
   cursor: pointer;
   transition: all 0.22s ease;
   text-decoration: none;
-  font-family: var(--font-main);
+  C
 }
 
 .pex-tbtn:hover {
@@ -11767,7 +11793,7 @@ p {
   font-size: 1.125rem;
   color: #475569;
   line-height: 1.75;
-  max-width: 700px;
+  /* max-width: 700px; */
 }
 
 /* Navigation buttons */
