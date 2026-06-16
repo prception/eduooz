@@ -10,7 +10,12 @@
       "PowerShell(Copy-Item \"D:\\\\Eduooz\\\\eduooz\\\\courses\\\\nursing\\\\central\\\\sgpgims-nursing.html\" \"D:\\\\Eduooz\\\\eduooz\\\\courses\\\\nursing\\\\central\\\\rrb-nursing-superintendent.html\")",
       "PowerShell(\\(Get-Item \"D:\\\\Eduooz\\\\eduooz\\\\courses\\\\nursing\\\\central\\\\rrb-nursing-superintendent.html\"\\).Length)",
       "Read(//d/Eduooz/eduooz/assets/css/**)",
-      "PowerShell(Select-String -Path \"d:\\\\Eduooz\\\\eduooz\\\\components\\\\header.html\" -Pattern \"rrb|staff.nurse|superintendent\" -CaseSensitive:$false)"
+      "PowerShell(Select-String -Path \"d:\\\\Eduooz\\\\eduooz\\\\components\\\\header.html\" -Pattern \"rrb|staff.nurse|superintendent\" -CaseSensitive:$false)",
+      "PowerShell(Set-Location \"d:\\\\Eduooz\\\\eduooz\"; $env:PATH = $env:PATH + \";C:\\\\Program Files\\\\Git\\\\bin;C:\\\\Program Files\\\\Git\\\\cmd\"; git status; git branch)",
+      "PowerShell(where.exe git 2>$null; \\(Get-Command git -ErrorAction SilentlyContinue\\).Source)",
+      "PowerShell($git = \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\GitHubDesktop\\\\app-3.5.12\\\\resources\\\\app\\\\git\\\\cmd\\\\git.exe\"; Set-Location \"d:\\\\Eduooz\\\\eduooz\"; & $git status; & $git branch)",
+      "PowerShell($git = \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\GitHubDesktop\\\\app-3.5.12\\\\resources\\\\app\\\\git\\\\cmd\\\\git.exe\"; Set-Location \"d:\\\\Eduooz\\\\eduooz\"; & $git fetch origin; & $git log --oneline origin/main -5)",
+      "PowerShell($git = \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\GitHubDesktop\\\\app-3.5.12\\\\resources\\\\app\\\\git\\\\cmd\\\\git.exe\"; Set-Location \"d:\\\\Eduooz\\\\eduooz\"; & $git merge origin/main --no-edit)"
     ],
     "additionalDirectories": [
       "C:\\Users\\acer\\AppData\\Local\\Temp"

@@ -6187,11 +6187,37 @@ body {
   }
 }
 
+/* Important note banner below syllabus tab panels */
+.syl-important-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 28px 0 0;
+  padding: 18px 24px;
+  background: rgba(6, 182, 212, 0.07);
+  border-left: 4px solid var(--brand-cyan, #06b6d4);
+  border-radius: 0 10px 10px 0;
+}
+
+.syl-important-note i {
+  color: var(--brand-cyan, #06b6d4);
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.syl-important-note p {
+  margin: 0;
+  color: #334155;
+  font-size: 0.97rem;
+  line-height: 1.65;
+}
+
 /* Sub-heading inside syl-panel (used for table sections) */
 .syl-sub-heading {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #475569;
   margin: 0 0 1rem 0;
   padding: 0 36px;
   margin-top: 25px;
@@ -6207,8 +6233,9 @@ body {
 .syl-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.98rem;
-  color: #334155;
+  font-size: 1.25rem;
+  color: #475569;
+  margin-top: 25px;
 }
 
 .syl-table thead tr {
@@ -6219,8 +6246,8 @@ body {
 .syl-table thead th {
   padding: 14px 20px;
   text-align: left;
-  font-weight: 700;
-  font-size: 0.92rem;
+  font-weight: 800;
+  font-size: 1.25rem;
   letter-spacing: 0.03em;
   white-space: nowrap;
 }
@@ -6245,7 +6272,7 @@ body {
 
 .syl-table tbody td:first-child {
   font-weight: 500;
-  color: #1e293b;
+  color: #475569;
 }
 
 /* Divider for div-wrapped columns (used when lists are inside divs) */
@@ -6259,12 +6286,15 @@ body {
 .syl-panel-lists > div .syl-sub-heading {
   padding: 0 0 0.25rem 0;
 }
+.syl-panel-lists > div .syl-sub-heading:first-child {
+  margin-top: 0;
+}
 
 /* Total / summary row */
 .syl-table-total td {
   background: rgba(91, 33, 182, 0.07);
   font-weight: 700 !important;
-  color: #1e293b !important;
+  color: #475569 !important;
   border-top: 2px solid rgba(91, 33, 182, 0.2);
 }
 
@@ -6414,6 +6444,18 @@ body {
   gap: 16px;
   cursor: pointer;
 }
+
+@media (max-width: 780px) {
+.prepare-step-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  }
+.prepare-step {
+    margin-bottom: 4px;
+  }
+  }
 
 .prepare-step-meta {
   display: flex;
@@ -6669,6 +6711,9 @@ body {
   background-color: white;
   color: black;
 }
+
+
+
 
 @media (max-width: 900px) {
   .dapp-grid {
