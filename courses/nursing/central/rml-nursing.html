@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -812,7 +812,126 @@
             Official Exam <span class="text-gradient">Syllabus.</span>
           </h2>
         </div>
-        <!-- Content will be provided -->
+
+        <!-- Tab Navigation -->
+        <div class="syllabus-tabs-nav" role="tablist" aria-label="Syllabus subjects">
+          <button class="syl-tab active" role="tab" aria-selected="true" id="syl-tab-stages" aria-controls="syl-panel-stages" data-tab="stages">
+            <span class="syl-tab-icon"><i class="fa-solid fa-stairs"></i></span>
+            <span class="syl-tab-label">Examination Stages</span>
+          </button>
+          <button class="syl-tab" role="tab" aria-selected="false" id="syl-tab-pattern" aria-controls="syl-panel-pattern" data-tab="pattern">
+            <span class="syl-tab-icon"><i class="fa-solid fa-list-check"></i></span>
+            <span class="syl-tab-label">Exam Pattern</span>
+          </button>
+          <button class="syl-tab" role="tab" aria-selected="false" id="syl-tab-subjects" aria-controls="syl-panel-subjects" data-tab="subjects">
+            <span class="syl-tab-icon"><i class="fa-solid fa-book-open"></i></span>
+            <span class="syl-tab-label">Subjects &amp; Marks</span>
+          </button>
+          <button class="syl-tab" role="tab" aria-selected="false" id="syl-tab-marking" aria-controls="syl-panel-marking" data-tab="marking">
+            <span class="syl-tab-icon"><i class="fa-solid fa-circle-check"></i></span>
+            <span class="syl-tab-label">Marking Scheme</span>
+          </button>
+        </div>
+
+        <!-- Tab Panels -->
+        <div class="syllabus-tab-panels">
+
+          <!-- Examination Stages Panel -->
+          <div class="syl-panel active" id="syl-panel-stages" role="tabpanel" aria-labelledby="syl-tab-stages">
+            <div class="syl-panel-inner">
+              <div class="syl-panel-lists">
+                <ul class="syllabus-list">
+                  <li><i class="fa-solid fa-chevron-right"></i> Screening Examination</li>
+                  <li><i class="fa-solid fa-chevron-right"></i> Main Examination</li>
+                  <li><i class="fa-solid fa-chevron-right"></i> Document Verification</li>
+                  <li><i class="fa-solid fa-chevron-right"></i> Medical Examination</li>
+                  <li><i class="fa-solid fa-chevron-right"></i> Final Merit List</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exam Pattern Panel -->
+          <div class="syl-panel" id="syl-panel-pattern" role="tabpanel" aria-labelledby="syl-tab-pattern">
+            <div class="syl-panel-inner">
+              <div class="syl-table-wrap">
+                <table class="syl-table">
+                  <thead>
+                    <tr>
+                      <th>Particulars</th>
+                      <th>Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Exam Mode</td><td>Computer Based Test (CBT)</td></tr>
+                    <tr><td>Total Questions</td><td>100</td></tr>
+                    <tr><td>Total Marks</td><td>100</td></tr>
+                    <tr><td>Duration</td><td>As per official notification</td></tr>
+                    <tr><td>Question Type</td><td>Multiple Choice Questions (MCQs)</td></tr>
+                    <tr><td>Negative Marking</td><td>Yes</td></tr>
+                    <tr><td>Marks for Correct Answer</td><td>+1 Mark</td></tr>
+                    <tr><td>Marks for Wrong Answer</td><td>&minus;0.25 Mark</td></tr>
+                    <tr><td>Unanswered Questions</td><td>0 Mark (no deduction)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subjects & Marks Panel -->
+          <div class="syl-panel" id="syl-panel-subjects" role="tabpanel" aria-labelledby="syl-tab-subjects">
+            <div class="syl-panel-inner">
+              <div class="syl-table-wrap">
+                <table class="syl-table">
+                  <thead>
+                    <tr>
+                      <th>Subject</th>
+                      <th>Marks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Nursing Subjects</td><td>60 Marks</td></tr>
+                    <tr><td>General English</td><td>10 Marks</td></tr>
+                    <tr><td>General Knowledge</td><td>10 Marks</td></tr>
+                    <tr><td>Reasoning Ability</td><td>10 Marks</td></tr>
+                    <tr><td>Mathematical Aptitude</td><td>10 Marks</td></tr>
+                    <tr class="syl-table-total">
+                      <td><strong>Total</strong></td>
+                      <td><strong>100 Marks</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Marking Scheme Panel -->
+          <div class="syl-panel" id="syl-panel-marking" role="tabpanel" aria-labelledby="syl-tab-marking">
+            <div class="syl-panel-inner">
+              <div class="syl-panel-lists">
+                <ul class="syllabus-list">
+                  <li><i class="fa-solid fa-chevron-right"></i> Each correct answer carries <strong>+1 mark</strong></li>
+                  <li><i class="fa-solid fa-chevron-right"></i> <strong>0.25 mark</strong> deducted for every incorrect answer</li>
+                  <li><i class="fa-solid fa-chevron-right"></i> No marks deducted for unanswered questions</li>
+                  <li><i class="fa-solid fa-chevron-right"></i> Nursing section carries the highest weightage at <strong>60% of total marks</strong></li>
+                </ul>
+                <ul class="syllabus-list">
+                  <li><i class="fa-solid fa-chevron-right"></i> Candidates should answer carefully to avoid negative marking</li>
+                  <li><i class="fa-solid fa-chevron-right"></i> General English, GK, Reasoning &amp; Aptitude carry equal weightage of <strong>10 marks each</strong></li>
+                  <li><i class="fa-solid fa-chevron-right"></i> Selection is based on exam performance and subsequent stages prescribed by Dr. Ram Manohar Lohia Hospital</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /syllabus-tab-panels -->
+
+        <div class="text-center">
+          <a href="#" class="btn-download-syllabus g-exam-reveal">
+            <i class="fa-solid fa-download"></i> Download Official Syllabus PDF
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1558,7 +1677,7 @@
                 <div class="card-glare-light"></div>
                 <div class="card-content-3d">
                   <div class="alumni-img-box">
-                    <img src="assets/images/faculties/SHINE.png" alt="Shine Stephen" />
+                    <img src="../../../assets/images/faculties/SHINE.png" alt="Shine Stephen" />
                     <div class="rank-badge">MSc (N) - PGIMER</div>
                     <div class="alumni-text-overlay">
                       <h3>Shine Stephen</h3>
@@ -1582,7 +1701,7 @@
                 <div class="card-glare-light"></div>
                 <div class="card-content-3d">
                   <div class="alumni-img-box">
-                    <img src="assets/images/faculties/NAYANA.jpeg" alt="Nayana Shaji" />
+                    <img src="../../../assets/images/faculties/NAYANA.jpeg" alt="Nayana Shaji" />
                     <div class="rank-badge">GPAT Ranker</div>
                     <div class="alumni-text-overlay">
                       <h3>Nayana Shaji</h3>
@@ -1606,7 +1725,7 @@
                 <div class="card-glare-light"></div>
                 <div class="card-content-3d">
                   <div class="alumni-img-box">
-                    <img src="assets/images/faculties/VIDHU.JPG.jpeg" alt="Vidhu R Vijayan" />
+                    <img src="../../../assets/images/faculties/VIDHU.JPG.jpeg" alt="Vidhu R Vijayan" />
                     <div class="rank-badge">NCLEX RN</div>
                     <div class="alumni-text-overlay">
                       <h3>Vidhu R Vijayan</h3>
@@ -2216,7 +2335,7 @@
     </section>
 
     <!-- SECTION 20: FINAL CTA / APPLICATION FORM -->
-    <section class="cta-terminal-section" id="apply">
+    <section class="cta-terminal-section" id="enroll">
       <div class="container cta-grid relative-z">
         <div class="cta-hook-zone g-cta-reveal">
           <div class="frost-pill mb-4">

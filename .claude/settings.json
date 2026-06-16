@@ -7,7 +7,10 @@
       "PowerShell(& \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\Temp\\\\write_cns.ps1\")",
       "PowerShell(& \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\Temp\\\\splice_cns.ps1\")",
       "PowerShell(& \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\Temp\\\\do_splice.ps1\")",
-      "PowerShell(Copy-Item \"D:\\\\Eduooz\\\\eduooz\\\\courses\\\\nursing\\\\central\\\\sgpgims-nursing.html\" \"D:\\\\Eduooz\\\\eduooz\\\\courses\\\\nursing\\\\central\\\\rrb-nursing-superintendent.html\")"
+      "PowerShell(Copy-Item \"D:\\\\Eduooz\\\\eduooz\\\\courses\\\\nursing\\\\central\\\\sgpgims-nursing.html\" \"D:\\\\Eduooz\\\\eduooz\\\\courses\\\\nursing\\\\central\\\\rrb-nursing-superintendent.html\")",
+      "PowerShell(\\(Get-Item \"D:\\\\Eduooz\\\\eduooz\\\\courses\\\\nursing\\\\central\\\\rrb-nursing-superintendent.html\"\\).Length)",
+      "Read(//d/Eduooz/eduooz/assets/css/**)",
+      "PowerShell(Select-String -Path \"d:\\\\Eduooz\\\\eduooz\\\\components\\\\header.html\" -Pattern \"rrb|staff.nurse|superintendent\" -CaseSensitive:$false)"
     ],
     "additionalDirectories": [
       "C:\\Users\\acer\\AppData\\Local\\Temp"
