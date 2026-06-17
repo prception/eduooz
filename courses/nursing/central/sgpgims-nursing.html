@@ -124,6 +124,50 @@
           },
         ],
       };
+
+      // ========== ELIGIBILITY SECTION CONTENT ==========
+      window.courseEligibility = {
+        qualification: [
+          { icon: "fa-solid fa-graduation-cap", title: "Degrees & Recognition Required", description: "Must possess the relevant undergraduate degree such as MBBS, B.Sc Nursing, or an allied health qualification as required for the program. Degree must be from a recognized university or institution. Professional registration is mandatory where applicable (e.g., RNRM for Nursing, State Medical Council registration for MBBS graduates)." },
+          { icon: "fa-solid fa-id-card", title: "Valid Registration Requirements", description: "Valid and active professional registration is mandatory wherever applicable. Registration must be maintained with the relevant professional council and must be valid at the time of application and admission." },
+          { icon: "fa-solid fa-briefcase", title: "Clinical / Professional Experience", description: "Some SGPGIMS programs may prefer or require clinical or professional experience. Experience should be in a hospital, healthcare institution, or recognized organization relevant to the course." },
+          { icon: "fa-solid fa-calendar-check", title: "Age Limit & Relaxation Details", description: "Typically 18–40 years, depending on the program (refer to the latest SGPGIMS notification for exact limits). Age relaxation is applicable as per Government of India rules for SC/ST/OBC/PwBD and other eligible categories." },
+          { icon: "fa-solid fa-flag", title: "Nationality Requirements", description: "Applicant must be an Indian citizen." },
+          { icon: "fa-solid fa-heart-pulse", title: "Medical Fitness Requirements", description: "Candidate must be medically and physically fit for the program or course. A medical fitness certificate may be required during admission or document verification." },
+        ],
+        ageRules: [
+          { icon: "fa-solid fa-user", category: "General Category", maxAge: "40 years", description: "Must be within the upper age limit specified in the SGPGIMS notification. Upper age is 40 years as on the last date of online application submission." },
+          { icon: "fa-solid fa-people-group", category: "SC / ST", maxAge: "45 years", description: "Age relaxation as per Government of India rules, typically +5 years over the General category upper age limit." },
+          { icon: "fa-solid fa-shield-halved", category: "OBC (Non-Creamy Layer)", maxAge: "43 years", description: "Age relaxation as per Government of India rules, typically +3 years. Must possess a valid Non-Creamy Layer certificate." },
+          { icon: "fa-solid fa-wheelchair", category: "Persons with Benchmark Disabilities (PwBD)", maxAge: "50 years", description: "Age relaxation as per Government of India / SGPGIMS notification, typically up to 10 years." },
+          { icon: "fa-solid fa-medal", category: "Ex-Servicemen / Defence Candidates", maxAge: "45 years", description: "Age relaxation equal to the period of military service rendered, as per SGPGIMS notification and Government of India rules." },
+          { icon: "fa-solid fa-person-dress", category: "Widows / Divorcees", maxAge: "As per notification", description: "Eligible for age relaxation as per SGPGIMS notification and applicable reservation guidelines." },
+          { icon: "fa-solid fa-scale-balanced", category: "Other Reserved Categories", maxAge: "Varies", description: "Age relaxation and benefits as prescribed by Government of India rules or the SGPGIMS notification." },
+        ]
+      };
+
+      // ========== ELIGIBILITY CHECKER CONFIGURATION ==========
+      window.eligibilityCheckerConfig = {
+        minAge: 18,
+        maxAge: 40,
+        acceptedQualifications: [
+          { value: "bsc-nursing", label: "B.Sc. Nursing" },
+          { value: "post-basic-bsc", label: "Post Basic B.Sc. Nursing" },
+          { value: "gnm", label: "GNM (Diploma)" },
+        ],
+        registrationRequired: true,
+        registrationLabel: "Nursing Council Registration",
+        acceptedCategories: [
+          { value: "general", label: "General / UR", maxAge: 40 },
+          { value: "obc", label: "OBC (Non-Creamy Layer)", maxAge: 43 },
+          { value: "sc", label: "SC", maxAge: 45 },
+          { value: "st", label: "ST", maxAge: 45 },
+          { value: "pwd", label: "PwBD", maxAge: 50 },
+          { value: "ex-servicemen", label: "Ex-Servicemen", maxAge: 45 },
+        ],
+        additionalFields: [],
+        additionalRules: { experienceRequired: false, minPercentage: null, genderRestriction: null }
+      };
     </script>
   </head>
 
@@ -555,57 +599,7 @@
                 <h3 class="split-col-heading">Eligibility Requirements</h3>
               </div>
               <div class="elig-col-pane" id="elig-col-pane">
-                <div class="elig-col-track" id="elig-col-track">
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                      <h4>Degrees &amp; Recognition Required</h4>
-                    </div>
-                    <p>Must possess the relevant undergraduate degree such as MBBS, B.Sc Nursing, or an allied health qualification as required for the program. Degree must be from a recognized university or institution. Professional registration is mandatory where applicable (e.g., RNRM for Nursing, State Medical Council registration for MBBS graduates).</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-id-card"></i></div>
-                      <h4>Valid Registration Requirements</h4>
-                    </div>
-                    <p>Valid and active professional registration is mandatory wherever applicable. Registration must be maintained with the relevant professional council and must be valid at the time of application and admission.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-briefcase"></i></div>
-                      <h4>Clinical / Professional Experience</h4>
-                    </div>
-                    <p>Some SGPGIMS programs may prefer or require clinical or professional experience. Experience should be in a hospital, healthcare institution, or recognized organization relevant to the course.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-calendar-check"></i></div>
-                      <h4>Age Limit &amp; Relaxation Details</h4>
-                    </div>
-                    <p>Typically 21–35 years, depending on the program (refer to the latest SGPGIMS notification for exact limits). Age relaxation is applicable as per Government of India rules for SC/ST/OBC/PwBD and other eligible categories.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-flag"></i></div>
-                      <h4>Nationality Requirements</h4>
-                    </div>
-                    <p>Applicant must be an Indian citizen.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                      <h4>Medical Fitness Requirements</h4>
-                    </div>
-                    <p>Candidate must be medically and physically fit for the program or course. A medical fitness certificate may be required during admission or document verification.</p>
-                  </div>
-
-                </div>
+                <div class="elig-col-track" id="elig-col-track"><!-- rendered by renderEligibilityCards() from window.courseEligibility.qualification --></div>
               </div>
             </div>
 

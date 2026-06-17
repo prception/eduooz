@@ -100,6 +100,42 @@
           },
         ],
       };
+
+      window.courseEligibility = {
+        qualification: [
+          { icon: "fa-solid fa-graduation-cap", title: "Educational Qualification", description: "Candidates must possess B.Sc Nursing from a recognized university, or Post Basic B.Sc Nursing, or Diploma in Nursing (GNM) recognized by the relevant authority, along with relevant professional registration in nursing." },
+          { icon: "fa-solid fa-id-card", title: "Registration Requirements", description: "Candidates must hold a valid and active Nursing Council registration, registration with the State Nursing Council or home country nursing authority, and an active professional nursing license." },
+          { icon: "fa-solid fa-briefcase", title: "Clinical / Professional Experience", description: "Some DHA nursing categories may require clinical experience. Experience should preferably be gained in hospitals, clinics, or recognized healthcare institutions. Requirements may vary according to the position and DHA guidelines." },
+          { icon: "fa-solid fa-calendar-check", title: "Age Limit and Relaxation", description: "There is generally no fixed upper age limit for DHA licensing. Applicants must satisfy the eligibility conditions prescribed by DHA, and professional fitness and qualification requirements must be fulfilled." },
+          { icon: "fa-solid fa-flag", title: "Nationality", description: "Applicants of all nationalities can apply. Candidates must meet the visa and employment requirements of the UAE. Both UAE residents and international applicants are eligible to apply." },
+          { icon: "fa-solid fa-heart-pulse", title: "Medical Fitness", description: "Candidates must be medically fit to practice nursing and meet DHA health standards. Medical fitness certificates are required during employment or licensing procedures when requested by DHA." },
+        ],
+        ageRules: [
+          { category: "International Nurse (New Applicant)", badge: "No Age Limit", icon: "fa-solid fa-user", detail: "Nurses from any country applying for a DHA nursing license for the first time. Must complete DataFlow PSV, meet DHA qualification and experience requirements, and pass the Prometric exam." },
+          { category: "UAE Resident Nurse", badge: "Open", icon: "fa-solid fa-people-group", detail: "Nurses currently residing in the UAE can apply through the DHA Sheryan portal. Must hold a valid UAE residence visa and meet the same qualification and licensing requirements as international applicants." },
+          { category: "License Renewal (Existing DHA Nurses)", badge: "Open", icon: "fa-solid fa-rotate", detail: "Nurses with an existing DHA license must renew through the Sheryan portal before expiry. Renewal requirements include continued employment verification and updated professional documentation." },
+          { category: "Registered Nurse (RN) Track", badge: "B.Sc Nursing", icon: "fa-solid fa-user-nurse", detail: "Candidates with a B.Sc Nursing or Post Basic B.Sc Nursing degree qualify for the Registered Nurse (RN) licensing track. A valid home country RN license and DataFlow PSV are mandatory." },
+          { category: "Assistant Nurse (GNM) Track", badge: "Diploma Nursing", icon: "fa-solid fa-stethoscope", detail: "Diploma in Nursing / GNM holders may qualify for the Assistant Nurse licensing track subject to DHA assessment. Experience requirements and scope of practice may differ from the RN track." },
+          { category: "Special Circumstance Applicants", badge: "Case by Case", icon: "fa-solid fa-scale-balanced", detail: "Applicants with unique circumstances (license discrepancies, name changes, or complex DataFlow reports) are assessed on a case-by-case basis by DHA. Refer to the official Sheryan portal for guidance." },
+        ]
+      };
+
+      window.eligibilityCheckerConfig = {
+        minAge: 22,
+        maxAge: 60,
+        acceptedQualifications: [
+          { value: "bsc-nursing", label: "B.Sc. Nursing" },
+          { value: "gnm", label: "GNM / Diploma in Nursing" },
+          { value: "post-basic-bsc", label: "Post Basic B.Sc. Nursing" },
+        ],
+        registrationRequired: true,
+        registrationLabel: "Home Country Nursing Council Registration",
+        acceptedCategories: [
+          { value: "general", label: "All Applicants", maxAge: 60 }
+        ],
+        additionalFields: [],
+        additionalRules: { experienceRequired: true, minPercentage: null, genderRestriction: null }
+      };
     </script>
 
 

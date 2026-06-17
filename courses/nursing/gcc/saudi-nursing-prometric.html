@@ -100,6 +100,42 @@
           },
         ],
       };
+
+      window.courseEligibility = {
+        qualification: [
+          { icon: "fa-solid fa-graduation-cap", title: "Educational Qualification", description: "Candidates must possess B.Sc Nursing from a recognized university, or Post Basic B.Sc Nursing, or Diploma in Nursing (GNM) recognized by the SCFHS and home country nursing authority." },
+          { icon: "fa-solid fa-id-card", title: "Registration Requirements", description: "Candidates must hold a valid and active Nursing Council registration from their home country, registered with the State Nursing Council or appropriate professional nursing authority, and an active professional nursing license." },
+          { icon: "fa-solid fa-briefcase", title: "Clinical / Professional Experience", description: "Clinical nursing experience is generally required for SCFHS licensing. Experience should be in recognized hospitals or healthcare institutions. The required duration may vary based on qualification type and SCFHS licensing category." },
+          { icon: "fa-solid fa-calendar-check", title: "Age Requirements", description: "The general age limit for new applicants to the Saudi nursing licensing exam is up to 30 years for international nurse applicants. Saudi resident nurses and license renewal applicants may have different age considerations per SCFHS guidelines." },
+          { icon: "fa-solid fa-flag", title: "Nationality", description: "Applicants of all nationalities may apply for SCFHS nursing licensure. Candidates must meet the visa, employment, and licensing requirements prescribed by the Saudi Commission for Health Specialties (SCFHS)." },
+          { icon: "fa-solid fa-heart-pulse", title: "Medical Fitness", description: "Candidates must be medically fit to practice nursing in Saudi Arabia and meet SCFHS health standards. Medical fitness certificates are required as part of the employment and licensing registration process." },
+        ],
+        ageRules: [
+          { category: "International Nurse (New Applicant)", badge: "21–30 yrs", icon: "fa-solid fa-user", detail: "Nurses from any country applying for SCFHS nursing licensure for the first time. The general upper age limit for new applicants is 30 years. Must complete DataFlow PSV, meet SCFHS qualification and experience requirements, and pass the Prometric exam." },
+          { category: "Saudi Resident Nurse", badge: "Open", icon: "fa-solid fa-people-group", detail: "Nurses currently residing in Saudi Arabia can apply for SCFHS nursing licensure. Must meet the same qualification and licensing requirements. Age restrictions may differ for resident applicants — refer to SCFHS guidelines." },
+          { category: "License Renewal (Existing SCFHS)", badge: "Annual", icon: "fa-solid fa-rotate", detail: "Nurses with an existing SCFHS nursing license must renew annually. Renewal requires continued employment verification, updated professional documentation, and compliance with SCFHS continuing education requirements." },
+          { category: "Registered Nurse (RN) Track", badge: "B.Sc Nursing", icon: "fa-solid fa-user-nurse", detail: "Candidates with a B.Sc Nursing or Post Basic B.Sc Nursing degree qualify for the Registered Nurse (RN) licensing track. A valid home country RN license and DataFlow PSV are mandatory." },
+          { category: "Assistant Nurse (GNM) Track", badge: "Diploma Nursing", icon: "fa-solid fa-stethoscope", detail: "Diploma in Nursing / GNM holders may qualify for the Assistant Nurse licensing track subject to SCFHS assessment. Experience requirements and scope of practice differ from the RN track." },
+          { category: "Special Circumstance Applicants", badge: "Case by Case", icon: "fa-solid fa-scale-balanced", detail: "Applicants with unique circumstances (license discrepancies, name changes, or complex DataFlow reports) are assessed on a case-by-case basis by SCFHS. Refer to the official SCFHS portal for guidance." },
+        ]
+      };
+
+      window.eligibilityCheckerConfig = {
+        minAge: 21,
+        maxAge: 30,
+        acceptedQualifications: [
+          { value: "bsc-nursing", label: "B.Sc. Nursing" },
+          { value: "gnm", label: "GNM / Diploma in Nursing" },
+          { value: "post-basic-bsc", label: "Post Basic B.Sc. Nursing" },
+        ],
+        registrationRequired: true,
+        registrationLabel: "Home Country Nursing License",
+        acceptedCategories: [
+          { value: "general", label: "All Applicants", maxAge: 30 }
+        ],
+        additionalFields: [],
+        additionalRules: { experienceRequired: true, minPercentage: null, genderRestriction: null }
+      };
     </script>
 
 
