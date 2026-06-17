@@ -4564,7 +4564,7 @@ body {
   /* CTA enroll */
   .cta-urgency-box {
     flex-direction: column;
-    gap: 14px;
+    gap: 28px;
     align-items: center;
   }
 }
@@ -5535,6 +5535,7 @@ body {
   }
 }
 
+
 /* --- ELIGIBILITY CRITERIA SECTION --- */
 .eligibility-section {
   position: relative;
@@ -5930,14 +5931,14 @@ body {
 }
 
 .syllabus-tabs-nav::-webkit-scrollbar {
-  height: 6px;
+  height: 5px;
 }
 
 .syllabus-tabs-nav::-webkit-scrollbar-track {
   background: linear-gradient(
     90deg,
-    rgba(91, 33, 182, 0.1),
-    rgba(6, 182, 212, 0.08)
+    rgba(91, 33, 182, 0.12) 0%,
+    rgba(6, 182, 212, 0.10) 100%
   );
   border-radius: 999px;
 }
@@ -5945,29 +5946,28 @@ body {
 .syllabus-tabs-nav::-webkit-scrollbar-thumb {
   background: linear-gradient(
     135deg,
-    var(--brand-purple, #5b21b6),
-    var(--brand-cyan, #06b6d4)
+    #5b21b6 0%,
+    #06b6d4 100%
   );
-  background-color: var(--brand-purple, #5b21b6);
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: none;
   background-clip: padding-box;
+  box-shadow: 0 0 6px rgba(91, 33, 182, 0.35);
   transition:
-    background-image 0.28s ease,
-    border-color 0.28s ease,
-    box-shadow 0.28s ease;
+    box-shadow 0.3s ease,
+    filter 0.3s ease;
 }
 
 .syllabus-tabs-nav::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(
     45deg,
-    var(--brand-purple, #5b21b6),
-    var(--brand-cyan, #06b6d4)
+    #06b6d4 0%,
+    #5b21b6 100%
   );
-  border-color: rgba(255, 255, 255, 0.55);
   box-shadow:
-    0 0 0 1px rgba(91, 33, 182, 0.14),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    0 0 10px rgba(91, 33, 182, 0.5),
+    0 0 20px rgba(6, 182, 212, 0.3);
+  filter: brightness(1.1);
 }
 
 /* --- Individual tab button --- */
@@ -6155,7 +6155,8 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(91, 33, 182, 0.08);
-  border-radius: 22px;
+  border-top: 3px solid var(--brand-cyan);
+  border-radius: 36px;
   overflow: hidden;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.05);
 }
@@ -6169,6 +6170,18 @@ body {
 }
 #syl-panel-nursing .syl-panel-inner {
   border-top: 3px solid var(--brand-magenta);
+}
+#syl-panel-foundations .syl-panel-inner {
+  border-top: 3px solid var(--brand-cyan);
+}
+#syl-panel-core .syl-panel-inner {
+  border-top: 3px solid var(--brand-purple);
+}
+#syl-panel-clinical .syl-panel-inner {
+  border-top: 3px solid var(--brand-magenta);
+}
+#syl-panel-admin .syl-panel-inner {
+  border-top: 3px solid var(--brand-cyan);
 }
 
 /* Lists grid inside the panel */
@@ -6288,7 +6301,7 @@ body {
 
 .syl-panel-inner .syllabus-list li {
   padding: 14px 0;
-  font-size: 1.22rem;
+  font-size: 1.125rem;
   color: #64748b;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   display: flex;
@@ -6342,13 +6355,13 @@ body {
     width: 100%;
     max-width: 100%;
     flex-wrap: nowrap;
-    padding: 5px;
-    border-radius: 16px;
+    padding: 10px;
+    border-radius: 36px;
     box-sizing: border-box;
   }
   .syl-tab {
     padding: 10px 16px;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     flex-shrink: 0;
   }
   .syl-tab-icon {
@@ -8015,6 +8028,8 @@ body {
   transition: all 0.25s ease;
 }
 
+
+
 .greview-trust-badge:hover {
   background: rgba(6, 182, 212, 0.05);
   border-color: rgba(6, 182, 212, 0.18);
@@ -8701,12 +8716,16 @@ body {
     grid-template-columns: 1fr;
     gap: 24px;
   }
+  /* Show paper list first, preview below on tablet/mobile */
+  .pex-library-panel {
+    order: -1;
+  }
   .pex-preview-panel {
     position: relative;
     top: auto;
   }
   .pex-frame-wrap {
-    aspect-ratio: 4 / 2;
+    aspect-ratio: 4 / 3;
   }
 }
 
@@ -8714,13 +8733,30 @@ body {
   .pex-paper-grid {
     grid-template-columns: 1fr;
   }
+  .pex-paper-card {
+    padding: 14px 13px;
+    gap: 8px;
+  }
+  .pex-card-title {
+    font-size: 0.88rem;
+  }
+  .pex-card-meta {
+    font-size: 0.78rem;
+  }
   .pex-toolbar {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
+    padding: 12px 14px;
   }
   .pex-toolbar-actions {
     flex-wrap: wrap;
+    width: 100%;
+    gap: 5px;
+  }
+  .pex-tbtn-dl {
+    flex: 1;
+    justify-content: center;
   }
   .pex-tabs {
     overflow-x: auto;
@@ -8733,10 +8769,43 @@ body {
     flex: none;
   }
   .pex-frame-wrap {
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 3 / 4;
   }
   .pex-info-title {
     max-width: 100%;
+    white-space: normal;
+  }
+  .pex-locked-state {
+    padding: 32px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pex-paper-card {
+    padding: 12px 11px;
+  }
+  .pex-card-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.82rem;
+  }
+  .pex-toolbar {
+    padding: 10px 12px;
+  }
+  .pex-tbtn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.7rem;
+  }
+  .pex-zoom-label {
+    font-size: 0.7rem;
+  }
+  .pex-frame-wrap {
+    aspect-ratio: 1 / 1.3;
+  }
+  .pex-search-wrap input {
+    font-size: 0.88rem;
+    padding: 10px 14px 10px 36px;
   }
 }
 
@@ -11348,6 +11417,12 @@ p {
   border-radius: 14px;
 }
 
+@media (max-width: 768px) {
+  .eligibility-explorer-icon {
+    align-self: center;
+  }
+}
+
 .eligibility-explorer-icon > i {
   font-size: 1.3rem;
   color: var(--brand-cyan);
@@ -11376,6 +11451,11 @@ p {
   justify-content: flex-start;
   font-size: 1.3rem;
   color: var(--brand-cyan);
+}
+@media (max-width: 768px) {
+  #age-carousel-col > .age-explorer-icon {
+    align-self: center;
+  }
 }
 
 #age-carousel-col > .age-explorer-icon .split-col-heading {
@@ -11998,75 +12078,49 @@ p {
   transform: none;
 }
 
-/* Vertical timeline (mobile) */
+/* Horizontal scroll timeline (mobile) */
 @media (max-width: 768px) {
   .journey-roadmap {
-    padding: 0;
-    overflow-x: visible;
+    padding: 0 4px 12px;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .journey-roadmap::-webkit-scrollbar {
+    display: none;
   }
 
   .journey-milestones {
-    flex-direction: column;
-    align-items: flex-start;
-    min-width: auto;
-    gap: 16px;
-    padding-left: 48px;
-    position: relative;
-  }
-
-  .journey-milestones::before {
-    content: "";
-    position: absolute;
-    left: 35px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(
-      180deg,
-      var(--brand-cyan),
-      var(--brand-purple),
-      var(--brand-magenta)
-    );
-    border-radius: 2px;
+    min-width: max-content;
+    gap: 0;
+    padding: 0 8px;
   }
 
   .journey-milestone {
-    flex-direction: row;
-    text-align: left;
-    gap: 16px;
-    min-width: auto;
+    min-width: 100px;
+    scroll-snap-align: center;
   }
 
   .milestone-icon {
-    width: 52px;
-    height: 52px;
-    font-size: 1rem;
-    margin-bottom: 0;
-    position: relative;
-    left: -12px;
-    flex-shrink: 0;
-  }
-
-  .journey-milestone.active .milestone-icon {
-    transform: scale(1.08);
-  }
-
-  .milestone-number {
-    position: absolute;
-    left: -48px;
-    top: 50%;
-    transform: translateY(-50%);
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    font-size: 0.6rem;
+    width: 58px;
+    height: 58px;
+    font-size: 1.2rem;
   }
 
   .journey-progress-line {
-    display: none;
+    left: 50px;
+    right: 50px;
   }
 
   .journey-card {
     padding: 24px 20px;
+  }
+
+  .journey-card p {
+    text-align: center;
   }
 
   .journey-btn {
@@ -12101,6 +12155,7 @@ p {
 
   /* Section titles */
   .section-title {
+    text-align: center;
     font-size: 2.2rem;
   }
   /* Papers toolbar */
@@ -12155,6 +12210,7 @@ p {
   }
   .journey-card p {
     font-size: 0.95rem;
+    text-align: center;
   }
   .journey-nav {
     gap: 10px;
@@ -12513,6 +12569,7 @@ p {
   /* Order: heading → desc → carousel → badges */
   .aev-heading {
     order: 1;
+    text-align: center;
   }
   .aev-desc {
     order: 2;
@@ -12597,18 +12654,18 @@ p {
 /* ── 7. GOOGLE REVIEWS & TRUST WALL: Center all elements ───── */
 @media (max-width: 767px) {
   .greview-section .text-center {
-    text-align: center;
+    text-align: left;
   }
   .greview-rating-hero {
     align-items: center;
     width: 100%;
   }
   .greview-trust-row {
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+    text-align: left;
   }
   .greview-trust-badge {
-    justify-content: center;
+    justify-content: flex-start;
   }
   .greview-dots {
     justify-content: center;
@@ -12712,7 +12769,7 @@ p {
   /* Stretch trust badges full-width */
   .greview-trust-badge {
     width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   /* Milestone label stays visible */
@@ -13599,7 +13656,7 @@ p {
   }
 }
 
-/* â•â•â• RIGHT: CONTENT COLUMN â€” LIGHT THEME â•â•â• */
+/*  RIGHT: CONTENT COLUMN  LIGHT THEME */
 .pas-content-col {
   display: flex;
   flex-direction: column;
@@ -13614,6 +13671,19 @@ p {
   backdrop-filter: blur(8px);
   align-self: flex-start;
 }
+
+@media(max-width:767px) {
+  .pas-content-col .section-label {
+    align-self: center;
+  }
+  .pas-heading{
+    text-align: center;
+  }
+  .pas-desc {
+    text-align: center;
+  }
+}
+
 .pas-content-col .section-label .label-dot {
   background: #06b6d4;
 }
