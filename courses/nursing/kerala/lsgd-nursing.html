@@ -130,6 +130,48 @@
           },
         ],
       };
+
+      // ========== ELIGIBILITY SECTION CONTENT ==========
+      window.courseEligibility = {
+        qualification: [
+          { icon: "fa-solid fa-graduation-cap", title: "Degrees and Recognition Required", description: "Must hold B.Sc. Nursing (Basic) or GNM from a recognized university. The degree must be recognized by the Indian Nursing Council (INC). Valid KNMC registration is mandatory for appointment." },
+          { icon: "fa-solid fa-id-card", title: "Valid Registration Requirements", description: "Must possess a valid and active professional registration maintained with the Kerala Nurses and Midwives Council (KNMC). Registration must remain valid at the time of both application and appointment as per Kerala PSC norms." },
+          { icon: "fa-solid fa-briefcase", title: "Clinical / Professional Experience", description: "Some Kerala PSC LSGD posts may prefer or require clinical nursing experience in government hospitals or healthcare centers. Experience should be in a recognized hospital or nursing facility relevant to the post applied for." },
+          { icon: "fa-solid fa-calendar-check", title: "Age Limit & Relaxation", description: "18–36 years for general candidates (check the latest Kerala PSC notification for exact limits). Age relaxation is applicable for SC/ST/OBC/PwBD and other eligible categories as per Kerala PSC rules." },
+          { icon: "fa-solid fa-flag", title: "Nationality Requirements", description: "Applicant must be an Indian citizen. Must fulfill eligibility requirements as specified in the Kerala PSC notification for the relevant post and department." },
+          { icon: "fa-solid fa-heart-pulse", title: "Medical Fitness Requirements", description: "Candidate must be medically and physically fit for nursing duties. A medical fitness certificate may be required during document verification or at the time of appointment as per Kerala PSC norms." },
+        ],
+        ageRules: [
+          { icon: "fa-solid fa-user", category: "General Category", maxAge: "18–36 years", description: "Must be within the upper age limit specified in the Kerala PSC notification. Age must be between 18 and 36 years as on the last date of online application submission." },
+          { icon: "fa-solid fa-people-group", category: "SC / ST", maxAge: "41 years", description: "+5 years relaxation over General category. Applicable to candidates belonging to Scheduled Caste / Scheduled Tribe communities as per Kerala PSC rules." },
+          { icon: "fa-solid fa-shield-halved", category: "OBC (Non-Creamy Layer)", maxAge: "41 years", description: "+5 years relaxation over General category. Must possess valid Non-Creamy Layer certificate issued by competent authority as per Kerala PSC notification." },
+          { icon: "fa-solid fa-wheelchair", category: "Persons with Benchmark Disabilities (PwBD)", maxAge: "46 years", description: "+10 years relaxation over General category as per Kerala PSC notification. Must have minimum 40% disability certified by designated medical board." },
+          { icon: "fa-solid fa-medal", category: "Ex-Servicemen / Defence Candidates", maxAge: "41 years", description: "Age relaxation equal to the period of military service rendered, as per Kerala PSC notification and Government of India rules. Applicable to discharged defence personnel." },
+          { icon: "fa-solid fa-person-dress", category: "Widows / Divorcees", maxAge: "Varies", description: "Eligible for age relaxation as per Kerala PSC notification and reservation guidelines. Applicable to widows and judicially divorced women who have not remarried." },
+          { icon: "fa-solid fa-scale-balanced", category: "Other Reserved Categories", maxAge: "Varies", description: "Age relaxation and benefits as prescribed by Government of India rules or the Kerala PSC notification. Refer to the official advertisement for specific category relaxations." },
+        ],
+      };
+
+      // ========== ELIGIBILITY CHECKER CONFIGURATION ==========
+      window.eligibilityCheckerConfig = {
+        minAge: 18,
+        maxAge: 36,
+        acceptedQualifications: [
+          { value: "bsc-nursing", label: "B.Sc. Nursing" },
+          { value: "gnm", label: "GNM (General Nursing & Midwifery)" },
+        ],
+        registrationRequired: true,
+        registrationLabel: "Nursing Council Registration (KNMC / RNRM)",
+        acceptedCategories: [
+          { value: "general",       label: "General / UR",           maxAge: 36 },
+          { value: "obc",           label: "OBC (Non-Creamy Layer)", maxAge: 41 },
+          { value: "sc",            label: "SC",                     maxAge: 41 },
+          { value: "st",            label: "ST",                     maxAge: 41 },
+          { value: "pwd",           label: "PwBD",                   maxAge: 46 },
+          { value: "ex-servicemen", label: "Ex-Servicemen",          maxAge: 41 },
+        ],
+        additionalFields: [],
+      };
     </script>
   </head>
 
@@ -571,57 +613,7 @@
                 <h3 class="split-col-heading">Eligibility Requirements</h3>
               </div>
               <div class="elig-col-pane" id="elig-col-pane">
-                <div class="elig-col-track" id="elig-col-track">
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                      <h4>Degrees and Recognition Required</h4>
-                    </div>
-                    <p>Must hold B.Sc. Nursing (Basic) or Post Basic B.Sc. Nursing from a recognized university. The degree must be recognized by the Indian Nursing Council (INC). Relevant professional registration is mandatory (RNRM), where applicable.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-id-card"></i></div>
-                      <h4>Valid Registration Requirements</h4>
-                    </div>
-                    <p>Must possess a valid and active professional registration maintained with the State Nursing Council. Registration must remain valid at the time of both application and appointment as per Kerala PSC norms.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-briefcase"></i></div>
-                      <h4>Clinical / Professional Experience</h4>
-                    </div>
-                    <p>Some Kerala PSC posts may prefer or require clinical nursing experience in government hospitals or healthcare centers. Experience should be in a recognized hospital or nursing facility relevant to the post applied for.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-calendar-check"></i></div>
-                      <h4>Age Limit &amp; Relaxation</h4>
-                    </div>
-                    <p>18&#8211;36 years for general candidates (check the latest Kerala PSC notification for exact limits). Age relaxation is applicable for SC/ST/OBC/PwBD and other eligible categories as per Kerala PSC rules.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-flag"></i></div>
-                      <h4>Nationality Requirements</h4>
-                    </div>
-                    <p>Applicant must be an Indian citizen. Must fulfill eligibility requirements as specified in the Kerala PSC notification for the relevant post and department.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                      <h4>Medical Fitness Requirements</h4>
-                    </div>
-                    <p>Candidate must be medically and physically fit for nursing duties. A medical fitness certificate may be required during document verification or at the time of appointment as per Kerala PSC norms.</p>
-                  </div>
-
-                </div>
+                <div class="elig-col-track" id="elig-col-track"><!-- rendered by renderEligibilityCards() from window.courseEligibility.qualification --></div>
               </div>
             </div>
 
@@ -637,107 +629,7 @@
                 <h3 class="split-col-heading">Age Limit by Category</h3>
               </div>
               <div class="elig-col-pane" id="age-col-pane">
-                <div class="elig-col-track" id="age-col-track">
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-user"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>General Category</h4>
-                        <span class="age-badge">18&#8211;36 years</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>Must be within the upper age limit specified in the Kerala PSC notification. Age must be between 18 and 36 years as on the last date of online application submission.</p>
-                    </div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-people-group"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>SC / ST</h4>
-                        <span class="age-badge">41 years</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>+5 years relaxation over General category. Applicable to candidates belonging to Scheduled Caste / Scheduled Tribe communities as per Kerala PSC rules.</p>
-                    </div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>OBC (Non-Creamy Layer)</h4>
-                        <span class="age-badge">41 years</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>+5 years relaxation over General category. Must possess valid Non-Creamy Layer certificate issued by competent authority as per Kerala PSC notification.</p>
-                    </div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-wheelchair"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>Persons with Benchmark Disabilities (PwBD)</h4>
-                        <span class="age-badge">46 years</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>+10 years relaxation over General category as per Kerala PSC notification. Must have minimum 40% disability certified by designated medical board.</p>
-                    </div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-medal"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>Ex-Servicemen / Defence Candidates</h4>
-                        <span class="age-badge">40 years</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>Age relaxation equal to the period of military service rendered, as per Kerala PSC notification and Government of India rules. Applicable to discharged defence personnel.</p>
-                    </div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-person-dress"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>Widows / Divorcees</h4>
-                        <span class="age-badge">Varies</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>Eligible for age relaxation as per Kerala PSC notification and reservation guidelines. Applicable to widows and judicially divorced women who have not remarried.</p>
-                    </div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-scale-balanced"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>Other Eligible Reserved Categories</h4>
-                        <span class="age-badge">Varies</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>Age relaxation and benefits as prescribed by Government of India rules or the Kerala PSC notification. Refer to the official advertisement for specific category relaxations.</p>
-                    </div>
-                  </div>
-
-                </div>
+                <div class="elig-col-track" id="age-col-track"><!-- rendered by renderAgeRules() from window.courseEligibility.ageRules --></div>
               </div>
             </div>
           </div>
@@ -757,55 +649,8 @@
           </h2>
         </div>
         <div class="elig-checker-card g-exam-reveal">
-          <form id="elig-checker-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" name="fullname" placeholder="Enter your full name" />
-              </div>
-              <div class="form-group">
-                <label>Qualification</label>
-                <select name="qualification">
-                  <option value="">Select...</option>
-                  <option value="bsc-nursing">B.Sc. Nursing</option>
-                  <option value="post-basic-bsc">Post Basic B.Sc. Nursing</option>
-                  <option value="gnm">GNM (Diploma)</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Nursing Council Registration (RNRM)</label>
-                <select name="registration">
-                  <option value="">Select...</option>
-                  <option value="yes">Yes &#8211; Active Registration</option>
-                  <option value="no">No</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Caste / Category</label>
-                <select name="category">
-                  <option value="">Select...</option>
-                  <option value="general">General / UR</option>
-                  <option value="obc">OBC (Non-Creamy Layer)</option>
-                  <option value="sc">SC</option>
-                  <option value="st">ST</option>
-                  <option value="pwd">PwBD</option>
-                  <option value="ex-servicemen">Ex-Servicemen</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" name="dob" />
-              </div>
-            </div>
-            <button type="submit" class="btn-check-elig">
-              <i class="fa-solid fa-magnifying-glass"></i> Check Eligibility
-            </button>
-          </form>
+          <!-- form fields built by initEligibilityChecker() from window.eligibilityCheckerConfig -->
+          <form id="elig-checker-form"></form>
           <div class="elig-result" id="elig-result"></div>
         </div>
       </div>

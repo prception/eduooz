@@ -78,6 +78,40 @@
           },
         ],
       };
+
+      // ========== ELIGIBILITY SECTION CONTENT ==========
+      window.courseEligibility = {
+        qualification: [
+          { icon: "fa-solid fa-graduation-cap", title: "Educational Qualification", description: "B.Sc Nursing / Post Basic B.Sc Nursing / GNM recognized by home country nursing council." },
+          { icon: "fa-solid fa-id-card",        title: "Registration Requirements",  description: "Valid active registration from home country's nursing council, must be current and in good standing." },
+          { icon: "fa-solid fa-briefcase",      title: "Clinical Experience",        description: "Relevant clinical nursing experience required; GNM holders typically need minimum 2 years in recognized hospital." },
+          { icon: "fa-solid fa-passport",       title: "Nationality & Documentation", description: "Valid passport required for Oman work visa and licensing process; all original educational documents needed." },
+          { icon: "fa-solid fa-file-shield",    title: "DataFlow / PSV Verification", description: "Primary Source Verification through DataFlow mandatory for OMSB licensing." },
+          { icon: "fa-solid fa-heart-pulse",    title: "Medical Fitness",            description: "Medical fitness certificate required for OMSB license registration." },
+        ],
+        ageRules: [
+          { icon: "fa-solid fa-user",       category: "All Applicants",        maxAge: "21–60 years", description: "All applicants must be between 21 and 60 years of age to be eligible for the Oman Nursing OMSB licensing examination." },
+          { icon: "fa-solid fa-user-nurse", category: "Registered Nurse Track", maxAge: "B.Sc Nursing", description: "Nurses holding B.Sc Nursing or Post Basic B.Sc Nursing qualification recognized by home country nursing council are eligible to apply." },
+          { icon: "fa-solid fa-stethoscope",category: "Assistant Nurse Track",  maxAge: "GNM/Diploma",  description: "GNM / Diploma in Nursing holders with a minimum 2 years of clinical experience in a recognized hospital are eligible to apply." },
+        ],
+      };
+
+      // ========== ELIGIBILITY CHECKER CONFIGURATION ==========
+      window.eligibilityCheckerConfig = {
+        minAge: 21,
+        maxAge: 60,
+        acceptedQualifications: [
+          { value: "bsc-nursing",    label: "B.Sc. Nursing" },
+          { value: "gnm",            label: "GNM / Diploma in Nursing" },
+          { value: "post-basic-bsc", label: "Post Basic B.Sc. Nursing" },
+        ],
+        registrationRequired: true,
+        registrationLabel: "Home Country Nursing Council Registration",
+        acceptedCategories: [
+          { value: "general", label: "All Applicants", maxAge: 60 },
+        ],
+        additionalFields: [],
+      };
     </script>
 
 
@@ -542,74 +576,7 @@
                 <h3 class="split-col-heading">Eligibility Requirements</h3>
               </div>
               <div class="elig-col-pane" id="elig-col-pane">
-                <div class="elig-col-track" id="elig-col-track">
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                      </div>
-                      <h4>Educational Qualification</h4>
-                    </div>
-                    <p>
-                      B.Sc Nursing / Post Basic B.Sc Nursing / GNM recognized by home country nursing council.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-id-card"></i>
-                      </div>
-                      <h4>Nursing Council Registration</h4>
-                    </div>
-                    <p>
-                      Valid active registration from home country's nursing council, must be current and in good standing.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-briefcase"></i>
-                      </div>
-                      <h4>Clinical Experience</h4>
-                    </div>
-                    <p>
-                      Relevant clinical nursing experience required; GNM holders typically need minimum 2 years in recognized hospital.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-passport"></i>
-                      </div>
-                      <h4>Nationality &amp; Passport</h4>
-                    </div>
-                    <p>
-                      Valid passport required for Oman work visa and licensing process; all original educational documents needed.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-file-shield"></i>
-                      </div>
-                      <h4>DataFlow PSV</h4>
-                    </div>
-                    <p>
-                      Primary Source Verification through DataFlow mandatory for OMSB licensing.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-heart-pulse"></i>
-                      </div>
-                      <h4>Medical Fitness</h4>
-                    </div>
-                    <p>
-                      Medical fitness certificate required for OMSB license registration.
-                    </p>
-                  </div>
-                </div>
+                <div class="elig-col-track" id="elig-col-track"><!-- rendered by renderEligibilityCards() from window.courseEligibility.qualification --></div>
               </div>
             </div>
 
@@ -625,65 +592,7 @@
                 <h3 class="split-col-heading">Oman Licensing Process</h3>
               </div>
               <div class="elig-col-pane" id="age-col-pane">
-                <div class="elig-col-track" id="age-col-track">
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-calendar-check"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Step 1: Exam Booking (Pearson VUE)</h4>
-                        <span class="age-badge">OMSB</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Register on Pearson VUE website and schedule your OMSB Nursing Licensing Exam at an authorized Pearson VUE testing center. Ensure nursing qualification and council registration documents are ready. Pay the exam fee and receive your exam confirmation.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-file-shield"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Step 2: DataFlow PSV Verification</h4>
-                        <span class="age-badge">PSV</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Complete Primary Source Verification (PSV) through DataFlow. All academic certificates, nursing council registration, clinical experience documents, and professional credentials are verified directly with the issuing institutions. This is mandatory before OMSB license issuance.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-id-badge"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Step 3: OMSB License Registration</h4>
-                        <span class="age-badge">Ministry of Health</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        After passing the Pearson VUE exam and completing DataFlow document verification, submit your nursing license registration to OMSB / Ministry of Health Oman. Upon approval, receive your official Oman nursing license to practice as a Registered Nurse.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <div class="elig-col-track" id="age-col-track"><!-- rendered by renderAgeRules() from window.courseEligibility.ageRules --></div>
               </div>
             </div>
           </div>
@@ -703,48 +612,8 @@
           </h2>
         </div>
         <div class="elig-checker-card g-exam-reveal">
-          <form id="elig-checker-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label>Qualification</label>
-                <select name="qualification">
-                  <option value="">Select...</option>
-                  <option value="bsc-nursing">B.Sc. Nursing</option>
-                  <option value="post-basic-bsc">
-                    Post Basic B.Sc. Nursing
-                  </option>
-                  <option value="gnm">GNM (Diploma)</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Nursing Council Registration</label>
-                <select name="registration">
-                  <option value="">Select...</option>
-                  <option value="yes">Yes - Active RN/RM</option>
-                  <option value="no">No</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Category</label>
-                <select name="category">
-                  <option value="">Select...</option>
-                  <option value="general">B.Sc Nursing</option>
-                  <option value="post-basic-bsc">Post Basic B.Sc Nursing</option>
-                  <option value="gnm">GNM (with experience)</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" name="dob" />
-              </div>
-            </div>
-            <button type="submit" class="btn-check-elig">
-              <i class="fa-solid fa-magnifying-glass"></i> Check Eligibility
-            </button>
-          </form>
+          <!-- form fields built by initEligibilityChecker() from window.eligibilityCheckerConfig -->
+          <form id="elig-checker-form"></form>
           <div class="elig-result" id="elig-result"></div>
         </div>
       </div>

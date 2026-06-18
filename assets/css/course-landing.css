@@ -5796,6 +5796,22 @@ body {
   font-weight: 600;
 }
 
+/* Conditional field hidden state */
+.ec-hidden {
+  display: none !important;
+}
+
+/* Result confidence disclaimer */
+.elig-confidence {
+  font-size: 0.76rem;
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.6;
+  margin-top: 10px;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
 @keyframes fadeSlideUp {
   from {
     opacity: 0;

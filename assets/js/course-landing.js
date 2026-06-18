@@ -2425,11 +2425,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="age-explorer-icon"><i class="${rule.icon || "fa-solid fa-user"}"></i></div>
                     <div class="age-explorer-info">
                         <h4>${rule.category}</h4>
-                        <span class="age-badge">${rule.maxAge}</span>
+                        <span class="age-badge">${rule.maxAge || rule.badge || "—"}</span>
                     </div>
                     <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
                 </div>
-                <div class="age-explorer-detail"><p>${rule.description}</p></div>
+                <div class="age-explorer-detail"><p>${rule.description || rule.detail || ""}</p></div>
             </div>
         `,
       )
