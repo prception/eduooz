@@ -196,57 +196,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // --- 2. The Atmospheric Background Logic (Desktop Only) ---
-    if (window.innerWidth > 1024) {
-      const monolithCards = document.querySelectorAll(".monolith-card");
-      const ambientLayers = document.querySelectorAll(".ambient-layer");
-      const defaultBg = document.getElementById("bg-default");
-
-      monolithCards.forEach((card) => {
-        card.addEventListener("mouseenter", function () {
-          const targetId = this.getAttribute("data-target-bg");
-          const targetLayer = document.getElementById(targetId);
-          ambientLayers.forEach((layer) => layer.classList.remove("active-bg"));
-          if (targetLayer) {
-            targetLayer.classList.add("active-bg");
-          }
-        });
-
-        card.addEventListener("mouseleave", function () {
-          ambientLayers.forEach((layer) => layer.classList.remove("active-bg"));
-          if (defaultBg) {
-            defaultBg.classList.add("active-bg");
-          }
-        });
-      });
-
-      const monolithGrid = document.querySelector(".monolith-grid");
-      if (monolithGrid) {
-        monolithGrid.addEventListener("mouseleave", () => {
-          ambientLayers.forEach((layer) => layer.classList.remove("active-bg"));
-          if (defaultBg) defaultBg.classList.add("active-bg");
-        });
-      }
-    }
-
     // --- 3. Trajectory Tab Switching Logic ---
     const tabContainer = document.getElementById("trajectoryTabs");
     const contentWrapper = document.getElementById("trajectoryContent");
-    const masterHeading = document.getElementById("trajectoryHeading");
 
     if (tabContainer && contentWrapper) {
       const tabs = tabContainer.querySelectorAll(".trajectory-tab");
       const sections = contentWrapper.querySelectorAll(".trajectory-section");
-      const sectionHeadings = contentWrapper.querySelectorAll(
-        ".trajectory-section-heading",
-      );
-
-      const headingMap = {
-        all: "All State & Central Nursing Exams",
-        state: "Kerala State PSC Nursing Exams",
-        central: "Central Government Nursing Exams",
-        gcc: "GCC Nursing Licensing Exams",
-      };
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", function () {
@@ -255,24 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
           // Update active tab
           tabs.forEach((t) => t.classList.remove("active"));
           this.classList.add("active");
-
-          // Update master heading with smooth transition
-          if (masterHeading) {
-            masterHeading.classList.add("is-transitioning");
-            setTimeout(() => {
-              masterHeading.textContent = headingMap[filter] || headingMap.all;
-              masterHeading.classList.remove("is-transitioning");
-            }, 300);
-          }
-
-          // Show/hide individual section headings
-          sectionHeadings.forEach((h) => {
-            if (filter === "all") {
-              h.style.display = "none";
-            } else {
-              h.style.display = "";
-            }
-          });
 
           // Filter sections with animation
           sections.forEach((section) => {
@@ -295,11 +233,6 @@ document.addEventListener("DOMContentLoaded", () => {
             ScrollTrigger.refresh();
           }, 100);
         });
-      });
-
-      // Initialize: hide section headings on load (default is "all")
-      sectionHeadings.forEach((h) => {
-        h.style.display = "none";
       });
     }
   }

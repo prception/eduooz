@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Eduooz International Academy</title>
+    <title>Lab Technology Courses | Eduooz International Academy</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -137,23 +137,17 @@
 
     <!-- 4. MASTER COURSE LISTING (Atmospheric Monolith Grid) -->
     <section class="atmospheric-course-section" id="course-directory">
-        
+
         <!-- The Dynamic Ambient Backgrounds -->
         <div class="ambient-bg-wrapper">
-            <!-- Default Dark Gradient -->
             <div class="ambient-layer active-bg" id="bg-default"></div>
-            <!-- Course Specific Backgrounds (Hidden by default) -->
-            <div class="ambient-layer" id="bg-nursing"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=2000" alt="Nursing"></div>
-            <div class="ambient-layer" id="bg-global"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=2000" alt="Global"></div>
-            <div class="ambient-layer" id="bg-psc"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=2000" alt="PSC"></div>
-            <div class="ambient-layer" id="bg-pharma"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=2000" alt="Pharma"></div>
-            
-            <!-- Heavy Frost Overlay so text remains perfectly readable -->
+            <div class="ambient-layer" id="bg-kerala"><img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&q=80&w=2000" alt="Kerala"></div>
+            <div class="ambient-layer" id="bg-central"><img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&q=80&w=2000" alt="Central"></div>
             <div class="ambient-frost-overlay"></div>
         </div>
 
         <div class="container relative-z">
-            
+
             <div class="monolith-header text-center g-monolith-reveal">
                 <div class="frost-pill-dark mb-4 mx-auto">
                     <span class="glowing-dot-cyan"></span> Elite Curriculums
@@ -161,90 +155,129 @@
                 <h2 class="monolith-title">Choose your <span class="text-gradient-fluid">Trajectory.</span></h2>
             </div>
 
-            <!-- The Staggered Vertical Grid -->
-            <div class="monolith-grid">
-                
-                <!-- Monolith 1: AIIMS NORCET -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-nursing">
-                    <div class="monolith-glow accent-cyan"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-cyan border-cyan">Nursing Leadership</span>
-                            <span class="mono-duration">6 Months</span>
-                        </div>
-                        <h3 class="mono-name">AIIMS NORCET & Central Govt.</h3>
-                        <p class="mono-desc">Master clinical scenarios, prioritize high-yield concepts, and conquer negative marking to secure your rank in India's toughest nursing exams.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>500+</strong><span>Hrs Live</span></div>
-                                <div><strong>150</strong><span>Mocks</span></div>
+            <!-- Tab Navigation -->
+            <div class="trajectory-tabs" id="trajectoryTabs">
+                <button class="trajectory-tab active" data-filter="all">All</button>
+                <button class="trajectory-tab" data-filter="state">State Exams</button>
+                <button class="trajectory-tab" data-filter="central">Central Exams</button>
+            </div>
+
+            <!-- Tab Content Wrapper -->
+            <div class="trajectory-content" id="trajectoryContent">
+
+                <!-- STATE EXAMS SECTION -->
+                <div class="trajectory-section" data-section="state">
+                    <h3 class="trajectory-section-heading">Kerala State Lab Technology Exams</h3>
+                    <div class="monolith-grid">
+
+                        <!-- DHS Lab Technician -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-kerala">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">State Government</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">DHS Lab Technician</h3>
+                                <p class="mono-desc">Comprehensive preparation for the Directorate of Health Services (DHS) Lab Technician exam under Kerala PSC with targeted mock tests and full syllabus coverage.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>300+</strong><span>Hrs Live</span></div>
+                                        <div><strong>120</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="mlt/kerala/dhs-lab-technician.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="#" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
+
+                        <!-- IMS/Homeo/Ayurveda Lab Technician -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-kerala">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">State Government</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">IMS / Homeo / Ayurveda Lab Technician</h3>
+                                <p class="mono-desc">Targeted coaching for Lab Technician posts under IMS, Homoeopathic, and Ayurvedic health departments in Kerala with focused syllabus and mock tests.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>250+</strong><span>Hrs Live</span></div>
+                                        <div><strong>100</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="mlt/kerala/ims-homeo-ayurveda-lab-technician.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- JLA Lab Technician -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-kerala">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">State Government</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">JLA Lab Technician</h3>
+                                <p class="mono-desc">Focused preparation for Junior Lab Assistant (JLA) exam under Kerala state health services with expert faculty and comprehensive study material.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>200+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Expert</strong><span>Faculty</span></div>
+                                    </div>
+                                    <a href="mlt/kerala/jla-lab-technician.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- Monolith 2: DHA / HAAD -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-global">
-                    <div class="monolith-glow accent-purple"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-purple border-purple">Global Placements</span>
-                            <span class="mono-duration">3 Months</span>
-                        </div>
-                        <h3 class="mono-name">DHA, HAAD & MOH Prep.</h3>
-                        <p class="mono-desc">Bypass the red tape. We provide end-to-end coaching, Dataflow credential verification, and direct hospital interviews in the Middle East.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>100%</strong><span>Assistance</span></div>
-                                <div><strong>98%</strong><span>Pass Rate</span></div>
-                            </div>
-                            <a href="#" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                <!-- CENTRAL EXAMS SECTION -->
+                <div class="trajectory-section" data-section="central">
+                    <h3 class="trajectory-section-heading">Central Government Lab Technology Exams</h3>
+                    <div class="monolith-grid">
 
-                <!-- Monolith 3: Kerala PSC -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-psc">
-                    <div class="monolith-glow accent-magenta"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-magenta border-magenta">State Government</span>
-                            <span class="mono-duration">4 Months</span>
-                        </div>
-                        <h3 class="mono-name">Kerala PSC Mastery.</h3>
-                        <p class="mono-desc">Designed specifically around the new weighted syllabus. Learn rapid recall strategies and absolute elimination techniques from state rank holders.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>Rank 1</strong><span>Faculty</span></div>
-                                <div><strong>Mal/Eng</strong><span>Medium</span></div>
+                        <!-- CRE Lab Technician -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-central">
+                            <div class="monolith-glow accent-magenta"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-magenta border-magenta">Central Govt.</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">CRE Lab Technician</h3>
+                                <p class="mono-desc">Complete preparation for the Central Recruitment Examination (CRE) Lab Technician with comprehensive clinical and theoretical coverage.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>350+</strong><span>Hrs Live</span></div>
+                                        <div><strong>130</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="mlt/central/cre-lab-technician.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="#" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Monolith 4: Pharmacology -->
-                <div class="monolith-card g-monolith-reveal" data-target-bg="bg-pharma">
-                    <div class="monolith-glow accent-blue"></div>
-                    <div class="monolith-content">
-                        <div class="mono-meta">
-                            <span class="mono-badge text-blue border-blue">Clinical Pharmacy</span>
-                            <span class="mono-duration">5 Months</span>
-                        </div>
-                        <h3 class="mono-name">RRB & ESIC Pharmacist.</h3>
-                        <p class="mono-desc">Turn heavy memorization into logical deduction. Master drug classifications and pharmaceutical chemistry with our visual framework pedagogy.</p>
-                        
-                        <div class="mono-footer">
-                            <div class="mono-stats">
-                                <div><strong>300+</strong><span>Hrs Live</span></div>
-                                <div><strong>Pdf</strong><span>Notes</span></div>
+                        <!-- RRB Lab Technician -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-central">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">Railway Board</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">RRB Lab Technician</h3>
+                                <p class="mono-desc">Prepare for the Railway Recruitment Board (RRB) Lab Technician exam with expert mentorship, targeted mock tests, and extensive question bank.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>Extensive</strong><span>Q-Bank</span></div>
+                                        <div><strong>Expert</strong><span>Mentorship</span></div>
+                                    </div>
+                                    <a href="mlt/central/rrb-lab-technician.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
-                            <a href="#" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
+
                     </div>
                 </div>
 

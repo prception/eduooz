@@ -1485,6 +1485,7 @@ body.chat-is-open .scroll-to-top {
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    text-decoration: none;
 }
 
 .sidebar-info h4 {
@@ -1501,6 +1502,7 @@ body.chat-is-open .scroll-to-top {
     margin: 4px 0 0;
     font-weight: 500;
 }
+
 
 .glass-header.light-mode .sidebar-info h4 { color: #1a1a1a; }
 .glass-header.light-mode .sidebar-info p { color: #666; }
