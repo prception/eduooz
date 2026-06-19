@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Courses | Eduooz International Academy</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/header-footer.css">
+    <link rel="stylesheet" href="../assets/css/course-main.css">
+</head>
+<body>
+
+    <div id="header-container"></div>
+
+    <div class="color-mesh">
+        <div class="blob purple-blob"></div>
+        <div class="blob cyan-blob"></div>
+        <div class="blob magenta-blob"></div>
+    </div>
+
+    <!-- COURSE HERO -->
+    <section class="nexus-hero-section" id="course-intro">
+
+        <div class="nexus-ambient-glow glow-cyan"></div>
+        <div class="nexus-ambient-glow glow-purple"></div>
+
+        <div class="container relative-z">
+
+            <div class="nexus-breadcrumbs g-nexus-reveal">
+                <a href="/">Eduooz</a> <span class="divider">/</span>
+                <a href="/courses">Specializations</a> <span class="divider">/</span>
+                <span class="current-path">Pharmacy</span>
+            </div>
+
+            <div class="nexus-grid">
+
+                <!-- LEFT: Narrative & CTAs -->
+                <div class="nexus-content-zone g-nexus-reveal">
+                    <div class="frost-pill-dark mb-4">
+                        <span class="glowing-dot-cyan"></span> Admissions Open: 2026 Batch
+                    </div>
+
+                    <h1 class="nexus-title">
+                        Clinical <br>
+                        <span class="text-gradient-cyan">Pharmacy.</span>
+                    </h1>
+
+                    <p class="nexus-subtitle">
+                        The definitive preparatory ecosystem for State, Central Government and International Pharmacy licensing boards. Master pharmacology, pharmaceutical chemistry, and secure your global placement.
+                    </p>
+
+                    <div class="nexus-cta-group">
+                        <a href="#enroll" class="btn-liquid-cyan magnetic-btn">Secure Your Seat <span class="arrow">↗</span></a>
+                        <div class="enrollment-status">
+                            <div class="status-pulse"></div>
+                            <span>Only 24 Seats Remaining</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: The Holographic 3D Space -->
+                <div class="nexus-hologram-zone g-nexus-reveal">
+
+                    <div class="orbital-ring ring-1"></div>
+                    <div class="orbital-ring ring-2"></div>
+                    <div class="orbital-ring ring-3"></div>
+
+                    <div class="floating-centerpiece">
+                        <div class="scan-line"></div>
+                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=800" style="border-radius: 50%; mix-blend-mode: luminosity; position: relative; z-index: 2;" alt="Course Hologram" class="main-hologram-img">
+                        <div class="hologram-base-shadow"></div>
+                    </div>
+
+                    <div class="glass-node node-1 parallax-element" data-speed="0.05">
+                        <div class="node-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div>
+                            <strong>6 Months</strong>
+                            <span>Intensive Track</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-node node-2 parallax-element" data-speed="-0.03">
+                        <div class="node-icon"><i class="fa-solid fa-globe"></i></div>
+                        <div>
+                            <strong>DHA / HAAD</strong>
+                            <span>Curriculum Aligned</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-node node-3 parallax-element" data-speed="0.08">
+                        <div class="node-icon"><i class="fa-solid fa-pills"></i></div>
+                        <div>
+                            <strong>150+</strong>
+                            <span>Mock Tests</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Trust Bar -->
+        <div class="nexus-trust-bar g-nexus-reveal">
+            <span class="trust-label">Alumni Placed At:</span>
+            <div class="trust-marquee">
+                <div class="trust-track">
+                    <span>Cleveland Clinic Abu Dhabi</span> <span class="dot">•</span>
+                    <span>AIIMS New Delhi</span> <span class="dot">•</span>
+                    <span>King's College Hospital Dubai</span> <span class="dot">•</span>
+                    <span>JIPMER</span> <span class="dot">•</span>
+                    <span>Aster DM Healthcare</span> <span class="dot">•</span>
+                    <!-- Duplicates for seamless loop -->
+                    <span>Cleveland Clinic Abu Dhabi</span> <span class="dot">•</span>
+                    <span>AIIMS New Delhi</span> <span class="dot">•</span>
+                    <span>King's College Hospital Dubai</span> <span class="dot">•</span>
+                    <span>JIPMER</span> <span class="dot">•</span>
+                    <span>Aster DM Healthcare</span> <span class="dot">•</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MASTER COURSE LISTING -->
+    <section class="atmospheric-course-section" id="course-directory">
+
+        <div class="ambient-bg-wrapper">
+            <div class="ambient-layer active-bg" id="bg-default"></div>
+            <div class="ambient-layer" id="bg-kerala"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=2000" alt="Kerala"></div>
+            <div class="ambient-layer" id="bg-central"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=2000" alt="Central"></div>
+            <div class="ambient-layer" id="bg-gcc"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=2000" alt="GCC"></div>
+            <div class="ambient-frost-overlay"></div>
+        </div>
+
+        <div class="container relative-z">
+
+            <div class="monolith-header text-center g-monolith-reveal">
+                <div class="frost-pill-dark mb-4 mx-auto">
+                    <span class="glowing-dot-cyan"></span> Elite Curriculums
+                </div>
+                <h2 class="monolith-title">Choose your <span class="text-gradient-fluid">Trajectory.</span></h2>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="trajectory-tabs" id="trajectoryTabs">
+                <button class="trajectory-tab active" data-filter="all">All</button>
+                <button class="trajectory-tab" data-filter="state">State Exams</button>
+                <button class="trajectory-tab" data-filter="central">Central Exams</button>
+                <button class="trajectory-tab" data-filter="gcc">GCC Exams</button>
+            </div>
+
+            <div class="trajectory-content" id="trajectoryContent">
+
+                <!-- STATE EXAMS SECTION -->
+                <div class="trajectory-section" data-section="state">
+                    <h3 class="trajectory-section-heading">Kerala State Pharmacy Exams</h3>
+                    <div class="monolith-grid">
+
+                        <!-- APP Pharmacist -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-kerala">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">State Government</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">APP Pharmacist</h3>
+                                <p class="mono-desc">Comprehensive preparation for the Assistant Public Pharmacist (APP) exam under Kerala PSC with targeted mock tests and full syllabus coverage.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>300+</strong><span>Hrs Live</span></div>
+                                        <div><strong>120</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="pharmacy/kerala/app-pharmacist.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DHS/DME Pharmacist -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-kerala">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">State Government</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">DHS / DME Pharmacist</h3>
+                                <p class="mono-desc">Expert coaching for Pharmacist posts under DHS and DME Kerala with complete syllabus coverage and previous year question analysis.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>Rank 1</strong><span>Faculty</span></div>
+                                        <div><strong>Mal/Eng</strong><span>Medium</span></div>
+                                    </div>
+                                    <a href="pharmacy/kerala/dhs-dme-pharmacist.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drug Analyst -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-kerala">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">State Government</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">Drug Analyst</h3>
+                                <p class="mono-desc">Specialized preparation for Drug Analyst positions under Kerala government with focus on pharmaceutical analysis and quality control.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>250+</strong><span>Hrs Live</span></div>
+                                        <div><strong>100</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="pharmacy/kerala/drug-analyst.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drug Inspector -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-kerala">
+                            <div class="monolith-glow accent-magenta"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-magenta border-magenta">State Government</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">Drug Inspector</h3>
+                                <p class="mono-desc">Targeted coaching for Drug Inspector posts under Kerala state with comprehensive drug regulations, pharmacology, and inspection protocols.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>200+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Expert</strong><span>Faculty</span></div>
+                                    </div>
+                                    <a href="pharmacy/kerala/drug-inspector.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guruvayoor Devaswom Pharmacist -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-kerala">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">Devaswom Board</span>
+                                    <span class="mono-duration">3 Months</span>
+                                </div>
+                                <h3 class="mono-name">Guruvayoor Devaswom Pharmacist</h3>
+                                <p class="mono-desc">Focused preparation for Pharmacist posts under Guruvayoor Devaswom Board with tailored study plans and expert mentoring.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>150+</strong><span>Hrs Live</span></div>
+                                        <div><strong>80</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="pharmacy/kerala/guruvayoor-devaswom-pharmacist.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LSGD Pharmacist -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-kerala">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">State Government</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">LSGD Pharmacist</h3>
+                                <p class="mono-desc">Preparation for Pharmacist positions under Local Self Government Department (LSGD) Kerala with tailored study plans and mock tests.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>200+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Expert</strong><span>Faculty</span></div>
+                                    </div>
+                                    <a href="pharmacy/kerala/lsgd-pharmacist.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Oil Palm Pharmacist -->
+                        <div class="monolith-card g-monolith-reveal" data-category="state" data-target-bg="bg-kerala">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">State Government</span>
+                                    <span class="mono-duration">3 Months</span>
+                                </div>
+                                <h3 class="mono-name">Oil Palm Pharmacist</h3>
+                                <p class="mono-desc">Specialized coaching for Pharmacist posts under Kerala State Farming Corporation (Oil Palm) with complete exam-focused preparation.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>150+</strong><span>Hrs Live</span></div>
+                                        <div><strong>75</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="pharmacy/kerala/oil-palm-pharmacist.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- CENTRAL EXAMS SECTION -->
+                <div class="trajectory-section" data-section="central">
+                    <h3 class="trajectory-section-heading">Central Government Pharmacy Exams</h3>
+                    <div class="monolith-grid">
+
+                        <!-- CRE Pharmacist -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-central">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">Central Govt.</span>
+                                    <span class="mono-duration">5 Months</span>
+                                </div>
+                                <h3 class="mono-name">CRE Pharmacist</h3>
+                                <p class="mono-desc">Complete preparation for the Central Recruitment Examination (CRE) Pharmacist with comprehensive pharmacology and pharmaceutical chemistry coverage.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>350+</strong><span>Hrs Live</span></div>
+                                        <div><strong>130</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="pharmacy/central/cre-pharmacist.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- GPAT -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-central">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">Post Graduation</span>
+                                    <span class="mono-duration">6 Months</span>
+                                </div>
+                                <h3 class="mono-name">GPAT</h3>
+                                <p class="mono-desc">Ace the Graduate Pharmacy Aptitude Test (GPAT) with our comprehensive syllabus coverage, expert faculty, and intensive mock test series.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>Rank 1</strong><span>Faculty</span></div>
+                                        <div><strong>150+</strong><span>Mocks</span></div>
+                                    </div>
+                                    <a href="pharmacy/central/gpat.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RRB Pharmacist -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-central">
+                            <div class="monolith-glow accent-magenta"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-magenta border-magenta">Railway Board</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">RRB Pharmacist</h3>
+                                <p class="mono-desc">Prepare for the Railway Recruitment Board (RRB) Pharmacist exam with targeted mock tests, expert faculty, and extensive question bank.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>Extensive</strong><span>Q-Bank</span></div>
+                                        <div><strong>Expert</strong><span>Mentorship</span></div>
+                                    </div>
+                                    <a href="pharmacy/central/rrb-pharmacist.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPSC Drug Inspector -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-central">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">Central Govt.</span>
+                                    <span class="mono-duration">6 Months</span>
+                                </div>
+                                <h3 class="mono-name">UPSC Drug Inspector</h3>
+                                <p class="mono-desc">Comprehensive coaching for UPSC Drug Inspector recruitment with focus on drug regulations, pharmaceutical sciences, and general studies.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>400+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Interview</strong><span>Prep</span></div>
+                                    </div>
+                                    <a href="pharmacy/central/upsc-drug-inspector.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- VSSC Pharmacist -->
+                        <div class="monolith-card g-monolith-reveal" data-category="central" data-target-bg="bg-central">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">Space Agency</span>
+                                    <span class="mono-duration">4 Months</span>
+                                </div>
+                                <h3 class="mono-name">VSSC Pharmacist</h3>
+                                <p class="mono-desc">Targeted preparation for Pharmacist posts at Vikram Sarabhai Space Centre (VSSC/ISRO) with focused technical and clinical pharmacology coverage.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>300+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Expert</strong><span>Faculty</span></div>
+                                    </div>
+                                    <a href="pharmacy/central/vssc-pharmacist.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- GCC LICENSING EXAMS SECTION -->
+                <div class="trajectory-section" data-section="gcc">
+                    <h3 class="trajectory-section-heading">GCC Pharmacy Licensing Exams</h3>
+                    <div class="monolith-grid">
+
+                        <!-- Bahrain Pharmacy Prometric -->
+                        <div class="monolith-card g-monolith-reveal" data-category="gcc" data-target-bg="bg-gcc">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">Bahrain</span>
+                                    <span class="mono-duration">3 Months</span>
+                                </div>
+                                <h3 class="mono-name">Bahrain Pharmacy Prometric</h3>
+                                <p class="mono-desc">Complete preparation for the Bahrain MOH Prometric pharmacy licensing exam with focused clinical modules and placement support.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>200+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Mock</strong><span>Tests</span></div>
+                                    </div>
+                                    <a href="pharmacy/gcc/bahrain-pharmacy-prometric.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DHA Pharmacy Prometric -->
+                        <div class="monolith-card g-monolith-reveal" data-category="gcc" data-target-bg="bg-gcc">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">Dubai</span>
+                                    <span class="mono-duration">3 Months</span>
+                                </div>
+                                <h3 class="mono-name">DHA Pharmacy Prometric</h3>
+                                <p class="mono-desc">Complete preparation for the Dubai Health Authority (DHA) Prometric pharmacy licensing exam with guaranteed placement assistance and dataflow credential guidance.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>98%</strong><span>Pass Rate</span></div>
+                                        <div><strong>100%</strong><span>Assistance</span></div>
+                                    </div>
+                                    <a href="pharmacy/gcc/dha-pharmacy-prometric.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HAAD Pharmacy Pearson VUE -->
+                        <div class="monolith-card g-monolith-reveal" data-category="gcc" data-target-bg="bg-gcc">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">Abu Dhabi</span>
+                                    <span class="mono-duration">3 Months</span>
+                                </div>
+                                <h3 class="mono-name">HAAD Pharmacy Pearson VUE</h3>
+                                <p class="mono-desc">Ace the Health Authority Abu Dhabi (HAAD) Pearson VUE pharmacy licensing exam with our focused test series and credential guidance.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>Expert</strong><span>Guidance</span></div>
+                                        <div><strong>95%</strong><span>Pass Rate</span></div>
+                                    </div>
+                                    <a href="pharmacy/gcc/haad-pharmacy-pearson-vue.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MOH Pharmacy Prometric -->
+                        <div class="monolith-card g-monolith-reveal" data-category="gcc" data-target-bg="bg-gcc">
+                            <div class="monolith-glow accent-magenta"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-magenta border-magenta">UAE</span>
+                                    <span class="mono-duration">3 Months</span>
+                                </div>
+                                <h3 class="mono-name">MOH Pharmacy Prometric</h3>
+                                <p class="mono-desc">Targeted coaching for UAE Ministry of Health (MOH) Prometric pharmacy licensing exam with mock tests and dataflow verification assistance.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>200+</strong><span>Hrs Live</span></div>
+                                        <div><strong>97%</strong><span>Pass Rate</span></div>
+                                    </div>
+                                    <a href="pharmacy/gcc/moh-pharmacy-prometric.html" class="btn-mono-explore hover-magenta"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Oman Pharmacy Pearson VUE -->
+                        <div class="monolith-card g-monolith-reveal" data-category="gcc" data-target-bg="bg-gcc">
+                            <div class="monolith-glow accent-blue"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-blue border-blue">Oman</span>
+                                    <span class="mono-duration">3 Months</span>
+                                </div>
+                                <h3 class="mono-name">Oman Pharmacy Pearson VUE</h3>
+                                <p class="mono-desc">Prepare for the Oman Medical Specialty Board (OMSB) Pearson VUE pharmacy exam with expert mentorship and end-to-end credential support.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>Expert</strong><span>Faculty</span></div>
+                                        <div><strong>100%</strong><span>Assistance</span></div>
+                                    </div>
+                                    <a href="pharmacy/gcc/oman-pharmacy-pearson-vue.html" class="btn-mono-explore hover-blue"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Qatar Pharmacy Prometric -->
+                        <div class="monolith-card g-monolith-reveal" data-category="gcc" data-target-bg="bg-gcc">
+                            <div class="monolith-glow accent-cyan"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-cyan border-cyan">Qatar</span>
+                                    <span class="mono-duration">3 Months</span>
+                                </div>
+                                <h3 class="mono-name">Qatar Pharmacy Prometric</h3>
+                                <p class="mono-desc">Comprehensive Qatar Prometric pharmacy licensing preparation with focused clinical pharmacology scenarios and hospital placement coaching.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>250+</strong><span>Hrs Live</span></div>
+                                        <div><strong>96%</strong><span>Pass Rate</span></div>
+                                    </div>
+                                    <a href="pharmacy/gcc/qatar-pharmacy-prometric.html" class="btn-mono-explore hover-cyan"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Saudi Pharmacy Pearson VUE -->
+                        <div class="monolith-card g-monolith-reveal" data-category="gcc" data-target-bg="bg-gcc">
+                            <div class="monolith-glow accent-purple"></div>
+                            <div class="monolith-content">
+                                <div class="mono-meta">
+                                    <span class="mono-badge text-purple border-purple">Saudi Arabia</span>
+                                    <span class="mono-duration">3 Months</span>
+                                </div>
+                                <h3 class="mono-name">Saudi Pharmacy Pearson VUE</h3>
+                                <p class="mono-desc">Master the Saudi Commission for Health Specialties (SCFHS) Pearson VUE pharmacy exam with our structured prep and direct hospital placement pipeline.</p>
+                                <div class="mono-footer">
+                                    <div class="mono-stats">
+                                        <div><strong>300+</strong><span>Hrs Live</span></div>
+                                        <div><strong>Placement</strong><span>Support</span></div>
+                                    </div>
+                                    <a href="pharmacy/gcc/saudi-pharmacy-pearson-vue.html" class="btn-mono-explore hover-purple"><i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <div id="footer-container"></div>
+
+    <!-- Chat Button -->
+    <div id="chat-container"></div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/course-landing.js"></script>
+</body>
+</html>

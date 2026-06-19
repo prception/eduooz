@@ -247,8 +247,12 @@
     align-items: center;
     justify-content: space-between;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
-    margin-top: 14px;
-    padding-top: 14px;
+    padding: 14px 24px 24px;
+    position: relative;
+    z-index: 3;
+}
+.course-footer a{
+    text-decoration: none;
 }
 
 /* ========================================
@@ -1095,14 +1099,32 @@
 }
 
 /* --- Enquire / View Details Buttons --- */
-.course-price {
-    color: rgba(255, 255, 255, 0.55) !important;
+.course-view-btn {
+    color: var(--brand-cyan) !important;
     font-size: 0.82rem;
     font-weight: 600;
     letter-spacing: 0.3px;
 }
+.course-view-btn:hover {
+    color: var(--brand-purple) !important;
+    text-decoration: none;
+}
 
-.btn-enquire {
+/* Stretched link — makes the whole .course-box card clickable via View Details */
+.course-view-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+}
+
+/* Category button sits above the stretched link overlay so it stays clickable */
+.btn-elect-course {
+    position: relative;
+    z-index: 5;
+}
+
+.btn-elect-course {
     padding: 10px 22px;
     font-size: 0.82rem;
     border-radius: 100px;
@@ -1119,7 +1141,7 @@
     gap: 6px;
 }
 
-.btn-enquire:hover {
+.btn-elect-course:hover {
     background: rgba(255, 255, 255, 0.25);
     border-color: rgba(255, 255, 255, 0.4);
     transform: translateX(3px);
@@ -1187,10 +1209,12 @@
 .course-content-wrapper {
     position: relative;
     z-index: 3;
-    padding: 24px;
+    padding: 24px 24px 0;
     display: flex;
     flex-direction: column;
     margin-top: auto;
+    text-decoration: none;
+    color: inherit;
 }
 
 .course-box .course-desc {
@@ -1221,7 +1245,11 @@
     }
 
     .course-content-wrapper {
-        padding: 16px;
+        padding: 16px 16px 0;
+    }
+
+    .course-footer {
+        padding: 12px 16px 16px;
     }
 }
 

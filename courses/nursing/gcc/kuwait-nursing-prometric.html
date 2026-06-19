@@ -78,6 +78,51 @@
             pdfUrl: null,
           },
         ],
+        relatedResources: [
+          { url: "#syllabus", label: "Kuwait Nursing Exam Syllabus", icon: "fa-solid fa-list-check" },
+          { url: "#papers", label: "Kuwait Nursing Previous Year Papers", icon: "fa-solid fa-file-pdf" },
+          { url: "#practice", label: "Kuwait Nursing Practice Tests", icon: "fa-solid fa-pen-to-square" },
+          { url: "#eligibility", label: "Kuwait Eligibility Criteria", icon: "fa-solid fa-user-check" },
+          { url: "./dha-nursing-prometric.html", label: "DHA Nursing Exam (Dubai)", icon: "fa-solid fa-stethoscope" },
+          { url: "./haad-nursing-pearson-vue.html", label: "HAAD Nursing Exam (Abu Dhabi)", icon: "fa-solid fa-hospital" },
+          { url: "./saudi-nursing-prometric.html", label: "Saudi MOH Nursing Prometric", icon: "fa-solid fa-hospital" },
+          { url: "./qatar-nursing-prometric.html", label: "Qatar Prometric Nursing Exam", icon: "fa-solid fa-hospital" },
+          { url: "./oman-nursing-pearson-vue.html", label: "Oman Nursing Pearson VUE Exam", icon: "fa-solid fa-hospital" },
+          { url: "./sharjah-nursing-prometric.html", label: "Sharjah Nursing Prometric", icon: "fa-solid fa-hospital" }
+        ],
+      };
+
+      window.courseEligibility = {
+        qualification: [
+          { icon: "fa-solid fa-graduation-cap", title: "Educational Qualification", description: "Candidates must possess B.Sc Nursing from a recognized university, or Post Basic B.Sc Nursing, or Diploma in Nursing (GNM) recognized by the Kuwait MOH and home country nursing authority." },
+          { icon: "fa-solid fa-id-card", title: "Nursing Council Registration", description: "Candidates must hold a valid and active Nursing Council registration from their home country. The registration must be current and in good standing at the time of application." },
+          { icon: "fa-solid fa-briefcase", title: "Clinical Experience", description: "Clinical nursing experience is required. Experience should be in recognized hospitals or healthcare institutions. GNM holders typically require a minimum of two years of experience in an accredited facility." },
+          { icon: "fa-solid fa-passport", title: "Nationality & Passport", description: "A valid passport is required for the Kuwait work visa and licensing process. All original educational and professional documents must be available for verification purposes." },
+          { icon: "fa-solid fa-file-shield", title: "DataFlow / Quadrabay PSV", description: "Primary Source Verification through DataFlow or Quadrabay is mandatory for Kuwait MOH nursing licensure. All academic certificates, nursing council registration, and experience documents must be verified." },
+          { icon: "fa-solid fa-heart-pulse", title: "Medical Fitness", description: "Candidates must be medically fit to practice nursing in Kuwait. A medical fitness certificate may be required during the licensing registration process with the Kuwait Ministry of Health." },
+        ],
+        ageRules: [
+          { category: "Step 1: Exam Booking — Prometric", badge: "Prometric", icon: "fa-solid fa-calendar-check", detail: "Register on the Prometric website and schedule your Kuwait Nursing Licensing Exam at an authorized Prometric testing center. Ensure your nursing qualification and council registration documents are ready before booking." },
+          { category: "Step 2: Data Check / Quadrabay — PSV", badge: "PSV", icon: "fa-solid fa-file-shield", detail: "Complete Primary Source Verification (PSV) through DataFlow or Quadrabay. All academic certificates, nursing council registration, professional experience documents, and supporting credentials are verified directly with the issuing institutions." },
+          { category: "Step 3: License Registration — MOH Kuwait", badge: "MOH Kuwait", icon: "fa-solid fa-id-badge", detail: "After passing the Prometric exam and completing PSV verification, submit your nursing license registration to the Kuwait Ministry of Health (MOH). Upon approval, receive your official Kuwait nursing license to practice as a Registered Nurse." },
+        ]
+      };
+
+      window.eligibilityCheckerConfig = {
+        minAge: 21,
+        maxAge: 60,
+        acceptedQualifications: [
+          { value: "bsc-nursing", label: "B.Sc. Nursing" },
+          { value: "gnm", label: "GNM / Diploma in Nursing" },
+          { value: "post-basic-bsc", label: "Post Basic B.Sc. Nursing" },
+        ],
+        registrationRequired: true,
+        registrationLabel: "Nursing Council Registration",
+        acceptedCategories: [
+          { value: "general", label: "All Applicants", maxAge: 60 }
+        ],
+        additionalFields: [],
+        additionalRules: { experienceRequired: true, minPercentage: null, genderRestriction: null }
       };
     </script>
 
@@ -578,90 +623,7 @@
               </div>
               <div class="elig-col-pane" id="elig-col-pane">
                 <div class="elig-col-track" id="elig-col-track">
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                      </div>
-                      <h4>Educational Qualification</h4>
-                    </div>
-                    <p>
-                      B.Sc. Nursing (4 years) from a recognized university OR
-                      Post Basic B.Sc. Nursing OR Diploma in General Nursing
-                      &amp; Midwifery (GNM) — recognized by the respective
-                      nursing council of the candidate's home country.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-id-card"></i>
-                      </div>
-                      <h4>Nursing Council Registration</h4>
-                    </div>
-                    <p>
-                      Must hold a valid and active professional nursing license /
-                      registration from the nursing council of the home country.
-                      The license must be current and in good standing at the
-                      time of application.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-briefcase"></i>
-                      </div>
-                      <h4>Clinical Experience</h4>
-                    </div>
-                    <p>
-                      Relevant clinical nursing experience in a recognized
-                      hospital is required. GNM holders typically need minimum
-                      2 years of experience. B.Sc Nursing holders may apply
-                      directly subject to Kuwait MOH requirements.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-passport"></i>
-                      </div>
-                      <h4>Nationality &amp; Passport</h4>
-                    </div>
-                    <p>
-                      A valid passport is required for the Kuwait Prometric
-                      licensing process. Candidates must be eligible for a
-                      Kuwait work visa and must have all original educational
-                      and professional documents available for verification.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-file-shield"></i>
-                      </div>
-                      <h4>DataFlow / Quadrabay PSV</h4>
-                    </div>
-                    <p>
-                      Primary Source Verification (PSV) through DataFlow or
-                      Quadrabay is mandatory as part of the Kuwait licensing
-                      process. All academic and professional credentials must
-                      be verified before license registration.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-heart-pulse"></i>
-                      </div>
-                      <h4>Medical Fitness</h4>
-                    </div>
-                    <p>
-                      Candidates must be medically fit to practice nursing in
-                      Kuwait. A medical fitness certificate from an authorized
-                      medical practitioner will be required as part of the
-                      Kuwait MOH license registration process.
-                    </p>
-                  </div>
+                  <!-- rendered by renderEligibilityCards() from window.courseEligibility.qualification -->
                 </div>
               </div>
             </div>
@@ -679,74 +641,7 @@
               </div>
               <div class="elig-col-pane" id="age-col-pane">
                 <div class="elig-col-track" id="age-col-track">
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-calendar-check"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Step 1: Exam Booking</h4>
-                        <span class="age-badge">Prometric</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Register on the Prometric website and schedule your
-                        Kuwait Nursing Prometric (KMLE) exam. Choose an
-                        authorized Prometric testing center near you. Ensure
-                        all required documents are ready before booking.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-file-shield"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Step 2: Data Check / Quadrabay</h4>
-                        <span class="age-badge">PSV</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Complete Primary Source Verification (PSV) through
-                        DataFlow or Quadrabay. All academic certificates,
-                        nursing council registration, and professional
-                        credentials must be verified through this mandatory
-                        process before license issuance.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-id-badge"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Step 3: License Registration</h4>
-                        <span class="age-badge">MOH Kuwait</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        After passing the Prometric exam and completing
-                        document verification, submit your license registration
-                        application to the Ministry of Health, Kuwait.
-                        On approval, you receive your official Kuwait nursing
-                        license to practice.
-                      </p>
-                    </div>
-                  </div>
+                  <!-- rendered by renderAgeRules() from window.courseEligibility.ageRules -->
                 </div>
               </div>
             </div>
@@ -767,48 +662,8 @@
           </h2>
         </div>
         <div class="elig-checker-card g-exam-reveal">
-          <form id="elig-checker-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label>Qualification</label>
-                <select name="qualification">
-                  <option value="">Select...</option>
-                  <option value="bsc-nursing">B.Sc. Nursing</option>
-                  <option value="post-basic-bsc">
-                    Post Basic B.Sc. Nursing
-                  </option>
-                  <option value="gnm">GNM (Diploma)</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Nursing Council Registration</label>
-                <select name="registration">
-                  <option value="">Select...</option>
-                  <option value="yes">Yes - Active RN/RM</option>
-                  <option value="no">No</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Qualification Type</label>
-                <select name="category">
-                  <option value="">Select...</option>
-                  <option value="general">B.Sc Nursing</option>
-                  <option value="general">Post Basic B.Sc Nursing</option>
-                  <option value="general">GNM (with experience)</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" name="dob" />
-              </div>
-            </div>
-            <button type="submit" class="btn-check-elig">
-              <i class="fa-solid fa-magnifying-glass"></i> Check Eligibility
-            </button>
-          </form>
+          <!-- form fields built by initEligibilityChecker() from window.eligibilityCheckerConfig -->
+          <form id="elig-checker-form"></form>
           <div class="elig-result" id="elig-result"></div>
         </div>
       </div>

@@ -196,57 +196,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // --- 2. The Atmospheric Background Logic (Desktop Only) ---
-    if (window.innerWidth > 1024) {
-      const monolithCards = document.querySelectorAll(".monolith-card");
-      const ambientLayers = document.querySelectorAll(".ambient-layer");
-      const defaultBg = document.getElementById("bg-default");
-
-      monolithCards.forEach((card) => {
-        card.addEventListener("mouseenter", function () {
-          const targetId = this.getAttribute("data-target-bg");
-          const targetLayer = document.getElementById(targetId);
-          ambientLayers.forEach((layer) => layer.classList.remove("active-bg"));
-          if (targetLayer) {
-            targetLayer.classList.add("active-bg");
-          }
-        });
-
-        card.addEventListener("mouseleave", function () {
-          ambientLayers.forEach((layer) => layer.classList.remove("active-bg"));
-          if (defaultBg) {
-            defaultBg.classList.add("active-bg");
-          }
-        });
-      });
-
-      const monolithGrid = document.querySelector(".monolith-grid");
-      if (monolithGrid) {
-        monolithGrid.addEventListener("mouseleave", () => {
-          ambientLayers.forEach((layer) => layer.classList.remove("active-bg"));
-          if (defaultBg) defaultBg.classList.add("active-bg");
-        });
-      }
-    }
-
     // --- 3. Trajectory Tab Switching Logic ---
     const tabContainer = document.getElementById("trajectoryTabs");
     const contentWrapper = document.getElementById("trajectoryContent");
-    const masterHeading = document.getElementById("trajectoryHeading");
 
     if (tabContainer && contentWrapper) {
       const tabs = tabContainer.querySelectorAll(".trajectory-tab");
       const sections = contentWrapper.querySelectorAll(".trajectory-section");
-      const sectionHeadings = contentWrapper.querySelectorAll(
-        ".trajectory-section-heading",
-      );
-
-      const headingMap = {
-        all: "All State & Central Nursing Exams",
-        state: "Kerala State PSC Nursing Exams",
-        central: "Central Government Nursing Exams",
-        gcc: "GCC Nursing Licensing Exams",
-      };
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", function () {
@@ -255,24 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
           // Update active tab
           tabs.forEach((t) => t.classList.remove("active"));
           this.classList.add("active");
-
-          // Update master heading with smooth transition
-          if (masterHeading) {
-            masterHeading.classList.add("is-transitioning");
-            setTimeout(() => {
-              masterHeading.textContent = headingMap[filter] || headingMap.all;
-              masterHeading.classList.remove("is-transitioning");
-            }, 300);
-          }
-
-          // Show/hide individual section headings
-          sectionHeadings.forEach((h) => {
-            if (filter === "all") {
-              h.style.display = "none";
-            } else {
-              h.style.display = "";
-            }
-          });
 
           // Filter sections with animation
           sections.forEach((section) => {
@@ -295,11 +233,6 @@ document.addEventListener("DOMContentLoaded", () => {
             ScrollTrigger.refresh();
           }, 100);
         });
-      });
-
-      // Initialize: hide section headings on load (default is "all")
-      sectionHeadings.forEach((h) => {
-        h.style.display = "none";
       });
     }
   }
@@ -2390,17 +2323,20 @@ document.addEventListener("DOMContentLoaded", () => {
     startAuto();
   }
 
-  // --- 3. RENDER ELIGIBILITY ---
-  function renderEligibility() {
-    const grid = document.getElementById("eligibility-grid");
-    if (!grid || !CONFIG.eligibility) return;
+  // --- 3. RENDER ELIGIBILITY CARDS (from window.courseEligibility.qualification) ---
+  function renderEligibilityCards() {
+    const track = document.getElementById("elig-col-track");
+    const cfg = window.courseEligibility;
+    if (!track || !cfg || !cfg.qualification || !cfg.qualification.length) return;
 
-    grid.innerHTML = CONFIG.eligibility
+    track.innerHTML = cfg.qualification
       .map(
         (item) => `
-            <div class="elig-card g-exam-reveal">
-                <div class="elig-icon"><i class="${item.icon}"></i></div>
-                <h4>${item.title}</h4>
+            <div class="elig-card">
+                <div class="elig-card-header">
+                    <div class="elig-icon"><i class="${item.icon}"></i></div>
+                    <h4>${item.title}</h4>
+                </div>
                 <p>${item.description}</p>
             </div>
         `,
@@ -2408,126 +2344,377 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   }
 
-  // --- 4. ELIGIBILITY CHECKER LOGIC ---
+  // --- 4. RENDER AGE RULES (from window.courseEligibility.ageRules) ---
+  function renderAgeRules() {
+    const track = document.getElementById("age-col-track");
+    const cfg = window.courseEligibility;
+    if (!track || !cfg || !cfg.ageRules || !cfg.ageRules.length) return;
+
+    track.innerHTML = cfg.ageRules
+      .map(
+        (rule) => `
+            <div class="age-explorer-card">
+                <div class="age-explorer-front">
+                    <div class="age-explorer-icon"><i class="${rule.icon || "fa-solid fa-user"}"></i></div>
+                    <div class="age-explorer-info">
+                        <h4>${rule.category}</h4>
+                        <span class="age-badge">${rule.maxAge || rule.badge || "—"}</span>
+                    </div>
+                    <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
+                </div>
+                <div class="age-explorer-detail"><p>${rule.description || rule.detail || ""}</p></div>
+            </div>
+        `,
+      )
+      .join("");
+  }
+
+  // --- 5. ELIGIBILITY CHECKER — dynamic form builder + validation engine ---
+  // --- 5. ELIGIBILITY CHECKER — field-driven form builder + validation engine ---
+
   function initEligibilityChecker() {
     const form = document.getElementById("elig-checker-form");
-    const result = document.getElementById("elig-result");
-    if (!form || !result) return;
+    const resultEl = document.getElementById("elig-result");
+    if (!form || !resultEl) return;
+
+    const rawCfg = window.eligibilityCheckerConfig;
+    if (!rawCfg) return;
+
+    const cfg = normalizeCheckerConfig(rawCfg);
+
+    buildCheckerForm(form, cfg);
+    initConditionalFields(form);
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-
-      const qualification = form.querySelector('[name="qualification"]').value;
-      const registration = form.querySelector('[name="registration"]').value;
-      const category = form.querySelector('[name="category"]').value;
-      const dob = form.querySelector('[name="dob"]').value;
-
-      if (!qualification || !registration || !category || !dob) {
-        showResult(
-          result,
-          "warning",
-          '<i class="fa-solid fa-triangle-exclamation"></i> Please fill in all fields to check eligibility.',
-        );
-        return;
-      }
-
-      // Calculate age
-      const birthDate = new Date(dob);
-      const today = new Date();
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const monthDiff = today.getMonth() - birthDate.getMonth();
-      if (
-        monthDiff < 0 ||
-        (monthDiff === 0 && today.getDate() < birthDate.getDate())
-      ) {
-        age--;
-      }
-
-      // Check rules from config
-      const rules = CONFIG.eligibilityRules;
-      if (!rules) {
-        showResult(
-          result,
-          "success",
-          '<i class="fa-solid fa-circle-check"></i> Based on your inputs, you appear to meet the basic eligibility criteria.',
-        );
-        return;
-      }
-
-      // Check qualification
-      if (
-        rules.qualifications &&
-        !rules.qualifications.includes(qualification)
-      ) {
-        showResult(
-          result,
-          "error",
-          '<i class="fa-solid fa-circle-xmark"></i> Your qualification does not meet the minimum requirement for this exam.',
-        );
-        return;
-      }
-
-      // Check registration
-      if (rules.registrationRequired && registration === "no") {
-        showResult(
-          result,
-          "error",
-          '<i class="fa-solid fa-circle-xmark"></i> Active nursing council registration is mandatory for this exam.',
-        );
-        return;
-      }
-
-      // Check age
-      const maxAge = rules.ageLimit[category] || rules.ageLimit.general;
-      const minAge = rules.minAge || 18;
-
-      if (age < minAge) {
-        showResult(
-          result,
-          "error",
-          `<i class="fa-solid fa-circle-xmark"></i> Minimum age requirement is ${minAge} years. You are currently ${age} years old.`,
-        );
-        return;
-      }
-
-      if (maxAge && age > maxAge) {
-        showResult(
-          result,
-          "warning",
-          `<i class="fa-solid fa-triangle-exclamation"></i> The maximum age for ${category} category is ${maxAge} years. You are ${age} years old. Check official notification for relaxations.`,
-        );
-        return;
-      }
-
-      showResult(
-        result,
-        "success",
-        '<i class="fa-solid fa-circle-check"></i> Congratulations! Based on your inputs, you meet the eligibility criteria for this exam.',
-      );
+      runEligibilityCheck(form, resultEl, cfg);
     });
+  }
+
+  // Converts old-format config (acceptedQualifications as objects, acceptedCategories,
+  // additionalFields) to the canonical field-driven format. Pages using fields[] pass through.
+  function normalizeCheckerConfig(cfg) {
+    if (cfg.fields && cfg.fields.length) return cfg;
+
+    const fields = [];
+    fields.push({ type: "text", id: "name", label: "Full Name", required: true });
+
+    if (cfg.acceptedQualifications && cfg.acceptedQualifications.length) {
+      const opts = cfg.acceptedQualifications.map((q) =>
+        typeof q === "string" ? { value: q, label: q } : q,
+      );
+      if (cfg.showOtherQualification !== false) {
+        opts.push({ value: "other", label: "Other / Not Listed" });
+      }
+      fields.push({ type: "select", id: "qualification", label: "Qualification", required: true, options: opts });
+    }
+
+    const needsReg = cfg.registrationRequired || cfg.showRegistration;
+    if (needsReg) {
+      fields.push({
+        type: "select",
+        id: "registration",
+        label: cfg.registrationLabel || "Nursing Council Registration",
+        required: true,
+        options: [
+          { value: "yes", label: "Yes – Active Registration" },
+          { value: "no", label: "No" },
+        ],
+      });
+    }
+
+    if (cfg.acceptedCategories && cfg.acceptedCategories.length) {
+      fields.push({
+        type: "select",
+        id: "category",
+        label: "Caste / Category",
+        required: true,
+        options: cfg.acceptedCategories.map((c) => ({ value: c.value, label: c.label })),
+      });
+    }
+
+    fields.push({ type: "date", id: "dob", label: "Date of Birth", required: true });
+
+    (cfg.additionalFields || []).forEach((f) => {
+      fields.push({ ...f, id: f.name || f.id });
+    });
+
+    // Derive baseMaxAge and ageRelaxation from absolute per-category maxAge values
+    const baseMaxAge =
+      cfg.baseMaxAge ||
+      cfg.maxAge ||
+      (cfg.acceptedCategories
+        ? ((cfg.acceptedCategories.find((c) => c.value === "general") || {}).maxAge || null)
+        : null);
+
+    const ageRelaxation = {};
+    if (cfg.ageRelaxation) {
+      Object.assign(ageRelaxation, cfg.ageRelaxation);
+    } else if (cfg.acceptedCategories) {
+      cfg.acceptedCategories.forEach((c) => {
+        ageRelaxation[c.value] =
+          c.maxAge != null && baseMaxAge != null ? c.maxAge - baseMaxAge : 0;
+      });
+    }
+
+    return {
+      fields,
+      minAge: cfg.minAge || 18,
+      baseMaxAge,
+      ageRelaxation,
+      acceptedQualifications: (cfg.acceptedQualifications || []).map((q) =>
+        typeof q === "string" ? q : q.value,
+      ),
+      registrationFieldId: needsReg ? "registration" : false,
+    };
+  }
+
+  function buildCheckerForm(form, cfg) {
+    const fields = cfg.fields || [];
+    let html = "";
+    let i = 0;
+
+    while (i < fields.length) {
+      const f = fields[i];
+      const next = fields[i + 1];
+
+      if (f.span === "full" || !next) {
+        html += `<div class="form-row">${buildFieldHTML(f)}</div>`;
+        i++;
+      } else {
+        html += `<div class="form-row">${buildFieldHTML(f)}${buildFieldHTML(next)}</div>`;
+        i += 2;
+      }
+    }
+
+    html += `<button type="submit" class="btn-check-elig">
+      <i class="fa-solid fa-magnifying-glass"></i> Check Eligibility
+    </button>`;
+
+    form.innerHTML = html;
+  }
+
+  function buildFieldHTML(field) {
+    const showWhenAttrs = field.showWhen
+      ? ` data-show-when-field="${field.showWhen.field}" data-show-when-value="${field.showWhen.value}"`
+      : "";
+    const hiddenClass = field.showWhen ? " ec-hidden" : "";
+    const fid = `ec-${field.id}`;
+    let inputHTML = "";
+
+    if (field.type === "select") {
+      const opts = (field.options || [])
+        .map((o) => `<option value="${o.value}">${o.label}</option>`)
+        .join("");
+      inputHTML = `<select id="${fid}" name="${field.id}"><option value="">Select…</option>${opts}</select>`;
+    } else if (field.type === "date") {
+      inputHTML = `<input type="date" id="${fid}" name="${field.id}" />`;
+    } else if (field.type === "number") {
+      inputHTML = `<input type="number" id="${fid}" name="${field.id}"
+        placeholder="${field.placeholder || ""}"
+        min="${field.min != null ? field.min : ""}"
+        max="${field.max != null ? field.max : ""}" />`;
+    } else {
+      inputHTML = `<input type="text" id="${fid}" name="${field.id}"
+        placeholder="${field.placeholder || "Enter " + field.label.toLowerCase()}" />`;
+    }
+
+    return `<div class="form-group${hiddenClass}"${showWhenAttrs}>
+      <label for="${fid}">${field.label}</label>
+      ${inputHTML}
+    </div>`;
+  }
+
+  // Wire up showWhen conditional visibility — run once after form is built
+  function initConditionalFields(form) {
+    form.querySelectorAll("[data-show-when-field]").forEach((group) => {
+      const controlEl = form.querySelector(`[name="${group.dataset.showWhenField}"]`);
+      if (!controlEl) return;
+
+      function update() {
+        const visible = controlEl.value === group.dataset.showWhenValue;
+        group.classList.toggle("ec-hidden", !visible);
+        if (!visible) {
+          const input = group.querySelector("input, select");
+          if (input) input.value = "";
+        }
+      }
+
+      controlEl.addEventListener("change", update);
+      update();
+    });
+  }
+
+  function runEligibilityCheck(form, resultEl, cfg) {
+    // Collect values from visible fields only
+    const data = {};
+    form.querySelectorAll(".form-group:not(.ec-hidden) [name]").forEach((el) => {
+      data[el.name] = el.value.trim();
+    });
+
+    // Required field check (visible fields only)
+    const missing = (cfg.fields || [])
+      .filter((f) => {
+        if (!f.required) return false;
+        if (f.showWhen && data[f.showWhen.field] !== f.showWhen.value) return false;
+        return !data[f.id];
+      })
+      .map((f) => f.label);
+
+    if (missing.length) {
+      showResult(resultEl, "warning",
+        buildResultHTML("warning", "Incomplete Form",
+          `Please fill in: <strong>${missing.join(", ")}</strong>`, null));
+      return;
+    }
+
+    // Age calculation
+    let age = null;
+    if (data.dob) {
+      const birth = new Date(data.dob);
+      const now = new Date();
+      age = now.getFullYear() - birth.getFullYear();
+      const m = now.getMonth() - birth.getMonth();
+      if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) age--;
+    }
+
+    // Age limit via relaxation engine: effectiveMax = baseMaxAge + relaxation[category]
+    const category = data.category || "general";
+    const relaxation = cfg.ageRelaxation ? (cfg.ageRelaxation[category] ?? 0) : 0;
+    const effectiveMaxAge = cfg.baseMaxAge != null ? cfg.baseMaxAge + relaxation : null;
+    const minAge = cfg.minAge || 18;
+
+    // Resolve display labels from field definitions
+    const fields = cfg.fields || [];
+    const qualField = fields.find((f) => f.id === "qualification");
+    const catField = fields.find((f) => f.id === "category");
+    const qualLabel =
+      (qualField && (qualField.options || []).find((o) => o.value === data.qualification) || {}).label ||
+      data.qualification || "—";
+    const catLabel =
+      (catField && (catField.options || []).find((o) => o.value === category) || {}).label ||
+      category;
+
+    const regFieldId = cfg.registrationFieldId || false;
+    const regField = regFieldId ? fields.find((f) => f.id === regFieldId) : null;
+    const summary = {
+      qualification: qualLabel,
+      age: age != null ? `${age} yrs` : "—",
+      ageLimit: effectiveMaxAge != null
+        ? `${minAge}–${effectiveMaxAge} yrs${relaxation ? ` (base ${cfg.baseMaxAge} + ${relaxation} relaxation)` : ""}`
+        : "—",
+      registrationLabel: regField ? regField.label : "Registration",
+      registration:
+        data[regFieldId] === "yes" ? "Active"
+        : data[regFieldId] === "no" ? "Not registered"
+        : "—",
+    };
+
+    // --- Validation chain ---
+    let status = null;
+    let reason = null;
+
+    // 1. Qualification
+    if (cfg.acceptedQualifications && cfg.acceptedQualifications.length &&
+        !cfg.acceptedQualifications.includes(data.qualification)) {
+      status = "notEligible";
+      reason = `Your qualification (<strong>${qualLabel}</strong>) does not meet the minimum requirement for this examination.`;
+    }
+
+    // 2. Registration
+    if (!status && regFieldId && data[regFieldId] === "no") {
+      status = "notEligible";
+      reason = `A valid and active <strong>${summary.registrationLabel}</strong> is mandatory for this examination.`;
+    }
+
+    // 3. Age – minimum
+    if (!status && age != null && age < minAge) {
+      status = "notEligible";
+      reason = `Minimum age is <strong>${minAge} years</strong>. Your calculated age is <strong>${age} years</strong>.`;
+    }
+
+    // 4. Age – maximum (warning, not hard fail — notification may have relaxations)
+    if (!status && age != null && effectiveMaxAge != null && age > effectiveMaxAge) {
+      status = "warning";
+      reason = `Age limit for <strong>${catLabel}</strong> is <strong>${effectiveMaxAge} yrs</strong>. Your age is <strong>${age} yrs</strong>. Verify the official notification for any additional relaxations.`;
+    }
+
+    // 5. Custom rules array (window.customEligibilityRules)
+    if (!status && Array.isArray(window.customEligibilityRules)) {
+      for (const rule of window.customEligibilityRules) {
+        try {
+          const r = rule(data);
+          if (!r) continue;
+          const s = r.status || (r.eligible === false ? "notEligible" : r.warn ? "warning" : null);
+          if (s === "notEligible") { status = "notEligible"; reason = r.reason; break; }
+          if (s === "warning")     { status = "warning";     reason = r.reason; break; }
+        } catch (e) {
+          console.warn("[eligibility] custom rule error:", e);
+        }
+      }
+    }
+
+    // 6. Legacy single function — backward compat for pages not yet migrated
+    if (!status && typeof window.customEligibilityCheck === "function") {
+      try {
+        const r = window.customEligibilityCheck(data);
+        if (r && r.eligible === false) { status = "notEligible"; reason = r.reason; }
+        else if (r && (r.warn || r.status === "warning")) { status = "warning"; reason = r.reason; }
+      } catch (e) {
+        console.warn("[eligibility] customEligibilityCheck error:", e);
+      }
+    }
+
+    if (!status) status = "eligible";
+
+    showResult(resultEl,
+      status === "notEligible" ? "error" : status,
+      buildResultHTML(status, null, reason, summary));
+  }
+
+  function buildResultHTML(status, titleOverride, reason, summary) {
+    const meta = {
+      eligible:    { icon: "fa-solid fa-circle-check",        title: "Congratulations! You appear eligible." },
+      warning:     { icon: "fa-solid fa-triangle-exclamation", title: "Please Verify Official Notification" },
+      notEligible: { icon: "fa-solid fa-circle-xmark",        title: "Not Eligible" },
+    };
+    const { icon, title } = meta[status] || meta.eligible;
+
+    const summaryHTML = summary
+      ? `<div class="elig-summary-grid">
+          <div class="elig-summary-row">
+            <span class="elig-summary-label">Qualification</span>
+            <span class="elig-summary-value">${summary.qualification}</span>
+          </div>
+          <div class="elig-summary-row">
+            <span class="elig-summary-label">Calculated Age</span>
+            <span class="elig-summary-value">${summary.age}</span>
+          </div>
+          <div class="elig-summary-row">
+            <span class="elig-summary-label">Age Limit</span>
+            <span class="elig-summary-value">${summary.ageLimit}</span>
+          </div>
+          <div class="elig-summary-row">
+            <span class="elig-summary-label">${summary.registrationLabel}</span>
+            <span class="elig-summary-value">${summary.registration}</span>
+          </div>
+        </div>`
+      : "";
+
+    const confidence = `<p class="elig-confidence">Based on the eligibility criteria configured for this examination. Candidates should verify final eligibility using the official notification before applying.</p>`;
+
+    return `<i class="${icon}"></i>
+      <div class="elig-result-body">
+        <strong>${titleOverride || title}</strong>
+        ${reason ? `<p>${reason}</p>` : ""}
+        ${summaryHTML}
+        ${confidence}
+      </div>`;
   }
 
   function showResult(el, type, html) {
     el.className = "elig-result show " + type;
     el.innerHTML = html;
-  }
-
-  // --- 5. RENDER AGE RELAXATION ---
-  function renderAgeRelaxation() {
-    const grid = document.getElementById("age-relax-grid");
-    if (!grid || !CONFIG.ageRelaxation) return;
-
-    grid.innerHTML = CONFIG.ageRelaxation
-      .map(
-        (item) => `
-            <div class="age-card g-exam-reveal">
-                <h4>${item.category}</h4>
-                <div class="age-value">${item.maxAge} years</div>
-                <div class="age-detail">${item.relaxation}</div>
-            </div>
-        `,
-      )
-      .join("");
   }
 
   // --- 6. RENDER SYLLABUS ---
@@ -3329,9 +3516,9 @@ document.addEventListener("DOMContentLoaded", () => {
   [
     renderSnapshot,
     renderAbout,
-    renderEligibility,
+    renderEligibilityCards,
+    renderAgeRules,
     initEligibilityChecker,
-    renderAgeRelaxation,
     renderSyllabus,
     renderPreparation,
     renderProcess,

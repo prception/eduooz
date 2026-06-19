@@ -123,6 +123,61 @@
             pdfUrl: null,
           },
         ],
+        relatedResources: [
+          { url: "#syllabus", label: "SSC Staff Nurse Exam Syllabus", icon: "fa-solid fa-list-check" },
+          { url: "#papers", label: "SSC Staff Nurse Previous Year Papers", icon: "fa-solid fa-file-pdf" },
+          { url: "#practice", label: "SSC Staff Nurse Practice Tests", icon: "fa-solid fa-pen-to-square" },
+          { url: "#eligibility", label: "SSC Staff Nurse Eligibility Criteria", icon: "fa-solid fa-user-check" },
+          { url: "./aiims-norcet.html", label: "AIIMS NORCET Exam Coaching", icon: "fa-solid fa-graduation-cap" },
+          { url: "./dsssb-nursing-officer.html", label: "DSSSB Nursing Officer Delhi", icon: "fa-solid fa-building-columns" },
+          { url: "./esic-nursing-officer.html", label: "ESIC Nursing Officer Recruitment", icon: "fa-solid fa-shield-halved" },
+          { url: "./rrb-nursing-superintendent.html", label: "RRB Nursing Superintendent Exam", icon: "fa-solid fa-train" },
+          { url: "./nvs-school-nurse.html", label: "NVS School Nurse Exam Coaching", icon: "fa-solid fa-school" },
+          { url: "./military-nursing-service-mns.html", label: "Military Nursing Service (MNS)", icon: "fa-solid fa-shield-halved" }
+        ],
+      };
+
+      // ========== ELIGIBILITY SECTION CONTENT ==========
+      window.courseEligibility = {
+        qualification: [
+          { icon: "fa-solid fa-graduation-cap", title: "Degrees & Recognition Required", description: "Must hold B.Sc Nursing (Basic) or Post Basic Nursing from a recognized university. Degree must be recognized by the Indian Nursing Council (INC). Relevant professional registration is mandatory (e.g., RNRM for Nursing), where applicable." },
+          { icon: "fa-solid fa-id-card", title: "Valid Registration Requirements", description: "Valid and active professional registration is mandatory. Registration must be maintained with the State Nursing Council and must be valid at the time of application and appointment." },
+          { icon: "fa-solid fa-briefcase", title: "Clinical / Professional Experience", description: "Some SSC nursing posts may prefer or require clinical nursing experience, especially in government hospitals or healthcare centers. Experience should be in a hospital, health unit, or recognized nursing facility relevant to the post." },
+          { icon: "fa-solid fa-calendar-check", title: "Age Limit & Relaxation Details", description: "Typically 21–30 years for General category candidates (refer to the latest SSC notification for exact age limits). Age relaxation is applicable as per Government of India rules for SC/ST/OBC/PwBD and other eligible categories." },
+          { icon: "fa-solid fa-flag", title: "Nationality Requirements", description: "Applicant must be an Indian citizen." },
+          { icon: "fa-solid fa-heart-pulse", title: "Medical Fitness Requirements", description: "Candidate must be medically and physically fit for nursing duties. A medical fitness certificate may be required during appointment or document verification." },
+        ],
+        ageRules: [
+          { icon: "fa-solid fa-user",          category: "General Category",                       maxAge: "21–30 years", description: "Must be within the upper age limit specified in the SSC notification (usually 21–30 years). No additional relaxation." },
+          { icon: "fa-solid fa-people-group",  category: "SC / ST",                                maxAge: "35 years",   description: "+5 years relaxation over General category limit. Applicable to candidates belonging to Scheduled Caste / Scheduled Tribe communities." },
+          { icon: "fa-solid fa-shield-halved", category: "OBC (Non-Creamy Layer)",                 maxAge: "33 years",   description: "+3 years relaxation over General category limit. Must possess a valid Non-Creamy Layer certificate." },
+          { icon: "fa-solid fa-wheelchair",    category: "Persons with Benchmark Disabilities (PwBD)", maxAge: "40 years",   description: "Age relaxation as per Government of India / SSC notification, typically up to 10 years." },
+          { icon: "fa-solid fa-medal",         category: "Ex-Servicemen / Defence Candidates",     maxAge: "35 years",   description: "Age relaxation equal to the period of military service rendered, as per SSC notification and Government of India rules." },
+          { icon: "fa-solid fa-person-dress",  category: "Widows / Divorcees",                     maxAge: "Varies",     description: "Eligible for age relaxation as per SSC notification and applicable reservation guidelines." },
+          { icon: "fa-solid fa-scale-balanced",category: "Other Reserved Categories",              maxAge: "Varies",     description: "Age relaxation and benefits as prescribed by Government of India rules or the SSC notification." },
+        ],
+      };
+
+      // ========== ELIGIBILITY CHECKER CONFIGURATION ==========
+      window.eligibilityCheckerConfig = {
+        minAge: 18,
+        maxAge: 30,
+        acceptedQualifications: [
+          { value: "bsc-nursing",    label: "B.Sc. Nursing" },
+          { value: "gnm",            label: "GNM Nursing" },
+          { value: "post-basic-bsc", label: "Post Basic B.Sc. Nursing" },
+        ],
+        registrationRequired: true,
+        registrationLabel: "Nursing Council Registration",
+        acceptedCategories: [
+          { value: "general",       label: "General / UR",           maxAge: 30 },
+          { value: "obc",           label: "OBC (Non-Creamy Layer)", maxAge: 33 },
+          { value: "sc",            label: "SC",                     maxAge: 35 },
+          { value: "st",            label: "ST",                     maxAge: 35 },
+          { value: "pwd",           label: "PwBD",                   maxAge: 40 },
+          { value: "ex-servicemen", label: "Ex-Servicemen",          maxAge: 35 },
+        ],
+        additionalFields: [],
       };
     </script>
   </head>
@@ -555,57 +610,7 @@
                 <h3 class="split-col-heading">Eligibility Requirements</h3>
               </div>
               <div class="elig-col-pane" id="elig-col-pane">
-                <div class="elig-col-track" id="elig-col-track">
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                      <h4>Degrees &amp; Recognition Required</h4>
-                    </div>
-                    <p>Must hold B.Sc Nursing (Basic) or Post Basic Nursing from a recognized university. Degree must be recognized by the Indian Nursing Council (INC). Relevant professional registration is mandatory (e.g., RNRM for Nursing), where applicable.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-id-card"></i></div>
-                      <h4>Valid Registration Requirements</h4>
-                    </div>
-                    <p>Valid and active professional registration is mandatory. Registration must be maintained with the State Nursing Council and must be valid at the time of application and appointment.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-briefcase"></i></div>
-                      <h4>Clinical / Professional Experience</h4>
-                    </div>
-                    <p>Some SSC nursing posts may prefer or require clinical nursing experience, especially in government hospitals or healthcare centers. Experience should be in a hospital, health unit, or recognized nursing facility relevant to the post.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-calendar-check"></i></div>
-                      <h4>Age Limit &amp; Relaxation Details</h4>
-                    </div>
-                    <p>Typically 21–35 years for General category candidates (refer to the latest SSC notification for exact age limits). Age relaxation is applicable as per Government of India rules for SC/ST/OBC/PwBD and other eligible categories.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-flag"></i></div>
-                      <h4>Nationality Requirements</h4>
-                    </div>
-                    <p>Applicant must be an Indian citizen.</p>
-                  </div>
-
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                      <h4>Medical Fitness Requirements</h4>
-                    </div>
-                    <p>Candidate must be medically and physically fit for nursing duties. A medical fitness certificate may be required during appointment or document verification.</p>
-                  </div>
-
-                </div>
+                <div class="elig-col-track" id="elig-col-track"><!-- rendered by renderEligibilityCards() from window.courseEligibility.qualification --></div>
               </div>
             </div>
 
@@ -621,93 +626,7 @@
                 <h3 class="split-col-heading">Age Limit by Category</h3>
               </div>
               <div class="elig-col-pane" id="age-col-pane">
-                <div class="elig-col-track" id="age-col-track">
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-user"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>General Category</h4>
-                        <span class="age-badge">21–35 years</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail"><p>Must be within the upper age limit specified in the SSC notification (usually 21–35 years). No additional relaxation.</p></div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-people-group"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>SC / ST</h4>
-                        <span class="age-badge">+5 years</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail"><p>Age relaxation as per Government of India rules, typically +5 years over the General category upper age limit.</p></div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>OBC (Non-Creamy Layer)</h4>
-                        <span class="age-badge">+3 years</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail"><p>Age relaxation as per Government of India rules, typically +3 years. Must possess a valid Non-Creamy Layer certificate.</p></div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-wheelchair"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>Persons with Benchmark Disabilities (PwBD)</h4>
-                        <span class="age-badge">Up to +10 years</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail"><p>Age relaxation as per Government of India / SSC notification, typically up to 10 years.</p></div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-medal"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>Ex-Servicemen / Defence Candidates</h4>
-                        <span class="age-badge">Service Period</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail"><p>Age relaxation equal to the period of military service rendered, as per SSC notification and Government of India rules.</p></div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-person-dress"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>Widows / Divorcees</h4>
-                        <span class="age-badge">As per notification</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail"><p>Eligible for age relaxation as per SSC notification and applicable reservation guidelines.</p></div>
-                  </div>
-
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon"><i class="fa-solid fa-scale-balanced"></i></div>
-                      <div class="age-explorer-info">
-                        <h4>Other Reserved Categories</h4>
-                        <span class="age-badge">Varies</span>
-                      </div>
-                      <div class="age-explorer-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                    <div class="age-explorer-detail"><p>Age relaxation and benefits as prescribed by Government of India rules or the SSC notification.</p></div>
-                  </div>
-
-                </div>
+                <div class="elig-col-track" id="age-col-track"><!-- rendered by renderAgeRules() from window.courseEligibility.ageRules --></div>
               </div>
             </div>
           </div>
@@ -727,49 +646,8 @@
           </h2>
         </div>
         <div class="elig-checker-card g-exam-reveal">
-          <form id="elig-checker-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label>Qualification</label>
-                <select name="qualification">
-                  <option value="">Select...</option>
-                  <option value="bsc-nursing">B.Sc. Nursing</option>
-                  <option value="post-basic-bsc">Post Basic B.Sc. Nursing</option>
-                  <option value="gnm">GNM (Diploma)</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Nursing Council Registration</label>
-                <select name="registration">
-                  <option value="">Select...</option>
-                  <option value="yes">Yes - Active RN/RM</option>
-                  <option value="no">No</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Category</label>
-                <select name="category">
-                  <option value="">Select...</option>
-                  <option value="general">General / UR</option>
-                  <option value="obc">OBC (Non-Creamy Layer)</option>
-                  <option value="sc">SC</option>
-                  <option value="st">ST</option>
-                  <option value="pwd">PwBD</option>
-                  <option value="ex-servicemen">Ex-Servicemen</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" name="dob" />
-              </div>
-            </div>
-            <button type="submit" class="btn-check-elig">
-              <i class="fa-solid fa-magnifying-glass"></i> Check Eligibility
-            </button>
-          </form>
+          <!-- form fields built by initEligibilityChecker() from window.eligibilityCheckerConfig -->
+          <form id="elig-checker-form"></form>
           <div class="elig-result" id="elig-result"></div>
         </div>
       </div>

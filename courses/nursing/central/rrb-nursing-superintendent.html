@@ -123,6 +123,60 @@
             pdfUrl: null,
           },
         ],
+        relatedResources: [
+          { url: "#syllabus", label: "RRB Nursing Superintendent Syllabus", icon: "fa-solid fa-list-check" },
+          { url: "#papers", label: "RRB Nursing Previous Year Papers", icon: "fa-solid fa-file-pdf" },
+          { url: "#practice", label: "RRB Nursing Practice Tests", icon: "fa-solid fa-pen-to-square" },
+          { url: "#eligibility", label: "RRB Nursing Eligibility Criteria", icon: "fa-solid fa-user-check" },
+          { url: "./aiims-norcet.html", label: "AIIMS NORCET Exam Coaching", icon: "fa-solid fa-graduation-cap" },
+          { url: "./dsssb-nursing-officer.html", label: "DSSSB Nursing Officer Delhi", icon: "fa-solid fa-building-columns" },
+          { url: "./ssc-staff-nurse.html", label: "SSC Staff Nurse Exam Coaching", icon: "fa-solid fa-building-columns" },
+          { url: "./esic-nursing-officer.html", label: "ESIC Nursing Officer Recruitment", icon: "fa-solid fa-shield-halved" },
+          { url: "./nvs-school-nurse.html", label: "NVS School Nurse Exam Coaching", icon: "fa-solid fa-school" },
+          { url: "./military-nursing-service-mns.html", label: "Military Nursing Service (MNS)", icon: "fa-solid fa-shield-halved" }
+        ],
+      };
+
+      // ========== ELIGIBILITY SECTION CONTENT ==========
+      window.courseEligibility = {
+        qualification: [
+          { icon: "fa-solid fa-graduation-cap", title: "Degrees and Recognition Required", description: "Must hold B.Sc Nursing (Basic) or GNM from a recognized university or institution. Degree must be recognized by the Indian Nursing Council (INC). Professional registration is mandatory (RNRM for Nursing)." },
+          { icon: "fa-solid fa-id-card", title: "Valid Registration Requirements", description: "Valid and active professional registration is mandatory. Registration must be maintained with the relevant State Nursing Council and must be valid at the time of application and appointment." },
+          { icon: "fa-solid fa-briefcase", title: "Clinical / Professional Experience", description: "Some Railway nursing posts may prefer or require clinical or professional experience. Experience should be in a hospital, healthcare institution, or recognized organization relevant to the post." },
+          { icon: "fa-solid fa-calendar-check", title: "Age Limit & Relaxation Details", description: "Typically 18–42 years for General category candidates (refer to the latest RRB notification for exact limits). Age relaxation is applicable as per Government of India rules for SC/ST/OBC/PwBD and other eligible categories." },
+          { icon: "fa-solid fa-flag", title: "Nationality Requirements", description: "Applicant must be an Indian citizen." },
+          { icon: "fa-solid fa-heart-pulse", title: "Medical Fitness Requirements", description: "Candidate must be medically and physically fit as per Railway Medical Standards. A medical fitness examination is conducted for selected candidates before appointment." },
+        ],
+        ageRules: [
+          { icon: "fa-solid fa-user",          category: "General Category",                       maxAge: "18–42 years", description: "Must be within the upper age limit specified in the RRB notification. Age is calculated as on the date specified in the recruitment advertisement." },
+          { icon: "fa-solid fa-people-group",  category: "SC / ST",                                maxAge: "47 years",   description: "+5 years relaxation over General category limit. Applicable to candidates belonging to Scheduled Caste / Scheduled Tribe communities." },
+          { icon: "fa-solid fa-shield-halved", category: "OBC (Non-Creamy Layer)",                 maxAge: "45 years",   description: "+3 years relaxation over General category limit. Must possess a valid Non-Creamy Layer certificate issued by a competent authority." },
+          { icon: "fa-solid fa-wheelchair",    category: "Persons with Benchmark Disabilities (PwBD)", maxAge: "52 years",   description: "Age relaxation as per Government of India / RRB notification, typically up to 10 years. Applicable as per the specific RRB recruitment advertisement." },
+          { icon: "fa-solid fa-medal",         category: "Ex-Servicemen / Defence Candidates",     maxAge: "47 years",   description: "Age relaxation equal to the period of military service rendered, as per RRB notification and Government of India rules." },
+          { icon: "fa-solid fa-person-dress",  category: "Widows / Divorcees",                     maxAge: "Varies",     description: "Eligible for age relaxation as per RRB notification and reservation guidelines. Refer to the official advertisement for conditions." },
+          { icon: "fa-solid fa-scale-balanced",category: "Other Reserved Categories",              maxAge: "Varies",     description: "Age relaxation and benefits as prescribed by Government of India rules or the RRB notification. Refer to the official advertisement." },
+        ],
+      };
+
+      // ========== ELIGIBILITY CHECKER CONFIGURATION ==========
+      window.eligibilityCheckerConfig = {
+        minAge: 18,
+        maxAge: 42,
+        acceptedQualifications: [
+          { value: "bsc-nursing",    label: "B.Sc. Nursing" },
+          { value: "gnm",            label: "GNM Nursing" },
+        ],
+        registrationRequired: true,
+        registrationLabel: "Nursing Council Registration",
+        acceptedCategories: [
+          { value: "general",       label: "General / UR",           maxAge: 42 },
+          { value: "obc",           label: "OBC (Non-Creamy Layer)", maxAge: 45 },
+          { value: "sc",            label: "SC",                     maxAge: 47 },
+          { value: "st",            label: "ST",                     maxAge: 47 },
+          { value: "pwd",           label: "PwBD",                   maxAge: 52 },
+          { value: "ex-servicemen", label: "Ex-Servicemen",          maxAge: 47 },
+        ],
+        additionalFields: [],
       };
     </script>
   </head>
@@ -403,7 +457,39 @@
               <span class="text-gradient">Requirements.</span>
             </h2>
           </div>
-          <!-- Content will be provided -->
+          <div class="elig-age-split-grid">
+            <div class="split-particles">
+              <span class="sp"></span><span class="sp"></span>
+              <span class="sp"></span><span class="sp"></span>
+            </div>
+
+            <!-- LEFT: Eligibility Criteria -->
+            <div class="split-column" id="elig-carousel-col">
+              <div class="eligibility-explorer-icon">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3 class="split-col-heading">Eligibility Requirements</h3>
+              </div>
+              <div class="elig-col-pane" id="elig-col-pane">
+                <div class="elig-col-track" id="elig-col-track"><!-- rendered by renderEligibilityCards() from window.courseEligibility.qualification --></div>
+              </div>
+            </div>
+
+            <!-- CENTER DIVIDER -->
+            <div class="split-divider">
+              <div class="divider-glow"></div>
+            </div>
+
+            <!-- RIGHT: Age Relaxation -->
+            <div class="split-column" id="age-carousel-col">
+              <div class="age-explorer-icon">
+                <i class="fa-solid fa-user-check"></i>
+                <h3 class="split-col-heading">Age Limit by Category</h3>
+              </div>
+              <div class="elig-col-pane" id="age-col-pane">
+                <div class="elig-col-track" id="age-col-track"><!-- rendered by renderAgeRules() from window.courseEligibility.ageRules --></div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
@@ -420,48 +506,8 @@
           </h2>
         </div>
         <div class="elig-checker-card g-exam-reveal">
-          <form id="elig-checker-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label>Qualification</label>
-                <select name="qualification">
-                  <option value="">Select...</option>
-                  <option value="bsc-nursing">B.Sc. Nursing</option>
-                  <option value="gnm">GNM (Diploma)</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Nursing Council Registration</label>
-                <select name="registration">
-                  <option value="">Select...</option>
-                  <option value="yes">Yes - Active RN/RM</option>
-                  <option value="no">No</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Category</label>
-                <select name="category">
-                  <option value="">Select...</option>
-                  <option value="general">General / UR</option>
-                  <option value="obc">OBC (Non-Creamy Layer)</option>
-                  <option value="sc">SC</option>
-                  <option value="st">ST</option>
-                  <option value="pwd">PwBD</option>
-                  <option value="ex-servicemen">Ex-Servicemen</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" name="dob" />
-              </div>
-            </div>
-            <button type="submit" class="btn-check-elig">
-              <i class="fa-solid fa-magnifying-glass"></i> Check Eligibility
-            </button>
-          </form>
+          <!-- form fields built by initEligibilityChecker() from window.eligibilityCheckerConfig -->
+          <form id="elig-checker-form"></form>
           <div class="elig-result" id="elig-result"></div>
         </div>
       </div>

@@ -78,6 +78,51 @@
             pdfUrl: null,
           },
         ],
+        relatedResources: [
+          { url: "#syllabus", label: "Qatar Nursing Exam Syllabus", icon: "fa-solid fa-list-check" },
+          { url: "#papers", label: "Qatar Nursing Previous Year Papers", icon: "fa-solid fa-file-pdf" },
+          { url: "#practice", label: "Qatar Nursing Practice Tests", icon: "fa-solid fa-pen-to-square" },
+          { url: "#eligibility", label: "Qatar Eligibility Criteria", icon: "fa-solid fa-user-check" },
+          { url: "./dha-nursing-prometric.html", label: "DHA Nursing Exam (Dubai)", icon: "fa-solid fa-stethoscope" },
+          { url: "./haad-nursing-pearson-vue.html", label: "HAAD Nursing Exam (Abu Dhabi)", icon: "fa-solid fa-hospital" },
+          { url: "./saudi-nursing-prometric.html", label: "Saudi MOH Nursing Prometric", icon: "fa-solid fa-hospital" },
+          { url: "./kuwait-nursing-prometric.html", label: "Kuwait Nursing Prometric", icon: "fa-solid fa-hospital" },
+          { url: "./oman-nursing-pearson-vue.html", label: "Oman Nursing Pearson VUE Exam", icon: "fa-solid fa-hospital" },
+          { url: "./sharjah-nursing-prometric.html", label: "Sharjah Nursing Prometric", icon: "fa-solid fa-hospital" }
+        ],
+      };
+
+      // ========== ELIGIBILITY SECTION CONTENT ==========
+      window.courseEligibility = {
+        qualification: [
+          { icon: "fa-solid fa-graduation-cap", title: "Educational Qualification", description: "Candidates must possess B.Sc Nursing from a recognized university, or Post Basic B.Sc Nursing. Additionally, candidates should hold Registered Nurse (RN) or Registered Midwife (RNRM) status where applicable, with qualifications recognized by the relevant healthcare authorities." },
+          { icon: "fa-solid fa-id-card",        title: "Registration Requirements",  description: "Candidates must have valid Nursing Council registration from their home country, registration with the appropriate professional nursing council, and an active professional nursing license." },
+          { icon: "fa-solid fa-briefcase",      title: "Clinical Experience",        description: "Clinical experience is generally preferred. Experience in hospitals, clinics, or recognized healthcare facilities is advantageous. Certain nursing categories may require specific experience according to QCHP regulations." },
+          { icon: "fa-solid fa-passport",       title: "Nationality & Documentation", description: "Applicants of all nationalities may apply. Candidates must satisfy Qatar work permit and licensing requirements as prescribed by the Qatar Council for Healthcare Practitioners (QCHP)." },
+          { icon: "fa-solid fa-file-shield",    title: "DataFlow / PSV Verification", description: "Primary Source Verification (PSV) through DataFlow is mandatory. This verifies educational qualifications, nursing registration, professional experience, and supporting documents." },
+          { icon: "fa-solid fa-heart-pulse",    title: "Medical Fitness",            description: "Candidates must be medically fit to practice nursing and meet QCHP medical fitness standards. Medical fitness certificates are required during employment or licensing procedures." },
+        ],
+        ageRules: [
+          { icon: "fa-solid fa-user",       category: "All Applicants",        maxAge: "No Fixed Limit", description: "There is generally no fixed upper age limit for Qatar Nursing Prometric licensing eligibility. Candidates must satisfy requirements prescribed by Qatar healthcare authorities." },
+          { icon: "fa-solid fa-user-nurse", category: "Registered Nurse Track", maxAge: "B.Sc Nursing", description: "Nurses holding B.Sc Nursing or Post Basic B.Sc Nursing qualification recognized by home country nursing council are eligible to apply for Qatar Prometric licensing." },
+          { icon: "fa-solid fa-stethoscope",category: "Active License Required",  maxAge: "Mandatory",  description: "Candidates must hold an active professional nursing license from their home country nursing council. Registration must be valid and in good standing." },
+        ],
+      };
+
+      // ========== ELIGIBILITY CHECKER CONFIGURATION ==========
+      window.eligibilityCheckerConfig = {
+        minAge: 0,
+        maxAge: 99,
+        acceptedQualifications: [
+          { value: "bsc-nursing",    label: "B.Sc. Nursing" },
+          { value: "post-basic-bsc", label: "Post Basic B.Sc. Nursing" },
+        ],
+        registrationRequired: true,
+        registrationLabel: "Home Country Nursing Council Registration",
+        acceptedCategories: [
+          { value: "general", label: "All Applicants", maxAge: 99 },
+        ],
+        additionalFields: [],
       };
     </script>
 
@@ -581,74 +626,7 @@
                 <h3 class="split-col-heading">Eligibility Requirements</h3>
               </div>
               <div class="elig-col-pane" id="elig-col-pane">
-                <div class="elig-col-track" id="elig-col-track">
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                      </div>
-                      <h4>Educational Qualification</h4>
-                    </div>
-                    <p>
-                      Candidates must possess B.Sc Nursing from a recognized university, or Post Basic B.Sc Nursing. Additionally, candidates should hold Registered Nurse (RN) or Registered Midwife (RNRM) status where applicable, with qualifications recognized by the relevant healthcare authorities.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-id-card"></i>
-                      </div>
-                      <h4>Registration Requirements</h4>
-                    </div>
-                    <p>
-                      Candidates must have valid Nursing Council registration from their home country, registration with the appropriate professional nursing council, and an active professional nursing license.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-briefcase"></i>
-                      </div>
-                      <h4>Clinical / Professional Experience</h4>
-                    </div>
-                    <p>
-                      Clinical experience is generally preferred. Experience in hospitals, clinics, or recognized healthcare facilities is advantageous. Certain nursing categories may require specific experience according to QCHP regulations.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-calendar-check"></i>
-                      </div>
-                      <h4>Age Limit and Relaxation</h4>
-                    </div>
-                    <p>
-                      Candidates should satisfy the age and eligibility requirements prescribed by Qatar healthcare authorities. There is generally no fixed upper age limit for licensing eligibility.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-flag"></i>
-                      </div>
-                      <h4>Nationality</h4>
-                    </div>
-                    <p>
-                      Applicants of all nationalities may apply. Candidates must satisfy Qatar work permit and licensing requirements as prescribed by the Qatar Council for Healthcare Practitioners (QCHP).
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-heart-pulse"></i>
-                      </div>
-                      <h4>Medical Fitness</h4>
-                    </div>
-                    <p>
-                      Candidates must be medically fit to practice nursing and meet QCHP medical fitness standards. Medical fitness certificates are required during employment or licensing procedures.
-                    </p>
-                  </div>
-                </div>
+                <div class="elig-col-track" id="elig-col-track"><!-- rendered by renderEligibilityCards() from window.courseEligibility.qualification --></div>
               </div>
             </div>
 
@@ -664,141 +642,7 @@
                 <h3 class="split-col-heading">Qatar Licensing Requirements</h3>
               </div>
               <div class="elig-col-pane" id="age-col-pane">
-                <div class="elig-col-track" id="age-col-track">
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-users"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>All Nationalities Welcome</h4>
-                        <span class="age-badge">Open</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Applicants of all nationalities may apply. Candidates must satisfy Qatar work permit and licensing requirements as prescribed by QCHP.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-calendar-check"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Age Requirement</h4>
-                        <span class="age-badge">No Fixed Limit</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        There is generally no fixed upper age limit for Qatar Nursing Prometric licensing eligibility. Candidates must satisfy requirements prescribed by Qatar healthcare authorities.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-file-shield"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>DataFlow Verification</h4>
-                        <span class="age-badge">Mandatory</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Primary Source Verification (PSV) through DataFlow is mandatory. This verifies educational qualifications, nursing registration, professional experience, and supporting documents.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-id-card"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Active Nursing License</h4>
-                        <span class="age-badge">Required</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Candidates must hold an active professional nursing license from their home country nursing council. Registration must be valid and in good standing.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-heart-pulse"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Medical Fitness</h4>
-                        <span class="age-badge">Mandatory</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Candidates must be medically fit to practice nursing and meet QCHP medical fitness standards. Medical fitness certificates must be produced during employment or licensing procedures.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-briefcase"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Clinical Experience</h4>
-                        <span class="age-badge">Preferred</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Experience in hospitals, clinics, or recognized healthcare facilities is advantageous. Certain nursing categories may require specific experience according to QCHP regulations.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-globe"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Qatar Work Permit</h4>
-                        <span class="age-badge">Required</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Candidates must satisfy Qatar work permit requirements in addition to nursing licensing requirements. The final license is issued after securing employment and completing all regulatory requirements.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <div class="elig-col-track" id="age-col-track"><!-- rendered by renderAgeRules() from window.courseEligibility.ageRules --></div>
               </div>
             </div>
           </div>
@@ -818,45 +662,8 @@
           </h2>
         </div>
         <div class="elig-checker-card g-exam-reveal">
-          <form id="elig-checker-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label>Qualification</label>
-                <select name="qualification">
-                  <option value="">Select...</option>
-                  <option value="bsc-nursing">B.Sc. Nursing</option>
-                  <option value="post-basic-bsc">
-                    Post Basic B.Sc. Nursing
-                  </option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Nursing Council Registration</label>
-                <select name="registration">
-                  <option value="">Select...</option>
-                  <option value="yes">Yes - Active RN/RM</option>
-                  <option value="no">No</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Nationality</label>
-                <select name="category">
-                  <option value="">Select...</option>
-                  <option value="general">Any Nationality</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" name="dob" />
-              </div>
-            </div>
-            <button type="submit" class="btn-check-elig">
-              <i class="fa-solid fa-magnifying-glass"></i> Check Eligibility
-            </button>
-          </form>
+          <!-- form fields built by initEligibilityChecker() from window.eligibilityCheckerConfig -->
+          <form id="elig-checker-form"></form>
           <div class="elig-result" id="elig-result"></div>
         </div>
       </div>

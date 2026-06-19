@@ -99,6 +99,54 @@
             pdfUrl: null,
           },
         ],
+        relatedResources: [
+          { url: "#syllabus", label: "DHA Nursing Exam Syllabus", icon: "fa-solid fa-list-check" },
+          { url: "#papers", label: "DHA Previous Year Question Papers", icon: "fa-solid fa-file-pdf" },
+          { url: "#practice", label: "DHA Practice Tests & Mock Exams", icon: "fa-solid fa-pen-to-square" },
+          { url: "#eligibility", label: "DHA Eligibility Criteria", icon: "fa-solid fa-user-check" },
+          { url: "./haad-nursing-pearson-vue.html", label: "HAAD Nursing Exam (Abu Dhabi)", icon: "fa-solid fa-stethoscope" },
+          { url: "./saudi-nursing-prometric.html", label: "Saudi MOH Nursing Prometric", icon: "fa-solid fa-hospital" },
+          { url: "./qatar-nursing-prometric.html", label: "Qatar Prometric Nursing Exam", icon: "fa-solid fa-hospital" },
+          { url: "./kuwait-nursing-prometric.html", label: "Kuwait Nursing Prometric", icon: "fa-solid fa-hospital" },
+          { url: "./oman-nursing-pearson-vue.html", label: "Oman Nursing Pearson VUE Exam", icon: "fa-solid fa-hospital" },
+          { url: "./sharjah-nursing-prometric.html", label: "Sharjah Nursing Prometric", icon: "fa-solid fa-hospital" }
+        ],
+      };
+
+      window.courseEligibility = {
+        qualification: [
+          { icon: "fa-solid fa-graduation-cap", title: "Educational Qualification", description: "Candidates must possess B.Sc Nursing from a recognized university, or Post Basic B.Sc Nursing, or Diploma in Nursing (GNM) recognized by the relevant authority, along with relevant professional registration in nursing." },
+          { icon: "fa-solid fa-id-card", title: "Registration Requirements", description: "Candidates must hold a valid and active Nursing Council registration, registration with the State Nursing Council or home country nursing authority, and an active professional nursing license." },
+          { icon: "fa-solid fa-briefcase", title: "Clinical / Professional Experience", description: "Some DHA nursing categories may require clinical experience. Experience should preferably be gained in hospitals, clinics, or recognized healthcare institutions. Requirements may vary according to the position and DHA guidelines." },
+          { icon: "fa-solid fa-calendar-check", title: "Age Limit and Relaxation", description: "There is generally no fixed upper age limit for DHA licensing. Applicants must satisfy the eligibility conditions prescribed by DHA, and professional fitness and qualification requirements must be fulfilled." },
+          { icon: "fa-solid fa-flag", title: "Nationality", description: "Applicants of all nationalities can apply. Candidates must meet the visa and employment requirements of the UAE. Both UAE residents and international applicants are eligible to apply." },
+          { icon: "fa-solid fa-heart-pulse", title: "Medical Fitness", description: "Candidates must be medically fit to practice nursing and meet DHA health standards. Medical fitness certificates are required during employment or licensing procedures when requested by DHA." },
+        ],
+        ageRules: [
+          { category: "International Nurse (New Applicant)", badge: "No Age Limit", icon: "fa-solid fa-user", detail: "Nurses from any country applying for a DHA nursing license for the first time. Must complete DataFlow PSV, meet DHA qualification and experience requirements, and pass the Prometric exam." },
+          { category: "UAE Resident Nurse", badge: "Open", icon: "fa-solid fa-people-group", detail: "Nurses currently residing in the UAE can apply through the DHA Sheryan portal. Must hold a valid UAE residence visa and meet the same qualification and licensing requirements as international applicants." },
+          { category: "License Renewal (Existing DHA Nurses)", badge: "Open", icon: "fa-solid fa-rotate", detail: "Nurses with an existing DHA license must renew through the Sheryan portal before expiry. Renewal requirements include continued employment verification and updated professional documentation." },
+          { category: "Registered Nurse (RN) Track", badge: "B.Sc Nursing", icon: "fa-solid fa-user-nurse", detail: "Candidates with a B.Sc Nursing or Post Basic B.Sc Nursing degree qualify for the Registered Nurse (RN) licensing track. A valid home country RN license and DataFlow PSV are mandatory." },
+          { category: "Assistant Nurse (GNM) Track", badge: "Diploma Nursing", icon: "fa-solid fa-stethoscope", detail: "Diploma in Nursing / GNM holders may qualify for the Assistant Nurse licensing track subject to DHA assessment. Experience requirements and scope of practice may differ from the RN track." },
+          { category: "Special Circumstance Applicants", badge: "Case by Case", icon: "fa-solid fa-scale-balanced", detail: "Applicants with unique circumstances (license discrepancies, name changes, or complex DataFlow reports) are assessed on a case-by-case basis by DHA. Refer to the official Sheryan portal for guidance." },
+        ]
+      };
+
+      window.eligibilityCheckerConfig = {
+        minAge: 22,
+        maxAge: 60,
+        acceptedQualifications: [
+          { value: "bsc-nursing", label: "B.Sc. Nursing" },
+          { value: "gnm", label: "GNM / Diploma in Nursing" },
+          { value: "post-basic-bsc", label: "Post Basic B.Sc. Nursing" },
+        ],
+        registrationRequired: true,
+        registrationLabel: "Home Country Nursing Council Registration",
+        acceptedCategories: [
+          { value: "general", label: "All Applicants", maxAge: 60 }
+        ],
+        additionalFields: [],
+        additionalRules: { experienceRequired: true, minPercentage: null, genderRestriction: null }
       };
     </script>
 
@@ -586,72 +634,7 @@
               </div>
               <div class="elig-col-pane" id="elig-col-pane">
                 <div class="elig-col-track" id="elig-col-track">
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                      </div>
-                      <h4>Educational Qualification</h4>
-                    </div>
-                    <p>
-                      Candidates must possess B.Sc Nursing from a recognized university, or Post Basic B.Sc Nursing, or Diploma in Nursing recognized by the relevant authority, along with relevant professional registration in nursing.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-id-card"></i>
-                      </div>
-                      <h4>Registration Requirements</h4>
-                    </div>
-                    <p>
-                      Candidates must hold a valid and active Nursing Council registration, registration with the State Nursing Council or home country nursing authority, and an active professional nursing license.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-briefcase"></i>
-                      </div>
-                      <h4>Clinical / Professional Experience</h4>
-                    </div>
-                    <p>
-                      Some DHA nursing categories may require clinical experience. Experience should preferably be gained in hospitals, clinics, or recognized healthcare institutions. Requirements may vary according to the position and DHA guidelines.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-calendar-check"></i>
-                      </div>
-                      <h4>Age Limit and Relaxation</h4>
-                    </div>
-                    <p>
-                      There is generally no fixed upper age limit for DHA licensing. Applicants must satisfy the eligibility conditions prescribed by DHA, and professional fitness and qualification requirements must be fulfilled.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-flag"></i>
-                      </div>
-                      <h4>Nationality</h4>
-                    </div>
-                    <p>
-                      Applicants of all nationalities can apply. Candidates must meet the visa and employment requirements of the UAE. Both UAE residents and international applicants are eligible to apply.
-                    </p>
-                  </div>
-                  <div class="elig-card">
-                    <div class="elig-card-header">
-                      <div class="elig-icon">
-                        <i class="fa-solid fa-heart-pulse"></i>
-                      </div>
-                      <h4>Medical Fitness</h4>
-                    </div>
-                    <p>
-                      Candidates must be medically fit to practice nursing and meet DHA health standards. Medical fitness certificates are required during employment or licensing procedures when requested by DHA.
-                    </p>
-                  </div>
+                  <!-- rendered by renderEligibilityCards() from window.courseEligibility.qualification -->
                 </div>
               </div>
             </div>
@@ -669,120 +652,7 @@
               </div>
               <div class="elig-col-pane" id="age-col-pane">
                 <div class="elig-col-track" id="age-col-track">
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-user"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>International Nurse (New Applicant)</h4>
-                        <span class="age-badge">No Age Limit</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Nurses from any country applying for a DHA nursing license for the first time. Must complete DataFlow PSV, meet DHA qualification and experience requirements, and pass the Prometric exam.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-people-group"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>UAE Resident Nurse</h4>
-                        <span class="age-badge">Open</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Nurses currently residing in the UAE can apply through the DHA Sheryan portal. Must hold a valid UAE residence visa and meet the same qualification and licensing requirements as international applicants.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-rotate"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>License Renewal (Existing DHA Nurses)</h4>
-                        <span class="age-badge">Open</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Nurses with an existing DHA license must renew through the Sheryan portal before expiry. Renewal requirements include continued employment verification and updated professional documentation.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-user-nurse"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Registered Nurse (RN) Track</h4>
-                        <span class="age-badge">B.Sc Nursing</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Candidates with a B.Sc Nursing or Post Basic B.Sc Nursing degree qualify for the Registered Nurse (RN) licensing track. A valid home country RN license and DataFlow PSV are mandatory.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-stethoscope"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Assistant Nurse (GNM) Track</h4>
-                        <span class="age-badge">Diploma Nursing</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Diploma in Nursing / GNM holders may qualify for the Assistant Nurse licensing track subject to DHA assessment. Experience requirements and scope of practice may differ from the RN track.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="age-explorer-card">
-                    <div class="age-explorer-front">
-                      <div class="age-explorer-icon">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                      </div>
-                      <div class="age-explorer-info">
-                        <h4>Special Circumstance Applicants</h4>
-                        <span class="age-badge">Case by Case</span>
-                      </div>
-                      <div class="age-explorer-toggle">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                    </div>
-                    <div class="age-explorer-detail">
-                      <p>
-                        Applicants with unique circumstances (license discrepancies, name changes, or complex DataFlow reports) are assessed on a case-by-case basis by DHA. Refer to the official Sheryan portal for guidance.
-                      </p>
-                    </div>
-                  </div>
+                  <!-- rendered by renderAgeRules() from window.courseEligibility.ageRules -->
                 </div>
               </div>
             </div>
@@ -803,48 +673,8 @@
           </h2>
         </div>
         <div class="elig-checker-card g-exam-reveal">
-          <form id="elig-checker-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label>Qualification</label>
-                <select name="qualification">
-                  <option value="">Select...</option>
-                  <option value="bsc-nursing">B.Sc. Nursing</option>
-                  <option value="post-basic-bsc">
-                    Post Basic B.Sc. Nursing
-                  </option>
-                  <option value="gnm">GNM (Diploma)</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Home Country Nursing License</label>
-                <select name="registration">
-                  <option value="">Select...</option>
-                  <option value="yes">Yes - Active License</option>
-                  <option value="no">No / Expired</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Applicant Type</label>
-                <select name="category">
-                  <option value="">Select...</option>
-                  <option value="general">International Nurse - New Applicant</option>
-                  <option value="obc">UAE Resident Nurse</option>
-                  <option value="pwd">License Renewal (Existing DHA)</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" name="dob" />
-              </div>
-            </div>
-            <button type="submit" class="btn-check-elig">
-              <i class="fa-solid fa-magnifying-glass"></i> Check Eligibility
-            </button>
-          </form>
+          <!-- form fields built by initEligibilityChecker() from window.eligibilityCheckerConfig -->
+          <form id="elig-checker-form"></form>
           <div class="elig-result" id="elig-result"></div>
         </div>
       </div>
