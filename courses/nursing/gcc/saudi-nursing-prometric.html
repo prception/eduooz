@@ -26,6 +26,7 @@
     
     <script src="../../../assets/js/course-landing.js" defer></script>
     <script src="../../../assets/js/practice-test.js" defer></script>
+    <script src="../../../assets/js/youtube-filter.js" defer></script>
 
     <script>
       // ========== EXAM CONFIGURATION SAUDI NURSING PROMETRIC ==========
@@ -98,18 +99,6 @@
             pages: 6,
             pdfUrl: null,
           },
-        ],
-        relatedResources: [
-          { url: "#syllabus", label: "Saudi MOH Nursing Exam Syllabus", icon: "fa-solid fa-list-check" },
-          { url: "#papers", label: "Saudi Nursing Previous Year Papers", icon: "fa-solid fa-file-pdf" },
-          { url: "#practice", label: "Saudi Nursing Practice Tests", icon: "fa-solid fa-pen-to-square" },
-          { url: "#eligibility", label: "Saudi Eligibility Criteria", icon: "fa-solid fa-user-check" },
-          { url: "./dha-nursing-prometric.html", label: "DHA Nursing Exam (Dubai)", icon: "fa-solid fa-stethoscope" },
-          { url: "./haad-nursing-pearson-vue.html", label: "HAAD Nursing Exam (Abu Dhabi)", icon: "fa-solid fa-hospital" },
-          { url: "./qatar-nursing-prometric.html", label: "Qatar Prometric Nursing Exam", icon: "fa-solid fa-hospital" },
-          { url: "./kuwait-nursing-prometric.html", label: "Kuwait Nursing Prometric", icon: "fa-solid fa-hospital" },
-          { url: "./oman-nursing-pearson-vue.html", label: "Oman Nursing Pearson VUE Exam", icon: "fa-solid fa-hospital" },
-          { url: "./sharjah-nursing-prometric.html", label: "Sharjah Nursing Prometric", icon: "fa-solid fa-hospital" }
         ],
       };
 
@@ -2980,7 +2969,36 @@
           </h2>
         </div>
         <div class="resources-pills" id="resources-pills">
-          <!-- Rendered by JS -->
+          <a href="#syllabus" class="resource-pill">
+            <i class="fa-solid fa-list-check"></i> Saudi MOH Nursing Exam Syllabus
+          </a>
+          <a href="#papers" class="resource-pill">
+            <i class="fa-solid fa-file-pdf"></i> Saudi Nursing Previous Year Papers
+          </a>
+          <a href="#practice" class="resource-pill">
+            <i class="fa-solid fa-pen-to-square"></i> Saudi Nursing Practice Tests
+          </a>
+          <a href="#eligibility" class="resource-pill">
+            <i class="fa-solid fa-user-check"></i> Saudi Eligibility Criteria
+          </a>
+          <a href="./dha-nursing-prometric.html" class="resource-pill">
+            <i class="fa-solid fa-stethoscope"></i> DHA Nursing Exam - Dubai
+          </a>
+          <a href="./haad-nursing-pearson-vue.html" class="resource-pill">
+            <i class="fa-solid fa-hospital"></i> HAAD Nursing Exam - Abu Dhabi
+          </a>
+          <a href="./qatar-nursing-prometric.html" class="resource-pill">
+            <i class="fa-solid fa-hospital"></i> Qatar Prometric Nursing Exam
+          </a>
+          <a href="./kuwait-nursing-prometric.html" class="resource-pill">
+            <i class="fa-solid fa-hospital"></i> Kuwait Nursing Prometric
+          </a>
+          <a href="./oman-nursing-pearson-vue.html" class="resource-pill">
+            <i class="fa-solid fa-hospital"></i> Oman Nursing Pearson VUE Exam
+          </a>
+          <a href="./sharjah-nursing-prometric.html" class="resource-pill">
+            <i class="fa-solid fa-hospital"></i> Sharjah Nursing Prometric
+          </a>
         </div>
       </div>
     </section>

@@ -1337,6 +1337,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial render with "All" playlist
   renderPlaylistCards(allPlaylist);
 
+  // Expose for youtube-filter.js (nursing page-specific video filtering)
+  window._eduoozData = { nursing: nursingPlaylist, category: ytCategoryData };
+  window._renderPlaylistCards = renderPlaylistCards;
+
   // YouTube Category Tabs Logic
   const ytTabs = document.querySelectorAll(".yt-tab");
   if (ytTabs.length > 0) {
