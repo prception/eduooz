@@ -1,21 +1,6 @@
 # Nursing Coaching#
 
-1.Kerala Nursing Exams (state)
-
-APN
-DHS Nursing
-DME Nursing
-Homeo
-IMS Staff Nurse
-JPHN DHS
-JPHN DME
-LSGD
-MSc Nursing Entrance Exam
-Nursing Tutor
-Treatment Organiser
-
-
-2.Central Nursing Exams
+1.Central Nursing Exams
 
 AIIMS NORCET
 DSSSB Nursing Officer Exam
@@ -31,6 +16,19 @@ SGPGIMS
 Sree Chitra
 SSC Nursing / Staff Nurse Recruitment
 
+2.Kerala Nursing Exams (state)
+
+APN
+DHS Nursing
+DME Nursing
+Homeo
+IMS Staff Nurse
+JPHN DHS
+JPHN DME
+LSGD
+MSc Nursing Entrance Exam
+Nursing Tutor
+Treatment Organiser
 
 3.GCC Nursing Licensing Exams
 
@@ -47,7 +45,16 @@ Sharjah Nursing Prometric Licensing Exam
 
 # pharmacy Coaching#
 
-1.Kerala PSC Exams (Pharmacy)
+1.Central Exams (Pharmacy)
+
+CRE
+GPAT
+RRB
+UPSC Drug Inspector
+VSSC
+
+
+2.Kerala PSC Exams (Pharmacy)
 
 APP
 DHS/DME
@@ -56,15 +63,6 @@ Drug Inspector
 Guruvayoor Devaswom
 LSGD
 Oil Palm
-
-
-2.Central Exams (Pharmacy)
-
-CRE
-GPAT
-RRB
-UPSC Drug Inspector
-VSSC
 
 
 3.GCC Exams (Pharmacy)
@@ -81,7 +79,6 @@ Qatar Pharmacy Prometric Licensing Exam
 HAAD Pearson VUE Licensing Exam
 Oman Pearson VUE Licensing Exam
 Saudi Pearson VUE Licensing Exam
-
 
 
 
@@ -122,3 +119,34 @@ How to Add the Next Exam Type
 Create components/question-banks/<key>.html — copy nursing-central.html, replace the question array
 On the course page: add data-question-bank="<key>" to #mts-wrapper and the same two script tags
 No changes to practice-test.js, course-landing.js, or any CSS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
