@@ -1,0 +1,494 @@
+/* =========================================
+   FACULTIES PAGE — GLOBAL VARIABLES
+   ========================================= */
+:root {
+  --brand-dark: #0a0514;
+  --brand-purple: #5b21b6;
+  --brand-magenta: #c026d3;
+  --brand-cyan: #06b6d4;
+  --text-main: #ffffff;
+  --text-muted: #cbd5e1;
+  --bg-light: #f8fafc;
+  --text-light: #0f172a;
+  --text-muted-light: #475569;
+  --font-main: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html.lenis, html.lenis body { height: auto; width: 100%; overflow-x: hidden; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  font-family: var(--font-main);
+  color: var(--text-main);
+  background: var(--brand-dark);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.color-mesh {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+}
+.purple-blob  { width: 600px; height: 600px; background: radial-gradient(circle, #5b21b6, transparent); top: -10%; left: -10%; }
+.cyan-blob    { width: 500px; height: 500px; background: radial-gradient(circle, #0891b2, transparent); top: 40%; right: -15%; }
+.magenta-blob { width: 400px; height: 400px; background: radial-gradient(circle, #c026d3, transparent); bottom: 10%; left: 30%; }
+
+/* =========================================
+   SCROLL TO TOP
+   ========================================= */
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--brand-purple);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 999;
+  box-shadow: 0 8px 24px rgba(91, 33, 182, 0.4);
+}
+.scroll-to-top.visible { opacity: 1; pointer-events: all; }
+.scroll-to-top:hover { transform: translateY(-3px); }
+
+/* =========================================
+   HERO SECTION
+   ========================================= */
+.fac-hero {
+  position: relative;
+  padding: 180px 0 100px;
+  text-align: center;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.fac-hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(91, 33, 182, 0.15);
+  border: 1px solid rgba(91, 33, 182, 0.3);
+  padding: 8px 22px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #c4b5fd;
+  margin-bottom: 28px;
+}
+.fac-hero-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 10px #a78bfa;
+  animation: heroPulse 2s ease-in-out infinite;
+}
+@keyframes heroPulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+.fac-hero-title {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.05;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.fac-gradient {
+  background: linear-gradient(135deg, #a78bfa, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.fac-hero-sub {
+  font-size: 1.15rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.fac-hero-scroll-hint {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+.fac-hero-scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, rgba(167,139,250,0.6), transparent);
+}
+
+/* =========================================
+   GRID SECTION
+   ========================================= */
+.fac-carousel-section {
+  position: relative;
+  padding: 80px 0 110px;
+  background: var(--bg-light);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.fac-carousel-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--brand-purple), var(--brand-cyan), transparent);
+}
+
+.fac-sec-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.fac-sec-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(91, 33, 182, 0.08);
+  border: 1px solid rgba(91, 33, 182, 0.18);
+  padding: 7px 20px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand-purple);
+  margin-bottom: 20px;
+}
+.fac-sec-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-purple);
+  box-shadow: 0 0 8px rgba(91,33,182,0.6);
+}
+
+.fac-sec-title {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  color: var(--text-light);
+  letter-spacing: -1.5px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.fac-sec-sub {
+  font-size: 1.05rem;
+  color: var(--text-muted-light);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* =========================================
+   FACULTY GRID
+   ========================================= */
+.fac-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 16px;
+}
+
+/* =========================================
+   CARD COLOUR — all cards use brand-cyan
+   ========================================= */
+.fpc-card {
+  --ca: #06b6d4;
+  --ca2: #0891b2;
+  --cbg: rgba(6, 182, 212, 0.06);
+  --cglow: rgba(6, 182, 212, 0.22);
+}
+
+/* =========================================
+   FACULTY CARD  — photo fills entire card
+   ========================================= */
+.fpc-card {
+  position: relative;
+  height: 440px;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Gradient top accent bar */
+.fpc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--ca), var(--ca2));
+  z-index: 4;
+}
+
+.fpc-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 28px 60px rgba(0,0,0,0.16),
+    0 0 0 1px var(--cglow),
+    0 0 50px var(--cglow);
+}
+
+/* =========================================
+   FULL-BLEED IMAGE
+   ========================================= */
+.fpc-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--cbg, rgba(91,33,182,0.08)), #111);
+}
+
+.fpc-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.55s ease;
+  filter: grayscale(15%) brightness(0.85);
+}
+.fpc-card:hover .fpc-img img {
+  transform: scale(1.08);
+  filter: grayscale(0%) brightness(1);
+}
+
+.fpc-avatar-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  color: var(--ca, rgba(91,33,182,0.4));
+  opacity: 0.3;
+}
+
+.fpc-num {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #fff;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  letter-spacing: 1px;
+}
+
+/* =========================================
+   GLASS PANEL — always visible at bottom
+   ========================================= */
+.fpc-glass {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  padding: 70px 20px 20px;
+  background: linear-gradient(
+    to top,
+    rgba(5, 2, 10, 0.95) 0%,
+    rgba(5, 2, 10, 0.55) 65%,
+    transparent 100%
+  );
+  transition: background 0.5s ease;
+}
+.fpc-card:hover .fpc-glass {
+  background: linear-gradient(
+    to top,
+    rgba(5, 2, 10, 0.98) 0%,
+    rgba(5, 2, 10, 0.90) 70%,
+    rgba(5, 2, 10, 0.30) 100%
+  );
+}
+
+/* Name always visible */
+.fpc-name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+  margin: 0;
+}
+
+/* =========================================
+   DETAILS — hidden by default, shown on hover
+   ========================================= */
+.fpc-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.45s ease;
+}
+.fpc-card:hover .fpc-details {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.fpc-details-inner {
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 240px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ca, #7c3aed) transparent;
+}
+.fpc-details-inner::-webkit-scrollbar { width: 3px; }
+.fpc-details-inner::-webkit-scrollbar-track { background: transparent; }
+.fpc-details-inner::-webkit-scrollbar-thumb { background: var(--ca, #7c3aed); border-radius: 4px; }
+
+/* =========================================
+   QUALIFICATION BLOCK
+   ========================================= */
+.fpc-block {
+  margin-top: 14px;
+}
+
+.fpc-block-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--ca, #a78bfa);
+  margin-bottom: 7px;
+}
+.fpc-block-label i { font-size: 0.64rem; }
+
+.fpc-qual {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.80);
+  line-height: 1.65;
+  border-left: 3px solid var(--ca, #7c3aed);
+  padding: 7px 10px 7px 12px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 0 8px 8px 0;
+}
+
+/* =========================================
+   ACHIEVEMENTS LIST
+   ========================================= */
+.fpc-achiev {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fpc-achiev li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.80);
+  line-height: 1.45;
+}
+
+.fpc-achiev li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ca), var(--ca2));
+  margin-top: 5px;
+  box-shadow: 0 0 5px var(--cglow, rgba(91,33,182,0.4));
+}
+
+/* =========================================
+   SCROLL REVEAL
+   ========================================= */
+.fac-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.fac-reveal.fac-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fac-reveal.fac-revealed:hover {
+  transform: translateY(-8px);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 1024px) {
+  .fac-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
+}
+
+@media (max-width: 900px) {
+  .fac-hero { padding: 150px 0 80px; }
+  .fpc-card { height: 400px; }
+  /* Always show details on touch devices */
+  .fpc-details { grid-template-rows: 1fr; opacity: 1; }
+  .fpc-glass {
+    background: linear-gradient(to top, rgba(5,2,10,0.97) 0%, rgba(5,2,10,0.85) 65%, transparent 100%);
+  }
+}
+
+@media (max-width: 600px) {
+  .fac-hero { padding: 130px 0 60px; }
+  .fac-hero-title { letter-spacing: -1.5px; }
+  .fac-carousel-section { padding: 60px 0 80px; }
+  .fac-sec-title { letter-spacing: -1px; }
+  .fac-grid { grid-template-columns: 1fr; gap: 18px; }
+  .fpc-card { height: 380px; border-radius: 18px; }
+  .fpc-name { font-size: 1.2rem; }
+  .fpc-details-inner { max-height: 200px; }
+}
