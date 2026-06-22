@@ -1947,53 +1947,224 @@ document.addEventListener("DOMContentLoaded", () => {
         details.appendChild(inner);
     });
 
-    // --- 10. GSAP Light Theme Placements & Data-Driven Cycling ---
+    // --- 10. GSAP Faculty Showcase & Data-Driven Cycling ---
 
     // 1. Section Entrance Reveal
     gsap.set(".g-place-reveal", { autoAlpha: 1 });
     gsap.from(".g-place-reveal", {
-        scrollTrigger: { trigger: ".placement-light-section", start: "top 80%" },
+        scrollTrigger: { trigger: ".fac-showcase-section", start: "top 80%" },
         y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out",
-        clearProps: "filter,transform" // Clear filter dynamically after animation finishes to prevent GPU lockup
+        clearProps: "filter,transform"
     });
 
-    // 2. Faculty Data Pool (Replaces Alumni Pool for Fade-in Grid)
+    // 2. Faculty Data Pool
     const facultyPool = [
         // Batch 1
-        { name: "Shine Stephen", role: "Asst. Professor (Ex-AIIMS)", badge: "MSc (N)", icon: '<i class="fa-solid fa-trophy"></i>', desc: "A PGIMER & INC-WHO PhD Scholar, former AIIMS faculty, and multi-rank holder in KPSC exams.", img: "assets/images/faculties/SHINE.png" },
-        { name: "Nayana Shaji", role: "M Pharm Pharmacology", badge: "GPAT Ranker", icon: '<i class="fa-solid fa-award"></i>', desc: "A GPAT Ranker and distinction holder across various Kerala & Central competitive pharmacy exams.", img: "assets/images/faculties/NAYANA.jpeg" },
-        { name: "Vidhu R Vijayan", role: "MSc Nursing (Orthopedic)", badge: "NCLEX RN", icon: '<i class="fa-solid fa-stethoscope"></i>', desc: "An Orthopedic Nursing specialist who successfully passed the international NCLEX RN certification.", img: "assets/images/faculties/VIDHU.JPG.jpeg" },
+        {
+            name: "Shine Stephen",
+            role: "Former AIIMS Faculty | UGC NET | MHA | PGDHSR",
+            badge: "Assistant Professor | PGIMER MSc (N) | PhD Scholar",
+            icon: '<i class="fa-solid fa-trophy"></i>',
+            img: "assets/images/Mentors/SHINE.png",
+            quals: [
+                "Asst. Professor – Govt. Nursing College (on leave)",
+                "Former Faculty, College of Nursing AIIMS",
+                "MSc (N) – PGIMER | MHA | PGDHSR | UGC NET",
+                "PhD Scholar (INC-WHO)",
+                "9th Rank – KPSC Asst. Professor Exam (2024)",
+                "19th Rank – Nursing Tutor KPSC (2023)",
+            ],
+        },
+        {
+            name: "Nayana Shaji",
+            role: "Distinction Holder | Kerala & Central Exam Ranker",
+            badge: "M.Pharm Pharmacology | GPAT Rank Holder",
+            icon: '<i class="fa-solid fa-award"></i>',
+            img: "assets/images/Mentors/NAYANA.jpeg",
+            quals: [
+                "M.Pharm Pharmacology",
+                "Distinction Holder",
+                "GPAT Rank Holder",
+                "Kerala & Central Exams Rank Holder",
+            ],
+        },
+        {
+            name: "Vidhu R Vijayan",
+            role: "NCLEX RN Passed",
+            badge: "MSc Nursing (Orthopedic)",
+            icon: '<i class="fa-solid fa-stethoscope"></i>',
+            img: "assets/images/Mentors/VIDHU.JPG.jpeg",
+            quals: [
+                "MSc. Nursing (Orthopedic)",
+                "NCLEX RN Passed",
+            ],
+        },
         // Batch 2
-        { name: "Honey Mol P. V", role: "MSc Molecular Biology", badge: "Distinction", icon: '<i class="fa-solid fa-dna"></i>', desc: "A Molecular Biology distinction holder and proven rank holder in Kerala PSC state recruitment.", img: "assets/images/faculties/HONEY.JPG.jpeg" },
-        { name: "Sreelekshmi E. M", role: "MSc Microbiology", badge: "2nd Rank", icon: '<i class="fa-solid fa-microscope"></i>', desc: "Achieved 2nd Rank in state-level health recruitment for Microbiology specialists.", img: "assets/images/faculties/SREELEKSHMI.jpeg" },
-        { name: "Arathy Surendran", role: "MSc Nursing (Pediatrics)", badge: "KUHS Scholar", icon: '<i class="fa-solid fa-baby"></i>', desc: "A Pediatrics Nursing scholar from KUHS and a recognized Kerala PSC nursing rank holder.", img: "assets/images/faculties/ARATHY.JPG.jpeg" },
+        {
+            name: "Honey Mol P.V",
+            role: "Kerala PSC Rank Holder",
+            badge: "MSc Molecular Biology | Distinction Holder",
+            icon: '<i class="fa-solid fa-flask"></i>',
+            img: "assets/images/Mentors/HONEY.JPG.jpeg",
+            quals: [
+                "MSc Molecular Biology",
+                "Distinction Holder",
+                "Kerala PSC Rank Holder",
+            ],
+        },
+        {
+            name: "Sreelakshmi E.M",
+            role: "Kerala PSC Rank Holder",
+            badge: "MSc Microbiology | 2nd Rank Holder",
+            icon: '<i class="fa-solid fa-microscope"></i>',
+            img: "assets/images/Mentors/SREELEKSHMI.jpeg",
+            quals: [
+                "MSc Microbiology",
+                "2nd Rank Holder",
+                "Kerala PSC Rank Holder",
+            ],
+        },
+        {
+            name: "Arathy Surendran",
+            role: "Kerala PSC Rank Holder",
+            badge: "MSc Nursing (Pediatrics) – KUHS",
+            icon: '<i class="fa-solid fa-child"></i>',
+            img: "assets/images/Mentors/ARATHY.JPG.jpeg",
+            quals: [
+                "MSc Nursing (Pediatrics) – KUHS",
+                "Kerala PSC Rank Holder",
+            ],
+        },
         // Batch 3
-        { name: "Aparna T. M", role: "M Pharm - KUHS", badge: "1st Rank", icon: '<i class="fa-solid fa-capsules"></i>', desc: "A distinguished M Pharm professional and 1st Rank holder in the KUHS pharmacy boards.", img: "assets/images/faculties/APARNA.jpeg" },
-        { name: "Dr. Manjima G. S", role: "Doctor of Pharmacy (PharmD)", badge: "Int'l Scholar", icon: '<i class="fa-solid fa-globe"></i>', desc: "Awarded an International Scholarship for MSc Pharmacology in the UK after completing PharmD.", img: "assets/images/faculties/MANJIMA.jpeg" },
-        { name: "Jesna Prasad", role: "BSc Nursing", badge: "German B2", icon: '<i class="fa-solid fa-language"></i>', desc: "A BSc Nurse with German A1-B2 proficiency, expert in guiding global migration for healthcare.", img: "assets/images/faculties/JESNA.JPG.jpeg" },
-        // Batch 4 (Cycling back with Top Faculty to keep 3 cards)
-        { name: "Jeethu Paul", role: "MSc Nursing (Pediatric)", badge: "KPSC Ranker", icon: '<i class="fa-solid fa-user-nurse"></i>', desc: "A specialized Pediatric Nurse with consistent ranking records in various Kerala PSC exams.", img: "assets/images/faculties/JEETHU.JPG.jpeg" },
-        { name: "Shine Stephen", role: "Asst. Professor (Ex-AIIMS)", badge: "MSc (N)", icon: '<i class="fa-solid fa-trophy"></i>', desc: "A PGIMER & INC-WHO PhD Scholar, former AIIMS faculty, and multi-rank holder in KPSC exams.", img: "assets/images/faculties/SHINE.png" },
-        { name: "Nayana Shaji", role: "M Pharm Pharmacology", badge: "GPAT Ranker", icon: '<i class="fa-solid fa-award"></i>', desc: "A GPAT Ranker and distinction holder across various Kerala & Central competitive pharmacy exams.", img: "assets/images/faculties/NAYANA.jpeg" }
+        {
+            name: "Aparna T.M",
+            role: "1st Rank Holder – M.Pharm, KUHS",
+            badge: "M.Pharm – KUHS | 1st Rank Holder",
+            icon: '<i class="fa-solid fa-pills"></i>',
+            img: "assets/images/Mentors/APARNA.jpeg",
+            quals: [
+                "M.Pharm – KUHS",
+                "1st Rank Holder",
+            ],
+        },
+        {
+            name: "Dr. Manjima G.S",
+            role: "International Scholar | MSc Pharmacology (UK) – Commendation",
+            badge: "Doctor of Pharmacy | MSc Pharmacology (UK)",
+            icon: '<i class="fa-solid fa-graduation-cap"></i>',
+            img: "assets/images/Mentors/MANJIMA.jpeg",
+            quals: [
+                "Doctor of Pharmacy",
+                "MSc Pharmacology (UK) – Commendation",
+                "International Scholarship Awardee",
+            ],
+        },
+        {
+            name: "Jesna Prasad",
+            role: "German A1–B2 Qualified | Nursing Background",
+            badge: "German B1–B2 Certified | BSc Nursing",
+            icon: '<i class="fa-solid fa-language"></i>',
+            img: "assets/images/Mentors/JESNA.JPG.jpeg",
+            quals: [
+                "BSc Nursing",
+                "German A1-A2 Certified",
+                "German B1-B2 Certified",
+            ],
+        },
+        // Batch 4
+        {
+            name: "Jeethu Paul",
+            role: "Kerala PSC Rank Holder",
+            badge: "MSc Nursing (Pediatric)",
+            icon: '<i class="fa-solid fa-heart-pulse"></i>',
+            img: "assets/images/Mentors/JEETHU.JPG.jpeg",
+            quals: [
+                "MSc Nursing (Pediatric)",
+                "Kerala PSC Rank Holder",
+            ],
+        },
+        {
+            name: "Shine Stephen",
+            role: "Former AIIMS Faculty | UGC NET | MHA | PGDHSR",
+            badge: "Assistant Professor | PGIMER MSc (N) | PhD Scholar",
+            icon: '<i class="fa-solid fa-trophy"></i>',
+            img: "assets/images/Mentors/SHINE.png",
+            quals: [
+                "Asst. Professor – Govt. Nursing College (on leave)",
+                "Former Faculty, College of Nursing AIIMS",
+                "MSc (N) – PGIMER | MHA | PGDHSR | UGC NET",
+                "PhD Scholar (INC-WHO)",
+            ],
+        },
+        {
+            name: "Nayana Shaji",
+            role: "Distinction Holder | Kerala & Central Exam Ranker",
+            badge: "M.Pharm Pharmacology | GPAT Rank Holder",
+            icon: '<i class="fa-solid fa-award"></i>',
+            img: "assets/images/Mentors/NAYANA.jpeg",
+            quals: [
+                "M.Pharm Pharmacology",
+                "Distinction Holder",
+                "GPAT Rank Holder",
+                "Kerala & Central Exams Rank Holder",
+            ],
+        },
     ];
 
-    let currentFacultyBatch = 0; // Tracks which group of 3 is currently displayed
-    
-    // --- PERFORMANCE FIX: Shadowing DOM Nodes instead of arbitrary innerHTML insertion ---
-    // And decoupling Parallax animation layer from Fade animation layer 
+    let currentFacultyBatch = 0;
+
     const activeWrappers = document.querySelectorAll('.alumni-card-wrapper');
     const facultyDOMNodes = Array.from(activeWrappers).map(wrapper => {
         return {
             wrapper: wrapper,
-            cycleNode: wrapper.querySelector('.alumni-cycle-animator') || wrapper, // Decoupled transitional boundary
+            cycleNode: wrapper.querySelector('.alumni-cycle-animator') || wrapper,
             img: wrapper.querySelector('img'),
             badge: wrapper.querySelector('.rank-badge'),
-            name: wrapper.querySelector('.alumni-info h3'),
+            name: wrapper.querySelector('.alumni-text-overlay h3') || wrapper.querySelector('h3'),
             role: wrapper.querySelector('.exam-name'),
-            icon: wrapper.querySelector('.dest-icon'),
-            desc: wrapper.querySelector('.placement-dest span:last-child')
+            descContainer: wrapper.querySelector('.placement-dest'),
         };
     });
+
+    function buildQualList(quals) {
+        if (!quals || !quals.length) return '';
+        return '<ul class="fac-desc-list">' +
+            quals.map(function(q) { return '<li>' + q + '</li>'; }).join('') +
+            '</ul>';
+    }
+
+    function updateFacultyDots() {
+        var dots = document.querySelectorAll('.fac-batch-dot');
+        if (!dots.length) return;
+        var start = currentFacultyBatch * 3;
+        var end = Math.min(start + 3, facultyPool.length);
+        dots.forEach(function(dot, i) {
+            dot.classList.toggle('fac-batch-dot-active', i >= start && i < end);
+        });
+    }
+
+    function initFacultyDots() {
+        var grid = document.querySelector('.alumni-showcase-grid');
+        if (!grid) return;
+
+        var section = document.createElement('div');
+        section.className = 'fac-dots-section';
+
+        var dotsEl = document.createElement('div');
+        dotsEl.className = 'fac-batch-dots';
+        for (var i = 0; i < facultyPool.length; i++) {
+            var dot = document.createElement('span');
+            dot.className = 'fac-batch-dot' + (i < 3 ? ' fac-batch-dot-active' : '');
+            dotsEl.appendChild(dot);
+        }
+        section.appendChild(dotsEl);
+
+        var ctaWrap = document.createElement('div');
+        ctaWrap.innerHTML = '<a href="/faculties.html" class="btn-meet-mentors"><i class="fa-solid fa-users"></i> Meet All Mentors</a>';
+        section.appendChild(ctaWrap);
+
+        grid.insertAdjacentElement('afterend', section);
+    }
 
     function bindTiltPhysics(nodeInfo) {
         const wrapper = nodeInfo.wrapper;
@@ -2011,15 +2182,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         wrapper.addEventListener('mousemove', (e) => {
-            if(!rect) return; 
+            if (!rect) return;
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const rotateX = ((y - centerY) / centerY) * -6;
             const rotateY = ((x - centerX) / centerX) * 6;
-            
-            // Cancel unexecuted frames to prevent bottlenecking
-            if(activeRAF) window.cancelAnimationFrame(activeRAF);
+
+            if (activeRAF) window.cancelAnimationFrame(activeRAF);
 
             activeRAF = window.requestAnimationFrame(() => {
                 card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
@@ -2029,13 +2199,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         wrapper.addEventListener('mouseleave', () => {
-            if(activeRAF) window.cancelAnimationFrame(activeRAF);
+            if (activeRAF) window.cancelAnimationFrame(activeRAF);
             card.style.transition = `transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease`;
             card.style.transform = `rotateX(0deg) rotateY(0deg)`;
             setTimeout(() => {
                 card.style.transition = `transform 0.15s ease, box-shadow 0.15s ease`;
             }, 600);
-            rect = null; 
+            rect = null;
         });
     }
 
@@ -2044,43 +2214,73 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Pre-load all images so no pop-in happens during cycle
     facultyPool.forEach(fac => {
-        if(fac.img) {
+        if (fac.img) {
             const img = new Image();
             img.src = fac.img;
         }
     });
 
+    // Initialize first batch descriptions and dots
+    (function initFacultyDescriptions() {
+        var initialBatch = facultyPool.slice(0, 3);
+        facultyDOMNodes.forEach(function(node, i) {
+            var fac = initialBatch[i];
+            if (fac && node.descContainer) {
+                node.descContainer.innerHTML = buildQualList(fac.quals);
+            }
+        });
+        initFacultyDots();
+    }());
+
+    // Floating particles for fac-ambient
+    (function initFacParticles() {
+        var particlesEl = document.getElementById('fac-particles');
+        if (!particlesEl) return;
+        for (var i = 0; i < 20; i++) {
+            var dot = document.createElement('div');
+            var size = 3 + Math.random() * 4;
+            dot.style.cssText = 'position:absolute;' +
+                'width:' + size + 'px;height:' + size + 'px;' +
+                'border-radius:50%;' +
+                'background:rgba(6,182,212,' + (0.08 + Math.random() * 0.12) + ');' +
+                'left:' + (Math.random() * 100) + '%;' +
+                'top:' + (Math.random() * 100) + '%;' +
+                'animation:fac-float-particle ' + (8 + Math.random() * 12) + 's ease-in-out ' + (Math.random() * 5) + 's infinite;';
+            particlesEl.appendChild(dot);
+        }
+    }());
+
     // 3. Cycling Engine (Zero DOM Reflow Edition)
     function cycleFaculty() {
         const totalBatches = Math.ceil(facultyPool.length / 3);
         currentFacultyBatch = (currentFacultyBatch + 1) % totalBatches;
+        updateFacultyDots();
         const batch = facultyPool.slice(currentFacultyBatch * 3, currentFacultyBatch * 3 + 3);
 
-        // Phase 1: Fade Out + Jump Up (staggered cascade strictly on decopled inner node)
+        // Phase 1: Fade Out + Jump Up (staggered cascade on decoupled inner node)
         facultyDOMNodes.forEach((node, i) => {
             setTimeout(() => {
                 node.cycleNode.classList.add('cycling-out');
             }, i * 150);
         });
 
-        // Phase 2: Direct Text Modification safely masked by CSS invisibility
+        // Phase 2: Direct content update safely masked by CSS invisibility
         setTimeout(() => {
             facultyDOMNodes.forEach((node, i) => {
                 const fac = batch[i];
                 if (fac) {
-                    if(node.img) { node.img.src = fac.img; node.img.alt = fac.name; }
-                    if(node.badge) node.badge.textContent = fac.badge;
-                    if(node.name) node.name.textContent = fac.name;
-                    if(node.role) node.role.textContent = fac.role;
-                    if(node.icon) node.icon.innerHTML = fac.icon;
-                    if(node.desc) node.desc.textContent = fac.desc;
+                    if (node.img) { node.img.src = fac.img; node.img.alt = fac.name; }
+                    if (node.badge) node.badge.textContent = fac.badge;
+                    if (node.name) node.name.textContent = fac.name;
+                    if (node.role) node.role.textContent = fac.role;
+                    if (node.descContainer) node.descContainer.innerHTML = buildQualList(fac.quals);
                 }
-                
+
                 node.cycleNode.classList.remove('cycling-out');
                 node.cycleNode.classList.add('cycling-in');
             });
 
-            // Phase 3: Jump Reveal from Below 
+            // Phase 3: Jump Reveal from Below
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     facultyDOMNodes.forEach((node, i) => {

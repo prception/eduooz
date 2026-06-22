@@ -2669,7 +2669,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    if (!status) status = "eligible";
+    if (!status) {
+      status = "eligible";
+      reason = `You meet all the eligibility criteria for this examination. You are eligible to apply.`;
+    }
 
     showResult(resultEl,
       status === "notEligible" ? "error" : status,
@@ -3135,6 +3138,289 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // --- 10b. STATIC PAPER EXPLORER (for pages with manually-written paper cards) ---
+  function initStaticPaperExplorer() {
+    var grid = document.querySelector(".pex-paper-grid");
+    if (!grid || grid.id === "pex-paper-grid") return;
+
+    var iframe = document.getElementById("pex-iframe");
+    var skeleton = document.getElementById("pex-skeleton");
+    var locked = document.getElementById("pex-locked-state");
+    var lockedTitle = document.getElementById("pex-locked-title");
+    var lockedSub = document.getElementById("pex-locked-sub");
+    var infoYear = document.getElementById("pex-info-year");
+    var infoTitle = document.getElementById("pex-info-title");
+    var dlBtn = document.getElementById("pex-download-btn");
+    var zoomLbl = document.getElementById("pex-zoom-label");
+    var tabsEl = document.querySelector(".pex-tabs");
+    var searchEl = document.getElementById("pex-search");
+    var emptyEl = document.getElementById("pex-empty");
+    var currentZoom = 100;
+
+    if (locked) locked.classList.add("pex-show");
+    if (skeleton) skeleton.classList.add("pex-hidden");
+
+    var zIn = document.getElementById("pex-zoom-in");
+    var zOut = document.getElementById("pex-zoom-out");
+    function setZoom(z) {
+      currentZoom = Math.max(60, Math.min(200, z));
+      if (iframe) {
+        iframe.style.transform = "scale(" + currentZoom / 100 + ")";
+        iframe.style.transformOrigin = "top center";
+      }
+      if (zoomLbl) zoomLbl.textContent = currentZoom + "%";
+    }
+    if (zIn) zIn.addEventListener("click", function () { setZoom(currentZoom + 20); });
+    if (zOut) zOut.addEventListener("click", function () { setZoom(currentZoom - 20); });
+
+    var fsBtn = document.getElementById("pex-fullscreen-btn");
+    if (fsBtn) {
+      fsBtn.addEventListener("click", function () {
+        var card = document.getElementById("pex-preview-card");
+        if (!card) return;
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+          fsBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+        } else {
+          if (card.requestFullscreen) card.requestFullscreen();
+          fsBtn.innerHTML = '<i class="fa-solid fa-compress"></i>';
+        }
+      });
+    }
+
+    function loadPreview(pdfUrl, year, title) {
+      if (infoYear) infoYear.textContent = year || "";
+      if (infoTitle) infoTitle.textContent = title || "";
+
+      if (!pdfUrl) {
+        if (skeleton) skeleton.classList.add("pex-hidden");
+        if (lockedTitle) lockedTitle.textContent = title || "Paper Unavailable";
+        if (lockedSub) lockedSub.textContent = "Enroll to access and download this paper.";
+        if (locked) locked.classList.add("pex-show");
+        if (iframe) { iframe.classList.remove("pex-loaded"); iframe.src = ""; }
+        if (dlBtn) { dlBtn.removeAttribute("href"); dlBtn.style.opacity = "0.38"; dlBtn.style.pointerEvents = "none"; }
+        return;
+      }
+
+      if (dlBtn) { dlBtn.href = pdfUrl; dlBtn.setAttribute("target", "_blank"); dlBtn.style.opacity = ""; dlBtn.style.pointerEvents = ""; }
+      if (locked) locked.classList.remove("pex-show");
+      if (skeleton) skeleton.classList.remove("pex-hidden");
+      if (iframe) {
+        iframe.classList.remove("pex-loaded");
+        iframe.src = "";
+        setTimeout(function () {
+          iframe.onload = function () {
+            if (skeleton) skeleton.classList.add("pex-hidden");
+            iframe.classList.add("pex-loaded");
+          };
+          iframe.src = pdfUrl;
+        }, 100);
+      }
+    }
+
+    function getCardPdf(card) {
+      if (card.dataset.pdf !== undefined) return card.dataset.pdf;
+      var href = card.getAttribute("href");
+      if (href && href !== "#" && href.indexOf(".pdf") !== -1) return card.href;
+      return "";
+    }
+
+    function handleCardClick(card, e) {
+      if (e.target.closest(".pex-seo-link")) return;
+      e.preventDefault();
+      var yearEl = card.querySelector(".pex-year-badge");
+      var titleEl = card.querySelector(".pex-card-title, h4");
+      var year = card.dataset.year || (yearEl ? yearEl.textContent.trim() : "");
+      var title = card.dataset.title || (titleEl ? titleEl.textContent.trim() : "");
+      grid.querySelectorAll(".pex-paper-card").forEach(function (c) { c.classList.remove("pex-active"); });
+      card.classList.add("pex-active");
+      loadPreview(getCardPdf(card), year, title);
+    }
+
+    grid.querySelectorAll(".pex-paper-card").forEach(function (card) {
+      card.addEventListener("click", function (e) { handleCardClick(card, e); });
+    });
+
+    function applyFilter(year, query) {
+      var anyVisible = false;
+      grid.querySelectorAll(".pex-paper-card").forEach(function (card) {
+        var yearEl = card.querySelector(".pex-year-badge");
+        var titleEl = card.querySelector(".pex-card-title, h4");
+        var cardYear = card.dataset.year || (yearEl ? yearEl.textContent.trim() : "");
+        var title = (card.dataset.title || (titleEl ? titleEl.textContent.trim() : "")).toLowerCase();
+        var yearMatch = year === "all" || cardYear === year;
+        var searchMatch = !query || title.indexOf(query) !== -1 || cardYear.toLowerCase().indexOf(query) !== -1;
+        var visible = yearMatch && searchMatch;
+        card.style.display = visible ? "" : "none";
+        if (visible) anyVisible = true;
+      });
+      if (emptyEl) emptyEl.classList.toggle("pex-show", !anyVisible);
+    }
+
+    if (tabsEl) {
+      tabsEl.addEventListener("click", function (e) {
+        var btn = e.target.closest(".pex-tab");
+        if (!btn) return;
+        tabsEl.querySelectorAll(".pex-tab").forEach(function (t) { t.classList.remove("active"); });
+        btn.classList.add("active");
+        applyFilter(btn.dataset.year || "all", searchEl ? searchEl.value.toLowerCase().trim() : "");
+      });
+    }
+
+    if (searchEl) {
+      searchEl.addEventListener("input", function () {
+        var activeTab = tabsEl ? tabsEl.querySelector(".pex-tab.active") : null;
+        var year = activeTab ? (activeTab.dataset.year || "all") : "all";
+        applyFilter(year, searchEl.value.toLowerCase().trim());
+      });
+    }
+  }
+
+  // --- 10c. QP EXPLORER — New unified question-papers design (qp- prefix) ---
+  function initQPExplorer() {
+    var cardGrid = document.querySelector(".qp-card-grid");
+    if (!cardGrid) return;
+
+    var iframe      = document.getElementById("qp-iframe");
+    var skeleton    = document.getElementById("qp-skeleton");
+    var emptyState  = document.getElementById("qp-empty-state");
+    var lockedState = document.getElementById("qp-locked-state");
+    var lockedTitle = document.getElementById("qp-locked-title");
+    var infoYear    = document.getElementById("qp-info-year");
+    var infoTitle   = document.getElementById("qp-info-title");
+    var dlBtn       = document.getElementById("qp-download-btn");
+    var zoomLbl     = document.getElementById("qp-zoom-label");
+    var noResults   = document.getElementById("qp-no-results");
+    var tabsEl      = document.querySelector(".qp-year-tabs");
+    var currentZoom = 100;
+
+    /* ── Initial idle state ── */
+    function resetToIdle() {
+      if (emptyState)  emptyState.classList.remove("qp-hidden");
+      if (lockedState) lockedState.classList.remove("qp-show");
+      if (skeleton)    skeleton.classList.remove("qp-show");
+      if (iframe)      { iframe.classList.remove("qp-loaded"); iframe.src = ""; }
+    }
+    resetToIdle();
+
+    /* ── Zoom ── */
+    function setZoom(z) {
+      currentZoom = Math.max(60, Math.min(200, z));
+      if (iframe) {
+        iframe.style.transform = "scale(" + currentZoom / 100 + ")";
+        iframe.style.transformOrigin = "top center";
+      }
+      if (zoomLbl) zoomLbl.textContent = currentZoom + "%";
+    }
+    var zIn  = document.getElementById("qp-zoom-in");
+    var zOut = document.getElementById("qp-zoom-out");
+    if (zIn)  zIn.addEventListener("click",  function () { setZoom(currentZoom + 20); });
+    if (zOut) zOut.addEventListener("click", function () { setZoom(currentZoom - 20); });
+
+    /* ── Fullscreen ── */
+    var fsBtn = document.getElementById("qp-fullscreen-btn");
+    if (fsBtn) {
+      fsBtn.addEventListener("click", function () {
+        var card = document.getElementById("qp-preview-card");
+        if (!card) return;
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+          fsBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+        } else {
+          if (card.requestFullscreen) card.requestFullscreen();
+          fsBtn.innerHTML = '<i class="fa-solid fa-compress"></i>';
+        }
+      });
+    }
+
+    /* ── Load preview ── */
+    function loadPreview(pdfUrl, year, title, downloadUrl) {
+      if (infoYear)  infoYear.textContent  = year  || "";
+      if (infoTitle) infoTitle.textContent = title || "";
+
+      if (!pdfUrl) {
+        /* No PDF — show locked/enroll state */
+        if (emptyState)  emptyState.classList.add("qp-hidden");
+        if (skeleton)    skeleton.classList.remove("qp-show");
+        if (lockedTitle) lockedTitle.textContent = title || "Paper Unavailable";
+        if (lockedState) lockedState.classList.add("qp-show");
+        if (iframe)      { iframe.classList.remove("qp-loaded"); iframe.src = ""; }
+        if (dlBtn) {
+          dlBtn.removeAttribute("href");
+          dlBtn.style.opacity       = "0.38";
+          dlBtn.style.pointerEvents = "none";
+        }
+        return;
+      }
+
+      /* Has PDF — load in iframe */
+      if (dlBtn) {
+        dlBtn.href = downloadUrl || pdfUrl;
+        dlBtn.setAttribute("target", "_blank");
+        dlBtn.style.opacity       = "";
+        dlBtn.style.pointerEvents = "";
+      }
+      if (emptyState)  emptyState.classList.add("qp-hidden");
+      if (lockedState) lockedState.classList.remove("qp-show");
+      if (skeleton)    skeleton.classList.add("qp-show");
+      if (iframe) {
+        iframe.classList.remove("qp-loaded");
+        iframe.src = "";
+        setTimeout(function () {
+          iframe.onload = function () {
+            if (skeleton) skeleton.classList.remove("qp-show");
+            iframe.classList.add("qp-loaded");
+          };
+          iframe.src = pdfUrl;
+        }, 100);
+      }
+    }
+
+    /* ── Card click ── */
+    function activateCard(card) {
+      cardGrid.querySelectorAll(".qp-card").forEach(function (c) {
+        c.classList.remove("qp-active");
+      });
+      card.classList.add("qp-active");
+
+      var pdfUrl      = card.dataset.pdf      || "";
+      var title       = card.dataset.title    || (card.querySelector(".qp-card-title") ? card.querySelector(".qp-card-title").textContent.trim() : "");
+      var year        = card.dataset.year     || (card.querySelector(".qp-card-year")  ? card.querySelector(".qp-card-year").textContent.trim()  : "");
+      var downloadUrl = card.dataset.download || pdfUrl;
+
+      loadPreview(pdfUrl, year, title, downloadUrl);
+    }
+
+    cardGrid.querySelectorAll(".qp-card").forEach(function (card) {
+      card.addEventListener("click", function () { activateCard(card); });
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activateCard(card); }
+      });
+    });
+
+    /* ── Year filter tabs ── */
+    function applyFilter(year) {
+      var anyVisible = false;
+      cardGrid.querySelectorAll(".qp-card").forEach(function (card) {
+        var cardYear  = card.dataset.year || (card.querySelector(".qp-card-year") ? card.querySelector(".qp-card-year").textContent.trim() : "");
+        var visible   = year === "all" || cardYear === year;
+        card.style.display = visible ? "" : "none";
+        if (visible) anyVisible = true;
+      });
+      if (noResults) noResults.classList.toggle("qp-show", !anyVisible);
+    }
+
+    if (tabsEl) {
+      tabsEl.addEventListener("click", function (e) {
+        var btn = e.target.closest(".qp-year-tab");
+        if (!btn) return;
+        tabsEl.querySelectorAll(".qp-year-tab").forEach(function (t) { t.classList.remove("active"); });
+        btn.classList.add("active");
+        applyFilter(btn.dataset.year || "all");
+      });
+    }
+  }
+
   // --- 11. RENDER PRACTICE TESTS ---
   function renderPracticeTests() {
     const grid = document.getElementById("practice-grid");
@@ -3555,6 +3841,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initReviewCounters,
     initReviewCarousel,
     initMockTestSystem,
+    initStaticPaperExplorer,
+    initQPExplorer,
   ].forEach((fn) => {
     try {
       fn();
@@ -3973,6 +4261,12 @@ function initReviewCounters() {
 
 // --- GOOGLE REVIEWS CAROUSEL ---
 function initReviewCarousel() {
+  // Stop any timer left by a previous init (used by google-reviews.js re-init)
+  if (typeof window._greviewAutoTimer !== "undefined") {
+    clearInterval(window._greviewAutoTimer);
+    window._greviewAutoTimer = undefined;
+  }
+
   const viewport = document.getElementById("greview-carousel-viewport");
   const track = document.getElementById("greview-track");
   const prevBtn = document.getElementById("greview-prev");
@@ -4048,6 +4342,7 @@ function initReviewCarousel() {
     autoTimer = setInterval(() => {
       goTo(current >= getMax() ? 0 : current + 1);
     }, 5000);
+    window._greviewAutoTimer = autoTimer; // allows google-reviews.js to clear on re-init
   }
 
   prevBtn.addEventListener("click", () => {
@@ -4775,102 +5070,154 @@ const facultyPool = [
   // Batch 1
   {
     name: "Shine Stephen",
-    role: "Asst. Professor (Ex-AIIMS)",
-    badge: "MSc (N)",
+    role: "Former AIIMS Faculty | UGC NET | MHA | PGDHSR",
+    badge: "Assistant Professor | PGIMER MSc (N) | PhD Scholar",
     icon: '<i class="fa-solid fa-trophy"></i>',
-    desc: "A PGIMER & INC-WHO PhD Scholar, former AIIMS faculty, and multi-rank holder in KPSC exams.",
-    img: "assets/images/faculties/SHINE.png",
+    img: "/assets/images/mentors/SHINE.png",
+    quals: [
+      "Asst. Professor – Govt. Nursing College (on leave)",
+      "Former Faculty, College of Nursing AIIMS",
+      "MSc (N) – PGIMER | MHA | PGDHSR | UGC NET",
+      "PhD Scholar (INC-WHO)",
+      "9th Rank – KPSC Asst. Professor Exam (2024)",
+      "19th Rank – Nursing Tutor KPSC (2023)",
+    ],
   },
   {
     name: "Nayana Shaji",
-    role: "M Pharm Pharmacology",
-    badge: "GPAT Ranker",
+    role: "Distinction Holder | Kerala & Central Exam Ranker",
+    badge: "M.Pharm Pharmacology | GPAT Rank Holder",
     icon: '<i class="fa-solid fa-award"></i>',
-    desc: "A GPAT Ranker and distinction holder across various Kerala & Central competitive pharmacy exams.",
-    img: "assets/images/faculties/NAYANA.jpeg",
+    img: "/assets/images/mentors/NAYANA.jpeg",
+    quals: [
+      "M.Pharm Pharmacology",
+      "Distinction Holder",
+      "GPAT Rank Holder",
+      "Kerala & Central Exams Rank Holder",
+    ],
   },
   {
     name: "Vidhu R Vijayan",
-    role: "MSc Nursing (Orthopedic)",
-    badge: "NCLEX RN",
+    role: "NCLEX RN Passed",
+    badge: "MSc Nursing (Orthopedic)",
     icon: '<i class="fa-solid fa-stethoscope"></i>',
-    desc: "An Orthopedic Nursing specialist who successfully passed the international NCLEX RN certification.",
-    img: "assets/images/faculties/VIDHU.JPG.jpeg",
+    img: "/assets/images/mentors/VIDHU.JPG.jpeg",
+    quals: [
+      "MSc. Nursing (Orthopedic)",
+      "NCLEX RN Passed",
+    ],
   },
   // Batch 2
   {
-    name: "Honey Mol P. V",
-    role: "MSc Molecular Biology",
-    badge: "Distinction",
-    icon: '<i class="fa-solid fa-dna"></i>',
-    desc: "A Molecular Biology distinction holder and proven rank holder in Kerala PSC state recruitment.",
-    img: "assets/images/faculties/HONEY.JPG.jpeg",
+    name: "Honey Mol P.V",
+    role: "Kerala PSC Rank Holder",
+    badge: "MSc Molecular Biology | Distinction Holder",
+    icon: '<i class="fa-solid fa-flask"></i>',
+    img: "/assets/images/mentors/HONEY.JPG.jpeg",
+    quals: [
+      "MSc Molecular Biology",
+      "Distinction Holder",
+      "Kerala PSC Rank Holder",
+    ],
   },
   {
-    name: "Sreelekshmi E. M",
-    role: "MSc Microbiology",
-    badge: "2nd Rank",
+    name: "Sreelakshmi E.M",
+    role: "Kerala PSC Rank Holder",
+    badge: "MSc Microbiology | 2nd Rank Holder",
     icon: '<i class="fa-solid fa-microscope"></i>',
-    desc: "Achieved 2nd Rank in state-level health recruitment for Microbiology specialists.",
-    img: "assets/images/faculties/SREELEKSHMI.jpeg",
+    img: "/assets/images/mentors/SREELEKSHMI.jpeg",
+    quals: [
+      "MSc Microbiology",
+      "2nd Rank Holder",
+      "Kerala PSC Rank Holder",
+    ],
   },
   {
     name: "Arathy Surendran",
-    role: "MSc Nursing (Pediatrics)",
-    badge: "KUHS Scholar",
-    icon: '<i class="fa-solid fa-baby"></i>',
-    desc: "A Pediatrics Nursing scholar from KUHS and a recognized Kerala PSC nursing rank holder.",
-    img: "assets/images/faculties/ARATHY.JPG.jpeg",
+    role: "Kerala PSC Rank Holder",
+    badge: "MSc Nursing (Pediatrics) – KUHS",
+    icon: '<i class="fa-solid fa-child"></i>',
+    img: "/assets/images/mentors/ARATHY.JPG.jpeg",
+    quals: [
+      "MSc Nursing (Pediatrics) – KUHS",
+      "Kerala PSC Rank Holder",
+    ],
   },
   // Batch 3
   {
-    name: "Aparna T. M",
-    role: "M Pharm - KUHS",
-    badge: "1st Rank",
-    icon: '<i class="fa-solid fa-capsules"></i>',
-    desc: "A distinguished M Pharm professional and 1st Rank holder in the KUHS pharmacy boards.",
-    img: "assets/images/faculties/APARNA.jpeg",
+    name: "Aparna T.M",
+    role: "1st Rank Holder – M.Pharm, KUHS",
+    badge: "M.Pharm – KUHS | 1st Rank Holder",
+    icon: '<i class="fa-solid fa-pills"></i>',
+    img: "/assets/images/mentors/APARNA.jpeg",
+    quals: [
+      "M.Pharm – KUHS",
+      "1st Rank Holder",
+    ],
   },
   {
-    name: "Dr. Manjima G. S",
-    role: "Doctor of Pharmacy (PharmD)",
-    badge: "Int'l Scholar",
-    icon: '<i class="fa-solid fa-globe"></i>',
-    desc: "Awarded an International Scholarship for MSc Pharmacology in the UK after completing PharmD.",
-    img: "assets/images/faculties/MANJIMA.jpeg",
+    name: "Dr. Manjima G.S",
+    role: "International Scholar | MSc Pharmacology (UK) – Commendation",
+    badge: "Doctor of Pharmacy | MSc Pharmacology (UK)",
+    icon: '<i class="fa-solid fa-graduation-cap"></i>',
+    img: "/assets/images/mentors/MANJIMA.jpeg",
+    quals: [
+      "Doctor of Pharmacy",
+      "MSc Pharmacology (UK) – Commendation",
+      "International Scholarship Awardee",
+    ],
   },
   {
     name: "Jesna Prasad",
-    role: "BSc Nursing",
-    badge: "German B2",
+    role: "German A1–B2 Qualified | Nursing Background",
+    badge: "German B1–B2 Certified | BSc Nursing",
     icon: '<i class="fa-solid fa-language"></i>',
-    desc: "A BSc Nurse with German A1-B2 proficiency, expert in guiding global migration for healthcare.",
-    img: "assets/images/faculties/JESNA.JPG.jpeg",
+    img: "/assets/images/mentors/JESNA.JPG.jpeg",
+    quals: [
+      "BSc Nursing",
+      "German A1-A2 Certified",
+      "German B1-B2 Certified",
+    ],
   },
-  // Batch 4 (Cycling back with Top Faculty to keep 3 cards)
+  // Batch 4
   {
     name: "Jeethu Paul",
-    role: "MSc Nursing (Pediatric)",
-    badge: "KPSC Ranker",
-    icon: '<i class="fa-solid fa-user-nurse"></i>',
-    desc: "A specialized Pediatric Nurse with consistent ranking records in various Kerala PSC exams.",
-    img: "assets/images/faculties/JEETHU.JPG.jpeg",
+    role: "Kerala PSC Rank Holder",
+    badge: "MSc Nursing (Pediatric)",
+    icon: '<i class="fa-solid fa-heart-pulse"></i>',
+    img: "/assets/images/mentors/JEETHU.JPG.jpeg",
+    quals: [
+      "MSc Nursing (Pediatric)",
+      "Kerala PSC Rank Holder",
+    ],
   },
   {
     name: "Shine Stephen",
-    role: "Asst. Professor (Ex-AIIMS)",
-    badge: "MSc (N)",
+    role: "Former AIIMS Faculty | UGC NET | MHA | PGDHSR",
+    badge: "Assistant Professor | PGIMER MSc (N) | PhD Scholar",
     icon: '<i class="fa-solid fa-trophy"></i>',
-    desc: "A PGIMER & INC-WHO PhD Scholar, former AIIMS faculty, and multi-rank holder in KPSC exams.",
-    img: "assets/images/faculties/SHINE.png",
+    img: "/assets/images/mentors/SHINE.png",
+    quals: [
+      "Asst. Professor – Govt. Nursing College (on leave)",
+      "Former Faculty, College of Nursing AIIMS",
+      "MSc (N) – PGIMER | MHA | PGDHSR | UGC NET",
+      "PhD Scholar (INC-WHO)",
+      "9th Rank – KPSC Asst. Professor Exam (2024)",
+      "19th Rank – Nursing Tutor KPSC (2023)",
+    ],
   },
   {
     name: "Nayana Shaji",
-    role: "M Pharm Pharmacology",
-    badge: "GPAT Ranker",
+    role: "Distinction Holder | Kerala & Central Exam Ranker",
+    badge: "M.Pharm Pharmacology | GPAT Rank Holder",
     icon: '<i class="fa-solid fa-award"></i>',
-    desc: "A GPAT Ranker and distinction holder across various Kerala & Central competitive pharmacy exams.",
-    img: "assets/images/faculties/NAYANA.jpeg",
+    img: "/assets/images/mentors/NAYANA.jpeg",
+    quals: [
+      "M.Pharm Pharmacology",
+      "Distinction Holder",
+      "GPAT Rank Holder",
+      "Kerala & Central Exams Rank Holder",
+    ],
   },
 ];
 
@@ -4889,10 +5236,54 @@ const facultyDOMNodes = Array.from(activeWrappers).map((wrapper) => {
       wrapper.querySelector(".alumni-text-overlay h3") ||
       wrapper.querySelector("h3"),
     role: wrapper.querySelector(".exam-name"),
-    icon: wrapper.querySelector(".dest-icon"),
-    desc: wrapper.querySelector(".placement-dest span:last-child"),
+    descContainer: wrapper.querySelector(".placement-dest"),
   };
 });
+
+function buildQualList(quals) {
+  if (!quals || !quals.length) return "";
+  return '<ul class="fac-desc-list">' +
+    quals.map(function(q) { return "<li>" + q + "</li>"; }).join("") +
+    "</ul>";
+}
+
+function updateFacultyDots() {
+  var dots = document.querySelectorAll(".fac-batch-dot");
+  if (!dots.length) return;
+  var start = currentFacultyBatch * 3;
+  var end   = Math.min(start + 3, 10);
+  dots.forEach(function(dot, i) {
+    dot.classList.toggle("fac-batch-dot-active", i >= start && i < end);
+  });
+}
+
+function initFacultyDots() {
+  var grid = document.querySelector(".alumni-showcase-grid");
+  if (!grid) return;
+
+  var section = document.createElement("div");
+  section.className = "fac-dots-section";
+
+  // 10 dots — one per unique faculty member
+  var dotsEl = document.createElement("div");
+  dotsEl.className = "fac-batch-dots";
+  for (var i = 0; i < 10; i++) {
+    var dot = document.createElement("span");
+    dot.className = "fac-batch-dot" + (i < 3 ? " fac-batch-dot-active" : "");
+    dotsEl.appendChild(dot);
+  }
+  section.appendChild(dotsEl);
+
+  // Meet All Mentors link
+  var ctaWrap = document.createElement("div");
+  ctaWrap.innerHTML =
+    '<a href="/faculties.html" class="btn-meet-mentors">' +
+      '<i class="fa-solid fa-users"></i> Meet All Mentors' +
+    '</a>';
+  section.appendChild(ctaWrap);
+
+  grid.insertAdjacentElement("afterend", section);
+}
 
 function bindTiltPhysics(nodeInfo) {
   const wrapper = nodeInfo.wrapper;
@@ -4941,6 +5332,18 @@ function bindTiltPhysics(nodeInfo) {
 // Bind tilt physics EXACTLY ONCE to avoid Compound Listener Leaks
 facultyDOMNodes.forEach(bindTiltPhysics);
 
+// Initialize first batch description as qualification list on page load
+(function initFacultyDescriptions() {
+  var initialBatch = facultyPool.slice(0, 3);
+  facultyDOMNodes.forEach(function(node, i) {
+    var fac = initialBatch[i];
+    if (fac && node.descContainer) {
+      node.descContainer.innerHTML = buildQualList(fac.quals);
+    }
+  });
+  initFacultyDots();
+}());
+
 // Pre-load all images so no pop-in happens during cycle
 facultyPool.forEach((fac) => {
   if (fac.img) {
@@ -4953,6 +5356,7 @@ facultyPool.forEach((fac) => {
 function cycleFaculty() {
   const totalBatches = Math.ceil(facultyPool.length / 3);
   currentFacultyBatch = (currentFacultyBatch + 1) % totalBatches;
+  updateFacultyDots();
   const batch = facultyPool.slice(
     currentFacultyBatch * 3,
     currentFacultyBatch * 3 + 3,
@@ -4977,8 +5381,7 @@ function cycleFaculty() {
         if (node.badge) node.badge.textContent = fac.badge;
         if (node.name) node.name.textContent = fac.name;
         if (node.role) node.role.textContent = fac.role;
-        if (node.icon) node.icon.innerHTML = fac.icon;
-        if (node.desc) node.desc.textContent = fac.desc;
+        if (node.descContainer) node.descContainer.innerHTML = buildQualList(fac.quals);
       }
 
       node.cycleNode.classList.remove("cycling-out");

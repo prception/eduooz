@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -65,11 +65,12 @@
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
 
     <script src="../../../assets/js/course-landing.js" defer></script>
+    <script src="../../../assets/js/google-reviews.js" defer></script>
     <script src="../../../assets/js/practice-test.js" defer></script>
     <script src="../../../assets/js/youtube-filter.js" defer></script>
 
     <script>
-      // ========== EXAM CONFIGURATION — KERALA MSC NURSING ENTRANCE ==========
+      // ========== EXAM CONFIGURATION â€” KERALA MSC NURSING ENTRANCE ==========
       window.EXAM_CONFIG = {
         examName: "Kerala M.Sc Nursing Entrance",
         fullName: "Kerala M.Sc Nursing Entrance Examination",
@@ -95,7 +96,7 @@
           {
             id: "kerala-msc-nursing-2024",
             year: "2024",
-            title: "Kerala M.Sc Nursing Entrance 2024 – Paper",
+            title: "Kerala M.Sc Nursing Entrance 2024 â€“ Paper",
             meta: "100 MCQs · 90 mins",
             pages: 16,
             pdfUrl: null,
@@ -103,7 +104,7 @@
           {
             id: "kerala-msc-nursing-2023",
             year: "2023",
-            title: "Kerala M.Sc Nursing Entrance 2023 – Paper",
+            title: "Kerala M.Sc Nursing Entrance 2023 â€“ Paper",
             meta: "100 MCQs · 90 mins",
             pages: 16,
             pdfUrl: null,
@@ -111,7 +112,7 @@
           {
             id: "kerala-msc-nursing-2022",
             year: "2022",
-            title: "Kerala M.Sc Nursing Entrance 2022 – Paper",
+            title: "Kerala M.Sc Nursing Entrance 2022 â€“ Paper",
             meta: "100 MCQs · 90 mins",
             pages: 14,
             pdfUrl: null,
@@ -119,7 +120,7 @@
           {
             id: "kerala-msc-nursing-2021",
             year: "2021",
-            title: "Kerala M.Sc Nursing Entrance 2021 – Paper",
+            title: "Kerala M.Sc Nursing Entrance 2021 â€“ Paper",
             meta: "100 MCQs · 90 mins",
             pages: 14,
             pdfUrl: null,
@@ -127,7 +128,7 @@
           {
             id: "kerala-msc-nursing-2020",
             year: "2020",
-            title: "Kerala M.Sc Nursing Entrance 2020 – Paper",
+            title: "Kerala M.Sc Nursing Entrance 2020 â€“ Paper",
             meta: "100 MCQs · 90 mins",
             pages: 14,
             pdfUrl: null,
@@ -135,7 +136,7 @@
           {
             id: "kerala-msc-nursing-2019",
             year: "2019",
-            title: "Kerala M.Sc Nursing Entrance 2019 – Paper",
+            title: "Kerala M.Sc Nursing Entrance 2019 â€“ Paper",
             meta: "100 MCQs · 90 mins",
             pages: 14,
             pdfUrl: null,
@@ -226,8 +227,8 @@
             </div>
 
             <h1 class="course-title">
-              Kerala PSC MSC NURSING <br />
-              <span class="text-gradient-cyan">ENTRANCE EXAM Coaching</span>
+              Kerala PSC M.Sc. Nursing <br />
+              <span class="text-gradient-cyan">Entrance Exam Coaching</span>
             </h1>
 
             <p class="course-description">
@@ -1044,7 +1045,7 @@
         </div>
 
         <div class="text-center">
-          <a href="/courses/Syllubus/MSc-Nursing-Entrance-Syllabus.pdf" class="btn-download-syllabus g-exam-reveal">
+          <a href="/assets/Syllubus/MSc-Nursing-Entrance-Syllabus.pdf" class="btn-download-syllabus g-exam-reveal">
             <i class="fa-solid fa-download"></i> Download Official Syllabus PDF
           </a>
         </div>
@@ -1371,67 +1372,120 @@
           </h2>
         </div>
 
-        <div class="pdf-explorer g-exam-reveal" id="pdf-explorer">
-          <div class="pex-preview-panel">
-            <div class="pex-preview-card" id="pex-preview-card">
-              <div class="pex-toolbar">
-                <div class="pex-toolbar-info">
-                  <span class="pex-info-year" id="pex-info-year"></span>
-                  <span class="pex-info-title" id="pex-info-title">Select a paper to preview</span>
+        <div class="qp-explorer g-exam-reveal">
+          <!-- LEFT: PDF Preview Panel -->
+          <div class="qp-preview-panel">
+            <div class="qp-preview-card" id="qp-preview-card">
+              <div class="qp-toolbar">
+                <div class="qp-toolbar-info">
+                  <span class="qp-toolbar-year" id="qp-info-year"></span>
+                  <span class="qp-toolbar-title" id="qp-info-title">Select a paper to preview</span>
                 </div>
-                <div class="pex-toolbar-actions">
-                  <button class="pex-tbtn" id="pex-zoom-out" title="Zoom out">
-                    <i class="fa-solid fa-magnifying-glass-minus"></i>
-                  </button>
-                  <span class="pex-zoom-label" id="pex-zoom-label">100%</span>
-                  <button class="pex-tbtn" id="pex-zoom-in" title="Zoom in">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                  </button>
-                  <a class="pex-tbtn pex-tbtn-dl" id="pex-download-btn" href="#" title="Download PDF">
+                <div class="qp-toolbar-actions">
+                  <button class="qp-tbtn" id="qp-zoom-out" title="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                  <span class="qp-zoom-label" id="qp-zoom-label">100%</span>
+                  <button class="qp-tbtn" id="qp-zoom-in" title="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                  <a class="qp-tbtn qp-tbtn-dl" id="qp-download-btn" href="#" title="Download PDF" target="_blank">
                     <i class="fa-solid fa-download"></i> Download
                   </a>
-                  <button class="pex-tbtn" id="pex-fullscreen-btn" title="Fullscreen">
-                    <i class="fa-solid fa-expand"></i>
-                  </button>
+                  <button class="qp-tbtn" id="qp-fullscreen-btn" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
                 </div>
               </div>
-              <div class="pex-frame-wrap" id="pex-frame-wrap">
-                <div class="pex-skeleton" id="pex-skeleton">
-                  <div class="pex-sk-bar"></div>
-                  <div class="pex-sk-bar pex-sk-short"></div>
-                  <div class="pex-sk-block"></div>
-                  <div class="pex-sk-bar pex-sk-med"></div>
-                  <div class="pex-sk-bar pex-sk-short"></div>
+              <div class="qp-frame-wrap">
+                <div class="qp-empty-state" id="qp-empty-state">
+                  <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                  <p class="qp-state-title">Select a paper to preview</p>
+                  <p class="qp-state-sub">Choose a paper from the list to preview it here</p>
                 </div>
-                <iframe id="pex-iframe" src="" title="PDF Preview" allowfullscreen></iframe>
-                <div class="pex-locked-state" id="pex-locked-state">
-                  <div class="pex-locked-icon"><i class="fa-solid fa-file-pdf"></i></div>
-                  <p class="pex-locked-title" id="pex-locked-title">Select a Paper</p>
-                  <p class="pex-locked-sub" id="pex-locked-sub">Click any card to preview it here</p>
-                  <a href="#apply" class="pex-enroll-btn">Enroll to Download All Papers</a>
+                <div class="qp-skeleton" id="qp-skeleton">
+                  <div class="qp-sk-bar"></div>
+                  <div class="qp-sk-bar qp-sk-short"></div>
+                  <div class="qp-sk-block"></div>
+                  <div class="qp-sk-bar qp-sk-med"></div>
+                  <div class="qp-sk-bar qp-sk-short"></div>
+                </div>
+                <iframe id="qp-iframe" src="" title="PDF Preview" allowfullscreen></iframe>
+                <div class="qp-locked-state" id="qp-locked-state">
+                  <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                  <p class="qp-state-title" id="qp-locked-title">Paper Unavailable</p>
+                  <p class="qp-state-sub">Enroll to access and download this paper.</p>
+                  <a href="#apply" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
+                    <i class="fa-solid fa-download"></i> Download the Paper
+                  </a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="pex-library-panel">
-            <div class="pex-filter-bar">
-              <div class="pex-tabs" id="pex-tabs">
-                <button class="pex-tab active" data-year="all">All Years</button>
-                <button class="pex-tab" data-year="2023">2023</button>
-                <button class="pex-tab" data-year="2022">2022</button>
-                <button class="pex-tab" data-year="2021">2021</button>
-              </div>
-              <div class="pex-search-wrap">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="pex-search" placeholder="Search papers&#8230;" />
-    <link rel="canonical" href="https://www.eduooz.com/courses/nursing/kerala/msc-nursing-entrance.html" />
+          <!-- RIGHT: Library Panel -->
+          <div class="qp-library-panel">
+            <div class="qp-filter-bar">
+              <div class="qp-year-tabs">
+                <button class="qp-year-tab active" data-year="all">All Years</button>
+                <button class="qp-year-tab" data-year="2024">2024</button>
+                <button class="qp-year-tab" data-year="2023">2023</button>
+                <button class="qp-year-tab" data-year="2022">2022</button>
               </div>
             </div>
-            <div class="pex-paper-grid" id="pex-paper-grid"></div>
-            <div class="pex-empty" id="pex-empty">
+            <div class="qp-card-grid">
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf="/assets/Prev.Qn.papers/MSC%20Nursing%202024.pdf"
+                data-title="MSC Nursing 2024"
+                data-year="2024"
+                data-pages="18"
+                data-category="Kerala PSC • MSC Nursing"
+                data-download="/assets/Prev.Qn.papers/MSC%20Nursing%202024.pdf">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2024</span>
+                  <h3 class="qp-card-title">MSC Nursing 2024</h3>
+                  <span class="qp-card-category">Kerala PSC • MSC Nursing</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 18 pages</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
+                </div>
+              </article>
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf="/assets/Prev.Qn.papers/MSCNursing%202023.pdf"
+                data-title="MSC Nursing 2023"
+                data-year="2023"
+                data-pages="16"
+                data-category="Kerala PSC • MSC Nursing"
+                data-download="/assets/Prev.Qn.papers/MSCNursing%202023.pdf">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2023</span>
+                  <h3 class="qp-card-title">MSC Nursing 2023</h3>
+                  <span class="qp-card-category">Kerala PSC • MSC Nursing</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 16 pages</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
+                </div>
+              </article>
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf="/assets/Prev.Qn.papers/MSC%20Nursing%202022.pdf"
+                data-title="MSC Nursing 2022"
+                data-year="2022"
+                data-pages="16"
+                data-category="Kerala PSC • MSC Nursing"
+                data-download="/assets/Prev.Qn.papers/MSC%20Nursing%202022.pdf">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2022</span>
+                  <h3 class="qp-card-title">MSC Nursing 2022</h3>
+                  <span class="qp-card-category">Kerala PSC • MSC Nursing</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 16 pages</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="qp-no-results" id="qp-no-results">
               <i class="fa-solid fa-folder-open"></i>
-              <p>No papers found</p>
+              <p>No papers found for this year</p>
             </div>
           </div>
         </div>
@@ -1450,7 +1504,7 @@
           </h2>
         </div>
         <div class="practice-tests-grid" id="practice-tests-grid">
-          <div class="mts-wrapper" id="mts-wrapper" data-question-bank="nursing-central">
+          <div class="mts-wrapper" id="mts-wrapper" data-question-bank="nursing-state">
             <!-- SCREEN 1: WELCOME -->
             <div class="mts-screen mts-welcome-screen" id="mts-welcome">
               <div class="mts-welcome-icon-ring">
@@ -1701,7 +1755,7 @@
       </div>
     </section>
 
-    <!-- SECTION 14: FACULTY SHOWCASE -->
+    <!-- SECTION 14: FACULTY SHOWCASE CAROUSEL -->
     <section class="fac-showcase-section" id="faculty">
       <div class="fac-ambient">
         <div class="fac-blob-1"></div>
@@ -1740,23 +1794,23 @@
         </div>
 
         <div class="alumni-showcase-grid container">
-          <div class="alumni-card-wrapper" data-speed="0.12">
+                                        <div class="alumni-card-wrapper" data-speed="0.12">
             <div class="alumni-cycle-animator">
               <div class="prismatic-card">
                 <div class="card-glare-light"></div>
                 <div class="card-content-3d">
                   <div class="alumni-img-box">
-                    <img src="../../../assets/images/faculties/SHINE.png" alt="Shine Stephen" />
-                    <div class="rank-badge">MSc (N) - PGIMER</div>
+                    <img src="../../../assets/images/mentors/SHINE.png" alt="Shine Stephen Nursing Mentor and Assistant Professor" />
+                    <div class="rank-badge">Assistant Professor | PGIMER MSc (N) | PhD Scholar</div>
                     <div class="alumni-text-overlay">
                       <h3>Shine Stephen</h3>
-                      <p class="exam-name">Asst. Professor (Ex-AIIMS)</p>
+                      
                     </div>
                   </div>
                   <div class="alumni-info">
                     <div class="placement-dest">
                       <span class="dest-icon"><i class="fa-solid fa-trophy"></i></span>
-                      <span>A PGIMER &amp; INC-WHO PhD Scholar, former AIIMS faculty, and multi-rank holder in competitive nursing exams.</span>
+                      <span>Assistant Professor (Govt. Nursing College, on leave), former AIIMS New Delhi faculty, PGIMER MSc (N) 1st rank holder, KPSC rank holder &amp; INC-WHO PhD Scholar.</span>
                     </div>
                   </div>
                 </div>
@@ -1770,17 +1824,17 @@
                 <div class="card-glare-light"></div>
                 <div class="card-content-3d">
                   <div class="alumni-img-box">
-                    <img src="../../../assets/images/faculties/NAYANA.jpeg" alt="Nayana Shaji" />
-                    <div class="rank-badge">GPAT Ranker</div>
+                    <img src="../../../assets/images/mentors/NAYANA.jpeg" alt="Nayana Shaji Pharmacology Faculty" />
+                    <div class="rank-badge">M.Pharm Pharmacology | GPAT Rank Holder</div>
                     <div class="alumni-text-overlay">
                       <h3>Nayana Shaji</h3>
-                      <p class="exam-name">M Pharm Pharmacology</p>
+                     
                     </div>
                   </div>
                   <div class="alumni-info">
                     <div class="placement-dest">
                       <span class="dest-icon"><i class="fa-solid fa-award"></i></span>
-                      <span>A GPAT Ranker and distinction holder across various central &amp; state competitive nursing and pharmacy exams.</span>
+                      <span>M.Pharm Pharmacology faculty, distinction holder, GPAT rank holder, and Kerala &amp; Central Exam rank holder with strong pharmaceutical expertise.</span>
                     </div>
                   </div>
                 </div>
@@ -1794,111 +1848,125 @@
                 <div class="card-glare-light"></div>
                 <div class="card-content-3d">
                   <div class="alumni-img-box">
-                    <img src="../../../assets/images/faculties/VIDHU.JPG.jpeg" alt="Vidhu R Vijayan" />
-                    <div class="rank-badge">NCLEX RN</div>
+                    <img src="../../../assets/images/mentors/VIDHU.JPG.jpeg" alt="Vidhu R Vijayan Orthopedic Nursing Faculty" />
+                    <div class="rank-badge">MSc Nursing (Orthopedic)</div>
                     <div class="alumni-text-overlay">
                       <h3>Vidhu R Vijayan</h3>
-                      <p class="exam-name">MSc Nursing (Orthopedic)</p>
+                      
                     </div>
                   </div>
                   <div class="alumni-info">
                     <div class="placement-dest">
                       <span class="dest-icon"><i class="fa-solid fa-stethoscope"></i></span>
-                      <span>An Orthopedic Nursing specialist who successfully passed the international NCLEX RN certification.</span>
+                      <span>Orthopedic nursing specialist with MSc Nursing and international NCLEX RN qualification, bringing clinical depth to nursing exam preparation.</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="fac-car-dots" id="fac-car-dots"></div>
+
+          <div class="fac-car-dots" id="fac-car-dots"></div>
       </div>
     </section>
 
-    <!-- SECTION 15: SUCCESS STORIES -->
-    <section class="testi-hub-section" id="results">
-      <div class="testi-ambient">
-        <div class="testi-blob-1"></div>
-        <div class="testi-blob-2"></div>
-      </div>
-      <div class="container">
-        <div class="testi-header text-center g-exam-reveal">
+    <!-- SECTION 15: VIDEO TESTIMONIALS -->
+        <section class="testimonials-section">
+            <div class="testimonials-mesh-bg">
+                <div class="mesh-blob blob-purple" style="top:-5%; left:-8%; width:550px; height:550px; opacity:0.3;"></div>
+                <div class="mesh-blob blob-cyan" style="bottom:-5%; right:-5%; width:450px; height:450px; opacity:0.2;"></div>
+            </div>
+            <div class="container relative-z">
+                <div class="testimonials-header">
           <div class="section-label">
             <span class="label-dot"></span> Real Results, Real Nurses
           </div>
           <h2 class="section-title">
             Hear It From The Nurses <br />Who
-            <span class="text-gradient">Cracked M.Sc Nursing Entrance Exam</span>
+            <span class="text-gradient">Cracked Their Exam.</span>
           </h2>
         </div>
 
-        <div class="testi-video-layout g-exam-reveal">
-          <a class="testi-vid-featured" href="https://www.youtube.com/watch?v=d5xoc5zvWyQ" target="_blank" rel="noopener">
-            <div class="testi-vid-thumb-wrap">
-              <img src="https://img.youtube.com/vi/d5xoc5zvWyQ/maxresdefault.jpg" alt="M.Sc Nursing Entrance Success Story" class="testi-thumb" loading="lazy" />
-              <div class="testi-play-btn"><i class="fa-solid fa-play"></i></div>
-            </div>
-            <div class="testi-vid-meta testi-featured-meta">
-              <div class="testi-stars-row">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="testi-vid-name">Priya Sharma</h4>
-              <div class="testi-vid-tags">
-                <span class="testi-vid-rank">Rank 12</span>
-                <span class="testi-vid-inst">M.Sc Nursing, KUHS 2024</span>
-                <span class="testi-vid-year">Entrance 2024</span>
-              </div>
-              <p class="testi-vid-quote">"Eduooz mock tests were almost identical to the actual M.Sc Nursing Entrance Exam. The faculty guidance helped me secure a top rank and get admission to my preferred nursing college in Kerala!"</p>
-            </div>
-          </a>
+                <div class="testimonials-layout">
+                    <article class="testi-featured" id="testiFeatured">
+                        <figure class="testi-featured-thumb">
+                            <img id="testiFeaturedImg" src="https://img.youtube.com/vi/E1X1RFFt138/maxresdefault.jpg" alt="Super notes for Assistant Professor in Nursing" loading="lazy">
+                            <div class="testi-featured-overlay">
+                                <button class="testi-play-btn" id="testiPlayBtn" aria-label="Play video">
+                                    <span class="testi-play-ripple"></span>
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                            <div class="testi-info-float">
+                                <div class="testi-avatar-ring">
+                                    <img id="testiAvatarImg" src="https://img.youtube.com/vi/E1X1RFFt138/maxresdefault.jpg" alt="Super notes for Assistant Professor in Nursing" loading="lazy">
+                                </div>
+                                <div class="testi-info-text">
+                                    <div class="testi-info-name" id="testiName">Super notes for Assistant Professor in Nursing</div>
+                                    <div class="testi-info-sub" id="testiSub">Eduooz - Nurses Learning Hub &middot; 2025</div>
+                                </div>
+                                <div class="testi-info-badge" id="testiBadge"><i class="fa-solid fa-check"></i> Latest Upload</div>
+                            </div>
+                        </figure>
+                        <blockquote class="testi-featured-quote" id="testiQuote">
+                            <i class="fa-solid fa-quote-left testi-quote-icon"></i>
+                            <p>"Watch our latest nursing upload on our YouTube channel. More testimonial videos will be added soon."</p>
+                        </blockquote>
+                    </article>
 
-          <div class="testi-vid-stack">
-            <a class="testi-vid-card" href="https://www.youtube.com/watch?v=qEBQcfAy5e4" target="_blank" rel="noopener">
-              <div class="testi-vid-thumb-wrap">
-                <img src="https://img.youtube.com/vi/qEBQcfAy5e4/maxresdefault.jpg" alt="Kerala PSC Success Story" class="testi-thumb" loading="lazy" />
-                <div class="testi-play-btn testi-play-sm"><i class="fa-solid fa-play"></i></div>
-              </div>
-              <div class="testi-vid-meta">
-                <div class="testi-stars-row">
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
+                    <div class="testi-playlist" id="testiPlaylist">
+                        <article class="testi-playlist-item active" data-index="0" data-url="https://youtu.be/E1X1RFFt138?si=0TrAngTwP8UsTbqw"
+                            data-img="https://img.youtube.com/vi/E1X1RFFt138/maxresdefault.jpg" data-avatar="https://img.youtube.com/vi/E1X1RFFt138/maxresdefault.jpg"
+                            data-name="Super notes for Assistant Professor in Nursing" data-sub="Latest Upload &middot; 2025" data-badge="Latest Upload"
+                            data-quote="Watch our latest nursing upload on our YouTube channel. More testimonial videos will be added soon.">
+                            <figure class="testi-item-thumb">
+                                <img src="https://img.youtube.com/vi/E1X1RFFt138/maxresdefault.jpg" alt="Super notes for Assistant Professor in Nursing" loading="lazy">
+                                <div class="testi-item-play"><i class="fa-solid fa-play"></i></div>
+                            </figure>
+                            <div class="testi-item-info">
+                                <h3 class="testi-item-name">Super notes for Assistant Professor in Nursing</h3>
+                                <div class="testi-item-role"><i class="fa-solid fa-location-dot"></i> Latest Upload &middot; 2025</div>
+                                <div class="testi-item-excerpt">"Watch our latest nursing upload on our YouTube channel. More testimonial videos will be added soon."</div>
+                            </div>
+                            <div class="testi-item-number">01</div>
+                        </article>
+                        <article class="testi-playlist-item" data-index="1" data-url="https://youtu.be/4J_sUv_L5f0?si=eK1eW4HgoQy_c_4v"
+                            data-img="https://img.youtube.com/vi/4J_sUv_L5f0/maxresdefault.jpg" data-avatar="https://img.youtube.com/vi/4J_sUv_L5f0/maxresdefault.jpg"
+                            data-name="DHS Staff Nurse Exam Preparation 2025" data-sub="Exam Guide &middot; 2025" data-badge="Exam Guide"
+                            data-quote="Exam Guide &middot; 2025">
+                            <figure class="testi-item-thumb">
+                                <img src="https://img.youtube.com/vi/4J_sUv_L5f0/maxresdefault.jpg" alt="DHS Staff Nurse Exam Preparation 2025" loading="lazy">
+                                <div class="testi-item-play"><i class="fa-solid fa-play"></i></div>
+                            </figure>
+                            <div class="testi-item-info">
+                                <h3 class="testi-item-name">DHS Staff Nurse Exam Preparation 2025</h3>
+                                <div class="testi-item-role"><i class="fa-solid fa-location-dot"></i> Exam Guide &middot; 2025</div>
+                                <div class="testi-item-excerpt">"Exam Guide &middot; 2025"</div>
+                            </div>
+                            <div class="testi-item-number">02</div>
+                        </article>
+                        <article class="testi-playlist-item" data-index="2" data-url="https://youtu.be/XjogZEgAA2M?si=CMIgkmReFJ203EEp"
+                            data-img="https://img.youtube.com/vi/XjogZEgAA2M/maxresdefault.jpg" data-avatar="https://img.youtube.com/vi/XjogZEgAA2M/maxresdefault.jpg"
+                            data-name="Mission NORCET 11 | Eduooz Academy" data-sub="NORCET &middot; 2025" data-badge="NORCET"
+                            data-quote="NORCET &middot; 2025">
+                            <figure class="testi-item-thumb">
+                                <img src="https://img.youtube.com/vi/XjogZEgAA2M/maxresdefault.jpg" alt="Mission NORCET 11 | Eduooz Academy" loading="lazy">
+                                <div class="testi-item-play"><i class="fa-solid fa-play"></i></div>
+                            </figure>
+                            <div class="testi-item-info">
+                                <h3 class="testi-item-name">Mission NORCET 11 | Eduooz Academy</h3>
+                                <div class="testi-item-role"><i class="fa-solid fa-location-dot"></i> NORCET &middot; 2025</div>
+                                <div class="testi-item-excerpt">"NORCET &middot; 2025"</div>
+                            </div>
+                            <div class="testi-item-number">03</div>
+                        </article>
+                    </div>
                 </div>
-                <h4 class="testi-vid-name">Rahul Menon</h4>
-                <div class="testi-vid-tags">
-                  <span class="testi-vid-rank">Govt Nursing College, Kozhikode</span>
-                  <span class="testi-vid-year">Entrance 2024</span>
-                </div>
-              </div>
-            </a>
-            <a class="testi-vid-card" href="https://www.youtube.com/watch?v=h9NjqU6IyzE" target="_blank" rel="noopener">
-              <div class="testi-vid-thumb-wrap">
-                <img src="https://img.youtube.com/vi/h9NjqU6IyzE/maxresdefault.jpg" alt="Kerala PSC Success Story" class="testi-thumb" loading="lazy" />
-                <div class="testi-play-btn testi-play-sm"><i class="fa-solid fa-play"></i></div>
-              </div>
-              <div class="testi-vid-meta">
-                <div class="testi-stars-row">
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                </div>
-                <h4 class="testi-vid-name">Lakshmi N.</h4>
-                <div class="testi-vid-tags">
-                  <span class="testi-vid-rank">TDM Hall, Thiruvananthapuram</span>
-                  <span class="testi-vid-year">Entrance 2023</span>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 16: GOOGLE REVIEWS & TRUST WALL -->
-    <section class="greview-section" id="reviews">
+            </div>
+        </section>
+        
+<!-- SECTION 16: GOOGLE REVIEWS & TRUST WALL -->
+    <section class="greview-section" id="reviews" data-page-type="nursing">
       <div class="container">
         <div class="text-center g-exam-reveal" style="margin-bottom: 48px">
           <div class="section-label">
@@ -1947,114 +2015,7 @@
           </button>
           <div class="greview-carousel-viewport" id="greview-carousel-viewport">
             <div class="greview-track" id="greview-track">
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">AS</div>
-                  <div><h5>Aswathy R S</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"The faculty here are outstanding. Their systematic approach to M.Sc Nursing subjects and mock practice sessions gave me the edge I needed. Cleared the entrance in my first attempt!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">First Attempt</span>
-                  <span class="greview-badge greview-badge-inst">Govt Nursing College, Kottayam</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">SM</div>
-                  <div><h5>Sneha M.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"Best M.Sc Nursing Entrance Exam coaching platform. The mock tests are exactly like the real exam. My confidence went through the roof after 30+ mocks. Got a top rank!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Top Rank</span>
-                  <span class="greview-badge greview-badge-inst">Nursing College, Ernakulam</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">DV</div>
-                  <div><h5>Divya V.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"Being a working nurse, I needed flexible classes. Eduooz's recorded lectures and weekend live sessions were perfect. The mentor support was exceptional throughout my preparation."</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Working Nurse</span>
-                  <span class="greview-badge greview-badge-inst">KUHS Affiliated College</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">RM</div>
-                  <div><h5>Rahul Menon</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"The structured study plan and personal mentor support made all the difference. Daily live sessions kept me on track even during tough phases. Now enrolled in M.Sc Nursing at a top Kerala college!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Rank 8</span>
-                  <span class="greview-badge greview-badge-inst">Govt Nursing College, Thrissur</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">SS</div>
-                  <div><h5>Steffi Saji</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"Eduooz's CBT simulation is the best I've tried. I went into the M.Sc Nursing Entrance Exam feeling like I'd already done it a hundred times. The interface was so familiar it felt effortless."</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">CBT Expert</span>
-                  <span class="greview-badge greview-badge-inst">Nursing College, Palakkad</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">DJ</div>
-                  <div><h5>Deepa Joseph</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"The previous year paper analysis sessions were absolutely gold. Every high-yield topic the faculty predicted actually appeared in my M.Sc Nursing Entrance Exam. I was so well prepared it felt effortless."</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">First Attempt</span>
-                  <span class="greview-badge greview-badge-inst">KUHS Nursing College, Kozhikode</span>
-                </div>
-              </div>
+              <!-- Populated dynamically by google-reviews.js -->
             </div>
           </div>
           <button class="greview-arrow greview-next" id="greview-next" aria-label="Next reviews">
@@ -2106,22 +2067,22 @@
                   </div>
                   <div class="pas-screen" id="pasScreen">
                     <div class="pas-slide pas-slide-active" data-screen="dashboard">
-                      <img src="../../../assets/Eduooz-app/Home.jpg" alt="Eduooz Home Dashboard" class="pas-screen-img" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (1).jpeg" alt="Eduooz Home Dashboard" class="pas-screen-img" />
                     </div>
                     <div class="pas-slide" data-screen="live">
-                      <img src="../../../assets/Eduooz-app/Course.jpg" alt="Course Listing" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (2).jpeg" alt="Course Listing" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="cbt">
-                      <img src="../../../assets/Eduooz-app/Exam.jpg" alt="Mock Test Interface" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (3).jpeg" alt="Mock Test Interface" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="analytics">
-                      <img src="../../../assets/Eduooz-app/Analytics.jpg" alt="Performance Analytics" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (4).jpeg" alt="Performance Analytics" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="materials">
-                      <img src="../../../assets/Eduooz-app/Practice.jpg" alt="Practice &amp; Study Materials" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (5).jpeg" alt="Practice &amp; Study Materials" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="leaderboard">
-                      <img src="../../../assets/Eduooz-app/Leaderboard.jpg" alt="Leaderboard" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (6).jpeg" alt="Leaderboard" class="pas-screen-img" loading="lazy" />
                     </div>
                   </div>
                   <div class="pas-home-indicator"></div>
@@ -2509,3 +2470,6 @@
     <script src="../../../assets/js/components.js"></script>
   </body>
 </html>
+
+
+

@@ -123,6 +123,22 @@ No changes to practice-test.js, course-landing.js, or any CSS
 
 
 
+goggle reviews updation 
+To apply to other landing pages
+Add just two things to any other page:
+
+data-page-type="nursing" (or "pharmacy" / "german" / "lab-tech") on the <section id="reviews"> element
+Clear its hardcoded #greview-track cards
+Add <script src="[path]/google-reviews.js" defer></script> after course-landing.js
+
+What was applied to each page:
+
+data-page-type="nursing" on <section id="reviews"> — all nursing sub-types (GCC prometric, Kerala state, central govt) get the nursing keyword filter, which covers DHA, HAAD, MOH, NCLEX, NORCET, recruitment, etc.
+Hardcoded greview-card content cleared from #greview-track
+google-reviews.js script tag injected after course-landing.js
+
+
+
 
 
 

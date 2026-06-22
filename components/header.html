@@ -9,7 +9,20 @@
 
         <nav class="nav-links" aria-label="Main navigation">
             <a href="index.html" class="hover-underline">Home</a>
-            <a href="about.html" class="hover-underline">About Us</a>
+            <div class="nav-item dropdown">
+                <a href="about.html" class="hover-underline" aria-haspopup="true" aria-expanded="false">About Us <i class="fa-solid fa-chevron-down dropdown-caret" aria-hidden="true"></i></a>
+                <div class="simple-menu" role="menu" aria-label="About menu">
+                
+                    <a href="gallery.html" class="simple-menu-item" role="menuitem">
+                        <div class="course-icon"><i class="fa-solid fa-images" aria-hidden="true"></i></div>
+                        <span>Gallery</span>
+                    </a>
+                    <a href="privacy-policy.html" class="simple-menu-item" role="menuitem">
+                        <div class="course-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+                        <span>Privacy Policy</span>
+                    </a>
+                </div>
+            </div>
 
             <div class="nav-item dropdown">
                 <a href="courses.html" class="hover-underline" aria-haspopup="true" aria-expanded="false" id="courses-menu-trigger">Courses <i class="fa-solid fa-chevron-down dropdown-caret" aria-hidden="true"></i></a>
@@ -370,7 +383,7 @@
                 </div>
             </div>
 
-            <a href="gallery.html" class="hover-underline">Gallery</a>
+            <a href="faculties.html" class="hover-underline">Faculties</a>
             <a href="testimonials.html" class="hover-underline">Testimonials</a>
             <a href="placements.html" class="hover-underline">Placements</a>
             <a href="contact.html" class="hover-underline">Contact Us</a>

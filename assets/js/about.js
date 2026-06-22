@@ -1482,28 +1482,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Section Entrance Reveal
     gsap.set(".g-place-reveal", { autoAlpha: 1 });
     gsap.from(".g-place-reveal", {
-        scrollTrigger: { trigger: ".placement-light-section", start: "top 80%" },
+        scrollTrigger: { trigger: ".fac-showcase-section", start: "top 80%" },
         y: 40, opacity: 0, filter: "blur(10px)", duration: 1.2, stagger: 0.15, ease: "power3.out"
     });
 
     // 2. Faculty Data Pool (Replaces Alumni Pool for Fade-in Grid)
     const facultyPool = [
         // Batch 1
-        { name: "Shine Stephen", role: "Asst. Professor (Ex-AIIMS)", badge: "MSc (N)", icon: '<i class="fa-solid fa-trophy"></i>', desc: "A PGIMER & INC-WHO PhD Scholar, former AIIMS faculty, and multi-rank holder in KPSC exams.", img: "assets/images/faculties/SHINE.png" },
-        { name: "Nayana Shaji", role: "M Pharm Pharmacology", badge: "GPAT Ranker", icon: '<i class="fa-solid fa-award"></i>', desc: "A GPAT Ranker and distinction holder across various Kerala & Central competitive pharmacy exams.", img: "assets/images/faculties/NAYANA.jpeg" },
-        { name: "Vidhu R Vijayan", role: "MSc Nursing (Orthopedic)", badge: "NCLEX RN", icon: '<i class="fa-solid fa-stethoscope"></i>', desc: "An Orthopedic Nursing specialist who successfully passed the international NCLEX RN certification.", img: "assets/images/faculties/VIDHU.JPG.jpeg" },
+        { name: "Shine Stephen", role: "Former AIIMS Faculty | UGC NET | MHA | PGDHSR", badge: "Assistant Professor | PGIMER MSc (N) | PhD Scholar", icon: '<i class="fa-solid fa-trophy"></i>', desc: "Asst. Professor – Govt. Nursing College (on leave), former AIIMS faculty, PGIMER MSc (N) 1st rank holder, KPSC rank holder & INC-WHO PhD Scholar.", img: "assets/images/Mentors/SHINE.png" },
+        { name: "Nayana Shaji", role: "Distinction Holder | Kerala & Central Exam Ranker", badge: "M.Pharm Pharmacology | GPAT Rank Holder", icon: '<i class="fa-solid fa-award"></i>', desc: "M.Pharm Pharmacology faculty, distinction holder, GPAT rank holder, and Kerala & Central Exam rank holder with strong pharmaceutical expertise.", img: "assets/images/Mentors/NAYANA.jpeg" },
+        { name: "Vidhu R Vijayan", role: "NCLEX RN Passed", badge: "MSc Nursing (Orthopedic)", icon: '<i class="fa-solid fa-stethoscope"></i>', desc: "Orthopedic nursing specialist with MSc Nursing and international NCLEX RN qualification, bringing clinical depth to nursing exam preparation.", img: "assets/images/Mentors/VIDHU.JPG.jpeg" },
         // Batch 2
-        { name: "Honey Mol P. V", role: "MSc Molecular Biology", badge: "Distinction", icon: '<i class="fa-solid fa-dna"></i>', desc: "A Molecular Biology distinction holder and proven rank holder in Kerala PSC state recruitment.", img: "assets/images/faculties/HONEY.JPG.jpeg" },
-        { name: "Sreelekshmi E. M", role: "MSc Microbiology", badge: "2nd Rank", icon: '<i class="fa-solid fa-microscope"></i>', desc: "Achieved 2nd Rank in state-level health recruitment for Microbiology specialists.", img: "assets/images/faculties/SREELEKSHMI.jpeg" },
-        { name: "Arathy Surendran", role: "MSc Nursing (Pediatrics)", badge: "KUHS Scholar", icon: '<i class="fa-solid fa-baby"></i>', desc: "A Pediatrics Nursing scholar from KUHS and a recognized Kerala PSC nursing rank holder.", img: "assets/images/faculties/ARATHY.JPG.jpeg" },
+        { name: "Honey Mol P.V", role: "Kerala PSC Rank Holder", badge: "MSc Molecular Biology | Distinction Holder", icon: '<i class="fa-solid fa-flask"></i>', desc: "A Molecular Biology distinction holder and proven rank holder in Kerala PSC state recruitment.", img: "assets/images/Mentors/HONEY.JPG.jpeg" },
+        { name: "Sreelakshmi E.M", role: "Kerala PSC Rank Holder", badge: "MSc Microbiology | 2nd Rank Holder", icon: '<i class="fa-solid fa-microscope"></i>', desc: "Achieved 2nd Rank in state-level health recruitment for Microbiology specialists.", img: "assets/images/Mentors/SREELEKSHMI.jpeg" },
+        { name: "Arathy Surendran", role: "Kerala PSC Rank Holder", badge: "MSc Nursing (Pediatrics) – KUHS", icon: '<i class="fa-solid fa-child"></i>', desc: "A Pediatrics Nursing scholar from KUHS and a recognized Kerala PSC nursing rank holder.", img: "assets/images/Mentors/ARATHY.JPG.jpeg" },
         // Batch 3
-        { name: "Aparna T. M", role: "M Pharm - KUHS", badge: "1st Rank", icon: '<i class="fa-solid fa-capsules"></i>', desc: "A distinguished M Pharm professional and 1st Rank holder in the KUHS pharmacy boards.", img: "assets/images/faculties/APARNA.jpeg" },
-        { name: "Dr. Manjima G. S", role: "Doctor of Pharmacy (PharmD)", badge: "Int'l Scholar", icon: '<i class="fa-solid fa-globe"></i>', desc: "Awarded an International Scholarship for MSc Pharmacology in the UK after completing PharmD.", img: "assets/images/faculties/MANJIMA.jpeg" },
-        { name: "Jesna Prasad", role: "BSc Nursing", badge: "German B2", icon: '<i class="fa-solid fa-language"></i>', desc: "A BSc Nurse with German A1-B2 proficiency, expert in guiding global migration for healthcare.", img: "assets/images/faculties/JESNA.JPG.jpeg" },
-        // Batch 4 (Cycling back with Top Faculty to keep 3 cards)
-        { name: "Jeethu Paul", role: "MSc Nursing (Pediatric)", badge: "KPSC Ranker", icon: '<i class="fa-solid fa-user-nurse"></i>', desc: "A specialized Pediatric Nurse with consistent ranking records in various Kerala PSC exams.", img: "assets/images/faculties/JEETHU.JPG.jpeg" },
-        { name: "Shine Stephen", role: "Asst. Professor (Ex-AIIMS)", badge: "MSc (N)", icon: '<i class="fa-solid fa-trophy"></i>', desc: "A PGIMER & INC-WHO PhD Scholar, former AIIMS faculty, and multi-rank holder in KPSC exams.", img: "assets/images/faculties/SHINE.png" },
-        { name: "Nayana Shaji", role: "M Pharm Pharmacology", badge: "GPAT Ranker", icon: '<i class="fa-solid fa-award"></i>', desc: "A GPAT Ranker and distinction holder across various Kerala & Central competitive pharmacy exams.", img: "assets/images/faculties/NAYANA.jpeg" }
+        { name: "Aparna T.M", role: "1st Rank Holder – M.Pharm, KUHS", badge: "M.Pharm – KUHS | 1st Rank Holder", icon: '<i class="fa-solid fa-pills"></i>', desc: "A distinguished M.Pharm professional and 1st Rank holder in the KUHS pharmacy boards.", img: "assets/images/Mentors/APARNA.jpeg" },
+        { name: "Dr. Manjima G.S", role: "International Scholar | MSc Pharmacology (UK)", badge: "Doctor of Pharmacy | MSc Pharmacology (UK)", icon: '<i class="fa-solid fa-graduation-cap"></i>', desc: "Awarded an International Scholarship for MSc Pharmacology in the UK after completing PharmD.", img: "assets/images/Mentors/MANJIMA.jpeg" },
+        { name: "Jesna Prasad", role: "German A1–B2 Qualified | Nursing Background", badge: "German B1–B2 Certified | BSc Nursing", icon: '<i class="fa-solid fa-language"></i>', desc: "A BSc Nurse with German A1-B2 proficiency, expert in guiding global migration for healthcare.", img: "assets/images/Mentors/JESNA.JPG.jpeg" },
+        // Batch 4
+        { name: "Jeethu Paul", role: "Kerala PSC Rank Holder", badge: "MSc Nursing (Pediatric)", icon: '<i class="fa-solid fa-heart-pulse"></i>', desc: "A specialized Pediatric Nurse with consistent ranking records in various Kerala PSC exams.", img: "assets/images/Mentors/JEETHU.JPG.jpeg" },
+        { name: "Shine Stephen", role: "Former AIIMS Faculty | UGC NET | MHA | PGDHSR", badge: "Assistant Professor | PGIMER MSc (N) | PhD Scholar", icon: '<i class="fa-solid fa-trophy"></i>', desc: "Asst. Professor – Govt. Nursing College (on leave), former AIIMS faculty, PGIMER MSc (N) 1st rank holder & INC-WHO PhD Scholar.", img: "assets/images/Mentors/SHINE.png" },
+        { name: "Nayana Shaji", role: "Distinction Holder | Kerala & Central Exam Ranker", badge: "M.Pharm Pharmacology | GPAT Rank Holder", icon: '<i class="fa-solid fa-award"></i>', desc: "M.Pharm Pharmacology faculty, distinction holder, GPAT rank holder, and Kerala & Central Exam rank holder.", img: "assets/images/Mentors/NAYANA.jpeg" }
     ];
 
     let currentFacultyBatch = 0; // Tracks which group of 3 is currently displayed
@@ -1517,7 +1517,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cycleNode: wrapper.querySelector('.alumni-cycle-animator') || wrapper, // Decoupled transitional boundary
             img: wrapper.querySelector('img'),
             badge: wrapper.querySelector('.rank-badge'),
-            name: wrapper.querySelector('.alumni-info h3'),
+            name: wrapper.querySelector('.alumni-text-overlay h3'),
             role: wrapper.querySelector('.exam-name'),
             icon: wrapper.querySelector('.dest-icon'),
             desc: wrapper.querySelector('.placement-dest span:last-child')
@@ -1583,6 +1583,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function cycleFaculty() {
         const totalBatches = Math.ceil(facultyPool.length / 3);
         currentFacultyBatch = (currentFacultyBatch + 1) % totalBatches;
+        updateFacultyDots();
         const batch = facultyPool.slice(currentFacultyBatch * 3, currentFacultyBatch * 3 + 3);
 
         // Phase 1: Fade Out + Jump Up (staggered cascade strictly on decopled inner node)
@@ -1624,6 +1625,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Start cycling every 5 seconds
     setInterval(cycleFaculty, 5000);
+
+    function updateFacultyDots() {
+        var dots = document.querySelectorAll('.fac-batch-dot');
+        if (!dots.length) return;
+        var start = currentFacultyBatch * 3;
+        var end = Math.min(start + 3, facultyPool.length);
+        dots.forEach(function(dot, i) {
+            dot.classList.toggle('fac-batch-dot-active', i >= start && i < end);
+        });
+    }
+
+    function initFacultyDots() {
+        var grid = document.querySelector('.fac-showcase-section .alumni-showcase-grid');
+        if (!grid) return;
+        var section = document.createElement('div');
+        section.className = 'fac-dots-section';
+        var dotsEl = document.createElement('div');
+        dotsEl.className = 'fac-batch-dots';
+        for (var i = 0; i < facultyPool.length; i++) {
+            var dot = document.createElement('span');
+            dot.className = 'fac-batch-dot' + (i < 3 ? ' fac-batch-dot-active' : '');
+            dotsEl.appendChild(dot);
+        }
+        section.appendChild(dotsEl);
+        var ctaWrap = document.createElement('div');
+        ctaWrap.innerHTML = '<a href="/faculties.html" class="btn-meet-mentors"><i class="fa-solid fa-users"></i> Meet All Mentors</a>';
+        section.appendChild(ctaWrap);
+        grid.insertAdjacentElement('afterend', section);
+    }
+
+    initFacultyDots();
+
+    // Floating particles for fac-ambient
+    (function initFacParticles() {
+        var particlesEl = document.getElementById('fac-particles');
+        if (!particlesEl) return;
+        for (var i = 0; i < 20; i++) {
+            var dot = document.createElement('div');
+            var size = 3 + Math.random() * 4;
+            dot.style.cssText = 'position:absolute;' +
+                'width:' + size + 'px;height:' + size + 'px;' +
+                'border-radius:50%;' +
+                'background:rgba(6,182,212,' + (0.08 + Math.random() * 0.12) + ');' +
+                'left:' + (Math.random() * 100) + '%;' +
+                'top:' + (Math.random() * 100) + '%;' +
+                'animation:fac-float-particle ' + (8 + Math.random() * 12) + 's ease-in-out ' + (Math.random() * 5) + 's infinite;';
+            particlesEl.appendChild(dot);
+        }
+    }());
 
     // --- 11. GSAP Testimonials Reveal ---
     gsap.set(".g-test-reveal", { autoAlpha: 1 });
