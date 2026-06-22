@@ -1,670 +1,1220 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Testimonials | Eduooz International Academy</title>
 
-    <meta name="description" content="Read success stories from Eduooz alumni who cleared AIIMS NORCET, Kerala PSC Staff Nurse, DHA, HAAD, and other top nursing and healthcare exams. Real results, real students." />
-    <meta name="keywords" content="Eduooz testimonials, nursing exam success stories, NORCET success, DHA nursing passed, healthcare exam achievers, Eduooz students" />
+    <meta
+      name="description"
+      content="Read success stories from Eduooz alumni who cleared AIIMS NORCET, Kerala PSC Staff Nurse, DHA, HAAD, and other top nursing and healthcare exams. Real results, real students."
+    />
+    <meta
+      name="keywords"
+      content="Eduooz testimonials, nursing exam success stories, NORCET success, DHA nursing passed, healthcare exam achievers, Eduooz students"
+    />
     <link rel="canonical" href="https://www.eduooz.com/testimonials.html" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Student Testimonials | Eduooz International Academy" />
-    <meta property="og:description" content="Hear from Eduooz students who cracked AIIMS NORCET, Kerala PSC, DHA, HAAD, and other top healthcare exams. Hundreds of success stories from India's premier coaching academy." />
+    <meta
+      property="og:title"
+      content="Student Testimonials | Eduooz International Academy"
+    />
+    <meta
+      property="og:description"
+      content="Hear from Eduooz students who cracked AIIMS NORCET, Kerala PSC, DHA, HAAD, and other top healthcare exams. Hundreds of success stories from India's premier coaching academy."
+    />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=1200" />
-    <meta property="og:url" content="https://www.eduooz.com/testimonials.html" />
+    <meta
+      property="og:image"
+      content="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=1200"
+    />
+    <meta
+      property="og:url"
+      content="https://www.eduooz.com/testimonials.html"
+    />
     <meta property="og:site_name" content="Eduooz International Academy" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Student Testimonials | Eduooz International Academy" />
-    <meta name="twitter:description" content="Hear from Eduooz students who cracked AIIMS NORCET, Kerala PSC, DHA, HAAD, and other top healthcare exams. Hundreds of success stories from India's premier coaching academy." />
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=1200" />
+    <meta
+      name="twitter:title"
+      content="Student Testimonials | Eduooz International Academy"
+    />
+    <meta
+      name="twitter:description"
+      content="Hear from Eduooz students who cracked AIIMS NORCET, Kerala PSC, DHA, HAAD, and other top healthcare exams. Hundreds of success stories from India's premier coaching academy."
+    />
+    <meta
+      name="twitter:image"
+      content="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=1200"
+    />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.eduooz.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Testimonials", "item": "https://www.eduooz.com/testimonials.html" }
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.eduooz.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Testimonials",
+            "item": "https://www.eduooz.com/testimonials.html"
+          }
+        ]
+      }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 
-    <link rel="stylesheet" href="assets/css/header-footer.css">
-    <link rel="stylesheet" href="assets/css/testimonials.css">
+    <link rel="stylesheet" href="assets/css/header-footer.css" />
+    <link rel="stylesheet" href="assets/css/testimonials.css" />
     <link rel="stylesheet" href="assets/css/faq-enquiry.css">
-    <link rel="stylesheet" href="assets/css/greview.css">
-    <script src="assets/js/greview-carousel.js" defer></script>
-    <script src="assets/js/google-reviews.js" defer></script>
-</head>
-<body>
-    
+
+  </head>
+  <body>
     <div id="header-container"></div>
 
     <div class="color-mesh">
-        <div class="blob purple-blob"></div>
-        <div class="blob cyan-blob"></div>
-        <div class="blob magenta-blob"></div>
+      <div class="blob purple-blob"></div>
+      <div class="blob cyan-blob"></div>
+      <div class="blob magenta-blob"></div>
     </div>
 
-    <section class="testimonials-hero text-center" style="padding: 180px 0 100px 0; position: relative; z-index: 10;">
-        <div class="container">
-            <div class="frost-pill-light mb-4 g-test-reveal mx-auto">
-                <span class="glowing-dot-purple"></span> The Eduooz Legacy
-            </div>
-            <h1 class="g-test-reveal" style="font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 900; color: var(--brand-purple); line-height: 1.1; letter-spacing: -2px; margin-bottom: 20px;">
-                Voices of 
-                <span class="text-italic-purple">Victory.</span>
-            </h1>
-            <p class="g-test-reveal mx-auto" style="font-size: 1.15rem; color: var(--text-muted-light); max-width: 500px; line-height: 1.6;">
-                Don't just take our word for it. Hear from the thousands of healthcare professionals who have conquered their exams with us.
-            </p>
+    <section
+      class="testimonials-hero text-center"
+      style="padding: 180px 0 100px 0; position: relative; z-index: 10"
+    >
+      <div class="container">
+        <div class="frost-pill-light mb-4 g-test-reveal mx-auto">
+          <span class="glowing-dot-purple"></span> The Eduooz Legacy
         </div>
+        <h1
+          class="g-test-reveal"
+          style="
+            font-size: clamp(3.5rem, 6vw, 5.5rem);
+            font-weight: 900;
+            color: var(--brand-purple);
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+          "
+        >
+          Voices of
+          <span class="text-italic-purple">Victory.</span>
+        </h1>
+        <p
+          class="g-test-reveal mx-auto"
+          style="
+            font-size: 1.15rem;
+            color: var(--text-muted-light);
+            max-width: 500px;
+            line-height: 1.6;
+          "
+        >
+          Don't just take our word for it. Hear from the thousands of healthcare
+          professionals who have conquered their exams with us.
+        </p>
+      </div>
     </section>
 
     <!-- TESTIMONIALS SECTION -->
     <section class="testimonial-marquee-section" id="text-reviews">
-        
-        <div class="marquee-wrapper">
-            <div class="marquee-track track-left">
-                <!-- Group 1 -->
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"The classes are well structured. Faculty explains topics clearly and focuses on important exam areas. I am highly satisfied."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-purple">TT</div>
-                        <div class="author-details">
-                            <strong>Thansil Thaha</strong>
-                            <span class="text-purple">Nursing Aspirant</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Even with online classes we get mentor support. Shining sir's words really motivate us to crack OMAN exams."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-cyan">CA</div>
-                        <div class="author-details">
-                            <strong>Chinchu Anoop</strong>
-                            <span class="text-cyan">Oman Pearson Vue</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"The personal mentoring and supportive faculty make online learning feel much more effective. Great choice for upskilling!"</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-blue">FS</div>
-                        <div class="author-details">
-                            <strong>Feba Stephen</strong>
-                            <span class="text-blue">Verified Student</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Exceptional teaching! The faculty is genuinely invested in helping students succeed. The flexible scheduling is a game-changer."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-magenta">AR</div>
-                        <div class="author-details">
-                            <strong>Aswathy R S</strong>
-                            <span class="text-magenta">Education Excellence</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Speechless effort from everyone for my DME exam. The 2-day mock interview session was very helpful."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-purple">RR</div>
-                        <div class="author-details">
-                            <strong>Raji Rajan</strong>
-                            <span class="text-purple">DME Staff Nurse</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Good teaching with clear explanations. The methods are effective and interactive. Teachers are very supportive!"</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-cyan">SS</div>
-                        <div class="author-details">
-                            <strong>Steffi Saji</strong>
-                            <span class="text-cyan">Mentorship</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"The HAAD coaching was well-structured. Mock tests were highly exam-oriented and helped clarify important topics."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-blue">AA</div>
-                        <div class="author-details">
-                            <strong>Ashitha Aishu</strong>
-                            <span class="text-blue">HAAD Exam</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"A good coaching class with strong conceptual clarity. Shine Sir is an excellent teacher with deep knowledge."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-magenta">AR</div>
-                        <div class="author-details">
-                            <strong>Athira R</strong>
-                            <span class="text-magenta">Conceptual Clarity</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"It was a great experience. I am completely satisfied with the classes and the mock interview experience."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-purple">PR</div>
-                        <div class="author-details">
-                            <strong>Pravitha Ratheesh</strong>
-                            <span class="text-purple">Mock Interview</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"No words about classes, it's very good and effective. My confidence level increased more and more with Eduooz."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-cyan">IN</div>
-                        <div class="author-details">
-                            <strong>Immaculate Nancy</strong>
-                            <span class="text-cyan">Team Support</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Excellent classes by Shine sir. If I had any option to apply for PSC, I would surely choose Eduooz only."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-blue">AA</div>
-                        <div class="author-details">
-                            <strong>Anjana Anand</strong>
-                            <span class="text-blue">YouTube Learner</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Very good experience. I admire all the teachers. Your effort is worth it in our exams. Thank you Eduooz!"</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-magenta">SG</div>
-                        <div class="author-details">
-                            <strong>Sreekrishna Gopidas</strong>
-                            <span class="text-magenta">Trivandrum Batch</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Exams, classes, pdf, mock test, revisions all are very helpful. Very thankful to Shine sir and the team!"</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-purple">AK</div>
-                        <div class="author-details">
-                            <strong>Athira K</strong>
-                            <span class="text-purple">Full Support</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Good online coaching.....this online study center will surely be a hand to hold those who aims on hight...."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-blue">BR</div>
-                        <div class="author-details">
-                            <strong>Bhagya Ram U</strong>
-                            <span class="text-blue">Online Coaching</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"All classes are very good. Outstanding faculties."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-cyan">AA</div>
-                        <div class="author-details">
-                            <strong>Arun Ammu</strong>
-                            <span class="text-cyan">Excellent Faculty</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Duplicate for Loop -->
-                <div class="review-card"><i class="fa-solid fa-quote-right quote-watermark"></i><div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p>"The classes are well structured. Faculty explains topics clearly and focuses on important exam areas. I am highly satisfied."</p><div class="author-zone"><div class="author-avatar avatar-purple">TT</div><div class="author-details"><strong>Thansil Thaha</strong><span class="text-purple">Nursing Aspirant</span></div></div></div>
-                <div class="review-card"><i class="fa-solid fa-quote-right quote-watermark"></i><div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p>"Even with online classes we get mentor support. Shining sir's words really motivate us to crack OMAN exams."</p><div class="author-zone"><div class="author-avatar avatar-cyan">CA</div><div class="author-details"><strong>Chinchu Anoop</strong><span class="text-cyan">Oman Pearson Vue</span></div></div></div>
-            </div>
-        </div>
-
-        <div class="marquee-wrapper mt-3">
-            <div class="marquee-track track-right">
-                <!-- Group 1 -->
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Excellent classes with well experienced teachers. Rank booster package is very useful. Thank you Eduooz academy."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-magenta">LB</div>
-                        <div class="author-details">
-                            <strong>Layanabaiju</strong>
-                            <span class="text-magenta">Rank Booster</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"One of the best institute. Good classes and outstanding faculties. A perfect choice for coaching."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-purple">PK</div>
-                        <div class="author-details">
-                            <strong>Praji Kannan</strong>
-                            <span class="text-purple">Highly Recommended</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Thank you Eduooz academy! Excellent helpful study materials, and very useful for daily preparation."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-cyan">SP</div>
-                        <div class="author-details">
-                            <strong>Soumya P K</strong>
-                            <span class="text-cyan">Study Materials</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Excellent coaching centre for medical competitive exams in State and central government PSCs. Well Experienced Mentors."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-blue">SN</div>
-                        <div class="author-details">
-                            <strong>Shajin Nile</strong>
-                            <span class="text-blue">Medical Exams</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Eduooz provides a great learning environment. Teachers are knowledgeable, supportive and approachable."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-magenta">KG</div>
-                        <div class="author-details">
-                            <strong>Karthi Gireesh</strong>
-                            <span class="text-magenta">Intl Academy</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Well organized classes. Very supporting faculty and staffs. Highly recommended for online coaching."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-purple">AG</div>
-                        <div class="author-details">
-                            <strong>Asha Gopan</strong>
-                            <span class="text-purple">Online Batch</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Topics are well explained, mock tests are really helpful. The app they use is very user-friendly."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-cyan">AS</div>
-                        <div class="author-details">
-                            <strong>Aiswarya Sushama</strong>
-                            <span class="text-cyan">User-Friendly</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Excellent learning environment with knowledgeable instructors. Concepts are explained in a clear and practical way."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-blue">K</div>
-                        <div class="author-details">
-                            <strong>Krishnapriya</strong>
-                            <span class="text-blue">Quality Training</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Best coaching academy. Very helpful in studying and also very easy to learn. I suggest choosing Eduooz."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-magenta">AM</div>
-                        <div class="author-details">
-                            <strong>Aswathy M.S.</strong>
-                            <span class="text-magenta">Eduooz Career</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Well organized classes with friendly faculties. Best institution for nursing PSC in the region."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-purple">AA</div>
-                        <div class="author-details">
-                            <strong>Abhi Abhirami</strong>
-                            <span class="text-purple">Nursing PSC</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Well organized and excellent classes. Supporting staffs and best experience. Truly systematic approach."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-cyan">NS</div>
-                        <div class="author-details">
-                            <strong>Neena Sasi</strong>
-                            <span class="text-cyan">Systematic</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Well supportive academy. Classes are well organized and helpful for all medical competitive exams."</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-blue">DS</div>
-                        <div class="author-details">
-                            <strong>Devika S</strong>
-                            <span class="text-blue">Competitive Batch</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-watermark"></i>
-                    <div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p>"Well organized classes with supporting faculties. Best classes for online and offline. Highly recommended!"</p>
-                    <div class="author-zone">
-                        <div class="author-avatar avatar-magenta">SS</div>
-                        <div class="author-details">
-                            <strong>Sarath S</strong>
-                            <span class="text-magenta">Highly Recommend</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Duplicate for Loop -->
-                <div class="review-card"><i class="fa-solid fa-quote-right quote-watermark"></i><div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p>"Excellent classes with well experienced teachers. Rank booster package is very useful. Thank you Eduooz academy."</p><div class="author-zone"><div class="author-avatar avatar-magenta">LB</div><div class="author-details"><strong>Layanabaiju</strong><span class="text-magenta">Rank Booster</span></div></div></div>
-                <div class="review-card"><i class="fa-solid fa-quote-right quote-watermark"></i><div class="stars-pill"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div><p>"One of the best institute. Good classes and outstanding faculties. A perfect choice for coaching."</p><div class="author-zone"><div class="author-avatar avatar-purple">PK</div><div class="author-details"><strong>Praji Kannan</strong><span class="text-purple">Highly Recommended</span></div></div></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="swipe-theater-section" id="video-testimonials">
-        
-
-        <div class="container relative-z">
-            
-            <div class="theater-header g-theater-reveal">
-                <div class="header-text">
-                    <h2>The Success <span class="text-italic-cyan">Archive.</span></h2>
-                    <p>Real stories. Real results. Swipe to explore.</p>
-                </div>
-                
-                <div class="theater-nav-controls">
-                    <button class="nav-arrow" id="btn-prev"><i class="fa-solid fa-arrow-left"></i></button>
-                    <button class="nav-arrow" id="btn-next"><i class="fa-solid fa-arrow-right"></i></button>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="theater-track-wrapper marquee-wrapper g-theater-reveal relative-z">
-            <div class="theater-track marquee-track" id="video-track">
-
-                <!-- Block 1 -->
-                <div class="theater-card" data-yt-id="dQw4w9WgXcQ"><div class="video-container"><img src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=1200" alt="Priya S." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-cyan">AIIMS NORCET</span><span class="duration">12:45</span></div><h3>"How I secured AIR 142 while working full-time."</h3><div class="student-meta"><strong>Priya S.</strong><span>AIR 142</span></div></div></div>
-                <div class="theater-card" data-yt-id="tgbNymZ7vqY"><div class="video-container"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=1200" alt="Rahul M." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-purple">Global Placements</span><span class="duration">08:20</span></div><h3>"Clearing DHA Dubai on my first attempt."</h3><div class="student-meta"><strong>Rahul M.</strong><span>Cleared DHA</span></div></div></div>
-                <div class="theater-card" data-yt-id="kJQP7kiw5Fk"><div class="video-container"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=1200" alt="Ananya T." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-magenta">Kerala PSC</span><span class="duration">15:10</span></div><h3>"The exact strategy for Kerala PSC Rank 18."</h3><div class="student-meta"><strong>Ananya T.</strong><span>Rank 18</span></div></div></div>
-                <!-- Block 2 -->
-                <div class="theater-card" data-yt-id="dQw4w9WgXcQ"><div class="video-container"><img src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=1200" alt="Priya S." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-cyan">AIIMS NORCET</span><span class="duration">12:45</span></div><h3>"How I secured AIR 142 while working full-time."</h3><div class="student-meta"><strong>Priya S.</strong><span>AIR 142</span></div></div></div>
-                <div class="theater-card" data-yt-id="tgbNymZ7vqY"><div class="video-container"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=1200" alt="Rahul M." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-purple">Global Placements</span><span class="duration">08:20</span></div><h3>"Clearing DHA Dubai on my first attempt."</h3><div class="student-meta"><strong>Rahul M.</strong><span>Cleared DHA</span></div></div></div>
-                <div class="theater-card" data-yt-id="kJQP7kiw5Fk"><div class="video-container"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=1200" alt="Ananya T." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-magenta">Kerala PSC</span><span class="duration">15:10</span></div><h3>"The exact strategy for Kerala PSC Rank 18."</h3><div class="student-meta"><strong>Ananya T.</strong><span>Rank 18</span></div></div></div>
-                <!-- Block 3 -->
-                <div class="theater-card" data-yt-id="dQw4w9WgXcQ"><div class="video-container"><img src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=1200" alt="Priya S." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-cyan">AIIMS NORCET</span><span class="duration">12:45</span></div><h3>"How I secured AIR 142 while working full-time."</h3><div class="student-meta"><strong>Priya S.</strong><span>AIR 142</span></div></div></div>
-                <div class="theater-card" data-yt-id="tgbNymZ7vqY"><div class="video-container"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=1200" alt="Rahul M." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-purple">Global Placements</span><span class="duration">08:20</span></div><h3>"Clearing DHA Dubai on my first attempt."</h3><div class="student-meta"><strong>Rahul M.</strong><span>Cleared DHA</span></div></div></div>
-                <div class="theater-card" data-yt-id="kJQP7kiw5Fk"><div class="video-container"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=1200" alt="Ananya T." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-magenta">Kerala PSC</span><span class="duration">15:10</span></div><h3>"The exact strategy for Kerala PSC Rank 18."</h3><div class="student-meta"><strong>Ananya T.</strong><span>Rank 18</span></div></div></div>
-                <!-- Block 4 -->
-                <div class="theater-card" data-yt-id="dQw4w9WgXcQ"><div class="video-container"><img src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=1200" alt="Priya S." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-cyan">AIIMS NORCET</span><span class="duration">12:45</span></div><h3>"How I secured AIR 142 while working full-time."</h3><div class="student-meta"><strong>Priya S.</strong><span>AIR 142</span></div></div></div>
-                <div class="theater-card" data-yt-id="tgbNymZ7vqY"><div class="video-container"><img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=1200" alt="Rahul M." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-purple">Global Placements</span><span class="duration">08:20</span></div><h3>"Clearing DHA Dubai on my first attempt."</h3><div class="student-meta"><strong>Rahul M.</strong><span>Cleared DHA</span></div></div></div>
-                <div class="theater-card" data-yt-id="kJQP7kiw5Fk"><div class="video-container"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=1200" alt="Ananya T." class="vid-thumbnail"><div class="play-overlay"><div class="glass-play-btn"><i class="fa-solid fa-play"></i></div></div></div><div class="theater-glass-info"><div class="info-top"><span class="badge-magenta">Kerala PSC</span><span class="duration">15:10</span></div><h3>"The exact strategy for Kerala PSC Rank 18."</h3><div class="student-meta"><strong>Ananya T.</strong><span>Rank 18</span></div></div></div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- PREMIUM ENQUIRY FORM SECTION -->
-    <section class="enquiry-premium-section" id="contact">
-        <div class="container relative-z">
-            <div class="enquiry-glass-panel">
-
-                <div class="enquiry-grid">
-                    <div class="enquiry-info">
-                        <div class="frost-pill-light" style="margin-bottom: 20px;">
-                            <span class="glowing-dot-magenta"></span> Priority Support
-                        </div>
-                        <h2 class="enquiry-title">Start your <br><span class="text-gradient-fluid">journey today.</span></h2>
-                        <p class="enquiry-subtitle">Have questions about our syllabus, batches, or international placement? Drop us a line and our academic counselors will get back to you within 24 hours.</p>
-
-                        <div class="contact-methods">
-                            <div class="c-method">
-                                <div class="c-icon"><i class="fa-solid fa-phone"></i></div>
-                                <div>
-                                    <h5>Call Us Anytime</h5>
-                                    <p>+91 90000 00000</p>
-                                </div>
-                            </div>
-                            <div class="c-method">
-                                <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
-                                <div>
-                                    <h5>Email Us</h5>
-                                    <p>admissions@eduooz.online</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="enquiry-form-wrapper">
-                        <form class="glass-form" onsubmit="event.preventDefault(); alert('Form Submitted Successfully');">
-                            <div class="form-row">
-                                <div class="input-group">
-                                    <input type="text" id="name" required placeholder="Full Name">
-                                </div>
-                                <div class="input-group">
-                                    <input type="tel" id="phone" required placeholder="Phone Number">
-                                </div>
-                            </div>
-
-                            <div class="input-group select-wrapper">
-                                <select id="course" required>
-                                    <option value="" disabled selected>Select Course Category</option>
-                                    <option value="nursing">Nursing Coaching (AIIMS / RRB)</option>
-                                    <option value="pharma">Pharmacist Exams</option>
-                                    <option value="lab">Lab Technician Courses</option>
-                                    <option value="dha">International (DHA / HAAD)</option>
-                                </select>
-                                <i class="fa-solid fa-chevron-down select-icon"></i>
-                            </div>
-
-                            <div class="input-group">
-                                <textarea id="message" rows="4" required placeholder="How can we help you?"></textarea>
-                            </div>
-
-                            <button type="submit" class="btn-form-submit">
-                                Submit Enquiry <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- GOOGLE REVIEWS SECTION -->
-    <section class="greview-section" id="reviews" data-page-type="nursing">
-      <div class="container">
-        <div class="text-center" style="margin-bottom: 48px">
-          <div class="section-label">
-            <span class="label-dot"></span> Social Proof
-          </div>
-          <h2 class="section-title">
-            Loved by <span class="text-gradient">Thousands of Healthcare Professionals.</span>
-          </h2>
-        </div>
-
-        <div class="greview-stats-bar" id="greview-stats-bar">
-          <div class="greview-rating-hero">
-            <div class="greview-g-logo">
-              <i class="fa-brands fa-google"></i>
-            </div>
-            <div class="greview-rating-num">4.9</div>
-            <div class="greview-stars-lg">
+      <div class="marquee-wrapper">
+        <div class="marquee-track track-left">
+          <!-- Group 1 -->
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
               ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-              ><i class="fa-solid fa-star-half-stroke"></i>
+              ><i class="fa-solid fa-star"></i>
             </div>
-            <p class="greview-rating-label">Google Rating</p>
+            <p>
+              "The classes are well structured. Faculty explains topics clearly
+              and focuses on important exam areas. I am highly satisfied."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-purple">TT</div>
+              <div class="author-details">
+                <strong>Thansil Thaha</strong>
+                <span class="text-purple">Nursing Aspirant</span>
+              </div>
+            </div>
           </div>
-          <div class="greview-divider-v"></div>
-          <div class="greview-counter-group">
-            <div class="greview-counter-item">
-              <strong class="greview-count" data-target="1500" data-suffix="+">0+</strong>
-              <span>Google Reviews</span>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
             </div>
-            <div class="greview-counter-item">
-              <strong class="greview-count" data-target="15000" data-suffix="+">0+</strong>
-              <span>Students Enrolled</span>
+            <p>
+              "Even with online classes we get mentor support. Shining sir's
+              words really motivate us to crack OMAN exams."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-cyan">CA</div>
+              <div class="author-details">
+                <strong>Chinchu Anoop</strong>
+                <span class="text-cyan">Oman Pearson Vue</span>
+              </div>
             </div>
-            <div class="greview-counter-item">
-              <strong class="greview-count" data-target="10000" data-suffix="+">0+</strong>
-              <span>Selections Made</span>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
             </div>
-            <div class="greview-counter-item">
-              <strong class="greview-count" data-target="96" data-suffix="%">0%</strong>
-              <span>Pass Rate</span>
+            <p>
+              "The personal mentoring and supportive faculty make online
+              learning feel much more effective. Great choice for upskilling!"
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-blue">FS</div>
+              <div class="author-details">
+                <strong>Feba Stephen</strong>
+                <span class="text-blue">Verified Student</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Exceptional teaching! The faculty is genuinely invested in
+              helping students succeed. The flexible scheduling is a
+              game-changer."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-magenta">AR</div>
+              <div class="author-details">
+                <strong>Aswathy R S</strong>
+                <span class="text-magenta">Education Excellence</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Speechless effort from everyone for my DME exam. The 2-day mock
+              interview session was very helpful."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-purple">RR</div>
+              <div class="author-details">
+                <strong>Raji Rajan</strong>
+                <span class="text-purple">DME Staff Nurse</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Good teaching with clear explanations. The methods are effective
+              and interactive. Teachers are very supportive!"
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-cyan">SS</div>
+              <div class="author-details">
+                <strong>Steffi Saji</strong>
+                <span class="text-cyan">Mentorship</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "The HAAD coaching was well-structured. Mock tests were highly
+              exam-oriented and helped clarify important topics."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-blue">AA</div>
+              <div class="author-details">
+                <strong>Ashitha Aishu</strong>
+                <span class="text-blue">HAAD Exam</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "A good coaching class with strong conceptual clarity. Shine Sir
+              is an excellent teacher with deep knowledge."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-magenta">AR</div>
+              <div class="author-details">
+                <strong>Athira R</strong>
+                <span class="text-magenta">Conceptual Clarity</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "It was a great experience. I am completely satisfied with the
+              classes and the mock interview experience."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-purple">PR</div>
+              <div class="author-details">
+                <strong>Pravitha Ratheesh</strong>
+                <span class="text-purple">Mock Interview</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "No words about classes, it's very good and effective. My
+              confidence level increased more and more with Eduooz."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-cyan">IN</div>
+              <div class="author-details">
+                <strong>Immaculate Nancy</strong>
+                <span class="text-cyan">Team Support</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Excellent classes by Shine sir. If I had any option to apply for
+              PSC, I would surely choose Eduooz only."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-blue">AA</div>
+              <div class="author-details">
+                <strong>Anjana Anand</strong>
+                <span class="text-blue">YouTube Learner</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Very good experience. I admire all the teachers. Your effort is
+              worth it in our exams. Thank you Eduooz!"
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-magenta">SG</div>
+              <div class="author-details">
+                <strong>Sreekrishna Gopidas</strong>
+                <span class="text-magenta">Trivandrum Batch</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Exams, classes, pdf, mock test, revisions all are very helpful.
+              Very thankful to Shine sir and the team!"
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-purple">AK</div>
+              <div class="author-details">
+                <strong>Athira K</strong>
+                <span class="text-purple">Full Support</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Good online coaching.....this online study center will surely be
+              a hand to hold those who aims on hight...."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-blue">BR</div>
+              <div class="author-details">
+                <strong>Bhagya Ram U</strong>
+                <span class="text-blue">Online Coaching</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>"All classes are very good. Outstanding faculties."</p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-cyan">AA</div>
+              <div class="author-details">
+                <strong>Arun Ammu</strong>
+                <span class="text-cyan">Excellent Faculty</span>
+              </div>
+            </div>
+          </div>
+          <!-- Duplicate for Loop -->
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "The classes are well structured. Faculty explains topics clearly
+              and focuses on important exam areas. I am highly satisfied."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-purple">TT</div>
+              <div class="author-details">
+                <strong>Thansil Thaha</strong
+                ><span class="text-purple">Nursing Aspirant</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Even with online classes we get mentor support. Shining sir's
+              words really motivate us to crack OMAN exams."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-cyan">CA</div>
+              <div class="author-details">
+                <strong>Chinchu Anoop</strong
+                ><span class="text-cyan">Oman Pearson Vue</span>
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div
-          class="greview-carousel-wrap"
-          id="greview-carousel-wrap"
-        >
-          <button
-            class="greview-arrow greview-prev"
-            id="greview-prev"
-            aria-label="Previous reviews"
-            disabled
-          >
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-          <div class="greview-carousel-viewport" id="greview-carousel-viewport">
-            <div class="greview-track" id="greview-track">
-              <!-- Populated dynamically by google-reviews.js -->
+      <div class="marquee-wrapper mt-3">
+        <div class="marquee-track track-right">
+          <!-- Group 1 -->
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Excellent classes with well experienced teachers. Rank booster
+              package is very useful. Thank you Eduooz academy."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-magenta">LB</div>
+              <div class="author-details">
+                <strong>Layanabaiju</strong>
+                <span class="text-magenta">Rank Booster</span>
+              </div>
             </div>
           </div>
-          <button
-            class="greview-arrow greview-next"
-            id="greview-next"
-            aria-label="Next reviews"
-          >
-            <i class="fa-solid fa-chevron-right"></i>
-          </button>
-        </div>
-        <div class="greview-dots" id="greview-dots"></div>
-
-        <div class="greview-trust-row">
-          <div class="greview-trust-badge">
-            <i class="fa-solid fa-circle-check"></i> Trusted by 15,000+ Aspirants
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "One of the best institute. Good classes and outstanding
+              faculties. A perfect choice for coaching."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-purple">PK</div>
+              <div class="author-details">
+                <strong>Praji Kannan</strong>
+                <span class="text-purple">Highly Recommended</span>
+              </div>
+            </div>
           </div>
-          <div class="greview-trust-badge">
-            <i class="fa-solid fa-circle-check"></i> Nursing | Pharmacy | Lab Tech
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Thank you Eduooz academy! Excellent helpful study materials, and
+              very useful for daily preparation."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-cyan">SP</div>
+              <div class="author-details">
+                <strong>Soumya P K</strong>
+                <span class="text-cyan">Study Materials</span>
+              </div>
+            </div>
           </div>
-          <div class="greview-trust-badge">
-            <i class="fa-solid fa-circle-check"></i> Expert Faculty &amp; Mentors
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Excellent coaching centre for medical competitive exams in State
+              and central government PSCs. Well Experienced Mentors."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-blue">SN</div>
+              <div class="author-details">
+                <strong>Shajin Nile</strong>
+                <span class="text-blue">Medical Exams</span>
+              </div>
+            </div>
           </div>
-          <div class="greview-trust-badge">
-            <i class="fa-solid fa-circle-check"></i> 150+ Mock Tests
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Eduooz provides a great learning environment. Teachers are
+              knowledgeable, supportive and approachable."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-magenta">KG</div>
+              <div class="author-details">
+                <strong>Karthi Gireesh</strong>
+                <span class="text-magenta">Intl Academy</span>
+              </div>
+            </div>
           </div>
-          <div class="greview-trust-badge">
-            <i class="fa-solid fa-circle-check"></i> Previous Year Paper Analysis
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Well organized classes. Very supporting faculty and staffs.
+              Highly recommended for online coaching."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-purple">AG</div>
+              <div class="author-details">
+                <strong>Asha Gopan</strong>
+                <span class="text-purple">Online Batch</span>
+              </div>
+            </div>
           </div>
-          <div class="greview-trust-badge">
-            <i class="fa-solid fa-circle-check"></i> International &amp; Domestic Exams
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Topics are well explained, mock tests are really helpful. The app
+              they use is very user-friendly."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-cyan">AS</div>
+              <div class="author-details">
+                <strong>Aiswarya Sushama</strong>
+                <span class="text-cyan">User-Friendly</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Excellent learning environment with knowledgeable instructors.
+              Concepts are explained in a clear and practical way."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-blue">K</div>
+              <div class="author-details">
+                <strong>Krishnapriya</strong>
+                <span class="text-blue">Quality Training</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Best coaching academy. Very helpful in studying and also very
+              easy to learn. I suggest choosing Eduooz."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-magenta">AM</div>
+              <div class="author-details">
+                <strong>Aswathy M.S.</strong>
+                <span class="text-magenta">Eduooz Career</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Well organized classes with friendly faculties. Best institution
+              for nursing PSC in the region."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-purple">AA</div>
+              <div class="author-details">
+                <strong>Abhi Abhirami</strong>
+                <span class="text-purple">Nursing PSC</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Well organized and excellent classes. Supporting staffs and best
+              experience. Truly systematic approach."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-cyan">NS</div>
+              <div class="author-details">
+                <strong>Neena Sasi</strong>
+                <span class="text-cyan">Systematic</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Well supportive academy. Classes are well organized and helpful
+              for all medical competitive exams."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-blue">DS</div>
+              <div class="author-details">
+                <strong>Devika S</strong>
+                <span class="text-blue">Competitive Batch</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Well organized classes with supporting faculties. Best classes
+              for online and offline. Highly recommended!"
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-magenta">SS</div>
+              <div class="author-details">
+                <strong>Sarath S</strong>
+                <span class="text-magenta">Highly Recommend</span>
+              </div>
+            </div>
+          </div>
+          <!-- Duplicate for Loop -->
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "Excellent classes with well experienced teachers. Rank booster
+              package is very useful. Thank you Eduooz academy."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-magenta">LB</div>
+              <div class="author-details">
+                <strong>Layanabaiju</strong
+                ><span class="text-magenta">Rank Booster</span>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <i class="fa-solid fa-quote-right quote-watermark"></i>
+            <div class="stars-pill">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i>
+            </div>
+            <p>
+              "One of the best institute. Good classes and outstanding
+              faculties. A perfect choice for coaching."
+            </p>
+            <div class="author-zone">
+              <div class="author-avatar avatar-purple">PK</div>
+              <div class="author-details">
+                <strong>Praji Kannan</strong
+                ><span class="text-purple">Highly Recommended</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <section class="swipe-theater-section" id="video-testimonials">
+      <div class="container relative-z">
+        <div class="theater-header g-theater-reveal">
+          <div class="header-text">
+            <h2>The Success <span class="text-italic-cyan">Archive.</span></h2>
+            <p>Real stories. Real results. Swipe to explore.</p>
+          </div>
+
+          <div class="theater-nav-controls">
+            <button class="nav-arrow" id="btn-prev">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <button class="nav-arrow" id="btn-next">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="theater-track-wrapper marquee-wrapper g-theater-reveal relative-z"
+      >
+        <div class="theater-track marquee-track" id="video-track">
+          <!-- Block 1 -->
+          <div class="theater-card" data-yt-id="dQw4w9WgXcQ">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=1200"
+                alt="Priya S."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-cyan">AIIMS NORCET</span
+                ><span class="duration">12:45</span>
+              </div>
+              <h3>"How I secured AIR 142 while working full-time."</h3>
+              <div class="student-meta">
+                <strong>Priya S.</strong><span>AIR 142</span>
+              </div>
+            </div>
+          </div>
+          <div class="theater-card" data-yt-id="tgbNymZ7vqY">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=1200"
+                alt="Rahul M."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-purple">Global Placements</span
+                ><span class="duration">08:20</span>
+              </div>
+              <h3>"Clearing DHA Dubai on my first attempt."</h3>
+              <div class="student-meta">
+                <strong>Rahul M.</strong><span>Cleared DHA</span>
+              </div>
+            </div>
+          </div>
+          <div class="theater-card" data-yt-id="kJQP7kiw5Fk">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=1200"
+                alt="Ananya T."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-magenta">Kerala PSC</span
+                ><span class="duration">15:10</span>
+              </div>
+              <h3>"The exact strategy for Kerala PSC Rank 18."</h3>
+              <div class="student-meta">
+                <strong>Ananya T.</strong><span>Rank 18</span>
+              </div>
+            </div>
+          </div>
+          <!-- Block 2 -->
+          <div class="theater-card" data-yt-id="dQw4w9WgXcQ">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=1200"
+                alt="Priya S."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-cyan">AIIMS NORCET</span
+                ><span class="duration">12:45</span>
+              </div>
+              <h3>"How I secured AIR 142 while working full-time."</h3>
+              <div class="student-meta">
+                <strong>Priya S.</strong><span>AIR 142</span>
+              </div>
+            </div>
+          </div>
+          <div class="theater-card" data-yt-id="tgbNymZ7vqY">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=1200"
+                alt="Rahul M."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-purple">Global Placements</span
+                ><span class="duration">08:20</span>
+              </div>
+              <h3>"Clearing DHA Dubai on my first attempt."</h3>
+              <div class="student-meta">
+                <strong>Rahul M.</strong><span>Cleared DHA</span>
+              </div>
+            </div>
+          </div>
+          <div class="theater-card" data-yt-id="kJQP7kiw5Fk">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=1200"
+                alt="Ananya T."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-magenta">Kerala PSC</span
+                ><span class="duration">15:10</span>
+              </div>
+              <h3>"The exact strategy for Kerala PSC Rank 18."</h3>
+              <div class="student-meta">
+                <strong>Ananya T.</strong><span>Rank 18</span>
+              </div>
+            </div>
+          </div>
+          <!-- Block 3 -->
+          <div class="theater-card" data-yt-id="dQw4w9WgXcQ">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=1200"
+                alt="Priya S."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-cyan">AIIMS NORCET</span
+                ><span class="duration">12:45</span>
+              </div>
+              <h3>"How I secured AIR 142 while working full-time."</h3>
+              <div class="student-meta">
+                <strong>Priya S.</strong><span>AIR 142</span>
+              </div>
+            </div>
+          </div>
+          <div class="theater-card" data-yt-id="tgbNymZ7vqY">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=1200"
+                alt="Rahul M."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-purple">Global Placements</span
+                ><span class="duration">08:20</span>
+              </div>
+              <h3>"Clearing DHA Dubai on my first attempt."</h3>
+              <div class="student-meta">
+                <strong>Rahul M.</strong><span>Cleared DHA</span>
+              </div>
+            </div>
+          </div>
+          <div class="theater-card" data-yt-id="kJQP7kiw5Fk">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=1200"
+                alt="Ananya T."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-magenta">Kerala PSC</span
+                ><span class="duration">15:10</span>
+              </div>
+              <h3>"The exact strategy for Kerala PSC Rank 18."</h3>
+              <div class="student-meta">
+                <strong>Ananya T.</strong><span>Rank 18</span>
+              </div>
+            </div>
+          </div>
+          <!-- Block 4 -->
+          <div class="theater-card" data-yt-id="dQw4w9WgXcQ">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1594824432258-f9b8c2be6d3a?auto=format&fit=crop&q=80&w=1200"
+                alt="Priya S."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-cyan">AIIMS NORCET</span
+                ><span class="duration">12:45</span>
+              </div>
+              <h3>"How I secured AIR 142 while working full-time."</h3>
+              <div class="student-meta">
+                <strong>Priya S.</strong><span>AIR 142</span>
+              </div>
+            </div>
+          </div>
+          <div class="theater-card" data-yt-id="tgbNymZ7vqY">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=1200"
+                alt="Rahul M."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-purple">Global Placements</span
+                ><span class="duration">08:20</span>
+              </div>
+              <h3>"Clearing DHA Dubai on my first attempt."</h3>
+              <div class="student-meta">
+                <strong>Rahul M.</strong><span>Cleared DHA</span>
+              </div>
+            </div>
+          </div>
+          <div class="theater-card" data-yt-id="kJQP7kiw5Fk">
+            <div class="video-container">
+              <img
+                src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=1200"
+                alt="Ananya T."
+                class="vid-thumbnail"
+              />
+              <div class="play-overlay">
+                <div class="glass-play-btn">
+                  <i class="fa-solid fa-play"></i>
+                </div>
+              </div>
+            </div>
+            <div class="theater-glass-info">
+              <div class="info-top">
+                <span class="badge-magenta">Kerala PSC</span
+                ><span class="duration">15:10</span>
+              </div>
+              <h3>"The exact strategy for Kerala PSC Rank 18."</h3>
+              <div class="student-meta">
+                <strong>Ananya T.</strong><span>Rank 18</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREMIUM ENQUIRY FORM SECTION -->
+    <section class="enquiry-premium-section" id="contact">
+      <div class="container relative-z">
+        <div class="enquiry-glass-panel">
+          <div class="enquiry-grid">
+            <div class="enquiry-info">
+              <div class="frost-pill-light" style="margin-bottom: 20px">
+                <span class="glowing-dot-magenta"></span> Priority Support
+              </div>
+              <h2 class="enquiry-title">
+                Start your <br /><span class="text-gradient-fluid"
+                  >journey today.</span
+                >
+              </h2>
+              <p class="enquiry-subtitle">
+                Have questions about our syllabus, batches, or international
+                placement? Drop us a line and our academic counselors will get
+                back to you within 24 hours.
+              </p>
+
+              <div class="contact-methods">
+                <div class="c-method">
+                  <div class="c-icon"><i class="fa-solid fa-phone"></i></div>
+                  <div>
+                    <h5>Call Us Anytime</h5>
+                    <p>+91 90000 00000</p>
+                  </div>
+                </div>
+                <div class="c-method">
+                  <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
+                  <div>
+                    <h5>Email Us</h5>
+                    <p>admissions@eduooz.online</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="enquiry-form-wrapper">
+              <form
+                class="glass-form"
+                onsubmit="
+                  event.preventDefault();
+                  alert('Form Submitted Successfully');
+                "
+              >
+                <div class="form-row">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      id="name"
+                      required
+                      placeholder="Full Name"
+                    />
+                  </div>
+                  <div class="input-group">
+                    <input
+                      type="tel"
+                      id="phone"
+                      required
+                      placeholder="Phone Number"
+                    />
+                  </div>
+                </div>
+
+                <div class="input-group select-wrapper">
+                  <select id="course" required>
+                    <option value="" disabled selected>
+                      Select Course Category
+                    </option>
+                    <option value="nursing">
+                      Nursing Coaching (AIIMS / RRB)
+                    </option>
+                    <option value="pharma">Pharmacist Exams</option>
+                    <option value="lab">Lab Technician Courses</option>
+                    <option value="dha">International (DHA / HAAD)</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+
+                <div class="input-group">
+                  <textarea
+                    id="message"
+                    rows="4"
+                    required
+                    placeholder="How can we help you?"
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="btn-form-submit">
+                  Submit Enquiry
+                  <i
+                    class="fa-solid fa-paper-plane"
+                    style="margin-left: 8px"
+                  ></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
     <div id="footer-container"></div>
-
-
 
     <!-- Chat Button -->
     <div id="chat-container"></div>
 
     <!-- Video Modal -->
     <div class="video-modal-overlay" id="videoModal">
-        <div class="video-modal-close" id="closeVideoModal"><i class="fa-solid fa-xmark"></i></div>
-        <div class="video-modal-content">
-            <iframe id="modalIframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
+      <div class="video-modal-close" id="closeVideoModal">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      <div class="video-modal-content">
+        <iframe
+          id="modalIframe"
+          src=""
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
 
     <!-- Scroll to Top Button -->
     <button class="scroll-to-top" id="scrollTopBtn" aria-label="Scroll to top">
-        <i class="fa-solid fa-arrow-up"></i>
+      <i class="fa-solid fa-arrow-up"></i>
     </button>
-
 
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="assets/js/components.js"></script>
     <script src="assets/js/testimonials.js"></script>
-    <script src="assets/js/faq-enquiry.js"></script>
-</body>
+  </body>
 </html>
