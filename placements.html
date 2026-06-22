@@ -46,6 +46,10 @@
 
     <link rel="stylesheet" href="assets/css/header-footer.css">
     <link rel="stylesheet" href="assets/css/placements.css">
+    <link rel="stylesheet" href="assets/css/faq-enquiry.css">
+    <link rel="stylesheet" href="assets/css/greview.css">
+    <script src="assets/js/greview-carousel.js" defer></script>
+    <script src="assets/js/google-reviews.js" defer></script>
 </head>
 <body>
     
@@ -244,8 +248,172 @@
     </section>
 
 
+    <!-- PREMIUM ENQUIRY FORM SECTION -->
+    <section class="enquiry-premium-section" id="contact">
+        <div class="container relative-z">
+            <div class="enquiry-glass-panel">
+
+                <div class="enquiry-grid">
+                    <div class="enquiry-info">
+                        <div class="frost-pill-light" style="margin-bottom: 20px;">
+                            <span class="glowing-dot-magenta"></span> Priority Support
+                        </div>
+                        <h2 class="enquiry-title">Start your <br><span class="text-gradient-fluid">journey today.</span></h2>
+                        <p class="enquiry-subtitle">Have questions about our syllabus, batches, or international placement? Drop us a line and our academic counselors will get back to you within 24 hours.</p>
+
+                        <div class="contact-methods">
+                            <div class="c-method">
+                                <div class="c-icon"><i class="fa-solid fa-phone"></i></div>
+                                <div>
+                                    <h5>Call Us Anytime</h5>
+                                    <p>+91 90000 00000</p>
+                                </div>
+                            </div>
+                            <div class="c-method">
+                                <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
+                                <div>
+                                    <h5>Email Us</h5>
+                                    <p>admissions@eduooz.online</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="enquiry-form-wrapper">
+                        <form class="glass-form" onsubmit="event.preventDefault(); alert('Form Submitted Successfully');">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <input type="text" id="name" required placeholder="Full Name">
+                                </div>
+                                <div class="input-group">
+                                    <input type="tel" id="phone" required placeholder="Phone Number">
+                                </div>
+                            </div>
+
+                            <div class="input-group select-wrapper">
+                                <select id="course" required>
+                                    <option value="" disabled selected>Select Course Category</option>
+                                    <option value="nursing">Nursing Coaching (AIIMS / RRB)</option>
+                                    <option value="pharma">Pharmacist Exams</option>
+                                    <option value="lab">Lab Technician Courses</option>
+                                    <option value="dha">International (DHA / HAAD)</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down select-icon"></i>
+                            </div>
+
+                            <div class="input-group">
+                                <textarea id="message" rows="4" required placeholder="How can we help you?"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-form-submit">
+                                Submit Enquiry <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- GOOGLE REVIEWS SECTION -->
+    <section class="greview-section" id="reviews" data-page-type="nursing">
+      <div class="container">
+        <div class="text-center" style="margin-bottom: 48px">
+          <div class="section-label">
+            <span class="label-dot"></span> Social Proof
+          </div>
+          <h2 class="section-title">
+            Loved by <span class="text-gradient">Thousands of Healthcare Professionals.</span>
+          </h2>
+        </div>
+
+        <div class="greview-stats-bar" id="greview-stats-bar">
+          <div class="greview-rating-hero">
+            <div class="greview-g-logo">
+              <i class="fa-brands fa-google"></i>
+            </div>
+            <div class="greview-rating-num">4.9</div>
+            <div class="greview-stars-lg">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <p class="greview-rating-label">Google Rating</p>
+          </div>
+          <div class="greview-divider-v"></div>
+          <div class="greview-counter-group">
+            <div class="greview-counter-item">
+              <strong class="greview-count" data-target="1500" data-suffix="+">0+</strong>
+              <span>Google Reviews</span>
+            </div>
+            <div class="greview-counter-item">
+              <strong class="greview-count" data-target="15000" data-suffix="+">0+</strong>
+              <span>Students Enrolled</span>
+            </div>
+            <div class="greview-counter-item">
+              <strong class="greview-count" data-target="10000" data-suffix="+">0+</strong>
+              <span>Selections Made</span>
+            </div>
+            <div class="greview-counter-item">
+              <strong class="greview-count" data-target="96" data-suffix="%">0%</strong>
+              <span>Pass Rate</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="greview-carousel-wrap"
+          id="greview-carousel-wrap"
+        >
+          <button
+            class="greview-arrow greview-prev"
+            id="greview-prev"
+            aria-label="Previous reviews"
+            disabled
+          >
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <div class="greview-carousel-viewport" id="greview-carousel-viewport">
+            <div class="greview-track" id="greview-track">
+              <!-- Populated dynamically by google-reviews.js -->
+            </div>
+          </div>
+          <button
+            class="greview-arrow greview-next"
+            id="greview-next"
+            aria-label="Next reviews"
+          >
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="greview-dots" id="greview-dots"></div>
+
+        <div class="greview-trust-row">
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> Trusted by 15,000+ Aspirants
+          </div>
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> Nursing | Pharmacy | Lab Tech
+          </div>
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> Expert Faculty &amp; Mentors
+          </div>
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> 150+ Mock Tests
+          </div>
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> Previous Year Paper Analysis
+          </div>
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> International &amp; Domestic Exams
+          </div>
+        </div>
+      </div>
+    </section>
     <div id="footer-container"></div>
-    
+
 
 
     <!-- Chat Button -->
@@ -260,5 +428,6 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="assets/js/components.js"></script>
     <script src="assets/js/placements.js"></script>
+    <script src="assets/js/faq-enquiry.js"></script>
 </body>
 </html>

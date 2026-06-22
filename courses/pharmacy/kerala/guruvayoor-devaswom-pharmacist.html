@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,6 +14,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="../../../assets/css/header-footer.css" />
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
+    <script src="../../../assets/js/course-landing.js" defer></script>
+    <script src="../../../assets/js/google-reviews.js" defer></script>
   </head>
   <body>
     <div id="header-container"></div>
@@ -96,6 +98,102 @@
       </div>
     </section>
 
+
+    <!-- GOOGLE REVIEWS SECTION -->
+    <section class="greview-section" id="reviews" data-page-type="pharmacy">
+      <div class="container">
+        <div class="text-center g-exam-reveal" style="margin-bottom: 48px">
+          <div class="section-label">
+            <span class="label-dot"></span> Social Proof
+          </div>
+          <h2 class="section-title">
+            Trusted by <span class="text-gradient">Thousands of Pharmacists.</span>
+          </h2>
+        </div>
+
+        <div class="greview-stats-bar g-exam-reveal" id="greview-stats-bar">
+          <div class="greview-rating-hero">
+            <div class="greview-g-logo">
+              <i class="fa-brands fa-google"></i>
+            </div>
+            <div class="greview-rating-num">4.9</div>
+            <div class="greview-stars-lg">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+              ><i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <p class="greview-rating-label">Google Rating</p>
+          </div>
+          <div class="greview-divider-v"></div>
+          <div class="greview-counter-group">
+            <div class="greview-counter-item">
+              <strong class="greview-count" data-target="1500" data-suffix="+">0+</strong>
+              <span>Google Reviews</span>
+            </div>
+            <div class="greview-counter-item">
+              <strong class="greview-count" data-target="5000" data-suffix="+">0+</strong>
+              <span>Students Enrolled</span>
+            </div>
+            <div class="greview-counter-item">
+              <strong class="greview-count" data-target="3000" data-suffix="+">0+</strong>
+              <span>Selections Made</span>
+            </div>
+            <div class="greview-counter-item">
+              <strong class="greview-count" data-target="96" data-suffix="%">0%</strong>
+              <span>Pass Rate</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="greview-carousel-wrap g-exam-reveal"
+          id="greview-carousel-wrap"
+        >
+          <button
+            class="greview-arrow greview-prev"
+            id="greview-prev"
+            aria-label="Previous reviews"
+            disabled
+          >
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <div class="greview-carousel-viewport" id="greview-carousel-viewport">
+            <div class="greview-track" id="greview-track">
+              <!-- Populated dynamically by google-reviews.js -->
+            </div>
+          </div>
+          <button
+            class="greview-arrow greview-next"
+            id="greview-next"
+            aria-label="Next reviews"
+          >
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="greview-dots" id="greview-dots"></div>
+
+        <div class="greview-trust-row g-exam-reveal">
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> Trusted by 5000+ Pharmacy Aspirants
+          </div>
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> Pharmacist Exam Focused Training
+          </div>
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> Structured CBT Preparation
+          </div>
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> Dedicated Mentor Support
+          </div>
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> Previous Year Paper Analysis
+          </div>
+          <div class="greview-trust-badge">
+            <i class="fa-solid fa-circle-check"></i> Mock Exam Platform
+          </div>
+        </div>
+      </div>
+    </section>
     <div id="footer-container"></div>
     <div id="chat-container"></div>
     <button class="scroll-to-top" id="scrollTopBtn" aria-label="Scroll to top">

@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -85,6 +85,7 @@
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
 
     <script src="../../../assets/js/course-landing.js" defer></script>
+    <script src="../../../assets/js/google-reviews.js" defer></script>
     <script src="../../../assets/js/practice-test.js" defer></script>
     <script src="../../../assets/js/youtube-filter.js" defer></script>
 
@@ -114,7 +115,7 @@
             id: "rcc-2024",
             year: "2024",
             title: "RCC Staff Nurse 2024",
-            meta: "100 MCQs Â· 90 mins",
+            meta: "100 MCQs · 90 mins",
             pages: 12,
             pdfUrl: null,
           },
@@ -122,7 +123,7 @@
             id: "rcc-2023",
             year: "2023",
             title: "RCC Staff Nurse 2023",
-            meta: "100 MCQs Â· 90 mins",
+            meta: "100 MCQs · 90 mins",
             pages: 10,
             pdfUrl: null,
           },
@@ -130,7 +131,7 @@
             id: "rcc-2022",
             year: "2022",
             title: "RCC Staff Nurse 2022",
-            meta: "100 MCQs Â· 90 mins",
+            meta: "100 MCQs · 90 mins",
             pages: 10,
             pdfUrl: null,
           },
@@ -204,12 +205,12 @@
         <div class="course-hero-grid">
           <div class="course-hero-content g-course-reveal">
             <div class="frost-pill-dark mb-4">
-              <span class="glowing-dot-cyan"></span> âœ¦ Admissions Open: 2026 Batch
+              <span class="glowing-dot-cyan"></span> Admissions Open: 2026 Batch
             </div>
 
             <h1 class="course-title">
               Regional Cancer Centre RCC <br />
-              <span class="text-gradient-cyan">EXAM COACHING</span>
+              <span class="text-gradient-cyan">Exam Coaching</span>
             </h1>
 
             <p class="course-description">
@@ -218,7 +219,7 @@
 
             <div class="course-cta-group">
               <a href="#apply" class="btn-liquid-cyan magnetic-btn"
-                >Enroll Now <span class="arrow">â†—</span></a
+                >Enroll Now <span class="arrow">&#8599;</span></a
               >
               <a href="#syllabus" class="btn-glass-outline magnetic-btn"
                 ><i class="fa-solid fa-book-open"></i> View Syllabus</a
@@ -421,7 +422,7 @@
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-building-columns"></i></div>
             <div class="snap-label">Conducted By</div>
-            <div class="snap-value">Regional Cancer Centre (RCC) â€“ Central Government</div>
+            <div class=”snap-value”>Regional Cancer Centre (RCC), Thiruvananthapuram &#8212; State Autonomous Institution</div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-file-lines"></i></div>
@@ -1101,72 +1102,120 @@
           </h2>
         </div>
 
-        <div class="pdf-explorer g-exam-reveal" id="pdf-explorer">
-
+        <div class="qp-explorer g-exam-reveal">
           <!-- LEFT: PDF Preview Panel -->
-          <div class="pex-preview-panel">
-            <div class="pex-preview-card" id="pex-preview-card">
-              <div class="pex-toolbar">
-                <div class="pex-toolbar-info">
-                  <span class="pex-info-year" id="pex-info-year"></span>
-                  <span class="pex-info-title" id="pex-info-title">Select a paper to preview</span>
+          <div class="qp-preview-panel">
+            <div class="qp-preview-card" id="qp-preview-card">
+              <div class="qp-toolbar">
+                <div class="qp-toolbar-info">
+                  <span class="qp-toolbar-year" id="qp-info-year"></span>
+                  <span class="qp-toolbar-title" id="qp-info-title">Select a paper to preview</span>
                 </div>
-                <div class="pex-toolbar-actions">
-                  <button class="pex-tbtn" id="pex-zoom-out" title="Zoom out">
-                    <i class="fa-solid fa-magnifying-glass-minus"></i>
-                  </button>
-                  <span class="pex-zoom-label" id="pex-zoom-label">100%</span>
-                  <button class="pex-tbtn" id="pex-zoom-in" title="Zoom in">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                  </button>
-                  <a class="pex-tbtn pex-tbtn-dl" id="pex-download-btn" href="#" title="Download PDF">
+                <div class="qp-toolbar-actions">
+                  <button class="qp-tbtn" id="qp-zoom-out" title="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                  <span class="qp-zoom-label" id="qp-zoom-label">100%</span>
+                  <button class="qp-tbtn" id="qp-zoom-in" title="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                  <a class="qp-tbtn qp-tbtn-dl" id="qp-download-btn" href="#" title="Download PDF" target="_blank">
                     <i class="fa-solid fa-download"></i> Download
                   </a>
-                  <button class="pex-tbtn" id="pex-fullscreen-btn" title="Fullscreen">
-                    <i class="fa-solid fa-expand"></i>
-                  </button>
+                  <button class="qp-tbtn" id="qp-fullscreen-btn" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
                 </div>
               </div>
-
-              <div class="pex-frame-wrap" id="pex-frame-wrap">
-                <div class="pex-skeleton" id="pex-skeleton">
-                  <div class="pex-sk-bar"></div>
-                  <div class="pex-sk-bar pex-sk-short"></div>
-                  <div class="pex-sk-block"></div>
-                  <div class="pex-sk-bar pex-sk-med"></div>
-                  <div class="pex-sk-bar pex-sk-short"></div>
+              <div class="qp-frame-wrap">
+                <div class="qp-empty-state" id="qp-empty-state">
+                  <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                  <p class="qp-state-title">Select a paper to preview</p>
+                  <p class="qp-state-sub">Choose a paper from the list to preview it here</p>
                 </div>
-                <iframe id="pex-iframe" src="" title="PDF Preview" allowfullscreen></iframe>
-                <div class="pex-locked-state" id="pex-locked-state">
-                  <div class="pex-locked-icon">
-                    <i class="fa-solid fa-file-pdf"></i>
-                  </div>
-                  <p class="pex-locked-title" id="pex-locked-title">Select a Paper</p>
-                  <p class="pex-locked-sub" id="pex-locked-sub">Click any card to preview it here</p>
-                  <a href="#apply" class="pex-enroll-btn">Enroll to Download All Papers</a>
+                <div class="qp-skeleton" id="qp-skeleton">
+                  <div class="qp-sk-bar"></div>
+                  <div class="qp-sk-bar qp-sk-short"></div>
+                  <div class="qp-sk-block"></div>
+                  <div class="qp-sk-bar qp-sk-med"></div>
+                  <div class="qp-sk-bar qp-sk-short"></div>
+                </div>
+                <iframe id="qp-iframe" src="" title="PDF Preview" allowfullscreen></iframe>
+                <div class="qp-locked-state" id="qp-locked-state">
+                  <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                  <p class="qp-state-title" id="qp-locked-title">Paper Unavailable</p>
+                  <p class="qp-state-sub">Enroll to access and download this paper.</p>
+                  <a href="#apply" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
+                    <i class="fa-solid fa-download"></i> Download the Paper
+                  </a>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- RIGHT: Library Panel -->
-          <div class="pex-library-panel">
-            <div class="pex-filter-bar">
-              <div class="pex-tabs" id="pex-tabs">
-                <button class="pex-tab active" data-year="all">All Years</button>
-                <button class="pex-tab" data-year="2024">2024</button>
-                <button class="pex-tab" data-year="2023">2023</button>
-              </div>
-              <div class="pex-search-wrap">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="pex-search" placeholder="Search papersâ€¦" />
-    <link rel="canonical" href="https://www.eduooz.com/courses/nursing/central/rcc-nursing.html" />
+          <div class="qp-library-panel">
+            <div class="qp-filter-bar">
+              <div class="qp-year-tabs">
+                <button class="qp-year-tab active" data-year="all">All Years</button>
+                <button class="qp-year-tab" data-year="2024">2024</button>
+                <button class="qp-year-tab" data-year="2023">2023</button>
+                <button class="qp-year-tab" data-year="2022">2022</button>
               </div>
             </div>
-            <div class="pex-paper-grid" id="pex-paper-grid"></div>
-            <div class="pex-empty" id="pex-empty">
+            <div class="qp-card-grid">
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf=""
+                data-title="RCC Staff Nurse 2024"
+                data-year="2024"
+                data-pages="12"
+                data-category="RCC Kerala • Staff Nurse"
+                data-download="">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2024</span>
+                  <h3 class="qp-card-title">RCC Staff Nurse 2024</h3>
+                  <span class="qp-card-category">RCC Kerala • Staff Nurse</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 100 MCQs · 90 mins</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
+                </div>
+              </article>
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf=""
+                data-title="RCC Staff Nurse 2023"
+                data-year="2023"
+                data-pages="10"
+                data-category="RCC Kerala • Staff Nurse"
+                data-download="">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2023</span>
+                  <h3 class="qp-card-title">RCC Staff Nurse 2023</h3>
+                  <span class="qp-card-category">RCC Kerala • Staff Nurse</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 100 MCQs · 90 mins</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
+                </div>
+              </article>
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf=""
+                data-title="RCC Staff Nurse 2022"
+                data-year="2022"
+                data-pages="10"
+                data-category="RCC Kerala • Staff Nurse"
+                data-download="">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2022</span>
+                  <h3 class="qp-card-title">RCC Staff Nurse 2022</h3>
+                  <span class="qp-card-category">RCC Kerala • Staff Nurse</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 100 MCQs · 90 mins</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="qp-no-results" id="qp-no-results">
               <i class="fa-solid fa-folder-open"></i>
-              <p>No papers found</p>
+              <p>No papers found for this year</p>
             </div>
           </div>
 
@@ -1217,7 +1266,7 @@
               </div>
               <div class="mts-welcome-rules">
                 <div class="mts-rule">
-                  <i class="fa-solid fa-circle-info"></i> +1 for correct Â· 0 for wrong Â· No negative marking
+                  <i class="fa-solid fa-circle-info"></i> +1 for correct · 0 for wrong · No negative marking
                 </div>
                 <div class="mts-rule">
                   <i class="fa-solid fa-clock"></i> No time limit - answer at your own pace
@@ -1488,7 +1537,7 @@
                     <div class="rank-badge">Assistant Professor | PGIMER MSc (N) | PhD Scholar</div>
                     <div class="alumni-text-overlay">
                       <h3>Shine Stephen</h3>
-                      <p class="exam-name">Former AIIMS Faculty | UGC NET | MHA | PGDHSR</p>
+                     
                     </div>
                   </div>
                   <div class="alumni-info">
@@ -1512,7 +1561,7 @@
                     <div class="rank-badge">M.Pharm Pharmacology | GPAT Rank Holder</div>
                     <div class="alumni-text-overlay">
                       <h3>Nayana Shaji</h3>
-                      <p class="exam-name">Distinction Holder | Kerala &amp; Central Exam Ranker</p>
+                      
                     </div>
                   </div>
                   <div class="alumni-info">
@@ -1536,7 +1585,7 @@
                     <div class="rank-badge">MSc Nursing (Orthopedic)</div>
                     <div class="alumni-text-overlay">
                       <h3>Vidhu R Vijayan</h3>
-                      <p class="exam-name">NCLEX RN Passed</p>
+                     
                     </div>
                   </div>
                   <div class="alumni-info">
@@ -1649,7 +1698,7 @@
             </div>
         </section>
 <!-- SECTION 16: GOOGLE REVIEWS & TRUST WALL -->
-    <section class="greview-section" id="reviews">
+    <section class="greview-section" id="reviews" data-page-type="nursing">
       <div class="container">
         <div class="text-center g-exam-reveal" style="margin-bottom: 48px">
           <div class="section-label">
@@ -1696,108 +1745,7 @@
           </button>
           <div class="greview-carousel-viewport" id="greview-carousel-viewport">
             <div class="greview-track" id="greview-track">
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">AS</div>
-                  <div>
-                    <h5>Arya S.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"Eduooz's RCC-focused coaching is outstanding. The oncology and palliative care content was spot-on. Cleared the RCC Staff Nurse exam in first attempt!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">First Attempt</span>
-                  <span class="greview-badge greview-badge-inst">RCC Thiruvananthapuram</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">NP</div>
-                  <div>
-                    <h5>Neethu P.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"The mock tests and previous year RCC papers gave me complete confidence. The CBT simulation was exactly like the actual exam. Highly recommend Eduooz!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Top Score</span>
-                  <span class="greview-badge greview-badge-inst">RCC 2024</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">SR</div>
-                  <div>
-                    <h5>Smitha R.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"Being a working nurse and preparing for RCC simultaneously was challenging. Eduooz's flexible classes and recorded lectures made it manageable. Cleared with great marks!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Working Nurse</span>
-                  <span class="greview-badge greview-badge-inst">RCC 2024</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">DK</div>
-                  <div>
-                    <h5>Divya K.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"The personalized mentor support and detailed analysis of my mock test performance were invaluable. I improved significantly in oncology and community health nursing."</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">RCC Nurse</span>
-                  <span class="greview-badge greview-badge-inst">RCC 2024</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">PM</div>
-                  <div>
-                    <h5>Priya M.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"Eduooz's CBT practice tests are identical in format to the actual RCC exam interface. I walked in feeling completely prepared and cleared with a top rank!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">CBT Expert</span>
-                  <span class="greview-badge greview-badge-inst">RCC 2023</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">GT</div>
-                  <div>
-                    <h5>Greeshma T.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"The faculty's predictions for high-yield RCC exam topics were incredibly accurate. Almost every key topic they highlighted appeared in my actual exam. Excellent coaching!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">First Attempt</span>
-                  <span class="greview-badge greview-badge-inst">RCC 2024</span>
-                </div>
-              </div>
+              <!-- Populated dynamically by google-reviews.js -->
             </div>
           </div>
           <button class="greview-arrow greview-next" id="greview-next" aria-label="Next reviews">
@@ -1849,22 +1797,22 @@
                   </div>
                   <div class="pas-screen" id="pasScreen">
                     <div class="pas-slide pas-slide-active" data-screen="dashboard">
-                      <img src="../../../assets/Eduooz-app/Home.jpg" alt="Eduooz Home Dashboard" class="pas-screen-img" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (1).jpeg" alt="Eduooz Home Dashboard" class="pas-screen-img" />
                     </div>
                     <div class="pas-slide" data-screen="live">
-                      <img src="../../../assets/Eduooz-app/Course.jpg" alt="Course Listing" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (2).jpeg" alt="Course Listing" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="cbt">
-                      <img src="../../../assets/Eduooz-app/Exam.jpg" alt="Mock Test Interface" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (3).jpeg" alt="Mock Test Interface" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="analytics">
-                      <img src="../../../assets/Eduooz-app/Analytics.jpg" alt="Performance Analytics" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (4).jpeg" alt="Performance Analytics" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="materials">
-                      <img src="../../../assets/Eduooz-app/Practice.jpg" alt="Practice &amp; Study Materials" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (5).jpeg" alt="Practice &amp; Study Materials" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="leaderboard">
-                      <img src="../../../assets/Eduooz-app/Leaderboard.jpg" alt="Leaderboard" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (6).jpeg" alt="Leaderboard" class="pas-screen-img" loading="lazy" />
                     </div>
                   </div>
                   <div class="pas-home-indicator"></div>
@@ -2191,8 +2139,8 @@
     <section class="cta-terminal-section" id="enroll">
       <div class="container cta-grid relative-z">
         <div class="cta-hook-zone g-cta-reveal">
-          <div class="frost-pill mb-4">
-            <span class="glowing-dot-cyan"></span> Limited Intake
+          <div class="section-label">
+            <span class="label-dot"></span> Limited Intake
           </div>
           <h2 class="cta-title">
             Your RCC Staff Nurse <br />

@@ -2669,7 +2669,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    if (!status) status = "eligible";
+    if (!status) {
+      status = "eligible";
+      reason = `You meet all the eligibility criteria for this examination. You are eligible to apply.`;
+    }
 
     showResult(resultEl,
       status === "notEligible" ? "error" : status,
@@ -3135,6 +3138,289 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // --- 10b. STATIC PAPER EXPLORER (for pages with manually-written paper cards) ---
+  function initStaticPaperExplorer() {
+    var grid = document.querySelector(".pex-paper-grid");
+    if (!grid || grid.id === "pex-paper-grid") return;
+
+    var iframe = document.getElementById("pex-iframe");
+    var skeleton = document.getElementById("pex-skeleton");
+    var locked = document.getElementById("pex-locked-state");
+    var lockedTitle = document.getElementById("pex-locked-title");
+    var lockedSub = document.getElementById("pex-locked-sub");
+    var infoYear = document.getElementById("pex-info-year");
+    var infoTitle = document.getElementById("pex-info-title");
+    var dlBtn = document.getElementById("pex-download-btn");
+    var zoomLbl = document.getElementById("pex-zoom-label");
+    var tabsEl = document.querySelector(".pex-tabs");
+    var searchEl = document.getElementById("pex-search");
+    var emptyEl = document.getElementById("pex-empty");
+    var currentZoom = 100;
+
+    if (locked) locked.classList.add("pex-show");
+    if (skeleton) skeleton.classList.add("pex-hidden");
+
+    var zIn = document.getElementById("pex-zoom-in");
+    var zOut = document.getElementById("pex-zoom-out");
+    function setZoom(z) {
+      currentZoom = Math.max(60, Math.min(200, z));
+      if (iframe) {
+        iframe.style.transform = "scale(" + currentZoom / 100 + ")";
+        iframe.style.transformOrigin = "top center";
+      }
+      if (zoomLbl) zoomLbl.textContent = currentZoom + "%";
+    }
+    if (zIn) zIn.addEventListener("click", function () { setZoom(currentZoom + 20); });
+    if (zOut) zOut.addEventListener("click", function () { setZoom(currentZoom - 20); });
+
+    var fsBtn = document.getElementById("pex-fullscreen-btn");
+    if (fsBtn) {
+      fsBtn.addEventListener("click", function () {
+        var card = document.getElementById("pex-preview-card");
+        if (!card) return;
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+          fsBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+        } else {
+          if (card.requestFullscreen) card.requestFullscreen();
+          fsBtn.innerHTML = '<i class="fa-solid fa-compress"></i>';
+        }
+      });
+    }
+
+    function loadPreview(pdfUrl, year, title) {
+      if (infoYear) infoYear.textContent = year || "";
+      if (infoTitle) infoTitle.textContent = title || "";
+
+      if (!pdfUrl) {
+        if (skeleton) skeleton.classList.add("pex-hidden");
+        if (lockedTitle) lockedTitle.textContent = title || "Paper Unavailable";
+        if (lockedSub) lockedSub.textContent = "Enroll to access and download this paper.";
+        if (locked) locked.classList.add("pex-show");
+        if (iframe) { iframe.classList.remove("pex-loaded"); iframe.src = ""; }
+        if (dlBtn) { dlBtn.removeAttribute("href"); dlBtn.style.opacity = "0.38"; dlBtn.style.pointerEvents = "none"; }
+        return;
+      }
+
+      if (dlBtn) { dlBtn.href = pdfUrl; dlBtn.setAttribute("target", "_blank"); dlBtn.style.opacity = ""; dlBtn.style.pointerEvents = ""; }
+      if (locked) locked.classList.remove("pex-show");
+      if (skeleton) skeleton.classList.remove("pex-hidden");
+      if (iframe) {
+        iframe.classList.remove("pex-loaded");
+        iframe.src = "";
+        setTimeout(function () {
+          iframe.onload = function () {
+            if (skeleton) skeleton.classList.add("pex-hidden");
+            iframe.classList.add("pex-loaded");
+          };
+          iframe.src = pdfUrl;
+        }, 100);
+      }
+    }
+
+    function getCardPdf(card) {
+      if (card.dataset.pdf !== undefined) return card.dataset.pdf;
+      var href = card.getAttribute("href");
+      if (href && href !== "#" && href.indexOf(".pdf") !== -1) return card.href;
+      return "";
+    }
+
+    function handleCardClick(card, e) {
+      if (e.target.closest(".pex-seo-link")) return;
+      e.preventDefault();
+      var yearEl = card.querySelector(".pex-year-badge");
+      var titleEl = card.querySelector(".pex-card-title, h4");
+      var year = card.dataset.year || (yearEl ? yearEl.textContent.trim() : "");
+      var title = card.dataset.title || (titleEl ? titleEl.textContent.trim() : "");
+      grid.querySelectorAll(".pex-paper-card").forEach(function (c) { c.classList.remove("pex-active"); });
+      card.classList.add("pex-active");
+      loadPreview(getCardPdf(card), year, title);
+    }
+
+    grid.querySelectorAll(".pex-paper-card").forEach(function (card) {
+      card.addEventListener("click", function (e) { handleCardClick(card, e); });
+    });
+
+    function applyFilter(year, query) {
+      var anyVisible = false;
+      grid.querySelectorAll(".pex-paper-card").forEach(function (card) {
+        var yearEl = card.querySelector(".pex-year-badge");
+        var titleEl = card.querySelector(".pex-card-title, h4");
+        var cardYear = card.dataset.year || (yearEl ? yearEl.textContent.trim() : "");
+        var title = (card.dataset.title || (titleEl ? titleEl.textContent.trim() : "")).toLowerCase();
+        var yearMatch = year === "all" || cardYear === year;
+        var searchMatch = !query || title.indexOf(query) !== -1 || cardYear.toLowerCase().indexOf(query) !== -1;
+        var visible = yearMatch && searchMatch;
+        card.style.display = visible ? "" : "none";
+        if (visible) anyVisible = true;
+      });
+      if (emptyEl) emptyEl.classList.toggle("pex-show", !anyVisible);
+    }
+
+    if (tabsEl) {
+      tabsEl.addEventListener("click", function (e) {
+        var btn = e.target.closest(".pex-tab");
+        if (!btn) return;
+        tabsEl.querySelectorAll(".pex-tab").forEach(function (t) { t.classList.remove("active"); });
+        btn.classList.add("active");
+        applyFilter(btn.dataset.year || "all", searchEl ? searchEl.value.toLowerCase().trim() : "");
+      });
+    }
+
+    if (searchEl) {
+      searchEl.addEventListener("input", function () {
+        var activeTab = tabsEl ? tabsEl.querySelector(".pex-tab.active") : null;
+        var year = activeTab ? (activeTab.dataset.year || "all") : "all";
+        applyFilter(year, searchEl.value.toLowerCase().trim());
+      });
+    }
+  }
+
+  // --- 10c. QP EXPLORER — New unified question-papers design (qp- prefix) ---
+  function initQPExplorer() {
+    var cardGrid = document.querySelector(".qp-card-grid");
+    if (!cardGrid) return;
+
+    var iframe      = document.getElementById("qp-iframe");
+    var skeleton    = document.getElementById("qp-skeleton");
+    var emptyState  = document.getElementById("qp-empty-state");
+    var lockedState = document.getElementById("qp-locked-state");
+    var lockedTitle = document.getElementById("qp-locked-title");
+    var infoYear    = document.getElementById("qp-info-year");
+    var infoTitle   = document.getElementById("qp-info-title");
+    var dlBtn       = document.getElementById("qp-download-btn");
+    var zoomLbl     = document.getElementById("qp-zoom-label");
+    var noResults   = document.getElementById("qp-no-results");
+    var tabsEl      = document.querySelector(".qp-year-tabs");
+    var currentZoom = 100;
+
+    /* ── Initial idle state ── */
+    function resetToIdle() {
+      if (emptyState)  emptyState.classList.remove("qp-hidden");
+      if (lockedState) lockedState.classList.remove("qp-show");
+      if (skeleton)    skeleton.classList.remove("qp-show");
+      if (iframe)      { iframe.classList.remove("qp-loaded"); iframe.src = ""; }
+    }
+    resetToIdle();
+
+    /* ── Zoom ── */
+    function setZoom(z) {
+      currentZoom = Math.max(60, Math.min(200, z));
+      if (iframe) {
+        iframe.style.transform = "scale(" + currentZoom / 100 + ")";
+        iframe.style.transformOrigin = "top center";
+      }
+      if (zoomLbl) zoomLbl.textContent = currentZoom + "%";
+    }
+    var zIn  = document.getElementById("qp-zoom-in");
+    var zOut = document.getElementById("qp-zoom-out");
+    if (zIn)  zIn.addEventListener("click",  function () { setZoom(currentZoom + 20); });
+    if (zOut) zOut.addEventListener("click", function () { setZoom(currentZoom - 20); });
+
+    /* ── Fullscreen ── */
+    var fsBtn = document.getElementById("qp-fullscreen-btn");
+    if (fsBtn) {
+      fsBtn.addEventListener("click", function () {
+        var card = document.getElementById("qp-preview-card");
+        if (!card) return;
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+          fsBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+        } else {
+          if (card.requestFullscreen) card.requestFullscreen();
+          fsBtn.innerHTML = '<i class="fa-solid fa-compress"></i>';
+        }
+      });
+    }
+
+    /* ── Load preview ── */
+    function loadPreview(pdfUrl, year, title, downloadUrl) {
+      if (infoYear)  infoYear.textContent  = year  || "";
+      if (infoTitle) infoTitle.textContent = title || "";
+
+      if (!pdfUrl) {
+        /* No PDF — show locked/enroll state */
+        if (emptyState)  emptyState.classList.add("qp-hidden");
+        if (skeleton)    skeleton.classList.remove("qp-show");
+        if (lockedTitle) lockedTitle.textContent = title || "Paper Unavailable";
+        if (lockedState) lockedState.classList.add("qp-show");
+        if (iframe)      { iframe.classList.remove("qp-loaded"); iframe.src = ""; }
+        if (dlBtn) {
+          dlBtn.removeAttribute("href");
+          dlBtn.style.opacity       = "0.38";
+          dlBtn.style.pointerEvents = "none";
+        }
+        return;
+      }
+
+      /* Has PDF — load in iframe */
+      if (dlBtn) {
+        dlBtn.href = downloadUrl || pdfUrl;
+        dlBtn.setAttribute("target", "_blank");
+        dlBtn.style.opacity       = "";
+        dlBtn.style.pointerEvents = "";
+      }
+      if (emptyState)  emptyState.classList.add("qp-hidden");
+      if (lockedState) lockedState.classList.remove("qp-show");
+      if (skeleton)    skeleton.classList.add("qp-show");
+      if (iframe) {
+        iframe.classList.remove("qp-loaded");
+        iframe.src = "";
+        setTimeout(function () {
+          iframe.onload = function () {
+            if (skeleton) skeleton.classList.remove("qp-show");
+            iframe.classList.add("qp-loaded");
+          };
+          iframe.src = pdfUrl;
+        }, 100);
+      }
+    }
+
+    /* ── Card click ── */
+    function activateCard(card) {
+      cardGrid.querySelectorAll(".qp-card").forEach(function (c) {
+        c.classList.remove("qp-active");
+      });
+      card.classList.add("qp-active");
+
+      var pdfUrl      = card.dataset.pdf      || "";
+      var title       = card.dataset.title    || (card.querySelector(".qp-card-title") ? card.querySelector(".qp-card-title").textContent.trim() : "");
+      var year        = card.dataset.year     || (card.querySelector(".qp-card-year")  ? card.querySelector(".qp-card-year").textContent.trim()  : "");
+      var downloadUrl = card.dataset.download || pdfUrl;
+
+      loadPreview(pdfUrl, year, title, downloadUrl);
+    }
+
+    cardGrid.querySelectorAll(".qp-card").forEach(function (card) {
+      card.addEventListener("click", function () { activateCard(card); });
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activateCard(card); }
+      });
+    });
+
+    /* ── Year filter tabs ── */
+    function applyFilter(year) {
+      var anyVisible = false;
+      cardGrid.querySelectorAll(".qp-card").forEach(function (card) {
+        var cardYear  = card.dataset.year || (card.querySelector(".qp-card-year") ? card.querySelector(".qp-card-year").textContent.trim() : "");
+        var visible   = year === "all" || cardYear === year;
+        card.style.display = visible ? "" : "none";
+        if (visible) anyVisible = true;
+      });
+      if (noResults) noResults.classList.toggle("qp-show", !anyVisible);
+    }
+
+    if (tabsEl) {
+      tabsEl.addEventListener("click", function (e) {
+        var btn = e.target.closest(".qp-year-tab");
+        if (!btn) return;
+        tabsEl.querySelectorAll(".qp-year-tab").forEach(function (t) { t.classList.remove("active"); });
+        btn.classList.add("active");
+        applyFilter(btn.dataset.year || "all");
+      });
+    }
+  }
+
   // --- 11. RENDER PRACTICE TESTS ---
   function renderPracticeTests() {
     const grid = document.getElementById("practice-grid");
@@ -3555,6 +3841,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initReviewCounters,
     initReviewCarousel,
     initMockTestSystem,
+    initStaticPaperExplorer,
+    initQPExplorer,
   ].forEach((fn) => {
     try {
       fn();
@@ -3973,6 +4261,12 @@ function initReviewCounters() {
 
 // --- GOOGLE REVIEWS CAROUSEL ---
 function initReviewCarousel() {
+  // Stop any timer left by a previous init (used by google-reviews.js re-init)
+  if (typeof window._greviewAutoTimer !== "undefined") {
+    clearInterval(window._greviewAutoTimer);
+    window._greviewAutoTimer = undefined;
+  }
+
   const viewport = document.getElementById("greview-carousel-viewport");
   const track = document.getElementById("greview-track");
   const prevBtn = document.getElementById("greview-prev");
@@ -4048,6 +4342,7 @@ function initReviewCarousel() {
     autoTimer = setInterval(() => {
       goTo(current >= getMax() ? 0 : current + 1);
     }, 5000);
+    window._greviewAutoTimer = autoTimer; // allows google-reviews.js to clear on re-init
   }
 
   prevBtn.addEventListener("click", () => {

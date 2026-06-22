@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -65,6 +65,7 @@
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
 
     <script src="../../../assets/js/course-landing.js" defer></script>
+    <script src="../../../assets/js/google-reviews.js" defer></script>
     <script src="../../../assets/js/practice-test.js" defer></script>
     <script src="../../../assets/js/youtube-filter.js" defer></script>
 
@@ -95,7 +96,7 @@
             id: "kpsc-hn-2023-s1",
             year: "2023",
             title: "Kerala PSC Homoeo Nurse 2023 â€“ Shift 1",
-            meta: "200 MCQs Â· 120 mins",
+            meta: "200 MCQs · 120 mins",
             pages: 20,
             pdfUrl: null,
           },
@@ -103,7 +104,7 @@
             id: "kpsc-hn-2023-s2",
             year: "2023",
             title: "Kerala PSC Homoeo Nurse 2023 â€“ Shift 2",
-            meta: "200 MCQs Â· 120 mins",
+            meta: "200 MCQs · 120 mins",
             pages: 20,
             pdfUrl: null,
           },
@@ -111,7 +112,7 @@
             id: "kpsc-hn-2022-s1",
             year: "2022",
             title: "Kerala PSC Homoeo Nurse 2022 â€“ Shift 1",
-            meta: "200 MCQs Â· 120 mins",
+            meta: "200 MCQs · 120 mins",
             pages: 18,
             pdfUrl: null,
           },
@@ -119,7 +120,7 @@
             id: "kpsc-hn-2022-key",
             year: "2022",
             title: "Kerala PSC Homoeo Nurse 2022 â€“ Answer Key",
-            meta: "All Sets Â· Official",
+            meta: "All Sets · Official",
             pages: 6,
             pdfUrl: null,
           },
@@ -127,7 +128,7 @@
             id: "kpsc-hn-2021",
             year: "2021",
             title: "Kerala PSC Homoeo Nurse 2021 â€“ Paper",
-            meta: "200 MCQs Â· 120 mins",
+            meta: "200 MCQs · 120 mins",
             pages: 20,
             pdfUrl: null,
           },
@@ -135,7 +136,7 @@
             id: "kpsc-hn-2019",
             year: "2019",
             title: "Kerala PSC Homoeo Nurse 2019 â€“ Paper",
-            meta: "200 MCQs Â· 120 mins",
+            meta: "200 MCQs · 120 mins",
             pages: 22,
             pdfUrl: null,
           },
@@ -213,8 +214,8 @@
             </div>
 
             <h1 class="course-title">
-              Kerala PSC HOMOEO NURSE EXAM <br />
-              <span class="text-gradient-cyan">Coaching</span>
+              Kerala PSC Homoeo Nurse <br />
+              <span class="text-gradient-cyan">Exam Coaching</span>
             </h1>
 
             <p class="course-description">
@@ -1401,89 +1402,120 @@
           </h2>
         </div>
 
-        <div class="pdf-explorer g-exam-reveal" id="pdf-explorer">
+        <div class="qp-explorer g-exam-reveal">
           <!-- LEFT: PDF Preview Panel -->
-          <div class="pex-preview-panel">
-            <div class="pex-preview-card" id="pex-preview-card">
-              <div class="pex-toolbar">
-                <div class="pex-toolbar-info">
-                  <span class="pex-info-year" id="pex-info-year"></span>
-                  <span class="pex-info-title" id="pex-info-title">Select a paper to preview</span>
+          <div class="qp-preview-panel">
+            <div class="qp-preview-card" id="qp-preview-card">
+              <div class="qp-toolbar">
+                <div class="qp-toolbar-info">
+                  <span class="qp-toolbar-year" id="qp-info-year"></span>
+                  <span class="qp-toolbar-title" id="qp-info-title">Select a paper to preview</span>
                 </div>
-                <div class="pex-toolbar-actions">
-                  <button class="pex-tbtn" id="pex-zoom-out" title="Zoom out">
-                    <i class="fa-solid fa-magnifying-glass-minus"></i>
-                  </button>
-                  <span class="pex-zoom-label" id="pex-zoom-label">100%</span>
-                  <button class="pex-tbtn" id="pex-zoom-in" title="Zoom in">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                  </button>
-                  <a class="pex-tbtn pex-tbtn-dl" id="pex-download-btn" href="#" title="Download PDF">
+                <div class="qp-toolbar-actions">
+                  <button class="qp-tbtn" id="qp-zoom-out" title="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                  <span class="qp-zoom-label" id="qp-zoom-label">100%</span>
+                  <button class="qp-tbtn" id="qp-zoom-in" title="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                  <a class="qp-tbtn qp-tbtn-dl" id="qp-download-btn" href="#" title="Download PDF" target="_blank">
                     <i class="fa-solid fa-download"></i> Download
                   </a>
-                  <button class="pex-tbtn" id="pex-fullscreen-btn" title="Fullscreen">
-                    <i class="fa-solid fa-expand"></i>
-                  </button>
+                  <button class="qp-tbtn" id="qp-fullscreen-btn" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
                 </div>
               </div>
-              <div class="pex-frame-wrap" id="pex-frame-wrap">
-                <div class="pex-skeleton" id="pex-skeleton">
-                  <div class="pex-sk-bar"></div>
-                  <div class="pex-sk-bar pex-sk-short"></div>
-                  <div class="pex-sk-block"></div>
-                  <div class="pex-sk-bar pex-sk-med"></div>
-                  <div class="pex-sk-bar pex-sk-short"></div>
+              <div class="qp-frame-wrap">
+                <div class="qp-empty-state" id="qp-empty-state">
+                  <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                  <p class="qp-state-title">Select a paper to preview</p>
+                  <p class="qp-state-sub">Choose a paper from the list to preview it here</p>
                 </div>
-                <iframe id="pex-iframe" src="" title="PDF Preview" allowfullscreen></iframe>
-                <div class="pex-locked-state" id="pex-locked-state">
-                  <div class="pex-locked-icon"><i class="fa-solid fa-file-pdf"></i></div>
-                  <p class="pex-locked-title" id="pex-locked-title">Select a Paper</p>
-                  <p class="pex-locked-sub" id="pex-locked-sub">Click any card to preview it here</p>
-                  <a href="#enroll" class="pex-enroll-btn">Enroll to Download All Papers</a>
+                <div class="qp-skeleton" id="qp-skeleton">
+                  <div class="qp-sk-bar"></div>
+                  <div class="qp-sk-bar qp-sk-short"></div>
+                  <div class="qp-sk-block"></div>
+                  <div class="qp-sk-bar qp-sk-med"></div>
+                  <div class="qp-sk-bar qp-sk-short"></div>
+                </div>
+                <iframe id="qp-iframe" src="" title="PDF Preview" allowfullscreen></iframe>
+                <div class="qp-locked-state" id="qp-locked-state">
+                  <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                  <p class="qp-state-title" id="qp-locked-title">Paper Unavailable</p>
+                  <p class="qp-state-sub">Enroll to access and download this paper.</p>
+                  <a href="#apply" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
+                    <i class="fa-solid fa-download"></i> Download the Paper
+                  </a>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- RIGHT: Library Panel -->
-          <div class="pex-library-panel">
-            <div class="pex-filter-bar">
-              <div class="pex-tabs">
-                <button class="pex-tab active" data-year="all">All Years</button>
-                <button class="pex-tab" data-year="2023">2023</button>
-                <button class="pex-tab" data-year="2025">2025</button>
-                <button class="pex-tab" data-year="2026">2026</button>
+          <div class="qp-library-panel">
+            <div class="qp-filter-bar">
+              <div class="qp-year-tabs">
+                <button class="qp-year-tab active" data-year="all">All Years</button>
+                <button class="qp-year-tab" data-year="2026">2026</button>
+                <button class="qp-year-tab" data-year="2025">2025</button>
+                <button class="qp-year-tab" data-year="2023">2023</button>
               </div>
             </div>
-            <div class="pex-paper-grid">
-              <a class="pex-paper-card" href="/assets/Prev.Qn.papers/Homeopathy%202023.pdf" target="_blank" rel="noopener noreferrer" title="Homeopathy 2023 - Previous Year Question Paper PDF">
-                <div class="pex-card-top">
-                  <div class="pex-card-icon"><i class="fa-solid fa-file-pdf"></i></div>`r`n                  <span class="pex-year-badge">2023</span>
+            <div class="qp-card-grid">
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf="/assets/Prev.Qn.papers/Homeopathy%202026.pdf"
+                data-title="Homeopathy Nursing 2026"
+                data-year="2026"
+                data-pages="16"
+                data-category="Kerala PSC • Homeopathy Nursing"
+                data-download="/assets/Prev.Qn.papers/Homeopathy%202026.pdf">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2026</span>
+                  <h3 class="qp-card-title">Homeopathy Nursing 2026</h3>
+                  <span class="qp-card-category">Kerala PSC • Homeopathy Nursing</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 16 pages</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
                 </div>
-                <h4 class="pex-card-title">Homeopathy 2023</h4>
-                <p class="pex-card-meta"><i class="fa-regular fa-file-lines"></i> Previous Year Question Paper</p>
-                <div class="pex-card-footer">
-                  <span class="pex-dl-cta"><i class="fa-solid fa-download"></i> Download</span>
+              </article>
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf="/assets/Prev.Qn.papers/Homeopathy%20Nursing%202025.pdf"
+                data-title="Homeopathy Nursing 2025"
+                data-year="2025"
+                data-pages="16"
+                data-category="Kerala PSC • Homeopathy Nursing"
+                data-download="/assets/Prev.Qn.papers/Homeopathy%20Nursing%202025.pdf">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2025</span>
+                  <h3 class="qp-card-title">Homeopathy Nursing 2025</h3>
+                  <span class="qp-card-category">Kerala PSC • Homeopathy Nursing</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 16 pages</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
                 </div>
-              </a>              <a class="pex-paper-card" href="/assets/Prev.Qn.papers/Homeopathy%20Nursing%202025.pdf" target="_blank" rel="noopener noreferrer" title="Homeopathy Nursing 2025 - Previous Year Question Paper PDF">
-                <div class="pex-card-top">
-                  <div class="pex-card-icon"><i class="fa-solid fa-file-pdf"></i></div>`r`n                  <span class="pex-year-badge">2025</span>
+              </article>
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf="/assets/Prev.Qn.papers/Homeopathy%202023.pdf"
+                data-title="Homeopathy Nursing 2023"
+                data-year="2023"
+                data-pages="14"
+                data-category="Kerala PSC • Homeopathy Nursing"
+                data-download="/assets/Prev.Qn.papers/Homeopathy%202023.pdf">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2023</span>
+                  <h3 class="qp-card-title">Homeopathy Nursing 2023</h3>
+                  <span class="qp-card-category">Kerala PSC • Homeopathy Nursing</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 14 pages</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
                 </div>
-                <h4 class="pex-card-title">Homeopathy Nursing 2025</h4>
-                <p class="pex-card-meta"><i class="fa-regular fa-file-lines"></i> Previous Year Question Paper</p>
-                <div class="pex-card-footer">
-                  <span class="pex-dl-cta"><i class="fa-solid fa-download"></i> Download</span>
-                </div>
-              </a>              <a class="pex-paper-card" href="/assets/Prev.Qn.papers/Homeopathy%202026.pdf" target="_blank" rel="noopener noreferrer" title="Homeopathy 2026 - Previous Year Question Paper PDF">
-                <div class="pex-card-top">
-                  <div class="pex-card-icon"><i class="fa-solid fa-file-pdf"></i></div>`r`n                  <span class="pex-year-badge">2026</span>
-                </div>
-                <h4 class="pex-card-title">Homeopathy 2026</h4>
-                <p class="pex-card-meta"><i class="fa-regular fa-file-lines"></i> Previous Year Question Paper</p>
-                <div class="pex-card-footer">
-                  <span class="pex-dl-cta"><i class="fa-solid fa-download"></i> Download</span>
-                </div>
-              </a>
+              </article>
+            </div>
+            <div class="qp-no-results" id="qp-no-results">
+              <i class="fa-solid fa-folder-open"></i>
+              <p>No papers found for this year</p>
             </div>
           </div>
         </div>
@@ -1502,7 +1534,7 @@
           </h2>
         </div>
         <div class="practice-tests-grid" id="practice-tests-grid">
-          <div class="mts-wrapper" id="mts-wrapper" data-question-bank="nursing-central">
+          <div class="mts-wrapper" id="mts-wrapper" data-question-bank="nursing-state">
             <!-- SCREEN 1: WELCOME -->
             <div class="mts-screen mts-welcome-screen" id="mts-welcome">
               <div class="mts-welcome-icon-ring">
@@ -1816,7 +1848,7 @@
                     <div class="rank-badge">Assistant Professor | PGIMER MSc (N) | PhD Scholar</div>
                     <div class="alumni-text-overlay">
                       <h3>Shine Stephen</h3>
-                      <p class="exam-name">Former AIIMS Faculty | UGC NET | MHA | PGDHSR</p>
+                      
                     </div>
                   </div>
                   <div class="alumni-info">
@@ -1840,7 +1872,7 @@
                     <div class="rank-badge">M.Pharm Pharmacology | GPAT Rank Holder</div>
                     <div class="alumni-text-overlay">
                       <h3>Nayana Shaji</h3>
-                      <p class="exam-name">Distinction Holder | Kerala &amp; Central Exam Ranker</p>
+                     
                     </div>
                   </div>
                   <div class="alumni-info">
@@ -1864,7 +1896,7 @@
                     <div class="rank-badge">MSc Nursing (Orthopedic)</div>
                     <div class="alumni-text-overlay">
                       <h3>Vidhu R Vijayan</h3>
-                      <p class="exam-name">NCLEX RN Passed</p>
+                      
                     </div>
                   </div>
                   <div class="alumni-info">
@@ -1977,7 +2009,7 @@
             </div>
         </section>
 <!-- SECTION 16: GOOGLE REVIEWS & TRUST WALL -->
-    <section class="greview-section" id="reviews">
+    <section class="greview-section" id="reviews" data-page-type="nursing">
       <div class="container">
         <div class="text-center g-exam-reveal" style="margin-bottom: 48px">
           <div class="section-label">
@@ -2026,114 +2058,7 @@
           </button>
           <div class="greview-carousel-viewport" id="greview-carousel-viewport">
             <div class="greview-track" id="greview-track">
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">AS</div>
-                  <div><h5>Aswathy R S</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"The faculty here are outstanding. Their systematic approach to Kerala PSC topics and CBT practice sessions gave me the edge I needed. Cleared the exam in my first attempt!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">First Attempt</span>
-                  <span class="greview-badge greview-badge-inst">Kerala Homeopathic Hospital</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">SM</div>
-                  <div><h5>Sneha M.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"Best Kerala PSC Homoeo Nurse coaching platform. The mock tests are exactly like the real exam. My confidence went through the roof after 30+ mocks. Got Rank 38!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Rank 38</span>
-                  <span class="greview-badge greview-badge-inst">Kerala Government Homeopathy Centre</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">DV</div>
-                  <div><h5>Divya V.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"Being a working nurse, I needed flexible classes. Eduooz's recorded lectures and weekend live sessions were perfect. The mentor support was exceptional throughout my preparation."</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Working Nurse</span>
-                  <span class="greview-badge greview-badge-inst">Kerala Homeopathic Centre</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">RM</div>
-                  <div><h5>Rahul Menon</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"The structured study plan and personal mentor support made all the difference. Daily live sessions kept me on track even during tough phases. Now posted at a Kerala government healthcare center!"</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Rank 8</span>
-                  <span class="greview-badge greview-badge-inst">Kerala Health Services</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">SS</div>
-                  <div><h5>Steffi Saji</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"Eduooz's CBT simulation is the best I've tried. I went into the Kerala PSC Homoeo Nurse exam feeling like I'd already done it a hundred times. The interface was so familiar it felt effortless."</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">CBT Expert</span>
-                  <span class="greview-badge greview-badge-inst">Kerala Homeopathic Centre</span>
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">DJ</div>
-                  <div><h5>Deepa Joseph</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">"The previous year paper analysis sessions were absolutely gold. Every high-yield topic the faculty predicted actually appeared in my Kerala PSC Homoeo Nurse exam. I was so well prepared it felt effortless."</p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">First Attempt</span>
-                  <span class="greview-badge greview-badge-inst">Kerala Health Services</span>
-                </div>
-              </div>
+              <!-- Populated dynamically by google-reviews.js -->
             </div>
           </div>
           <button class="greview-arrow greview-next" id="greview-next" aria-label="Next reviews">
@@ -2185,22 +2110,22 @@
                   </div>
                   <div class="pas-screen" id="pasScreen">
                     <div class="pas-slide pas-slide-active" data-screen="dashboard">
-                      <img src="../../../assets/Eduooz-app/Home.jpg" alt="Eduooz Home Dashboard" class="pas-screen-img" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (1).jpeg" alt="Eduooz Home Dashboard" class="pas-screen-img" />
                     </div>
                     <div class="pas-slide" data-screen="live">
-                      <img src="../../../assets/Eduooz-app/Course.jpg" alt="Course Listing" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (2).jpeg" alt="Course Listing" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="cbt">
-                      <img src="../../../assets/Eduooz-app/Exam.jpg" alt="Mock Test Interface" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (3).jpeg" alt="Mock Test Interface" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="analytics">
-                      <img src="../../../assets/Eduooz-app/Analytics.jpg" alt="Performance Analytics" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (4).jpeg" alt="Performance Analytics" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="materials">
-                      <img src="../../../assets/Eduooz-app/Practice.jpg" alt="Practice &amp; Study Materials" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (5).jpeg" alt="Practice &amp; Study Materials" class="pas-screen-img" loading="lazy" />
                     </div>
                     <div class="pas-slide" data-screen="leaderboard">
-                      <img src="../../../assets/Eduooz-app/Leaderboard.jpg" alt="Leaderboard" class="pas-screen-img" loading="lazy" />
+                      <img src="../../../assets/images/Eduooz-App/eduooz-app-image (6).jpeg" alt="Leaderboard" class="pas-screen-img" loading="lazy" />
                     </div>
                   </div>
                   <div class="pas-home-indicator"></div>
@@ -2509,8 +2434,8 @@
     <section class="cta-terminal-section" id="enroll">
       <div class="container cta-grid relative-z">
         <div class="cta-hook-zone g-cta-reveal">
-          <div class="frost-pill mb-4">
-            <span class="glowing-dot-cyan"></span> Limited Intake
+          <div class="section-label">
+            <span class="label-dot"></span> Limited Intake
           </div>
           <h2 class="cta-title">
             Your Government Nursing <br />

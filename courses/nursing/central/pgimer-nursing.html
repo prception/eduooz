@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -100,6 +100,7 @@
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
 
     <script src="../../../assets/js/course-landing.js" defer></script>
+    <script src="../../../assets/js/google-reviews.js" defer></script>
     <script src="../../../assets/js/practice-test.js" defer></script>
     <script src="../../../assets/js/youtube-filter.js" defer></script>
 
@@ -129,7 +130,7 @@
             id: "pgimer-2024",
             year: "2024",
             title: "PGIMER Nursing Officer 2024",
-            meta: "200 MCQs Â· 120 mins",
+            meta: "200 MCQs · 120 mins",
             pages: 22,
             pdfUrl: null,
           },
@@ -137,7 +138,7 @@
             id: "pgimer-2023",
             year: "2023",
             title: "PGIMER Nursing Officer 2023",
-            meta: "200 MCQs Â· 120 mins",
+            meta: "200 MCQs · 120 mins",
             pages: 20,
             pdfUrl: null,
           },
@@ -145,7 +146,7 @@
             id: "pgimer-2022",
             year: "2022",
             title: "PGIMER Nursing Officer 2022",
-            meta: "200 MCQs Â· 120 mins",
+            meta: "200 MCQs · 120 mins",
             pages: 18,
             pdfUrl: null,
           },
@@ -291,14 +292,13 @@
         <div class="course-hero-grid">
           <div class="course-hero-content g-course-reveal">
             <div class="frost-pill-dark mb-4">
-              <span class="glowing-dot-cyan"></span> âœ¦ Admissions Open: 2026
-              Batch
+              <span class="glowing-dot-cyan"></span> Admissions Open: 2026 Batch
             </div>
 
             <h1 class="course-title">
-              Post Graduate Institute of Medical Education &amp; Research <br />
+              PGIMER Nursing Officer <br />
               <span class="text-gradient-cyan"
-                >EXAM COACHING NURSING OFFICER</span
+                >Exam Coaching</span
               >
             </h1>
 
@@ -313,7 +313,7 @@
 
             <div class="course-cta-group">
               <a href="#enroll" class="btn-liquid-cyan magnetic-btn"
-                >Enroll Now <span class="arrow">â†—</span></a
+                >Enroll Now <span class="arrow">&#8599;</span></a
               >
               <a href="#syllabus" class="btn-glass-outline magnetic-btn"
                 ><i class="fa-solid fa-book-open"></i> View Syllabus</a
@@ -1343,89 +1343,120 @@
           </h2>
         </div>
 
-        <div class="pdf-explorer g-exam-reveal" id="pdf-explorer">
+        <div class="qp-explorer g-exam-reveal">
           <!-- LEFT: PDF Preview Panel -->
-          <div class="pex-preview-panel">
-            <div class="pex-preview-card" id="pex-preview-card">
-              <div class="pex-toolbar">
-                <div class="pex-toolbar-info">
-                  <span class="pex-info-year" id="pex-info-year"></span>
-                  <span class="pex-info-title" id="pex-info-title">Select a paper to preview</span>
+          <div class="qp-preview-panel">
+            <div class="qp-preview-card" id="qp-preview-card">
+              <div class="qp-toolbar">
+                <div class="qp-toolbar-info">
+                  <span class="qp-toolbar-year" id="qp-info-year"></span>
+                  <span class="qp-toolbar-title" id="qp-info-title">Select a paper to preview</span>
                 </div>
-                <div class="pex-toolbar-actions">
-                  <button class="pex-tbtn" id="pex-zoom-out" title="Zoom out">
-                    <i class="fa-solid fa-magnifying-glass-minus"></i>
-                  </button>
-                  <span class="pex-zoom-label" id="pex-zoom-label">100%</span>
-                  <button class="pex-tbtn" id="pex-zoom-in" title="Zoom in">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                  </button>
-                  <a class="pex-tbtn pex-tbtn-dl" id="pex-download-btn" href="#" title="Download PDF">
+                <div class="qp-toolbar-actions">
+                  <button class="qp-tbtn" id="qp-zoom-out" title="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                  <span class="qp-zoom-label" id="qp-zoom-label">100%</span>
+                  <button class="qp-tbtn" id="qp-zoom-in" title="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                  <a class="qp-tbtn qp-tbtn-dl" id="qp-download-btn" href="#" title="Download PDF" target="_blank">
                     <i class="fa-solid fa-download"></i> Download
                   </a>
-                  <button class="pex-tbtn" id="pex-fullscreen-btn" title="Fullscreen">
-                    <i class="fa-solid fa-expand"></i>
-                  </button>
+                  <button class="qp-tbtn" id="qp-fullscreen-btn" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
                 </div>
               </div>
-              <div class="pex-frame-wrap" id="pex-frame-wrap">
-                <div class="pex-skeleton" id="pex-skeleton">
-                  <div class="pex-sk-bar"></div>
-                  <div class="pex-sk-bar pex-sk-short"></div>
-                  <div class="pex-sk-block"></div>
-                  <div class="pex-sk-bar pex-sk-med"></div>
-                  <div class="pex-sk-bar pex-sk-short"></div>
+              <div class="qp-frame-wrap">
+                <div class="qp-empty-state" id="qp-empty-state">
+                  <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                  <p class="qp-state-title">Select a paper to preview</p>
+                  <p class="qp-state-sub">Choose a paper from the list to preview it here</p>
                 </div>
-                <iframe id="pex-iframe" src="" title="PDF Preview" allowfullscreen></iframe>
-                <div class="pex-locked-state" id="pex-locked-state">
-                  <div class="pex-locked-icon"><i class="fa-solid fa-file-pdf"></i></div>
-                  <p class="pex-locked-title" id="pex-locked-title">Select a Paper</p>
-                  <p class="pex-locked-sub" id="pex-locked-sub">Click any card to preview it here</p>
-                  <a href="#enroll" class="pex-enroll-btn">Enroll to Download All Papers</a>
+                <div class="qp-skeleton" id="qp-skeleton">
+                  <div class="qp-sk-bar"></div>
+                  <div class="qp-sk-bar qp-sk-short"></div>
+                  <div class="qp-sk-block"></div>
+                  <div class="qp-sk-bar qp-sk-med"></div>
+                  <div class="qp-sk-bar qp-sk-short"></div>
+                </div>
+                <iframe id="qp-iframe" src="" title="PDF Preview" allowfullscreen></iframe>
+                <div class="qp-locked-state" id="qp-locked-state">
+                  <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                  <p class="qp-state-title" id="qp-locked-title">Paper Unavailable</p>
+                  <p class="qp-state-sub">Enroll to access and download this paper.</p>
+                  <a href="#apply" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
+                    <i class="fa-solid fa-download"></i> Download the Paper
+                  </a>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- RIGHT: Library Panel -->
-          <div class="pex-library-panel">
-            <div class="pex-filter-bar">
-              <div class="pex-tabs">
-                <button class="pex-tab active" data-year="all">All Years</button>
-                <button class="pex-tab" data-year="2022">2022</button>
-                <button class="pex-tab" data-year="2023">2023</button>
-                <button class="pex-tab" data-year="2024">2024</button>
+          <div class="qp-library-panel">
+            <div class="qp-filter-bar">
+              <div class="qp-year-tabs">
+                <button class="qp-year-tab active" data-year="all">All Years</button>
+                <button class="qp-year-tab" data-year="2024">2024</button>
+                <button class="qp-year-tab" data-year="2023">2023</button>
+                <button class="qp-year-tab" data-year="2022">2022</button>
               </div>
             </div>
-            <div class="pex-paper-grid">
-              <a class="pex-paper-card" href="/assets/Prev.Qn.papers/PG%20Nursing%202022.pdf" target="_blank" rel="noopener noreferrer" title="PG Nursing 2022 - Previous Year Question Paper PDF">
-                <div class="pex-card-top">
-                  <div class="pex-card-icon"><i class="fa-solid fa-file-pdf"></i></div>`r`n                  <span class="pex-year-badge">2022</span>
+            <div class="qp-card-grid">
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf="/assets/Prev.Qn.papers/MSC%20Nursing%202024.pdf"
+                data-title="MSC Nursing 2024"
+                data-year="2024"
+                data-pages="18"
+                data-category="Kerala PSC • PG Nursing"
+                data-download="/assets/Prev.Qn.papers/MSC%20Nursing%202024.pdf">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2024</span>
+                  <h3 class="qp-card-title">MSC Nursing 2024</h3>
+                  <span class="qp-card-category">Kerala PSC • PG Nursing</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 18 pages</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
                 </div>
-                <h4 class="pex-card-title">PG Nursing 2022</h4>
-                <p class="pex-card-meta"><i class="fa-regular fa-file-lines"></i> Previous Year Question Paper</p>
-                <div class="pex-card-footer">
-                  <span class="pex-dl-cta"><i class="fa-solid fa-download"></i> Download</span>
+              </article>
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf="/assets/Prev.Qn.papers/MSCNursing%202023.pdf"
+                data-title="MSC Nursing 2023"
+                data-year="2023"
+                data-pages="16"
+                data-category="Kerala PSC • PG Nursing"
+                data-download="/assets/Prev.Qn.papers/MSCNursing%202023.pdf">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2023</span>
+                  <h3 class="qp-card-title">MSC Nursing 2023</h3>
+                  <span class="qp-card-category">Kerala PSC • PG Nursing</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 16 pages</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
                 </div>
-              </a>              <a class="pex-paper-card" href="/assets/Prev.Qn.papers/PG%20Nursing%202023.pdf" target="_blank" rel="noopener noreferrer" title="PG Nursing 2023 - Previous Year Question Paper PDF">
-                <div class="pex-card-top">
-                  <div class="pex-card-icon"><i class="fa-solid fa-file-pdf"></i></div>`r`n                  <span class="pex-year-badge">2023</span>
+              </article>
+              <article class="qp-card" tabindex="0" role="button"
+                data-pdf="/assets/Prev.Qn.papers/MSC%20Nursing%202022.pdf"
+                data-title="MSC Nursing 2022"
+                data-year="2022"
+                data-pages="16"
+                data-category="Kerala PSC • PG Nursing"
+                data-download="/assets/Prev.Qn.papers/MSC%20Nursing%202022.pdf">
+                <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+                <div class="qp-card-body">
+                  <span class="qp-card-year">2022</span>
+                  <h3 class="qp-card-title">MSC Nursing 2022</h3>
+                  <span class="qp-card-category">Kerala PSC • PG Nursing</span>
+                  <div class="qp-card-foot">
+                    <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 16 pages</span>
+                    <span class="qp-preview-badge">Preview Available</span>
+                  </div>
                 </div>
-                <h4 class="pex-card-title">PG Nursing 2023</h4>
-                <p class="pex-card-meta"><i class="fa-regular fa-file-lines"></i> Previous Year Question Paper</p>
-                <div class="pex-card-footer">
-                  <span class="pex-dl-cta"><i class="fa-solid fa-download"></i> Download</span>
-                </div>
-              </a>              <a class="pex-paper-card" href="/assets/Prev.Qn.papers/PG%20Nursing%202024.pdf" target="_blank" rel="noopener noreferrer" title="PG Nursing 2024 - Previous Year Question Paper PDF">
-                <div class="pex-card-top">
-                  <div class="pex-card-icon"><i class="fa-solid fa-file-pdf"></i></div>`r`n                  <span class="pex-year-badge">2024</span>
-                </div>
-                <h4 class="pex-card-title">PG Nursing 2024</h4>
-                <p class="pex-card-meta"><i class="fa-regular fa-file-lines"></i> Previous Year Question Paper</p>
-                <div class="pex-card-footer">
-                  <span class="pex-dl-cta"><i class="fa-solid fa-download"></i> Download</span>
-                </div>
-              </a>
+              </article>
+            </div>
+            <div class="qp-no-results" id="qp-no-results">
+              <i class="fa-solid fa-folder-open"></i>
+              <p>No papers found for this year</p>
             </div>
           </div>
         </div>
@@ -1482,8 +1513,8 @@
               </div>
               <div class="mts-welcome-rules">
                 <div class="mts-rule">
-                  <i class="fa-solid fa-circle-info"></i> +1 for correct Â· 0
-                  for wrong Â· No negative marking
+                  <i class="fa-solid fa-circle-info"></i> +1 for correct · 0
+                  for wrong · No negative marking
                 </div>
                 <div class="mts-rule">
                   <i class="fa-solid fa-clock"></i> No time limit - answer at
@@ -1897,7 +1928,7 @@
                     <div class="rank-badge">Assistant Professor | PGIMER MSc (N) | PhD Scholar</div>
                     <div class="alumni-text-overlay">
                       <h3>Shine Stephen</h3>
-                      <p class="exam-name">Former AIIMS Faculty | UGC NET | MHA | PGDHSR</p>
+                    
                     </div>
                   </div>
                   <div class="alumni-info">
@@ -1921,7 +1952,7 @@
                     <div class="rank-badge">M.Pharm Pharmacology | GPAT Rank Holder</div>
                     <div class="alumni-text-overlay">
                       <h3>Nayana Shaji</h3>
-                      <p class="exam-name">Distinction Holder | Kerala &amp; Central Exam Ranker</p>
+                     
                     </div>
                   </div>
                   <div class="alumni-info">
@@ -1945,7 +1976,7 @@
                     <div class="rank-badge">MSc Nursing (Orthopedic)</div>
                     <div class="alumni-text-overlay">
                       <h3>Vidhu R Vijayan</h3>
-                      <p class="exam-name">NCLEX RN Passed</p>
+                  
                     </div>
                   </div>
                   <div class="alumni-info">
@@ -2152,7 +2183,7 @@
     <!-- SECTION 16: GOOGLE REVIEWS & TRUST WALL -->
 
     <!-- GOOGLE REVIEWS & TRUST WALL -->
-    <section class="greview-section" id="reviews">
+    <section class="greview-section" id="reviews" data-page-type="nursing">
       <div class="container">
         <div class="text-center g-exam-reveal" style="margin-bottom: 48px">
           <div class="section-label">
@@ -2219,168 +2250,7 @@
           </button>
           <div class="greview-carousel-viewport" id="greview-carousel-viewport">
             <div class="greview-track" id="greview-track">
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">MK</div>
-                  <div>
-                    <h5>Meera Krishnan</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">
-                  "The PGIMER-specific mock tests at Eduooz are outstanding. The
-                  focus on advanced nursing and clinical topics helped me ace
-                  the actual CBT. Now posted at PGIMER Chandigarh!"
-                </p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">First Attempt</span>
-                  <span class="greview-badge greview-badge-inst"
-                    >PGIMER Chandigarh</span
-                  >
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">AS</div>
-                  <div>
-                    <h5>Anjali Sharma</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">
-                  "Best PGIMER coaching platform I found. The live classes
-                  covered the entire syllabus systematically. My score in the
-                  CBT was well above the cutoff thanks to Eduooz!"
-                </p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Top Score</span>
-                  <span class="greview-badge greview-badge-inst"
-                    >PGIMER 2024</span
-                  >
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">RP</div>
-                  <div>
-                    <h5>Ritu Patel</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">
-                  "Being a working nurse while preparing for PGIMER was tough.
-                  Eduooz's flexible recorded lectures and weekend sessions made
-                  it possible. Cleared with flying colors!"
-                </p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Working Nurse</span>
-                  <span class="greview-badge greview-badge-inst"
-                    >PGIMER 2023</span
-                  >
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">SN</div>
-                  <div>
-                    <h5>Sneha Nair</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">
-                  "The previous year PGIMER papers and Eduooz's analysis
-                  sessions gave me a clear picture of the exam pattern. The CBT
-                  simulation exactly matched the real PGIMER exam interface."
-                </p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Nursing Officer</span>
-                  <span class="greview-badge greview-badge-inst"
-                    >PGIMER 2024</span
-                  >
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">DT</div>
-                  <div>
-                    <h5>Divya Thomas</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">
-                  "The 1-on-1 mentor guidance and doubt-clearing sessions were
-                  invaluable. The CBT simulation exactly matched the PGIMER exam
-                  interface. Highly recommended!"
-                </p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">Mentor Guided</span>
-                  <span class="greview-badge greview-badge-inst"
-                    >PGIMER 2024</span
-                  >
-                </div>
-              </div>
-              <div class="greview-card">
-                <div class="greview-card-top">
-                  <div class="greview-avatar">JS</div>
-                  <div>
-                    <h5>Jisha S.</h5>
-                    <div class="greview-card-stars">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                  </div>
-                  <i class="fa-brands fa-google greview-g-icon"></i>
-                </div>
-                <p class="greview-text">
-                  "Eduooz's comprehensive medical-surgical and community health
-                  modules were game changers for my PGIMER preparation. Cleared
-                  in first attempt with a great rank!"
-                </p>
-                <div class="greview-badges-row">
-                  <span class="greview-badge">First Attempt</span>
-                  <span class="greview-badge greview-badge-inst"
-                    >PGIMER 2024</span
-                  >
-                </div>
-              </div>
+              <!-- Populated dynamically by google-reviews.js -->
             </div>
           </div>
           <button
@@ -3186,8 +3056,8 @@
     <section class="cta-terminal-section" id="enroll">
       <div class="container cta-grid relative-z">
         <div class="cta-hook-zone g-cta-reveal">
-          <div class="frost-pill mb-4">
-            <span class="glowing-dot-cyan"></span> Limited Intake
+          <div class="section-label">
+            <span class="label-dot"></span> Limited Intake
           </div>
           <h2 class="cta-title">
             Your PGIMER Nursing Officer <br />

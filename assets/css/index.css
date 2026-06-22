@@ -2764,7 +2764,7 @@ body {
 
 .alumni-img-box {
     position: relative; width: 100%; height: 375px; border-radius: 16px; overflow: hidden;
-    margin-bottom: 5px; box-shadow: 0 15px 35x rgba(0,0,0,0.1);
+    margin-bottom: 5px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 .alumni-img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(10%); transition: filter 0.3s, transform 0.5s; }
 .alumni-card-wrapper:hover .alumni-img-box img { filter: grayscale(0%); transform: scale(1.05); }
@@ -2794,25 +2794,269 @@ body {
 }
 
 .rank-badge {
-    position: absolute; top: 15px; right: 15px;
-    background: linear-gradient(135deg, var(--brand-purple), var(--brand-cyan));
-    color: #fff; font-size: 0.75rem; font-weight: 800; padding: 6px 14px;
-    border-radius: 50px; box-shadow: 0 10px 20px rgba(91, 33, 182, 0.3);
+    position: absolute;
+    top: 15px;
+    color: var(--brand-cyan);
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 50px;
+    text-align: left;
 }
 
+/* ── Description: absolute glass-panel overlay on the image ── */
 .alumni-info {
-    padding-top: 5px;
+    position: absolute;
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+    z-index: 5;
+    border-radius: 0 0 12px 12px;
+    padding: 60px 16px 16px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(5, 2, 10, 0.92) 40%,
+        rgba(5, 2, 10, 0.97) 100%
+    );
+    clip-path: inset(100% 0 0 0 round 0 0 12px 12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: clip-path 0.55s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.45s ease;
 }
+.alumni-card-wrapper:hover .alumni-info {
+    clip-path: inset(0% 0 0 0 round 0 0 12px 12px);
+    opacity: 1;
+    pointer-events: auto;
+}
+@media (hover: none) {
+    .alumni-info {
+        clip-path: inset(0% 0 0 0 round 0 0 12px 12px);
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.dest-icon { display: none; }
 
 .placement-dest {
-    background: rgba(255, 255, 255, 0.5); padding: 15px;
-    border-radius: 12px; border: 1px solid rgba(255,255,255,0.8);
-    display: flex; align-items: center; gap: 12px;
-    box-shadow: inset 0 0 10px rgba(255,255,255,1);
+    background: transparent;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    display: block;
 }
-.dest-icon { font-size: 1.5rem; }
-.placement-dest span { font-size: 0.95rem; color: var(--text-muted-light); line-height: 1.4; }
-.placement-dest strong { color: var(--brand-dark); font-weight: 800; display: block; }
+.placement-dest strong { color: #ffffff; font-weight: 800; display: block; }
+
+/* Qualification list */
+.fac-desc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.fac-desc-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.45;
+}
+.fac-desc-list li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brand-cyan);
+    margin-top: 5px;
+    box-shadow: 0 0 5px rgba(6, 182, 212, 0.5);
+}
+
+/* --- Faculty Showcase Section --- */
+.fac-showcase-section {
+    position: relative;
+    padding: 100px 0;
+    overflow: hidden;
+}
+
+.fac-section-sub {
+    max-width: 600px;
+    margin: 14px auto 0;
+    color: #64748b;
+    font-size: 1.25rem;
+    line-height: 1.7;
+}
+
+.fac-ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.fac-blob-1,
+.fac-blob-2 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.12;
+}
+.fac-blob-1 {
+    width: 520px;
+    height: 520px;
+    background: var(--brand-cyan, #06b6d4);
+    top: -120px;
+    left: -140px;
+}
+.fac-blob-2 {
+    width: 440px;
+    height: 440px;
+    background: var(--brand-purple, #7c3aed);
+    bottom: -120px;
+    right: -100px;
+}
+
+.fac-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+/* --- Section Header Labels --- */
+.section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #475569;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+}
+
+.section-label .label-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--brand-cyan);
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.section-title {
+    font-size: clamp(2.9rem, 4vw, 4.5rem);
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+}
+
+.section-title .text-gradient {
+    background: linear-gradient(135deg, var(--brand-cyan, #06b6d4), var(--brand-purple, #7c3aed));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* --- Dots --- */
+.fac-car-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 28px;
+}
+
+.fac-car-dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.12);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    outline: none;
+}
+
+.fac-car-dot.fac-car-dot-active {
+    width: 28px;
+    background: var(--brand-cyan, #06b6d4);
+}
+.fac-car-dot:hover:not(.fac-car-dot-active) {
+    background: rgba(6, 182, 212, 0.35);
+}
+
+/* --- Faculty Batch Dots + Meet All Mentors CTA --- */
+.fac-dots-section {
+    text-align: center;
+    padding: 6px 0 10px;
+}
+
+.fac-batch-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 30px;
+}
+
+.fac-batch-dot {
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+    border-radius: 4px;
+    background: rgba(91, 33, 182, 0.18);
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fac-batch-dot.fac-batch-dot-active {
+    width: 26px;
+    background: var(--brand-cyan);
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.45);
+}
+
+.btn-meet-mentors {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 34px;
+    background: linear-gradient(135deg, var(--brand-purple), var(--brand-magenta, #c026d3));
+    color: #fff;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--font-main);
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-meet-mentors:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(91, 33, 182, 0.28);
+}
+
+/* Particle float animation */
+@keyframes fac-float-particle {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(12px, -18px) scale(1.15); opacity: 0.6; }
+    50% { transform: translate(-8px, -30px) scale(0.9); opacity: 0.4; }
+    75% { transform: translate(6px, -12px) scale(1.05); opacity: 0.5; }
+}
 
 .btn-dark-magnetic {
     display: inline-block; background: var(--brand-purple); color: #fff;
@@ -2830,16 +3074,33 @@ body {
     .marquee-text span { font-size: 4rem; }
     /* Disable 3D tilt translations on mobile for flat, clean reading */
     .card-content-3d { transform: none; }
+    /* Reset stagger on single-column layout */
+    .fac-showcase-section .alumni-card-wrapper:nth-child(2) { margin-top: 0; }
+    .fac-showcase-section .alumni-showcase-grid { margin-top: 50px; }
 }
 
 @media (max-width: 768px) {
-    .placement-light-section {
-        padding: 0px ;
+    .fac-showcase-section {
+        padding: 72px 0;
     }
 
     .alumni-card-wrapper:nth-child(2) {
         margin-top: 10px;
     }
+
+    .fac-showcase-section .alumni-card-wrapper:nth-child(2) { margin-top: 0; }
+}
+
+/* Scoped overrides: match nursing landing page card dimensions */
+.fac-showcase-section .alumni-showcase-grid {
+    margin-top: 80px;
+    padding-bottom: 10px;
+}
+.fac-showcase-section .alumni-card-wrapper:nth-child(2) {
+    margin-top: 100px;
+}
+.fac-showcase-section .alumni-img-box {
+    height: 420px;
 }
 
 /* =========================================
