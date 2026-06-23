@@ -6139,11 +6139,11 @@ body {
 
 .elig-result {
   margin-top: 24px;
-  padding: 20px 24px;
-  border-radius: 14px;
+  padding: 22px 24px;
+  border-radius: 16px;
   display: none;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   font-size: 0.95rem;
   font-weight: 600;
   animation: fadeSlideUp 0.4s ease forwards;
@@ -6151,51 +6151,78 @@ body {
 
 .elig-result.show {
   display: flex;
-}
-.elig-result.success {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.2);
-  color: #065f46;
-}
-.elig-result.warning {
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.2);
-  color: #92400e;
-}
-.elig-result.error {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  color: #991b1b;
-}
-
-/* Result body layout */
-.elig-result.show {
   align-items: flex-start;
 }
-.elig-result > i {
-  font-size: 1.4rem;
-  flex-shrink: 0;
-  margin-top: 2px;
+
+/* SUCCESS STATE — JS adds class "eligible" */
+.elig-result.eligible {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.13) 0%, rgba(5, 150, 105, 0.07) 100%);
+  border: 1.5px solid rgba(16, 185, 129, 0.45);
+  box-shadow: 0 4px 24px rgba(16, 185, 129, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
+
+/* WARNING STATE */
+.elig-result.warning {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.13) 0%, rgba(217, 119, 6, 0.07) 100%);
+  border: 1.5px solid rgba(245, 158, 11, 0.45);
+  box-shadow: 0 4px 24px rgba(245, 158, 11, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* ERROR STATE */
+.elig-result.error {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.13) 0%, rgba(220, 38, 38, 0.07) 100%);
+  border: 1.5px solid rgba(239, 68, 68, 0.45);
+  box-shadow: 0 4px 24px rgba(239, 68, 68, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* ICON — styled badge per state */
+.elig-result > i {
+  font-size: 1.45rem;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.elig-result.eligible > i {
+  color: #059669;
+  background: rgba(16, 185, 129, 0.18);
+}
+.elig-result.warning > i {
+  color: #d97706;
+  background: rgba(245, 158, 11, 0.18);
+}
+.elig-result.error > i {
+  color: #dc2626;
+  background: rgba(239, 68, 68, 0.18);
+}
+
+/* BODY */
 .elig-result-body {
   display: flex;
   flex-direction: column;
   gap: 6px;
   flex: 1;
-  color:black;
 }
-.elig-result-body strong {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: Green;
-}
+
+/* TITLE — state-aware */
+.elig-result.eligible .elig-result-body strong { color: #065f46; font-size: 1.1rem; font-weight: 700; }
+.elig-result.warning  .elig-result-body strong { color: #78350f; font-size: 1.1rem; font-weight: 700; }
+.elig-result.error    .elig-result-body strong { color: #991b1b; font-size: 1.1rem; font-weight: 700; }
+
+/* DESCRIPTION — state-aware */
 .elig-result-body p {
   font-size: 0.92rem;
   font-weight: 500;
   margin: 0;
-  opacity: 0.9;
-
+  opacity: 0.88;
 }
+.elig-result.eligible .elig-result-body p { color: #047857; }
+.elig-result.warning  .elig-result-body p { color: #92400e; }
+.elig-result.error    .elig-result-body p { color: #b91c1c; }
 
 /* Result summary table */
 .elig-summary-grid {
@@ -6212,16 +6239,21 @@ body {
 }
 .elig-summary-label {
   font-weight: 600;
-  opacity: 0.65;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  font-size: 0.82rem;
-  color : var(--brand-dark);
+  font-size: 0.75rem;
+  opacity: 0.6;
 }
+.elig-result.eligible .elig-summary-label { color: #065f46; }
+.elig-result.warning  .elig-summary-label { color: #92400e; }
+.elig-result.error    .elig-summary-label { color: #991b1b; }
+
 .elig-summary-value {
   font-weight: 600;
-  color: var(--brand-gray);
 }
+.elig-result.eligible .elig-summary-value { color: #047857; }
+.elig-result.warning  .elig-summary-value { color: #b45309; }
+.elig-result.error    .elig-summary-value { color: #b91c1c; }
 
 /* Conditional field hidden state */
 .ec-hidden {
