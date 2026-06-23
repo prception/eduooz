@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -53,13 +53,12 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
 
     <link rel="stylesheet" href="../../../assets/css/header-footer.css" />
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
@@ -70,7 +69,7 @@
     <script src="../../../assets/js/youtube-filter.js" defer></script>
 
     <script>
-      // ========== EXAM CONFIGURATION â€” KERALA MSC NURSING ENTRANCE ==========
+      // ========== EXAM CONFIGURATION — KERALA MSC NURSING ENTRANCE ==========
       window.EXAM_CONFIG = {
         examName: "Kerala M.Sc Nursing Entrance",
         fullName: "Kerala M.Sc Nursing Entrance Examination",
@@ -96,7 +95,7 @@
           {
             id: "kerala-msc-nursing-2024",
             year: "2024",
-            title: "Kerala M.Sc Nursing Entrance 2024 â€“ Paper",
+            title: "Kerala M.Sc Nursing Entrance 2024 – Paper",
             meta: "100 MCQs · 90 mins",
             pages: 16,
             pdfUrl: null,
@@ -104,7 +103,7 @@
           {
             id: "kerala-msc-nursing-2023",
             year: "2023",
-            title: "Kerala M.Sc Nursing Entrance 2023 â€“ Paper",
+            title: "Kerala M.Sc Nursing Entrance 2023 – Paper",
             meta: "100 MCQs · 90 mins",
             pages: 16,
             pdfUrl: null,
@@ -112,7 +111,7 @@
           {
             id: "kerala-msc-nursing-2022",
             year: "2022",
-            title: "Kerala M.Sc Nursing Entrance 2022 â€“ Paper",
+            title: "Kerala M.Sc Nursing Entrance 2022 – Paper",
             meta: "100 MCQs · 90 mins",
             pages: 14,
             pdfUrl: null,
@@ -120,7 +119,7 @@
           {
             id: "kerala-msc-nursing-2021",
             year: "2021",
-            title: "Kerala M.Sc Nursing Entrance 2021 â€“ Paper",
+            title: "Kerala M.Sc Nursing Entrance 2021 – Paper",
             meta: "100 MCQs · 90 mins",
             pages: 14,
             pdfUrl: null,
@@ -128,7 +127,7 @@
           {
             id: "kerala-msc-nursing-2020",
             year: "2020",
-            title: "Kerala M.Sc Nursing Entrance 2020 â€“ Paper",
+            title: "Kerala M.Sc Nursing Entrance 2020 – Paper",
             meta: "100 MCQs · 90 mins",
             pages: 14,
             pdfUrl: null,
@@ -136,7 +135,7 @@
           {
             id: "kerala-msc-nursing-2019",
             year: "2019",
-            title: "Kerala M.Sc Nursing Entrance 2019 â€“ Paper",
+            title: "Kerala M.Sc Nursing Entrance 2019 – Paper",
             meta: "100 MCQs · 90 mins",
             pages: 14,
             pdfUrl: null,
@@ -1045,7 +1044,7 @@
         </div>
 
         <div class="text-center">
-          <a href="/assets/Syllubus/MSc-Nursing-Entrance-Syllabus.pdf" class="btn-download-syllabus g-exam-reveal">
+          <a href="/assets/Syllabus/MSc-Nursing-Entrance-Syllabus.pdf" class="btn-download-syllabus g-exam-reveal">
             <i class="fa-solid fa-download"></i> Download Official Syllabus PDF
           </a>
         </div>
@@ -1382,13 +1381,13 @@
                   <span class="qp-toolbar-title" id="qp-info-title">Select a paper to preview</span>
                 </div>
                 <div class="qp-toolbar-actions">
-                  <button class="qp-tbtn" id="qp-zoom-out" title="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                  <button class="qp-tbtn" id="qp-zoom-out" title="Zoom out" aria-label="Zoom out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
                   <span class="qp-zoom-label" id="qp-zoom-label">100%</span>
-                  <button class="qp-tbtn" id="qp-zoom-in" title="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                  <button class="qp-tbtn" id="qp-zoom-in" title="Zoom in" aria-label="Zoom in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
                   <a class="qp-tbtn qp-tbtn-dl" id="qp-download-btn" href="#" title="Download PDF" target="_blank">
                     <i class="fa-solid fa-download"></i> Download
                   </a>
-                  <button class="qp-tbtn" id="qp-fullscreen-btn" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
+                  <button class="qp-tbtn" id="qp-fullscreen-btn" title="Fullscreen" aria-label="Fullscreen"><i class="fa-solid fa-expand"></i></button>
                 </div>
               </div>
               <div class="qp-frame-wrap">
@@ -1409,7 +1408,7 @@
                   <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
                   <p class="qp-state-title" id="qp-locked-title">Paper Unavailable</p>
                   <p class="qp-state-sub">Enroll to access and download this paper.</p>
-                  <a href="#apply" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
+                  <a href="#enroll" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
                     <i class="fa-solid fa-download"></i> Download the Paper
                   </a>
                 </div>
@@ -1428,9 +1427,9 @@
               </div>
             </div>
             <div class="qp-card-grid">
-              <article class="qp-card" tabindex="0" role="button"
+              <article class="qp-card" tabindex="0" role="button" aria-label="Preview M.Sc Nursing 2024 paper"
                 data-pdf="/assets/Prev.Qn.papers/MSC%20Nursing%202024.pdf"
-                data-title="MSC Nursing 2024"
+                data-title="M.Sc Nursing 2024"
                 data-year="2024"
                 data-pages="18"
                 data-category="Kerala PSC • MSC Nursing"
@@ -1438,7 +1437,7 @@
                 <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
                 <div class="qp-card-body">
                   <span class="qp-card-year">2024</span>
-                  <h3 class="qp-card-title">MSC Nursing 2024</h3>
+                  <h3 class="qp-card-title">M.Sc Nursing 2024</h3>
                   <span class="qp-card-category">Kerala PSC • MSC Nursing</span>
                   <div class="qp-card-foot">
                     <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 18 pages</span>
@@ -1446,9 +1445,9 @@
                   </div>
                 </div>
               </article>
-              <article class="qp-card" tabindex="0" role="button"
+              <article class="qp-card" tabindex="0" role="button" aria-label="Preview M.Sc Nursing 2023 paper"
                 data-pdf="/assets/Prev.Qn.papers/MSCNursing%202023.pdf"
-                data-title="MSC Nursing 2023"
+                data-title="M.Sc Nursing 2023"
                 data-year="2023"
                 data-pages="16"
                 data-category="Kerala PSC • MSC Nursing"
@@ -1456,7 +1455,7 @@
                 <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
                 <div class="qp-card-body">
                   <span class="qp-card-year">2023</span>
-                  <h3 class="qp-card-title">MSC Nursing 2023</h3>
+                  <h3 class="qp-card-title">M.Sc Nursing 2023</h3>
                   <span class="qp-card-category">Kerala PSC • MSC Nursing</span>
                   <div class="qp-card-foot">
                     <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 16 pages</span>
@@ -1464,9 +1463,9 @@
                   </div>
                 </div>
               </article>
-              <article class="qp-card" tabindex="0" role="button"
+              <article class="qp-card" tabindex="0" role="button" aria-label="Preview M.Sc Nursing 2022 paper"
                 data-pdf="/assets/Prev.Qn.papers/MSC%20Nursing%202022.pdf"
-                data-title="MSC Nursing 2022"
+                data-title="M.Sc Nursing 2022"
                 data-year="2022"
                 data-pages="16"
                 data-category="Kerala PSC • MSC Nursing"
@@ -1474,7 +1473,7 @@
                 <div class="qp-card-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
                 <div class="qp-card-body">
                   <span class="qp-card-year">2022</span>
-                  <h3 class="qp-card-title">MSC Nursing 2022</h3>
+                  <h3 class="qp-card-title">M.Sc Nursing 2022</h3>
                   <span class="qp-card-category">Kerala PSC • MSC Nursing</span>
                   <div class="qp-card-foot">
                     <span class="qp-card-pages"><i class="fa-regular fa-file-lines"></i> 16 pages</span>
@@ -1704,14 +1703,14 @@
                   </div>
                   <div class="mts-res-card">
                     <h4 class="mts-res-card-title"><i class="fa-solid fa-chart-simple"></i> Section Performance</h4>
-                    <canvas id="mts-bar-chart" height="180"></canvas>
+                    <canvas id="mts-bar-chart" height="180" role="img" aria-label="Section-wise score bar chart"></canvas>
                   </div>
                 </div>
                 <div class="mts-results-right">
                   <div class="mts-res-card mts-donut-card">
                     <h4 class="mts-res-card-title"><i class="fa-solid fa-circle-half-stroke"></i> Overall Accuracy</h4>
                     <div class="mts-donut-wrap">
-                      <canvas id="mts-donut-chart" width="200" height="200"></canvas>
+                      <canvas id="mts-donut-chart" width="200" height="200" role="img" aria-label="Overall accuracy donut chart"></canvas>
                       <div class="mts-donut-center" id="mts-donut-center"></div>
                     </div>
                     <div class="mts-donut-legend" id="mts-donut-legend"></div>
@@ -1871,7 +1870,7 @@
     </section>
 
     <!-- SECTION 15: VIDEO TESTIMONIALS -->
-        <section class="testimonials-section">
+        <section class="testimonials-section" id="testimonials">
             <div class="testimonials-mesh-bg">
                 <div class="mesh-blob blob-purple" style="top:-5%; left:-8%; width:550px; height:550px; opacity:0.3;"></div>
                 <div class="mesh-blob blob-cyan" style="bottom:-5%; right:-5%; width:450px; height:450px; opacity:0.2;"></div>
@@ -1910,7 +1909,7 @@
                         </figure>
                         <blockquote class="testi-featured-quote" id="testiQuote">
                             <i class="fa-solid fa-quote-left testi-quote-icon"></i>
-                            <p>"Watch our latest nursing upload on our YouTube channel. More testimonial videos will be added soon."</p>
+                            <p>"Comprehensive super notes covering all key topics for the Assistant Professor in Nursing exam — structured, focused, and exam-ready."</p>
                         </blockquote>
                     </article>
 
@@ -1933,7 +1932,7 @@
                         <article class="testi-playlist-item" data-index="1" data-url="https://youtu.be/4J_sUv_L5f0?si=eK1eW4HgoQy_c_4v"
                             data-img="https://img.youtube.com/vi/4J_sUv_L5f0/maxresdefault.jpg" data-avatar="https://img.youtube.com/vi/4J_sUv_L5f0/maxresdefault.jpg"
                             data-name="DHS Staff Nurse Exam Preparation 2025" data-sub="Exam Guide &middot; 2025" data-badge="Exam Guide"
-                            data-quote="Exam Guide &middot; 2025">
+                            data-quote="A complete walkthrough of DHS Staff Nurse Exam 2025 — syllabus breakdown, exam pattern, and expert preparation strategy from Eduooz faculty."
                             <figure class="testi-item-thumb">
                                 <img src="https://img.youtube.com/vi/4J_sUv_L5f0/maxresdefault.jpg" alt="DHS Staff Nurse Exam Preparation 2025" loading="lazy">
                                 <div class="testi-item-play"><i class="fa-solid fa-play"></i></div>
@@ -1941,14 +1940,14 @@
                             <div class="testi-item-info">
                                 <h3 class="testi-item-name">DHS Staff Nurse Exam Preparation 2025</h3>
                                 <div class="testi-item-role"><i class="fa-solid fa-location-dot"></i> Exam Guide &middot; 2025</div>
-                                <div class="testi-item-excerpt">"Exam Guide &middot; 2025"</div>
+                                <div class="testi-item-excerpt">"Syllabus breakdown, exam pattern, and expert preparation strategy for DHS Staff Nurse 2025."</div>
                             </div>
                             <div class="testi-item-number">02</div>
                         </article>
                         <article class="testi-playlist-item" data-index="2" data-url="https://youtu.be/XjogZEgAA2M?si=CMIgkmReFJ203EEp"
                             data-img="https://img.youtube.com/vi/XjogZEgAA2M/maxresdefault.jpg" data-avatar="https://img.youtube.com/vi/XjogZEgAA2M/maxresdefault.jpg"
                             data-name="Mission NORCET 11 | Eduooz Academy" data-sub="NORCET &middot; 2025" data-badge="NORCET"
-                            data-quote="NORCET &middot; 2025">
+                            data-quote="Full preparation roadmap for NORCET 11 — high-yield nursing concepts, mock test strategy, and last-minute revision tips from Eduooz Academy experts."
                             <figure class="testi-item-thumb">
                                 <img src="https://img.youtube.com/vi/XjogZEgAA2M/maxresdefault.jpg" alt="Mission NORCET 11 | Eduooz Academy" loading="lazy">
                                 <div class="testi-item-play"><i class="fa-solid fa-play"></i></div>
@@ -1956,7 +1955,7 @@
                             <div class="testi-item-info">
                                 <h3 class="testi-item-name">Mission NORCET 11 | Eduooz Academy</h3>
                                 <div class="testi-item-role"><i class="fa-solid fa-location-dot"></i> NORCET &middot; 2025</div>
-                                <div class="testi-item-excerpt">"NORCET &middot; 2025"</div>
+                                <div class="testi-item-excerpt">"High-yield nursing concepts, mock test strategy, and last-minute revision tips for NORCET 11."</div>
                             </div>
                             <div class="testi-item-number">03</div>
                         </article>
@@ -1984,7 +1983,7 @@
             <div class="greview-stars-lg">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star-half-stroke"></i>
+              <i class="fa-solid fa-star"></i>
             </div>
             <p class="greview-rating-label">Google Rating</p>
           </div>
@@ -2381,7 +2380,7 @@
         <div class="faq-footer text-center g-faq-reveal">
           <p class="support-text">Still have questions?</p>
           <a href="#enroll" class="btn-liquid-purple magnetic-btn">
-            Contact Support <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:5px;font-size:0.85em"></i>
+            Speak to a Counsellor <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:5px;font-size:0.85em"></i>
           </a>
         </div>
       </div>
@@ -2395,7 +2394,7 @@
             <span class="glowing-dot-cyan"></span> Limited Intake
           </div>
           <h2 class="cta-title">
-            Your Government Nursing <br />
+            Your Advanced Nursing <br />
             <span class="text-gradient-fluid">Career Starts Here.</span>
           </h2>
           <p class="cta-subtitle">
@@ -2422,18 +2421,18 @@
             </div>
             <form class="premium-form" id="course-application-form">
               <div class="input-group">
-                <input type="text" id="app-name" required autocomplete="off" />
+                <input type="text" id="app-name" required autocomplete="name" />
                 <label for="app-name">Full Legal Name</label>
                 <div class="input-line"></div>
               </div>
               <div class="input-row">
                 <div class="input-group">
-                  <input type="tel" id="app-phone" required autocomplete="off" />
+                  <input type="tel" id="app-phone" required autocomplete="tel" />
                   <label for="app-phone">Phone Number</label>
                   <div class="input-line"></div>
                 </div>
                 <div class="input-group">
-                  <input type="email" id="app-email" required autocomplete="off" />
+                  <input type="email" id="app-email" required autocomplete="email" />
                   <label for="app-email">Email Address</label>
                   <div class="input-line"></div>
                 </div>
@@ -2470,6 +2469,3 @@
     <script src="../../../assets/js/components.js"></script>
   </body>
 </html>
-
-
-

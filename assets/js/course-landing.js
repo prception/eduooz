@@ -365,7 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- 3. GSAP Video Section Reveal ---
   gsap.set(".g-vid-reveal", { autoAlpha: 1 });
-  gsap.from(".g-vid-reveal", {
+  gsap.from(".course-video-section .g-vid-reveal", {
     scrollTrigger: { trigger: ".course-video-section", start: "top 80%" },
     y: 40,
     opacity: 0,
@@ -658,7 +658,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Scroll Reveal
   gsap.set(".g-vid-reveal", { autoAlpha: 1 });
-  gsap.from(".g-vid-reveal", {
+  gsap.from(".video-luxury-section .g-vid-reveal", {
     scrollTrigger: {
       trigger: ".video-luxury-section",
       start: "top 80%",
@@ -725,7 +725,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let autoSlideInterval;
   let isAnimating = false;
-  window.lastDragDist = 0;
+  let lastDragDist = 0;
 
   // (Initialization is handled dynamically by renderPlaylistCards after data is loaded)
 
@@ -816,6 +816,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const getCenterOffset = () => {
     if (!playlistTrack || !playlistTrack.children[2]) return 0;
     const viewport = document.querySelector(".playlist-viewport");
+    if (!viewport) return 0;
     const viewportWidth = viewport.offsetWidth;
     const card = playlistTrack.children[2];
     const cardWidth = card.offsetWidth;
@@ -1281,7 +1282,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Attach click handlers to new cards
     Array.from(playlistTrack.children).forEach((card) => {
       card.addEventListener("click", (e) => {
-        if (e.isTrusted && window.lastDragDist > 10) {
+        if (e.isTrusted && lastDragDist > 10) {
           e.preventDefault();
           return;
         }
@@ -1383,7 +1384,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pointerDown = (e) => {
     if (isAnimating || !playlistTrack) return;
     isDragging = true;
-    window.lastDragDist = 0;
+    lastDragDist = 0;
     startX = e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
     playlistTrack.style.cursor = "grabbing";
     if (autoSlideInterval) clearInterval(autoSlideInterval);
@@ -1410,7 +1411,7 @@ document.addEventListener("DOMContentLoaded", () => {
       syncMainPortal(playlistTrack.children[2]);
     }
 
-    window.lastDragDist += Math.abs(walk); // Ensure clicks disable gracefully
+    lastDragDist += Math.abs(walk); // Ensure clicks disable gracefully
     gsap.set(playlistTrack, { x: cachedCenterOffset + walk });
   };
 
@@ -1477,59 +1478,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Removed ecosystem hover pause functionality at user request
 
   startAutoSlide();
-
-  // --- 9. GSAP Cinematic Footer Reveal ---
-  function initFooterAnimation() {
-    let mmFooter = gsap.matchMedia();
-
-    mmFooter.add("(min-width: 1025px)", () => {
-      gsap.set(".luxury-footer-inner", { willChange: "transform, opacity" });
-
-      gsap.from(".luxury-footer-inner", {
-        scrollTrigger: {
-          trigger: ".luxury-footer-wrapper",
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-        yPercent: -20,
-        scale: 0.95,
-        opacity: 0.5,
-        ease: "none",
-        force3D: true,
-      });
-    });
-  }
-
-  if (document.querySelector(".luxury-footer-wrapper")) {
-    initFooterAnimation();
-  } else {
-    window.addEventListener("footerLoaded", initFooterAnimation);
-  }
-
-  // --- 10. Scroll to Top Button ---
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
-  if (scrollTopBtn) {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 500) {
-        scrollTopBtn.classList.add("visible");
-      } else {
-        scrollTopBtn.classList.remove("visible");
-      }
-    });
-
-    scrollTopBtn.addEventListener("click", () => {
-      // Use Lenis smooth scroll if available, otherwise native
-      if (window.lenis) {
-        window.lenis.scrollTo(0, {
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    });
-  }
 
   // --- 11. GSAP Testimonials Reveal ---
   gsap.set(".g-test-reveal", { autoAlpha: 1 });
@@ -2000,13 +1948,13 @@ document.querySelectorAll(".faq-q").forEach((q) => {
     const slideOffset = currentIndex * slidesVisible * (cardWidth + gap);
     track.style.transform = `translateX(-${slideOffset}px)`;
 
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex >= total - 1;
+    if (prevBtn) prevBtn.disabled = currentIndex === 0;
+    if (nextBtn) nextBtn.disabled = currentIndex >= total - 1;
     updateDots();
   }
 
-  prevBtn.addEventListener("click", () => goTo(currentIndex - 1));
-  nextBtn.addEventListener("click", () => goTo(currentIndex + 1));
+  if (prevBtn) prevBtn.addEventListener("click", () => goTo(currentIndex - 1));
+  if (nextBtn) nextBtn.addEventListener("click", () => goTo(currentIndex + 1));
 
   buildDots();
   goTo(0);
@@ -2019,6 +1967,7 @@ document.querySelectorAll(".faq-q").forEach((q) => {
 // Animations
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
+  if (window.lenis) return;
   const lenis = new Lenis();
   function raf(time) {
     lenis.raf(time);
@@ -4258,6 +4207,7 @@ function initReviewCounters() {
 
   observer.observe(bar);
 }
+window.initReviewCounters = initReviewCounters;
 
 // --- GOOGLE REVIEWS CAROUSEL ---
 function initReviewCarousel() {
@@ -4415,6 +4365,7 @@ function initReviewCarousel() {
   goTo(0);
   resetAuto();
 }
+window.initReviewCarousel = initReviewCarousel;
 
 // ===========================================
 // MOCK TEST SYSTEM — moved to practice-test.js

@@ -243,7 +243,9 @@
       }
     });
 
-    /* Re-run init functions from course-landing.js (global scope) */
+    /* Re-run init functions from course-landing.js (explicit cross-file dependency:
+       initReviewCarousel and initReviewCounters are defined in course-landing.js
+       and exposed as window.initReviewCarousel / window.initReviewCounters) */
     if (typeof initReviewCarousel === 'function') {
       try { initReviewCarousel(); } catch (e) { /* silent */ }
     }

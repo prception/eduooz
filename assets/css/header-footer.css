@@ -32,7 +32,8 @@
 }
 
 .logo img {
-    height: 170px;
+    height: 40px;
+    width: auto;
     filter: brightness(15);
     transition: filter 0.4s ease;
 }
@@ -47,9 +48,9 @@
     gap: 40px;
 }
 .glass-header{
-    background:	rgba(10, 5, 20, 0.4);
-    border:#0ea5e9	var(--glass-border);	
-    border-top:	rgba(255,255,255,0.3);	
+    background: rgba(10, 5, 20, 0.4);
+    border: 1px solid #0ea5e9;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .glass-header.light-mode {
