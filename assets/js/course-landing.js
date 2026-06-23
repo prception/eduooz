@@ -5112,14 +5112,17 @@ const facultyPool = [
   },
   // Batch 3
   {
-    name: "Aparna T.M",
-    role: "1st Rank Holder – M.Pharm, KUHS",
-    badge: "M.Pharm – KUHS | 1st Rank Holder",
-    icon: '<i class="fa-solid fa-pills"></i>',
-    img: "/assets/images/mentors/APARNA.jpeg",
+    name: "Sai Kiran T C",
+    role: "GPAT Kerala Rank Holder | Research Conclave Winner",
+    badge: "M.Pharm Pharmaceutical Chemistry | GPAT Kerala Rank Holder",
+    icon: '<i class="fa-solid fa-flask-vial"></i>',
+    img: "/assets/images/Mentors/SAI KIRAN T C.jpeg",
     quals: [
-      "M.Pharm – KUHS",
-      "1st Rank Holder",
+      "Senior Pharmacy Faculty",
+      "M.Pharm – Pharmaceutical Chemistry",
+      "GPAT Kerala Rank Holder",
+      "ATPI KSB Poster Presentation 2025",
+      "Pharmaceutical Research Conclave Winner 2025",
     ],
   },
   {

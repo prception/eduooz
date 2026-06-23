@@ -96,13 +96,17 @@
       achievements: ["Kerala PSC Rank Holder"],
     },
     {
-      name: "Aparna T.M",
+      name: "Sai Kiran T C",
       accent: "cyan",
-      img: "assets/images/mentors/APARNA.jpeg",
-      imgAlt: "Aparna T.M – Pharmacy Faculty",
-      icon: "fa-solid fa-award",
-      qual: ["M.Pharm – KUHS"],
-      achievements: ["1st Rank Holder"],
+      img: "assets/images/Mentors/SAI KIRAN T C.jpeg",
+      imgAlt: "Sai Kiran T C – Senior Pharmacy Faculty",
+      icon: "fa-solid fa-flask-vial",
+      qual: ["Senior Pharmacy Faculty", "M.Pharm – Pharmaceutical Chemistry"],
+      achievements: [
+        "GPAT Kerala Rank Holder",
+        "ATPI KSB Poster Presentation 2025",
+        "Pharmaceutical Research Conclave Winner 2025",
+      ],
     },
     {
       name: "Dr. Manjima G.S",
