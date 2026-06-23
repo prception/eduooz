@@ -3288,10 +3288,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (infoTitle) infoTitle.textContent = title || "";
 
       if (!pdfUrl) {
-        /* No PDF — show locked/enroll state */
+        /* No PDF — show Coming Soon state */
         if (emptyState)  emptyState.classList.add("qp-hidden");
         if (skeleton)    skeleton.classList.remove("qp-show");
-        if (lockedTitle) lockedTitle.textContent = title || "Paper Unavailable";
+        if (lockedTitle) lockedTitle.textContent = "Coming Soon";
+        var lockedSub = lockedState ? lockedState.querySelector(".qp-state-sub") : null;
+        if (lockedSub)   lockedSub.textContent   = "This question paper will be available soon.";
+        var lockedDlBtn = document.getElementById("qp-locked-dl-btn");
+        if (lockedDlBtn) lockedDlBtn.style.display = "none";
         if (lockedState) lockedState.classList.add("qp-show");
         if (iframe)      { iframe.classList.remove("qp-loaded"); iframe.src = ""; }
         if (dlBtn) {
@@ -3329,8 +3333,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function activateCard(card) {
       cardGrid.querySelectorAll(".qp-card").forEach(function (c) {
         c.classList.remove("qp-active");
+        var b = c.querySelector(".qp-preview-badge");
+        if (b && c.dataset.pdf) b.textContent = "Preview Available";
       });
       card.classList.add("qp-active");
+      var activeBadge = card.querySelector(".qp-preview-badge");
+      if (activeBadge && card.dataset.pdf) activeBadge.textContent = "Previewing";
 
       var pdfUrl      = card.dataset.pdf      || "";
       var title       = card.dataset.title    || (card.querySelector(".qp-card-title") ? card.querySelector(".qp-card-title").textContent.trim() : "");
@@ -3345,6 +3353,14 @@ document.addEventListener("DOMContentLoaded", () => {
       card.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activateCard(card); }
       });
+    });
+
+    /* ── Update badge text for cards without a PDF ── */
+    cardGrid.querySelectorAll(".qp-card").forEach(function (card) {
+      var badge = card.querySelector(".qp-preview-badge");
+      if (badge && !card.dataset.pdf) {
+        badge.textContent = "Coming Soon";
+      }
     });
 
     /* ── Year filter tabs ── */
@@ -5096,14 +5112,17 @@ const facultyPool = [
   },
   // Batch 3
   {
-    name: "Aparna T.M",
-    role: "1st Rank Holder – M.Pharm, KUHS",
-    badge: "M.Pharm – KUHS | 1st Rank Holder",
-    icon: '<i class="fa-solid fa-pills"></i>',
-    img: "/assets/images/mentors/APARNA.jpeg",
+    name: "Sai Kiran T C",
+    role: "GPAT Kerala Rank Holder | Research Conclave Winner",
+    badge: "M.Pharm Pharmaceutical Chemistry | GPAT Kerala Rank Holder",
+    icon: '<i class="fa-solid fa-flask-vial"></i>',
+    img: "/assets/images/Mentors/SAI KIRAN T C.jpeg",
     quals: [
-      "M.Pharm – KUHS",
-      "1st Rank Holder",
+      "Senior Pharmacy Faculty",
+      "M.Pharm – Pharmaceutical Chemistry",
+      "GPAT Kerala Rank Holder",
+      "ATPI KSB Poster Presentation 2025",
+      "Pharmaceutical Research Conclave Winner 2025",
     ],
   },
   {
