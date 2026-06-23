@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -66,10 +66,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
@@ -78,9 +74,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
 
     <link rel="stylesheet" href="../../../assets/css/header-footer.css" />
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
@@ -91,7 +87,7 @@
     <script src="../../../assets/js/youtube-filter.js" defer></script>
 
     <script>
-      // ========== EXAM CONFIGURATION â€” KERALA PSC ASSISTANT PROFESSOR IN NURSING ==========
+      // ========== EXAM CONFIGURATION — KERALA PSC ASSISTANT PROFESSOR IN NURSING ==========
       window.EXAM_CONFIG = {
         examName: "Kerala PSC Assistant Professor in Nursing",
         fullName:
@@ -117,7 +113,7 @@
           {
             id: "apn-2025-s1",
             year: "2025",
-            title: "Kerala PSC APN 2025 â€“ Paper 1",
+            title: "Kerala PSC APN 2025 – Paper 1",
             meta: "150 MCQs · 120 mins",
             pages: 22,
             pdfUrl: null,
@@ -125,7 +121,7 @@
           {
             id: "apn-2024-s1",
             year: "2024",
-            title: "Kerala PSC APN 2024 â€“ Paper 1",
+            title: "Kerala PSC APN 2024 – Paper 1",
             meta: "150 MCQs · 120 mins",
             pages: 22,
             pdfUrl: null,
@@ -133,7 +129,7 @@
           {
             id: "apn-2023-s1",
             year: "2023",
-            title: "Kerala PSC APN 2023 â€“ Paper 1",
+            title: "Kerala PSC APN 2023 – Paper 1",
             meta: "150 MCQs · 120 mins",
             pages: 20,
             pdfUrl: null,
@@ -141,7 +137,7 @@
           {
             id: "apn-2023-key",
             year: "2023",
-            title: "Kerala PSC APN 2023 â€“ Answer Key",
+            title: "Kerala PSC APN 2023 – Answer Key",
             meta: "Official Key · All Sets",
             pages: 6,
             pdfUrl: null,
@@ -149,7 +145,7 @@
           {
             id: "apn-2022-s1",
             year: "2022",
-            title: "Kerala PSC APN 2022 â€“ Paper 1",
+            title: "Kerala PSC APN 2022 – Paper 1",
             meta: "150 MCQs · 120 mins",
             pages: 20,
             pdfUrl: null,
@@ -157,7 +153,7 @@
           {
             id: "apn-2021-s1",
             year: "2021",
-            title: "Kerala PSC APN 2021 â€“ Paper 1",
+            title: "Kerala PSC APN 2021 – Paper 1",
             meta: "150 MCQs · 120 mins",
             pages: 22,
             pdfUrl: null,
@@ -184,7 +180,7 @@
             icon: "fa-solid fa-briefcase",
             title: "Teaching / Clinical Experience",
             description:
-              "Relevant teaching experience in an accredited nursing college or clinical experience in a recognized hospital strengthens candidature. Some APN posts may specify a minimum period of teaching or nursing experience â€” refer to the official Kerala PSC notification for exact requirements.",
+              "Relevant teaching experience in an accredited nursing college or clinical experience in a recognized hospital strengthens candidature. Some APN posts may specify a minimum period of teaching or nursing experience — refer to the official Kerala PSC notification for exact requirements.",
           },
           {
             icon: "fa-solid fa-calendar-check",
@@ -210,7 +206,7 @@
           {
             icon: "fa-solid fa-user",
             category: "General Category",
-            maxAge: "21â€“35 years",
+            maxAge: "21–35 years",
             description:
               "Must be within the upper age limit specified in the Kerala PSC notification. Check the official advertisement for exact cut-off dates and age-calculation rules.",
           },
@@ -275,7 +271,7 @@
             type: "select", id: "registration",
             label: "Nursing Council Registration (KNMC / RNRM)", required: true,
             options: [
-              { value: "yes", label: "Yes â€“ Active Registration" },
+              { value: "yes", label: "Yes – Active Registration" },
               { value: "no",  label: "No" },
             ],
           },
@@ -296,7 +292,7 @@
             type: "select", id: "msc-qualification",
             label: "MSc Nursing Qualification", required: true,
             options: [
-              { value: "yes",      label: "Yes â€“ MSc Nursing completed" },
+              { value: "yes",      label: "Yes – MSc Nursing completed" },
               { value: "pursuing", label: "Pursuing / Final year" },
               { value: "no",       label: "No" },
             ],
@@ -308,7 +304,7 @@
             options: [
               { value: "none",    label: "No experience" },
               { value: "under-1", label: "Under 1 year" },
-              { value: "1-3",     label: "1â€“3 years" },
+              { value: "1-3",     label: "1–3 years" },
               { value: "3plus",   label: "3+ years" },
             ],
           },
@@ -677,7 +673,6 @@
                 rel="noopener"
                 >www.keralapsc.gov.in</a
               >
-            </div>
             </div>
           </div>
         </div>
@@ -1134,7 +1129,7 @@
                   </ul>
                   <div class="syl-sub-heading">Skeletal System</div>
                   <ul class="syllabus-list">
-                    <li><i class="fa-solid fa-chevron-right"></i> Bones and Joints â€” Types and Classification</li>
+                    <li><i class="fa-solid fa-chevron-right"></i> Bones and Joints — Types and Classification</li>
                     <li><i class="fa-solid fa-chevron-right"></i> Formation of Bones</li>
                   </ul>
                   <div class="syl-sub-heading">Muscular System</div>
@@ -1188,11 +1183,11 @@
                   </ul>
                   <div class="syl-sub-heading">Sense Organs</div>
                   <ul class="syllabus-list">
-                    <li><i class="fa-solid fa-chevron-right"></i> Skin â€” Structure, Functions, Appendages, Receptors, Temperature Regulation</li>
-                    <li><i class="fa-solid fa-chevron-right"></i> Eye â€” Structure, Layers, Muscles, Innervation, Visual Process</li>
-                    <li><i class="fa-solid fa-chevron-right"></i> Ear â€” Parts, Physiology of Hearing, Balance</li>
-                    <li><i class="fa-solid fa-chevron-right"></i> Nose â€” Mechanism of Smell and Olfaction</li>
-                    <li><i class="fa-solid fa-chevron-right"></i> Tongue â€” Structure and Location of Taste Buds</li>
+                    <li><i class="fa-solid fa-chevron-right"></i> Skin — Structure, Functions, Appendages, Receptors, Temperature Regulation</li>
+                    <li><i class="fa-solid fa-chevron-right"></i> Eye — Structure, Layers, Muscles, Innervation, Visual Process</li>
+                    <li><i class="fa-solid fa-chevron-right"></i> Ear — Parts, Physiology of Hearing, Balance</li>
+                    <li><i class="fa-solid fa-chevron-right"></i> Nose — Mechanism of Smell and Olfaction</li>
+                    <li><i class="fa-solid fa-chevron-right"></i> Tongue — Structure and Location of Taste Buds</li>
                   </ul>
                 </div>
               </div>
@@ -1266,7 +1261,7 @@
                   </ul>
                   <div class="syl-sub-heading">Immunoprophylaxis</div>
                   <ul class="syllabus-list">
-                    <li><i class="fa-solid fa-chevron-right"></i> Vaccines and Sera â€” Types and Classification</li>
+                    <li><i class="fa-solid fa-chevron-right"></i> Vaccines and Sera — Types and Classification</li>
                     <li><i class="fa-solid fa-chevron-right"></i> Storage, Handling and Cold Chain</li>
                     <li><i class="fa-solid fa-chevron-right"></i> Immunization Schedule</li>
                     <li><i class="fa-solid fa-chevron-right"></i> Newly Available Vaccines</li>
@@ -1280,7 +1275,7 @@
         <!-- /syllabus-tab-panels -->
 
         <div class="text-center">
-          <a href="/assets/Syllubus/APN-Syllabus.pdf" class="btn-download-syllabus g-exam-reveal">
+          <a href="/assets/Syllabus/APN-Syllabus.pdf" class="btn-download-syllabus g-exam-reveal">
             <i class="fa-solid fa-download"></i> Download Official Syllabus PDF
           </a>
         </div>
@@ -1808,7 +1803,7 @@
                   <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
                   <p class="qp-state-title" id="qp-locked-title">Paper Unavailable</p>
                   <p class="qp-state-sub">Enroll to access and download this paper.</p>
-                  <a href="#apply" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
+                  <a href="#enroll" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
                     <i class="fa-solid fa-download"></i> Download the Paper
                   </a>
                 </div>
@@ -2243,7 +2238,7 @@
                       <i class="fa-solid fa-chart-simple"></i> Section
                       Performance
                     </h4>
-                    <canvas id="mts-bar-chart" height="180"></canvas>
+                    <canvas id="mts-bar-chart" height="180" role="img" aria-label="Section-wise score bar chart"></canvas>
                   </div>
                 </div>
                 <div class="mts-results-right">

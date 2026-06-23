@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -65,10 +65,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
@@ -77,9 +73,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
 
     <link rel="stylesheet" href="../../../assets/css/header-footer.css" />
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
@@ -90,7 +86,7 @@
     <script src="../../../assets/js/youtube-filter.js" defer></script>
 
     <script>
-      // ========== EXAM CONFIGURATION â€” RML NURSING OFFICER ==========
+      // ========== EXAM CONFIGURATION — RML NURSING OFFICER ==========
       window.EXAM_CONFIG = {
         examName: "RML",
         fullName: "RML Nursing Officer Exam",
@@ -144,12 +140,12 @@
           { icon: "fa-solid fa-graduation-cap", title: "Degrees and Recognition Required", description: "Must possess the relevant degree for the post applied for (e.g., B.Sc Nursing, diploma, or degree in the respective discipline). Degree must be from a recognized university or institution. Professional registration is mandatory where applicable (e.g., RNRM for Nursing posts)." },
           { icon: "fa-solid fa-id-card", title: "Valid Registration Requirements", description: "Valid and active professional registration is mandatory where applicable. Registration must be maintained with the relevant professional council. Registration must be valid at the time of application and appointment." },
           { icon: "fa-solid fa-briefcase", title: "Clinical / Professional Experience", description: "Some RML posts may prefer or require clinical or professional experience. Experience should be in a hospital, healthcare institution, or recognized organization relevant to the post." },
-          { icon: "fa-solid fa-calendar-check", title: "Age Limit & Relaxation Details", description: "Typically 21â€“30 years for General category candidates (refer to the latest RML notification for exact limits). Age relaxation is applicable as per Government of India rules for SC/ST/OBC/PwBD and other eligible categories. Age is calculated on the date specified in the RML notification." },
+          { icon: "fa-solid fa-calendar-check", title: "Age Limit & Relaxation Details", description: "Typically 21–30 years for General category candidates (refer to the latest RML notification for exact limits). Age relaxation is applicable as per Government of India rules for SC/ST/OBC/PwBD and other eligible categories. Age is calculated on the date specified in the RML notification." },
           { icon: "fa-solid fa-flag", title: "Nationality Requirements", description: "Applicant must be an Indian citizen." },
           { icon: "fa-solid fa-heart-pulse", title: "Medical Fitness Requirements", description: "Candidate must be medically and physically fit for the post. A medical fitness certificate may be required during appointment or document verification." },
         ],
         ageRules: [
-          { icon: "fa-solid fa-user",          category: "General Category",                       maxAge: "21â€“30 years", description: "Must be within the upper age limit specified in the RML notification (usually 21â€“30 years). Age is calculated as on the date specified in the recruitment advertisement." },
+          { icon: "fa-solid fa-user",          category: "General Category",                       maxAge: "21–30 years", description: "Must be within the upper age limit specified in the RML notification (usually 21–30 years). Age is calculated as on the date specified in the recruitment advertisement." },
           { icon: "fa-solid fa-people-group",  category: "SC / ST",                                maxAge: "35 years",   description: "+5 years relaxation over General category limit. Applicable to candidates belonging to Scheduled Caste / Scheduled Tribe communities." },
           { icon: "fa-solid fa-shield-halved", category: "OBC (Non-Creamy Layer)",                 maxAge: "33 years",   description: "+3 years relaxation over General category limit. Must possess a valid Non-Creamy Layer certificate issued by a competent authority." },
           { icon: "fa-solid fa-wheelchair",    category: "Persons with Benchmark Disabilities (PwBD)", maxAge: "40 years",   description: "Age relaxation as per Government of India / RML notification, typically up to 10 years. Applicable as per the specific RML recruitment advertisement." },
@@ -799,7 +795,7 @@
         <!-- /syllabus-tab-panels -->
 
         <div class="text-center">
-          <a href="/assets/Syllubus/RML-Nursing-Syllabus.pdf" class="btn-download-syllabus g-exam-reveal">
+          <a href="/assets/Syllabus/RML-Nursing-Syllabus.pdf" class="btn-download-syllabus g-exam-reveal">
             <i class="fa-solid fa-download"></i> Download Official Syllabus PDF
           </a>
         </div>
@@ -1203,7 +1199,7 @@
                   <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
                   <p class="qp-state-title" id="qp-locked-title">Paper Unavailable</p>
                   <p class="qp-state-sub">Enroll to access and download this paper.</p>
-                  <a href="#apply" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
+                  <a href="#enroll" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
                     <i class="fa-solid fa-download"></i> Download the Paper
                   </a>
                 </div>
@@ -1306,7 +1302,7 @@
               <div class="mts-welcome-icon-ring">
                 <i class="fa-solid fa-file-pen"></i>
               </div>
-              <div class="mts-welcome-badge">RML</div>
+              <div class="mts-welcome-badge">RML Nursing Officer</div>
               <h3 class="mts-welcome-title">Mock Test</h3>
               <p class="mts-welcome-sub">
                 Jump between sections freely - practice at your own pace.
@@ -1504,14 +1500,14 @@
                   </div>
                   <div class="mts-res-card">
                     <h4 class="mts-res-card-title"><i class="fa-solid fa-chart-simple"></i> Section Performance</h4>
-                    <canvas id="mts-bar-chart" height="180"></canvas>
+                    <canvas id="mts-bar-chart" height="180" role="img" aria-label="Section-wise score bar chart"></canvas>
                   </div>
                 </div>
                 <div class="mts-results-right">
                   <div class="mts-res-card mts-donut-card">
                     <h4 class="mts-res-card-title"><i class="fa-solid fa-circle-half-stroke"></i> Overall Accuracy</h4>
                     <div class="mts-donut-wrap">
-                      <canvas id="mts-donut-chart" width="200" height="200"></canvas>
+                      <canvas id="mts-donut-chart" width="200" height="200" role="img" aria-label="Overall accuracy donut chart"></canvas>
                       <div class="mts-donut-center" id="mts-donut-center"></div>
                     </div>
                     <div class="mts-donut-legend" id="mts-donut-legend"></div>

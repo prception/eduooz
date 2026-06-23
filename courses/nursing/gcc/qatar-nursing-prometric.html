@@ -1,4 +1,4 @@
-
+﻿
 <!doctype html>
 <html lang="en">
   <head>
@@ -52,13 +52,12 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
 
     <link rel="stylesheet" href="../../../assets/css/header-footer.css" />
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
@@ -79,9 +78,9 @@
         eligibilityRules: {
           qualifications: ["bsc-nursing", "post-basic-bsc"],
           registrationRequired: true,
-          minAge: 0,
+          minAge: 21,
           ageLimit: {
-            general: 99,
+            general: 60,
           },
         },
 
@@ -89,7 +88,7 @@
           {
             id: "qatar-prometric-2024-s1",
             year: "2024",
-            title: "Qatar Prometric 2024 â€“ Set 1",
+            title: "Qatar Prometric 2024 – Set 1",
             meta: "MCQs · Nursing",
             pages: 20,
             pdfUrl: null,
@@ -97,7 +96,7 @@
           {
             id: "qatar-prometric-2024-s2",
             year: "2024",
-            title: "Qatar Prometric 2024 â€“ Set 2",
+            title: "Qatar Prometric 2024 – Set 2",
             meta: "MCQs · Nursing",
             pages: 20,
             pdfUrl: null,
@@ -105,7 +104,7 @@
           {
             id: "qatar-prometric-2023-s1",
             year: "2023",
-            title: "Qatar Prometric 2023 â€“ Set 1",
+            title: "Qatar Prometric 2023 – Set 1",
             meta: "MCQs · Nursing",
             pages: 18,
             pdfUrl: null,
@@ -113,7 +112,7 @@
           {
             id: "qatar-prometric-2023-s2",
             year: "2023",
-            title: "Qatar Prometric 2023 â€“ Set 2",
+            title: "Qatar Prometric 2023 – Set 2",
             meta: "MCQs · Nursing",
             pages: 18,
             pdfUrl: null,
@@ -140,8 +139,8 @@
 
       // ========== ELIGIBILITY CHECKER CONFIGURATION ==========
       window.eligibilityCheckerConfig = {
-        minAge: 0,
-        maxAge: 99,
+        minAge: 21,
+        maxAge: 60,
         acceptedQualifications: [
           { value: "bsc-nursing",    label: "B.Sc. Nursing" },
           { value: "post-basic-bsc", label: "Post Basic B.Sc. Nursing" },
@@ -239,7 +238,7 @@
                 </div>
               </div>
 
-              <!-- 2Ãƒâ€”2 Feature Grid Ã¢â‚¬" Slide A -->
+              <!-- 2Ãƒ—2 Feature Grid Ã¢â‚¬" Slide A -->
               <div class="vfc-grid-wrap" id="vfc-grid-wrap">
                 <div class="vfc-slide active" id="vfc-slide-0">
                   <div class="vfc-card-grid">
@@ -564,7 +563,7 @@
               What is <span class="text-gradient">Qatar Nursing Prometric?</span>
             </h3>
             <p class="aev-desc">
-              GCC Nursing â€“ Qatar Nursing Prometric Licensing Exam is a leading international nursing licensure preparation program designed for nurses aiming to practice in Qatar and other Gulf Cooperation Council (GCC) countries. The Qatar Prometric Nursing License is required to work as a Registered Nurse (RN) or Licensed Nurse (LN) in hospitals, clinics, and healthcare facilities across Qatar.
+              GCC Nursing – Qatar Nursing Prometric Licensing Exam is a leading international nursing licensure preparation program designed for nurses aiming to practice in Qatar and other Gulf Cooperation Council (GCC) countries. The Qatar Prometric Nursing License is required to work as a Registered Nurse (RN) or Licensed Nurse (LN) in hospitals, clinics, and healthcare facilities across Qatar.
             </p>
 
             <div class="aev-badges">
@@ -1310,7 +1309,7 @@
                 </div>
                 <h4>Recorded Classes for Flexible Learning</h4>
                 <p>
-                  Access recorded sessions anytime to revisit challenging topics and clarify doubts â€” perfect for working nurses preparing alongside their jobs.
+                  Access recorded sessions anytime to revisit challenging topics and clarify doubts — perfect for working nurses preparing alongside their jobs.
                 </p>
               </div>
               <div class="why-card">
@@ -1413,7 +1412,7 @@
                   <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
                   <p class="qp-state-title" id="qp-locked-title">Paper Unavailable</p>
                   <p class="qp-state-sub">Enroll to access and download this paper.</p>
-                  <a href="#apply" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
+                  <a href="#enroll" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
                     <i class="fa-solid fa-download"></i> Download the Paper
                   </a>
                 </div>
@@ -1886,7 +1885,7 @@
                       <i class="fa-solid fa-chart-simple"></i> Section
                       Performance
                     </h4>
-                    <canvas id="mts-bar-chart" height="180"></canvas>
+                    <canvas id="mts-bar-chart" height="180" role="img" aria-label="Section-wise score bar chart"></canvas>
                   </div>
                 </div>
 
@@ -2410,7 +2409,7 @@
             <p class="pas-desc">
               Access live classes, mock tests, study materials, and performance
               analytics anywhere, anytime. The complete Qatar Nursing Prometric preparation
-              ecosystem â€” always in your pocket.
+              ecosystem — always in your pocket.
             </p>
 
             <!-- Circular Progress Stats -->
@@ -3034,7 +3033,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    Eduooz Academy provides structured coaching, expert guidance, and exam-focused preparation including Qatar Prometric-focused curriculum, GCC-specific preparation modules, Prometric model question banks, full-length mock examinations, recorded classes, and DataFlow and licensing guidance â€” everything needed to successfully clear the Qatar Nursing Prometric Licensing Examination.
+                    Eduooz Academy provides structured coaching, expert guidance, and exam-focused preparation including Qatar Prometric-focused curriculum, GCC-specific preparation modules, Prometric model question banks, full-length mock examinations, recorded classes, and DataFlow and licensing guidance — everything needed to successfully clear the Qatar Nursing Prometric Licensing Examination.
                   </p>
                 </div>
               </div>

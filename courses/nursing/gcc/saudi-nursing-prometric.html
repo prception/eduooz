@@ -1,4 +1,4 @@
-
+﻿
 <!doctype html>
 <html lang="en">
   <head>
@@ -52,13 +52,12 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
 
     <link rel="stylesheet" href="../../../assets/css/header-footer.css" />
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
@@ -82,11 +81,6 @@
           minAge: 21,
           ageLimit: {
             general: 30,
-            obc: 30,
-            sc: 30,
-            st: 30,
-            pwd: 30,
-            "ex-servicemen": 30,
           },
         },
 
@@ -152,8 +146,8 @@
           { icon: "fa-solid fa-heart-pulse", title: "Medical Fitness", description: "Candidates must be medically fit to practice nursing in Saudi Arabia and meet SCFHS health standards. Medical fitness certificates are required as part of the employment and licensing registration process." },
         ],
         ageRules: [
-          { category: "International Nurse (New Applicant)", badge: "21â€“30 yrs", icon: "fa-solid fa-user", detail: "Nurses from any country applying for SCFHS nursing licensure for the first time. The general upper age limit for new applicants is 30 years. Must complete DataFlow PSV, meet SCFHS qualification and experience requirements, and pass the Prometric exam." },
-          { category: "Saudi Resident Nurse", badge: "Open", icon: "fa-solid fa-people-group", detail: "Nurses currently residing in Saudi Arabia can apply for SCFHS nursing licensure. Must meet the same qualification and licensing requirements. Age restrictions may differ for resident applicants â€” refer to SCFHS guidelines." },
+          { category: "International Nurse (New Applicant)", badge: "21–30 yrs", icon: "fa-solid fa-user", detail: "Nurses from any country applying for SCFHS nursing licensure for the first time. The general upper age limit for new applicants is 30 years. Must complete DataFlow PSV, meet SCFHS qualification and experience requirements, and pass the Prometric exam." },
+          { category: "Saudi Resident Nurse", badge: "Open", icon: "fa-solid fa-people-group", detail: "Nurses currently residing in Saudi Arabia can apply for SCFHS nursing licensure. Must meet the same qualification and licensing requirements. Age restrictions may differ for resident applicants — refer to SCFHS guidelines." },
           { category: "License Renewal (Existing SCFHS)", badge: "Annual", icon: "fa-solid fa-rotate", detail: "Nurses with an existing SCFHS nursing license must renew annually. Renewal requires continued employment verification, updated professional documentation, and compliance with SCFHS continuing education requirements." },
           { category: "Registered Nurse (RN) Track", badge: "B.Sc Nursing", icon: "fa-solid fa-user-nurse", detail: "Candidates with a B.Sc Nursing or Post Basic B.Sc Nursing degree qualify for the Registered Nurse (RN) licensing track. A valid home country RN license and DataFlow PSV are mandatory." },
           { category: "Assistant Nurse (GNM) Track", badge: "Diploma Nursing", icon: "fa-solid fa-stethoscope", detail: "Diploma in Nursing / GNM holders may qualify for the Assistant Nurse licensing track subject to SCFHS assessment. Experience requirements and scope of practice differ from the RN track." },
@@ -266,7 +260,7 @@
                 </div>
               </div>
 
-              <!-- 2Ãƒâ€”2 Feature Grid Ã¢â‚¬" Slide A -->
+              <!-- 2Ãƒ—2 Feature Grid Ã¢â‚¬" Slide A -->
               <div class="vfc-grid-wrap" id="vfc-grid-wrap">
                 <div class="vfc-slide active" id="vfc-slide-0">
                   <div class="vfc-card-grid">
@@ -1388,7 +1382,7 @@
                 </div>
                 <h4>DataFlow &amp; Licensing Guidance</h4>
                 <p>
-                  Complete guidance on DataFlow verification and the SCFHS licensing process â€” comprehensive support beyond just exam preparation.
+                  Complete guidance on DataFlow verification and the SCFHS licensing process — comprehensive support beyond just exam preparation.
                 </p>
               </div>
             </div>
@@ -1466,7 +1460,7 @@
                   <div class="qp-state-icon"><i class="fa-solid fa-file-pdf"></i></div>
                   <p class="qp-state-title" id="qp-locked-title">Paper Unavailable</p>
                   <p class="qp-state-sub">Enroll to access and download this paper.</p>
-                  <a href="#apply" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
+                  <a href="#enroll" class="qp-dl-cta-btn" id="qp-locked-dl-btn">
                     <i class="fa-solid fa-download"></i> Download the Paper
                   </a>
                 </div>
@@ -1967,7 +1961,7 @@
                       <i class="fa-solid fa-chart-simple"></i> Section
                       Performance
                     </h4>
-                    <canvas id="mts-bar-chart" height="180"></canvas>
+                    <canvas id="mts-bar-chart" height="180" role="img" aria-label="Section-wise score bar chart"></canvas>
                   </div>
                 </div>
 
@@ -2493,7 +2487,7 @@
             <p class="pas-desc">
               Access live classes, mock tests, study materials, and performance
               analytics anywhere, anytime. The complete Saudi Nursing Prometric
-              preparation ecosystem â€” always in your pocket.
+              preparation ecosystem — always in your pocket.
             </p>
 
             <!-- Circular Progress Stats -->
@@ -2934,7 +2928,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    Nurses with a B.Sc Nursing, Post Basic B.Sc Nursing, or GNM qualification are eligible. Applicants must be between 21â€“30 years of age and hold valid nursing registration in their home country. GNM candidates must have at least 2 years of clinical experience.
+                    Nurses with a B.Sc Nursing, Post Basic B.Sc Nursing, or GNM qualification are eligible. Applicants must be between 21–30 years of age and hold valid nursing registration in their home country. GNM candidates must have at least 2 years of clinical experience.
                   </p>
                 </div>
               </div>
@@ -3057,7 +3051,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    Nurses working in Saudi Arabia typically earn 70% or more higher than equivalent positions in India. Salaries range from SAR 4,000â€“10,000+ per month depending on employer, specialisation, and experience, with additional benefits such as accommodation, transport, and annual flights.
+                    Nurses working in Saudi Arabia typically earn 70% or more higher than equivalent positions in India. Salaries range from SAR 4,000–10,000+ per month depending on employer, specialisation, and experience, with additional benefits such as accommodation, transport, and annual flights.
                   </p>
                 </div>
               </div>
@@ -3117,7 +3111,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    Eduooz offers the most comprehensive Saudi Prometric preparation: Prometric-pattern mock tests, expert faculty with GCC licensing experience, DataFlow and SCFHS application guidance, live doubt-clearing sessions, and a dedicated community of successful Saudi-licensed nurses â€” giving you the best chance to pass on your first attempt.
+                    Eduooz offers the most comprehensive Saudi Prometric preparation: Prometric-pattern mock tests, expert faculty with GCC licensing experience, DataFlow and SCFHS application guidance, live doubt-clearing sessions, and a dedicated community of successful Saudi-licensed nurses — giving you the best chance to pass on your first attempt.
                   </p>
                 </div>
               </div>

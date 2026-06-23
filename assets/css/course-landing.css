@@ -11,7 +11,8 @@
   --text-light-theme: #0f172a;
   --text-muted-light: #475569;
   --font-main: "Plus Jakarta Sans", sans-serif;
-  /* --font-serif: 'Cormorant Garamond', serif; */
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-primary: 'Plus Jakarta Sans', sans-serif;
 }
 
 * {
@@ -878,7 +879,7 @@ body {
     to bottom,
     transparent 0%,
     rgb(255, 255, 255) 150px,
-    rgba(248, 250, 252, -30) 80%
+    rgba(248, 250, 252, 0) 80%
   );
   pointer-events: none;
   /* Let clicks pass through the gradient */
@@ -2553,26 +2554,6 @@ body {
   justify-content: center;
 }
 
-/* Custom Purple Liquid Button */
-.btn-liquid-purple {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--brand-purple);
-  color: #fff;
-  padding: 18px 40px;
-  border-radius: 100px;
-  font-weight: 800;
-  font-size: 1.05rem;
-  text-decoration: none;
-  box-shadow: 0 15px 35px rgba(91, 33, 182, 0.3);
-  transition: all 0.3s;
-}
-.btn-liquid-purple:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 40px rgba(91, 33, 182, 0.5);
-}
-
 .seats-warning {
   display: block;
   text-align: center;
@@ -2700,12 +2681,6 @@ body {
 }
 
 /* Colors for Roles */
-.text-purple {
-  color: var(--brand-purple);
-}
-.text-cyan {
-  color: var(--brand-cyan);
-}
 .text-magenta {
   color: var(--brand-magenta);
 }
@@ -2888,20 +2863,6 @@ body {
   display: none;
 }
 
-/* Colors */
-.text-purple {
-  color: var(--brand-purple);
-}
-.text-cyan {
-  color: var(--brand-cyan);
-}
-.text-blue {
-  color: #0ea5e9;
-}
-.text-dark {
-  color: var(--text-light-theme);
-}
-
 /* --- The Layout Architecture --- */
 .faculty-track-wrapper {
   display: grid;
@@ -2997,27 +2958,6 @@ body {
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.4s ease 0.1s;
-}
-
-.credential-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 6px 14px;
-  border-radius: 50px;
-  color: #fff;
-  margin-bottom: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-.badge-purple {
-  background: var(--brand-purple);
-}
-.badge-cyan {
-  background: var(--brand-cyan);
 }
 
 .fac-glass-bio h3 {
@@ -3308,7 +3248,7 @@ body {
 
 /* Overlapping Playlist Track Viewport */
 .playlist-viewport {
-  width: 1380px; /* Supports exactly 5 260px thumbnails + 4 20px gaps */
+  width: min(1380px, 100%); /* Supports exactly 5 260px thumbnails + 4 20px gaps */
   margin: 0 auto;
   margin-top: -60px; /* Overlap main video */
   padding: 30px 0 40px 0; /* Padding to prevent vertical clipping of shadows & scales */
@@ -3816,14 +3756,6 @@ body {
   padding: 120px 0;
   overflow: hidden;
   z-index: 10;
-}
-
-.relative-z {
-  position: relative;
-  z-index: 10;
-}
-.mt-5 {
-  margin-top: 60px;
 }
 
 .placement-header {
@@ -4446,14 +4378,9 @@ body {
 .faq-elite-section {
   position: relative;
   padding: 150px 0;
-  color: #fff;
   z-index: 10;
 }
 
-.relative-z {
-  position: relative;
-  z-index: 5;
-}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -4483,21 +4410,6 @@ body {
   margin-bottom: 80px;
 }
 
-.frost-pill-dark {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 1.5rem;
-  backdrop-filter: blur(10px);
-}
 .glowing-dot-cyan {
   width: 8px;
   height: 8px;
@@ -12144,6 +12056,7 @@ p {
   z-index: 1;
   padding: 0 20px;
 }
+
 
 /* Column headings */
 .split-col-heading {
