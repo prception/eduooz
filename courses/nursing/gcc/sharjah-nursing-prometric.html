@@ -139,17 +139,18 @@
       // ========== ELIGIBILITY SECTION CONTENT ==========
       window.courseEligibility = {
         qualification: [
-          { icon: "fa-solid fa-graduation-cap", title: "Educational Qualification", description: "B.Sc Nursing / Post Basic B.Sc Nursing / GNM recognized by home country nursing council." },
-          { icon: "fa-solid fa-id-card",        title: "Registration Requirements",  description: "Valid active nursing council registration from home country; must be current and in good standing." },
-          { icon: "fa-solid fa-briefcase",      title: "Clinical Experience",        description: "Relevant clinical nursing experience required; GNM holders typically need minimum 2 years in recognized hospital." },
-          { icon: "fa-solid fa-passport",       title: "Nationality & Documentation", description: "Valid passport required for UAE work visa; all original educational documents needed for SHA licensing." },
-          { icon: "fa-solid fa-file-shield",    title: "DataFlow / PSV Verification", description: "Primary Source Verification through DataFlow mandatory for SHA Sharjah nursing license." },
-          { icon: "fa-solid fa-heart-pulse",    title: "Medical Fitness",            description: "Medical fitness certificate required for SHA license registration process." },
+          { icon: “fa-solid fa-graduation-cap”, title: “Educational Qualification”, description: “Candidates must possess B.Sc Nursing from a recognized university, or Post Basic B.Sc Nursing. Additionally, candidates should hold Registered Nurse (RN) or Registered Midwife (RNRM) status where applicable, and possess qualifications recognized by the relevant healthcare authorities.” },
+          { icon: “fa-solid fa-id-card”,        title: “Registration Requirements”,  description: “Candidates must have a valid Nursing Council registration from their home country, registration with the appropriate professional nursing council, and an active professional nursing license.” },
+          { icon: “fa-solid fa-briefcase”,      title: “Clinical / Professional Experience”, description: “Clinical experience is generally preferred. Experience in hospitals, clinics, or recognized healthcare institutions is advantageous. Some nursing categories may require specific clinical experience based on licensing regulations.” },
+          { icon: “fa-solid fa-flag”,           title: “Nationality”, description: “Applicants of all nationalities may apply. Candidates must satisfy UAE employment and licensing requirements.” },
+          { icon: “fa-solid fa-file-shield”,    title: “Sharjah Nursing License Requirements”, description: “Candidates must meet all eligibility requirements prescribed by Sharjah healthcare authorities, successfully complete the licensing examination process, and fulfil professional and documentation requirements.” },
+          { icon: “fa-solid fa-heart-pulse”,    title: “Medical Fitness”, description: “Candidates must be medically fit to practice nursing, meet healthcare authority fitness requirements, and produce medical fitness certificates when required during licensing or employment procedures.” },
         ],
         ageRules: [
-          { icon: “fa-solid fa-user”,       category: “All Applicants”,        maxAge: “21—60 years”, description: “All applicants must be between 21 and 60 years of age to be eligible for the Sharjah SHA Nursing Prometric licensing examination.” },
-          { icon: "fa-solid fa-user-nurse", category: "Registered Nurse Track", maxAge: "B.Sc Nursing", description: "Nurses holding B.Sc Nursing or Post Basic B.Sc Nursing qualification recognized by home country nursing council are eligible to apply." },
-          { icon: "fa-solid fa-stethoscope",category: "Assistant Nurse Track",  maxAge: "GNM/Diploma",  description: "GNM / Diploma in Nursing holders with a minimum 2 years of clinical experience in a recognized hospital are eligible to apply." },
+          { icon: “fa-solid fa-file-shield”, category: “DataFlow Submission”,           badge: “Step 1”, detail: “Candidates begin the licensing process by completing Primary Source Verification (PSV) through DataFlow. Documents verified include educational qualifications, nursing registration certificates, professional experience documents, and supporting credentials.” },
+          { icon: “fa-solid fa-calendar-check”, category: “Examination Booking and Attendance”, badge: “Step 2”, detail: “Eligible candidates schedule and appear for the Sharjah Nursing Prometric Examination at an authorized testing center. The examination evaluates nursing knowledge, clinical competency, professional nursing practice, and patient care skills.” },
+          { icon: “fa-solid fa-envelope-open-text”, category: “Eligibility Confirmation”, badge: “Step 3”, detail: “After successfully completing the examination and verification process, candidates receive eligibility approval from the Sharjah healthcare authority.” },
+          { icon: “fa-solid fa-id-badge”, category: “License Registration”,             badge: “Step 4”, detail: “Following employment and regulatory approval, candidates complete the final licensing process and obtain authorization to practice nursing in Sharjah healthcare facilities.” },
         ],
       };
 
@@ -203,7 +204,7 @@
             <h1 class="course-title">
               Sharjah Nursing <br />
               <span class="text-gradient-cyan"
-                >Prometric Exam Coaching</span
+                >Prometric Licensing Exam Coaching</span
               >
             </h1>
 
@@ -417,52 +418,57 @@
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-file-lines"></i></div>
             <div class="snap-label">Examination Name</div>
-            <div class="snap-value">SHA Nursing Prometric Licensing Examination</div>
+            <div class="snap-value">Sharjah Nursing Prometric Licensing Exam</div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-user-nurse"></i></div>
             <div class="snap-label">Course / Post</div>
-            <div class="snap-value">Registered Nurse (RN) / Licensed Practical Nurse (LPN)</div>
+            <div class="snap-value">Registered Nurse (RN) / Assistant Nurse (GNM)</div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-list-check"></i></div>
             <div class="snap-label">Licensing Procedure</div>
-            <div class="snap-value">Exam &rarr; DataFlow PSV &rarr; SHA License Registration</div>
+            <div class="snap-value">DataFlow &rarr; Examination &rarr; Eligibility Approval</div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-graduation-cap"></i></div>
             <div class="snap-label">Eligibility Qualification</div>
-            <div class="snap-value">B.Sc Nursing / Post Basic B.Sc Nursing / GNM with valid Nursing Council registration</div>
+            <div class="snap-value">B.Sc Nursing / Post Basic B.Sc Nursing</div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-id-card"></i></div>
             <div class="snap-label">Registration Requirement</div>
-            <div class="snap-value">Valid and Active Nursing Council Registration + Professional Nursing License</div>
+            <div class="snap-value">Valid Nursing Council Registration</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-calendar-check"></i></div>
+            <div class="snap-label">Exam Validity</div>
+            <div class="snap-value">5 Years</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-id-badge"></i></div>
+            <div class="snap-label">License Validity</div>
+            <div class="snap-value">1 Year</div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-laptop"></i></div>
-            <div class="snap-label">Exam Mode</div>
-            <div class="snap-value">Computer-Based Test (CBT) via Prometric Testing Centers</div>
+            <div class="snap-label">Mode of Application</div>
+            <div class="snap-value">Online through MOHAP Exam Portal</div>
           </div>
           <div class="snapshot-card">
-            <div class="snap-icon"><i class="fa-solid fa-passport"></i></div>
-            <div class="snap-label">Nationality</div>
-            <div class="snap-value">International Nurses with Valid Passport &amp; Nursing Credentials</div>
-          </div>
-          <div class="snapshot-card">
-            <div class="snap-icon"><i class="fa-solid fa-shield-halved"></i></div>
-            <div class="snap-label">Primary Verification</div>
-            <div class="snap-value">DataFlow Primary Source Verification (PSV)</div>
+            <div class="snap-icon"><i class="fa-solid fa-arrows-turn-right"></i></div>
+            <div class="snap-label">Selection Process</div>
+            <div class="snap-value">DataFlow Verification &rarr; Examination &rarr; Eligibility Approval &rarr; License Registration</div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-hospital"></i></div>
-            <div class="snap-label">Official Authority</div>
-            <div class="snap-value">Sharjah Health Authority (SHA), UAE</div>
+            <div class="snap-label">Participating Institutions</div>
+            <div class="snap-value">Hospitals, Clinics, and Healthcare Facilities approved by Sharjah Ministry of Health and GCC healthcare authorities</div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-globe"></i></div>
-            <div class="snap-label">Official Website</div>
-            <div class="snap-value"><a href="https://www.sha.gov.ae" target="_blank" rel="noopener">sha.gov.ae</a> / <a href="https://www.prometric.com" target="_blank" rel="noopener">prometric.com</a></div>
+            <div class="snap-label">Official Authority</div>
+            <div class="snap-value">Ministry of Health and Prevention (MOHAP), UAE</div>
           </div>
         </div>
       </div>
@@ -542,10 +548,10 @@
           <!-- RIGHT: Content (40%) -->
           <div class="aev-content-col g-exam-reveal">
             <h3 class="aev-heading">
-              What is <span class="text-gradient">Sharjah Nursing Prometric?</span>
+              What is <span class="text-gradient">GCC NURSING - Sharjah Nursing Prometric Licensing Exam?</span>
             </h3>
             <p class="aev-desc">
-              The Sharjah Nursing Prometric Exam is mandatory for internationally trained nurses seeking to practice in Sharjah, UAE. The Sharjah Health Authority (SHA) regulates nursing licensure through this Prometric computer-based test. Passing this exam is an essential step toward obtaining your SHA nursing license.
+              GCC Nursing &ndash; Sharjah Nursing Prometric Licensing Exam is a leading international nursing licensure preparation program designed for nurses aiming to practice in Sharjah and other Gulf Cooperation Council (GCC) countries. The Sharjah Prometric Nursing License is a highly recognized GCC nursing credential, required to work as a Registered Nurse (RN) or Licensed Nurse (LN) in hospitals, clinics, and healthcare facilities across Sharjah.
             </p>
 
             <div class="aev-badges">
@@ -873,11 +879,7 @@
             <div class="prepare-step-body">
               <div class="prepare-step-body-inner">
                 <p>
-                  Begin by thoroughly studying the Sharjah Prometric exam
-                  pattern - 100 MCQs in 2 hours with no negative marking. Map
-                  out subject-wise weightage and identify high-yield areas.
-                  Review the SHA syllabus and create a structured study plan
-                  covering all core nursing subjects tested by Prometric.
+                  Begin your preparation by thoroughly reviewing the syllabus and understanding the exam format. This helps you prioritize your study topics effectively.
                 </p>
               </div>
             </div>
@@ -902,12 +904,7 @@
             <div class="prepare-step-body">
               <div class="prepare-step-body-inner">
                 <p>
-                  Dedicate focused study time to Medical-Surgical Nursing,
-                  Community Health Nursing, OBG, Pediatrics, Mental Health
-                  Nursing, and Nursing Foundations. Use clinical case-based
-                  learning, visual aids, and mnemonics for better retention of
-                  complex concepts. Prioritize topics that appear repeatedly in
-                  previous papers.
+                  Pay special attention to critical areas like Fundamentals of Nursing, Medical-Surgical Nursing, and Community Health Nursing. Eduooz Academy's structured lessons ensure you gain a strong foundation in these subjects.
                 </p>
               </div>
             </div>
@@ -919,7 +916,7 @@
             aria-expanded="false"
           >
             <div class="prepare-step-header">
-              <h4>Practice Mock Tests and Previous Papers</h4>
+              <h4>Practice with Mock Tests and Previous Question Papers</h4>
               <div class="prepare-step-meta">
                 <span class="step-duration"
                   ><i class="fa-regular fa-clock"></i> Weeks 11-16</span
@@ -932,11 +929,7 @@
             <div class="prepare-step-body">
               <div class="prepare-step-body-inner">
                 <p>
-                  Solve SHA Prometric practice sets to understand question
-                  trends, difficulty levels, and frequently tested topics. Take
-                  full-length timed mock tests under exam conditions to build
-                  exam stamina and improve time management skills for the
-                  Prometric computer-based format.
+                  Mock tests help you become familiar with the question pattern and improve your time management skills.
                 </p>
               </div>
             </div>
@@ -961,11 +954,7 @@
             <div class="prepare-step-body">
               <div class="prepare-step-body-inner">
                 <p>
-                  Schedule periodic revision sessions to reinforce learned
-                  concepts. Use flashcards, quick revision notes, and spaced
-                  repetition techniques. Analyze your mock test performance to
-                  identify weak areas and allocate extra revision time to those
-                  subjects.
+                  Set aside dedicated time each week for revision. Access to Eduooz Academy's recorded sessions allows you to revisit challenging topics and clarify doubts.
                 </p>
               </div>
             </div>
@@ -991,11 +980,7 @@
             <div class="prepare-step-body">
               <div class="prepare-step-body-inner">
                 <p>
-                  Join a structured coaching program with experienced GCC
-                  Prometric faculty. Leverage 1-on-1 mentorship for
-                  personalized strategy sessions, doubt clearing, and
-                  performance analysis. An expert mentor can help you optimize
-                  your preparation for the Sharjah SHA Prometric exam.
+                  Take advantage of our experienced faculty's personalized support to address your weaknesses, strengthen your preparation, and boost your confidence for the exam.
                 </p>
               </div>
             </div>
@@ -1019,7 +1004,7 @@
         <!-- Step Counter -->
         <div class="journey-step-counter" id="journey-counter">
           Step <span id="journey-current">1</span> of
-          <span id="journey-total">3</span>
+          <span id="journey-total">4</span>
         </div>
 
         <!-- Desktop: Horizontal Journey Roadmap -->
@@ -1031,23 +1016,30 @@
             <div class="journey-milestone active" data-step="0">
               <div class="milestone-number">01</div>
               <div class="milestone-icon">
-                <i class="fa-solid fa-calendar-check"></i>
+                <i class="fa-solid fa-file-shield"></i>
               </div>
-              <div class="milestone-label">Exam Booking</div>
+              <div class="milestone-label">DataFlow</div>
             </div>
             <div class="journey-milestone" data-step="1">
               <div class="milestone-number">02</div>
               <div class="milestone-icon">
-                <i class="fa-solid fa-file-shield"></i>
+                <i class="fa-solid fa-calendar-check"></i>
               </div>
-              <div class="milestone-label">Data Check</div>
+              <div class="milestone-label">Exam Booking</div>
             </div>
             <div class="journey-milestone" data-step="2">
               <div class="milestone-number">03</div>
               <div class="milestone-icon">
+                <i class="fa-solid fa-envelope-open-text"></i>
+              </div>
+              <div class="milestone-label">Eligibility</div>
+            </div>
+            <div class="journey-milestone" data-step="3">
+              <div class="milestone-number">04</div>
+              <div class="milestone-icon">
                 <i class="fa-solid fa-id-badge"></i>
               </div>
-              <div class="milestone-label">License Registration</div>
+              <div class="milestone-label">License</div>
             </div>
           </div>
         </div>
@@ -1057,37 +1049,37 @@
           <div class="journey-card active" data-step="0">
             <div class="journey-card-head">
               <span class="jc-num">01</span>
-              <h4>Prometric Exam Booking</h4>
+              <h4>DataFlow Submission</h4>
             </div>
             <p>
-              Create a Prometric account and schedule your SHA nursing
-              licensing exam at a Prometric test centre. Submit your nursing
-              qualifications and pay the applicable exam fee to confirm your
-              booking.
+              Candidates begin the licensing process by completing Primary Source Verification (PSV) through DataFlow. Documents verified include educational qualifications, nursing registration certificates, professional experience documents, and supporting credentials.
             </p>
           </div>
           <div class="journey-card" data-step="1">
             <div class="journey-card-head">
               <span class="jc-num">02</span>
-              <h4>DataFlow Primary Source Verification (PSV)</h4>
+              <h4>Examination Booking and Attendance</h4>
             </div>
             <p>
-              Initiate a DataFlow PSV report to authenticate your academic
-              credentials and nursing registration with primary sources.
-              SHA requires a valid DataFlow clearance before processing
-              your license application.
+              Eligible candidates schedule and appear for the Sharjah Nursing Prometric Examination at an authorized testing center. The examination evaluates nursing knowledge, clinical competency, professional nursing practice, and patient care skills.
             </p>
           </div>
           <div class="journey-card" data-step="2">
             <div class="journey-card-head">
               <span class="jc-num">03</span>
-              <h4>SHA License Registration</h4>
+              <h4>Eligibility Confirmation</h4>
             </div>
             <p>
-              Submit your Prometric exam result and DataFlow clearance to
-              the Sharjah Health Authority (SHA) to complete your nursing
-              license registration. Upon approval, you receive your SHA
-              nursing license to practice in Sharjah.
+              After successfully completing the examination and verification process, candidates receive eligibility approval from the Sharjah healthcare authority.
+            </p>
+          </div>
+          <div class="journey-card" data-step="3">
+            <div class="journey-card-head">
+              <span class="jc-num">04</span>
+              <h4>License Registration</h4>
+            </div>
+            <p>
+              Following employment and regulatory approval, candidates complete the final licensing process and obtain authorization to practice nursing in Sharjah healthcare facilities.
             </p>
           </div>
         </div>
@@ -1122,7 +1114,7 @@
               font-size: 1rem;
             "
           >
-            Why Choose Eduooz Academy for Sharjah Nursing Prometric Preparation?
+            Eduooz Academy provides structured coaching, expert guidance, and exam-focused preparation to help nurses successfully clear the Sharjah Nursing Prometric Licensing Examination and build a rewarding international nursing career in the UAE healthcare sector.
           </p>
         </div>
         <div class="why-grid" id="why-grid">
@@ -1149,41 +1141,37 @@
             <!-- Slide 1: Cards 1-4 -->
             <div class="why-showcase-slide active" data-slide="0">
               <div class="why-card">
-                <div class="why-icon"><i class="fa-solid fa-video"></i></div>
-                <h4>Live + Recorded Classes</h4>
+                <div class="why-icon"><i class="fa-solid fa-book-open"></i></div>
+                <h4>Comprehensive Prometric-Focused Curriculum</h4>
                 <p>
-                  500+ hours of expert-led live interactive sessions with
-                  lifetime access to recorded lectures for unlimited revision.
+                  Structured course content aligned with the Sharjah Nursing Prometric exam pattern, covering all key nursing domains tested in the licensing exam.
                 </p>
               </div>
               <div class="why-card">
                 <div class="why-icon">
-                  <i class="fa-solid fa-file-powerpoint"></i>
+                  <i class="fa-solid fa-chalkboard-user"></i>
                 </div>
-                <h4>Free PPT Notes</h4>
+                <h4>Experienced Nursing Faculty</h4>
                 <p>
-                  Comprehensive visual study materials and PPT presentations
-                  covering all SHA Nursing Prometric subjects for quick and effective learning.
+                  Expert instructors with deep knowledge of GCC nursing licensing exams and clinical nursing practice to guide you through the exam preparation.
                 </p>
               </div>
               <div class="why-card">
                 <div class="why-icon">
                   <i class="fa-solid fa-clipboard-question"></i>
                 </div>
-                <h4>Practice Questions</h4>
+                <h4>Topic-wise Practice Sessions</h4>
                 <p>
-                  10,000+ topic-wise MCQs with detailed explanations to
-                  strengthen your conceptual understanding and exam readiness.
+                  10,000+ topic-wise MCQs with detailed explanations to strengthen your conceptual understanding and exam readiness across all nursing subjects.
                 </p>
               </div>
               <div class="why-card">
                 <div class="why-icon">
                   <i class="fa-solid fa-laptop-code"></i>
                 </div>
-                <h4>Model Exams</h4>
+                <h4>Full-Length Mock Examinations</h4>
                 <p>
-                  80+ full-length mock tests that mirror the actual SHA
-                  Nursing Prometric exam format and difficulty level.
+                  150+ Prometric-style full-length mock exams and previous year question discussions that mirror the actual Sharjah Nursing Prometric exam format.
                 </p>
               </div>
             </div>
@@ -1191,40 +1179,36 @@
             <div class="why-showcase-slide" data-slide="1">
               <div class="why-card">
                 <div class="why-icon">
-                  <i class="fa-solid fa-chalkboard-user"></i>
+                  <i class="fa-solid fa-video"></i>
                 </div>
-                <h4>Expert Mentor Support</h4>
+                <h4>Recorded Classes for Flexible Learning</h4>
                 <p>
-                  1-on-1 personalized guidance from GCC-licensed nursing
-                  experts to optimize your Prometric preparation strategy.
+                  500+ hours of live and recorded classes with lifetime access, allowing you to learn at your own pace and revise topics as many times as needed.
                 </p>
               </div>
               <div class="why-card">
                 <div class="why-icon">
-                  <i class="fa-solid fa-arrows-rotate"></i>
+                  <i class="fa-solid fa-user-tie"></i>
                 </div>
-                <h4>Periodic Revision Sessions</h4>
+                <h4>Personalized Mentorship &amp; Doubt Clearing</h4>
                 <p>
-                  Structured revision sessions before every exam cycle ensuring
-                  maximum retention and recall of key concepts.
+                  1-on-1 personalized mentorship and doubt-clearing support from experienced nursing faculty throughout your preparation journey.
                 </p>
               </div>
               <div class="why-card">
-                <div class="why-icon"><i class="fa-solid fa-infinity"></i></div>
-                <h4>Unlimited Test Series</h4>
+                <div class="why-icon"><i class="fa-solid fa-file-shield"></i></div>
+                <h4>DataFlow &amp; Licensing Guidance</h4>
                 <p>
-                  Access to all test series without limits until you crack the
-                  exam. Practice anytime, anywhere on any device.
+                  Complete guidance on DataFlow verification and the Sharjah licensing process — beyond just exam preparation, we support your entire licensing journey.
                 </p>
               </div>
               <div class="why-card">
                 <div class="why-icon">
-                  <i class="fa-solid fa-play-circle"></i>
+                  <i class="fa-solid fa-globe"></i>
                 </div>
-                <h4>Highly Engaging Animated Classes</h4>
+                <h4>UAE &amp; GCC-Specific Preparation Modules</h4>
                 <p>
-                  Complex medical concepts explained through 3D animations and
-                  visual storytelling for deeper understanding.
+                  Preparation modules tailored specifically to the UAE and GCC healthcare environment, including regulatory standards and professional practice guidelines.
                 </p>
               </div>
             </div>
@@ -2749,7 +2733,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    The Sharjah Nursing Prometric Exam is a mandatory licensing examination administered by the Sharjah Health Authority (SHA) for nurses seeking to practice in Sharjah emirate, UAE. Conducted through Prometric testing centers, it evaluates clinical nursing competencies across all major nursing domains before a license is granted.
+                    The Sharjah Nursing Prometric Exam is a licensing examination required for nurses who want to work in healthcare facilities in Sharjah, UAE. It is conducted to assess nursing competency and is part of the professional licensing process under the UAE healthcare regulatory system.
                   </p>
                 </div>
               </div>
@@ -2759,7 +2743,7 @@
               <button class="faq-question">
                 <span class="faq-num">02</span>
                 <span class="faq-text"
-                  >Who is eligible to apply for the Sharjah nursing license?</span
+                  >What is Sharjah Nursing Licensing Exam?</span
                 >
                 <div class="faq-toggle">
                   <div class="horizontal-line"></div>
@@ -2769,7 +2753,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    Internationally trained nurses holding a recognized nursing degree (B.Sc. Nursing or equivalent Diploma/GNM), a valid home country nursing license in good standing, and a completed DataFlow Primary Source Verification (PSV) clearance are eligible to apply for the SHA Nursing Prometric exam.
+                    The Sharjah Nursing Licensing Exam is a professional assessment test used to evaluate the clinical knowledge, skills, and competency of nurses before granting approval to practice in hospitals, clinics, and medical centers in Sharjah.
                   </p>
                 </div>
               </div>
@@ -2779,7 +2763,7 @@
               <button class="faq-question">
                 <span class="faq-num">03</span>
                 <span class="faq-text"
-                  >What nursing qualification is accepted by SHA?</span
+                  >Who is eligible for Sharjah Nursing Exam?</span
                 >
                 <div class="faq-toggle">
                   <div class="horizontal-line"></div>
@@ -2789,7 +2773,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    SHA accepts B.Sc. Nursing (4-year degree), Diploma in General Nursing &amp; Midwifery (GNM / 3-year equivalent), and Post Basic B.Sc. Nursing. All qualifications must be from a recognized nursing institution and verified through the DataFlow PSV process before the application is processed.
+                    Candidates with GNM Nursing, B.Sc Nursing, Post Basic B.Sc Nursing, or equivalent nursing qualifications along with relevant clinical experience are generally eligible to apply for the Sharjah Nursing Prometric Exam.
                   </p>
                 </div>
               </div>
@@ -2799,7 +2783,7 @@
               <button class="faq-question">
                 <span class="faq-num">04</span>
                 <span class="faq-text"
-                  >How do I register for the SHA Nursing Prometric exam?</span
+                  >Is work experience required for Sharjah Nursing License?</span
                 >
                 <div class="faq-toggle">
                   <div class="horizontal-line"></div>
@@ -2809,7 +2793,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    Applicants must register on the Sharjah Health Authority (SHA) portal and submit all required documents for verification. Once SHA approves the application, a Prometric eligibility authorization code is issued. Candidates then log into the Prometric scheduling system to book their exam slot at a nearby Prometric test center.
+                    Yes, most nursing categories require a minimum of 2 years of clinical experience after qualification. However, requirements may vary depending on job role and UAE licensing regulations.
                   </p>
                 </div>
               </div>
@@ -2819,7 +2803,7 @@
               <button class="faq-question">
                 <span class="faq-num">05</span>
                 <span class="faq-text"
-                  >What is the SHA nursing licensing process?</span
+                  >How can I apply for Sharjah Nursing Prometric Exam?</span
                 >
                 <div class="faq-toggle">
                   <div class="horizontal-line"></div>
@@ -2829,27 +2813,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    The SHA nursing licensing process includes: (1) Document submission and online application via SHA portal, (2) DataFlow Primary Source Verification clearance, (3) SHA document review and eligibility confirmation, (4) Prometric exam scheduling and sitting, (5) Passing the exam with the required score, and (6) Receiving the SHA nursing license.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                <span class="faq-num">06</span>
-                <span class="faq-text"
-                  >What is the Sharjah Nursing Prometric exam format?</span
-                >
-                <div class="faq-toggle">
-                  <div class="horizontal-line"></div>
-                  <div class="vertical-line"></div>
-                </div>
-              </button>
-              <div class="faq-answer-wrapper">
-                <div class="faq-answer-inner">
-                  <p>
-                    The SHA Nursing Prometric exam consists of 150 multiple-choice questions (MCQs) to be completed in 180 minutes (3 hours). Questions cover Medical-Surgical Nursing, Pediatric Nursing, OB/Gynecology Nursing, Mental Health Nursing, Community Health, and Fundamentals of Nursing. A minimum passing score of 60% (90/150) is required.
+                    Candidates can apply through the UAE licensing system (MOHAP or relevant authority portal), complete DataFlow verification, submit documents, and book the Prometric exam through authorized testing centers.
                   </p>
                 </div>
               </div>
@@ -2860,9 +2824,9 @@
           <div class="faq-column">
             <div class="faq-item">
               <button class="faq-question">
-                <span class="faq-num">07</span>
+                <span class="faq-num">06</span>
                 <span class="faq-text"
-                  >What documents are required for the SHA nursing license application?</span
+                  >What is the exam format of Sharjah Nursing Prometric Test?</span
                 >
                 <div class="faq-toggle">
                   <div class="horizontal-line"></div>
@@ -2872,7 +2836,27 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    Required documents typically include: valid passport, nursing degree certificate (attested), home country nursing license (attested), completed DataFlow PSV report, Good Standing Certificate from the home country nursing council, experience letters, passport-size photographs, and a medical fitness certificate.
+                    The Sharjah Nursing Prometric Exam is a computer-based multiple-choice question (MCQ) test covering nursing fundamentals, medical-surgical nursing, pharmacology, pediatric nursing, obstetrics, and patient care management.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span class="faq-num">07</span>
+                <span class="faq-text"
+                  >What documents are required for Sharjah Nursing licensing?</span
+                >
+                <div class="faq-toggle">
+                  <div class="horizontal-line"></div>
+                  <div class="vertical-line"></div>
+                </div>
+              </button>
+              <div class="faq-answer-wrapper">
+                <div class="faq-answer-inner">
+                  <p>
+                    Required documents include educational certificates, passport copy, nursing registration certificate, experience certificates, passport-size photograph, and other supporting documents for verification.
                   </p>
                 </div>
               </div>
@@ -2882,7 +2866,7 @@
               <button class="faq-question">
                 <span class="faq-num">08</span>
                 <span class="faq-text"
-                  >What is DataFlow verification and why is it required?</span
+                  >What jobs are available after Sharjah Nursing Exam?</span
                 >
                 <div class="faq-toggle">
                   <div class="horizontal-line"></div>
@@ -2892,7 +2876,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    DataFlow Primary Source Verification (PSV) is a mandatory background screening process required by all GCC health authorities including SHA. It directly verifies the authenticity of your nursing qualifications, license, and work experience with the original issuing institutions. Nurses must initiate and complete DataFlow before SHA issues exam eligibility.
+                    After passing the exam, candidates can work as Staff Nurses, ICU Nurses, Emergency Nurses, OT Nurses, and specialized nurses in Sharjah hospitals and healthcare centers.
                   </p>
                 </div>
               </div>
@@ -2902,7 +2886,7 @@
               <button class="faq-question">
                 <span class="faq-num">09</span>
                 <span class="faq-text"
-                  >What is the passing score for the SHA Nursing Prometric?</span
+                  >Why should I apply for Sharjah Nursing Prometric Exam?</span
                 >
                 <div class="faq-toggle">
                   <div class="horizontal-line"></div>
@@ -2912,47 +2896,7 @@
               <div class="faq-answer-wrapper">
                 <div class="faq-answer-inner">
                   <p>
-                    The minimum passing score for the Sharjah Nursing Prometric exam is 60% (90 correct out of 150 questions). Candidates who do not pass may retake the exam after the waiting period specified by SHA. Each retake requires a new Prometric booking and fee payment.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                <span class="faq-num">10</span>
-                <span class="faq-text"
-                  >What career opportunities are available after obtaining a Sharjah nursing license?</span
-                >
-                <div class="faq-toggle">
-                  <div class="horizontal-line"></div>
-                  <div class="vertical-line"></div>
-                </div>
-              </button>
-              <div class="faq-answer-wrapper">
-                <div class="faq-answer-inner">
-                  <p>
-                    With an SHA nursing license, nurses can work in hospitals, polyclinics, specialty clinics, and primary healthcare centers across Sharjah emirate. Major employers include Sharjah University Hospital, Al Zahra Hospital, Khalid Hospital, and Al Qasimi Hospital. Experienced nurses can advance to senior nursing officer, charge nurse, and nursing management roles.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                <span class="faq-num">11</span>
-                <span class="faq-text"
-                  >Can I use my Sharjah nursing license in other UAE emirates?</span
-                >
-                <div class="faq-toggle">
-                  <div class="horizontal-line"></div>
-                  <div class="vertical-line"></div>
-                </div>
-              </button>
-              <div class="faq-answer-wrapper">
-                <div class="faq-answer-inner">
-                  <p>
-                    The SHA nursing license is specific to Sharjah emirate. To work in Dubai you need a DHA license, and for Abu Dhabi a DOH license is required. However, having a completed DataFlow PSV report and a passed Prometric record may simplify and speed up the application process for licenses in other UAE emirates.
+                    The Sharjah Nursing Exam offers international career opportunities, tax-free salary, job security, advanced healthcare exposure, and professional growth in the UAE healthcare system.
                   </p>
                 </div>
               </div>
