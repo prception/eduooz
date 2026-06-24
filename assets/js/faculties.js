@@ -26,7 +26,7 @@
     {
       name: "Shine Stephen",
       accent: "cyan",
-      img: "assets/images/mentors/SHINE.png",
+      img: "assets/images/Mentors/SHINE.png",
       imgAlt: "Shine Stephen – Nursing Faculty",
       icon: "fa-solid fa-trophy",
       qual: [
@@ -49,7 +49,7 @@
     {
       name: "Nayana Shaji",
       accent: "cyan",
-      img: "assets/images/mentors/NAYANA.jpeg",
+      img: "assets/images/Mentors/NAYANA.jpeg",
       imgAlt: "Nayana Shaji – Pharmacology Faculty",
       icon: "fa-solid fa-pills",
       qual: ["M.Pharm Pharmacology"],
@@ -62,7 +62,7 @@
     {
       name: "Vidhu R Vijayan",
       accent: "cyan",
-      img: "assets/images/mentors/VIDHU.JPG.jpeg",
+      img: "assets/images/Mentors/VIDHU.JPG.jpeg",
       imgAlt: "Vidhu R Vijayan – Orthopedic Nursing Faculty",
       icon: "fa-solid fa-stethoscope",
       qual: ["MSc. Nursing (Orthopedic)"],
@@ -71,7 +71,7 @@
     {
       name: "Honey Mol P.V",
       accent: "cyan",
-      img: "assets/images/mentors/HONEY.JPG.jpeg",
+      img: "assets/images/Mentors/HONEY.JPG.jpeg",
       imgAlt: "Honey Mol P.V – Molecular Biology Faculty",
       icon: "fa-solid fa-flask",
       qual: ["MSc Molecular Biology"],
@@ -80,7 +80,7 @@
     {
       name: "Sreelakshmi E.M",
       accent: "cyan",
-      img: "assets/images/mentors/SREELEKSHMI.jpeg",
+      img: "assets/images/Mentors/SREELEKSHMI.jpeg",
       imgAlt: "Sreelakshmi E.M – Microbiology Faculty",
       icon: "fa-solid fa-microscope",
       qual: ["MSc Microbiology"],
@@ -89,7 +89,7 @@
     {
       name: "Arathy Surendran",
       accent: "cyan",
-      img: "assets/images/mentors/ARATHY.JPG.jpeg",
+      img: "assets/images/Mentors/ARATHY.JPG.jpeg",
       imgAlt: "Arathy Surendran – Pediatric Nursing Faculty",
       icon: "fa-solid fa-child",
       qual: ["MSc Nursing (Pediatrics) – KUHS"],
@@ -111,7 +111,7 @@
     {
       name: "Dr. Manjima G.S",
       accent: "cyan",
-      img: "assets/images/mentors/MANJIMA.jpeg",
+      img: "assets/images/Mentors/MANJIMA.jpeg",
       imgAlt: "Dr. Manjima G.S – Doctor of Pharmacy",
       icon: "fa-solid fa-graduation-cap",
       qual: ["Doctor of Pharmacy", "MSc Pharmacology (UK) – Commendation"],
@@ -120,7 +120,7 @@
     {
       name: "Jesna Prasad",
       accent: "cyan",
-      img: "assets/images/mentors/JESNA.JPG.jpeg",
+      img: "assets/images/Mentors/JESNA.JPG.jpeg",
       imgAlt: "Jesna Prasad – BSc Nursing & German Language",
       icon: "fa-solid fa-language",
       qual: ["BSc Nursing"],
@@ -129,7 +129,7 @@
     {
       name: "Jeethu Paul",
       accent: "cyan",
-      img: "assets/images/mentors/JEETHU.JPG.jpeg",
+      img: "assets/images/Mentors/JEETHU.JPG.jpeg",
       imgAlt: "Jeethu Paul – Pediatric Nursing Faculty",
       icon: "fa-solid fa-heart-pulse",
       qual: ["MSc Nursing (Pediatric)"],
