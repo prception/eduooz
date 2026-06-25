@@ -11511,29 +11511,9 @@ a.pex-paper-card {
 }
 
 /* --- SECTION HEADERS (shared) --- */
-.section-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 50px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #475569;
-  margin-bottom: 14px;
-  letter-spacing: 1px;
-}
 
-.section-label .label-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--brand-cyan);
-  animation: pulse-dot 2s infinite;
-}
+
+
 
 @keyframes pulse-dot {
   0%,
@@ -11547,49 +11527,6 @@ a.pex-paper-card {
   }
 }
 
-.section-title {
-  font-size: clamp(2.9rem, 4vw, 4.5rem);
-  font-weight: 800;
-  color: #0f172a;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
-}
-
-.section-title .text-gradient {
-  background: linear-gradient(135deg, var(--brand-accent), var(--brand-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* --- TYPOGRAPHY NORMALIZATION (homepage-aligned) --- */
-.section-title,
-h2 {
-  letter-spacing: -1.5px;
-}
-
-h3 {
-  letter-spacing: -0.5px;
-}
-
-h4 {
-  letter-spacing: -0.3px;
-  font-size: 1rem;
-}
-
-p {
-  line-height: 1.6;
-  font-size: 0.88rem;
-}
-
-/* --- UTILITY --- */
-.text-center {
-  text-align: center;
-}
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
 
 /* Body padding for sticky bottom nav on mobile */
 @media (max-width: 1200px) {
@@ -14992,21 +14929,18 @@ p {
   }
 }
 
-.pas-content-col .section-label .label-dot {
-  background: #06b6d4;
-}
 
 /* Heading */
 .pas-heading {
   font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 800;
   color: #0f172a;
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: -1px;
   margin: 0;
 }
 .pas-heading .text-gradient {
-  background: linear-gradient(135deg, #4311d7, #5b21b6);
+  background:  var(--brand-purple);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

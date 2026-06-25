@@ -1,5 +1,6 @@
 /* ==============================================
-   TERMS & CONDITIONS PAGE STYLES — LIGHT THEME
+   LEGAL PAGES SHARED STYLES — LIGHT THEME
+   Privacy Policy & Terms & Conditions
    Eduooz Academy
    ============================================== */
 
@@ -14,14 +15,6 @@
     --font-main: 'Plus Jakarta Sans', sans-serif;
     --font-serif: 'Cormorant Garamond', serif;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html.lenis, html.lenis body { height: auto; width: 100%; overflow-x: clip; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
-.lenis.lenis-scrolling iframe { pointer-events: none; }
 
 body {
     font-family: var(--font-main);
@@ -76,123 +69,16 @@ body {
     animation-delay: -10s;
 }
 
-@keyframes drift {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(10vw, 5vh) scale(1.1); }
-}
-
-/* ── Hero Section ───────────────────────────── */
-.legal-hero {
-    position: relative;
-    min-height: 46vh;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    padding: 140px 0 80px;
-    background: linear-gradient(135deg, #faf5ff 0%, #f5f3ff 60%, #fdf4ff 100%);
-}
-
-.legal-hero-gradient {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.lhg-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    animation: fluid 22s infinite alternate ease-in-out;
-}
-
-.lhg-blob.blob-1 {
-    width: 700px; height: 700px;
-    background: var(--brand-purple);
-    top: -250px; left: -150px;
-    opacity: 0.12;
-}
-
-.lhg-blob.blob-2 {
-    width: 500px; height: 500px;
-    background: var(--brand-cyan);
-    bottom: -150px; right: -80px;
-    opacity: 0.1;
-    animation-delay: -8s;
-}
-
-.lhg-blob.blob-3 {
-    width: 400px; height: 400px;
-    background: var(--brand-magenta);
-    top: 20%; right: 30%;
-    opacity: 0.07;
-    animation-delay: -15s;
-}
-
-@keyframes fluid {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(35px, 25px) scale(1.06); }
-}
-
-.legal-hero-content {
-    position: relative;
-    z-index: 2;
-}
-
-.frost-pill-hero {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(91, 33, 182, 0.07);
-    border: 1px solid rgba(91, 33, 182, 0.18);
-    border-radius: 100px;
-    padding: 6px 18px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    color: #6d28d9;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-}
-
-.glowing-dot-purple {
-    display: inline-block;
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--brand-purple);
-    box-shadow: 0 0 8px var(--brand-purple), 0 0 14px rgba(91, 33, 182, 0.5);
-    animation: pulseDotPurple 2.2s ease-in-out infinite;
-}
-
-@keyframes pulseDotPurple {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.55; transform: scale(0.85); }
-}
-
-.legal-hero-title {
-    font-size: clamp(3rem, 6.5vw, 6rem);
-    font-weight: 800;
-    color: #0f172a;
-    line-height: 1.1;
-    letter-spacing: -2px;
-    margin-bottom: 24px;
-}
-
-.legal-accent-purple {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 600;
-    color: #6d28d9;
-}
-
+/* ── Hero Meta (date + brand line) ───────────── */
 .legal-hero-meta {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
     font-size: 0.96rem;
     color: var(--text-muted-2);
+    margin-top: 20px;
 }
 
 .legal-hero-meta i {
@@ -201,19 +87,6 @@ body {
 }
 
 .meta-sep { opacity: 0.35; }
-
-.legal-hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 100%; height: 1px;
-    background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(91, 33, 182, 0.3) 30%,
-        rgba(6, 182, 212, 0.2) 70%,
-        transparent 100%
-    );
-}
 
 /* ── Main Body Section ──────────────────────── */
 .legal-body-section {
@@ -231,8 +104,8 @@ body {
 
 /* ── TOC Sidebar ────────────────────────────── */
 .legal-toc-col {
-    position: sticky;
-    top: 110px;
+    position: relative;
+    top: 0;
 }
 
 .toc-sticky-card {
@@ -443,14 +316,21 @@ body {
 
 .section-body a:hover { opacity: 0.75; }
 
-/* Highlight box */
+/* Highlight / callout box — default: purple (Privacy Policy) */
 .legal-highlight {
-    background: rgba(6, 182, 212, 0.05);
-    border: 1px solid rgba(6, 182, 212, 0.18);
-    border-left: 3px solid var(--brand-cyan);
+    background: rgba(91, 33, 182, 0.04);
+    border: 1px solid rgba(91, 33, 182, 0.14);
+    border-left: 3px solid var(--brand-purple);
     border-radius: 12px;
     padding: 18px 22px;
     margin: 20px 0;
+}
+
+/* Terms & Conditions — cyan highlight override */
+body.tc-page .legal-highlight {
+    background: rgba(6, 182, 212, 0.05);
+    border: 1px solid rgba(6, 182, 212, 0.18);
+    border-left: 3px solid var(--brand-cyan);
 }
 
 .legal-highlight p {
@@ -522,7 +402,7 @@ body {
     width: 50px; height: 50px;
     border-radius: 50%;
     background: var(--brand-purple);
-    color: #fff;
+    color: #ffffff;
     border: none;
     cursor: pointer;
     font-size: 1.1rem;
@@ -588,6 +468,8 @@ body {
     .toc-nav { grid-template-columns: 1fr; }
 
     .legal-section h2 { font-size: 1.28rem; }
+
+    .contact-detail-grid { grid-template-columns: 1fr; }
 
     .scroll-to-top { bottom: 20px; right: 20px; }
 }

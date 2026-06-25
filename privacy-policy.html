@@ -48,8 +48,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
+    <link rel="stylesheet" href="assets/css/global-heading-system.css">
     <link rel="stylesheet" href="assets/css/header-footer.css">
-    <link rel="stylesheet" href="assets/css/privacy-policy.css">
+    <link rel="stylesheet" href="assets/css/legal-shared.css">
+    <link rel="stylesheet" href="assets/css/faq-enquiry.css">
 </head>
 <body>
 
@@ -62,24 +64,18 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="legal-hero">
-        <div class="legal-hero-gradient">
-            <div class="lhg-blob blob-1"></div>
-            <div class="lhg-blob blob-2"></div>
-            <div class="lhg-blob blob-3"></div>
-        </div>
-        <div class="container">
-            <div class="legal-hero-content">
-                <div class="frost-pill-hero g-reveal">
-                    <span class="glowing-dot-cyan"></span> Legal Document
-                </div>
-                <h1 class="legal-hero-title g-reveal">Privacy <span class="legal-accent">Policy.</span></h1>
-                <p class="legal-hero-meta g-reveal">
-                    <i class="fa-solid fa-calendar-days"></i> Last Updated: June 2026
-                    <span class="meta-sep">•</span>
-                    <i class="fa-solid fa-shield-halved"></i> Eduooz Academy
-                </p>
+    <section class="page-hero-section">
+        <div class="container relative-z text-center">
+            <div class="glass-pill-white g-reveal mx-auto">
+                <div class="glowing-dot"></div>
+                <span>Legal Document</span>
             </div>
+            <h1 class="hero-title-white g-reveal">Privacy <span class="text-gradient-fluid">Policy.</span></h1>
+            <p class="legal-hero-meta g-reveal">
+                <i class="fa-solid fa-calendar-days"></i> Last Updated: June 2026
+                <span class="meta-sep">•</span>
+                <i class="fa-solid fa-shield-halved"></i> Eduooz Academy
+            </p>
         </div>
     </section>
 
@@ -104,7 +100,7 @@
                             <a href="#pp-children"      class="toc-link">Children's Privacy</a>
                             <a href="#pp-rights"        class="toc-link">Your Rights</a>
                             <a href="#pp-changes"       class="toc-link">Changes to Policy</a>
-                            <a href="#pp-contact"       class="toc-link">Contact Us</a>
+                       
                         </nav>
                     </div>
                 </aside>
@@ -304,49 +300,70 @@
                         </div>
                     </div>
 
-                    <!-- Section 12 – Contact -->
-                    <div class="legal-section contact-section" id="pp-contact">
-                        <div class="section-header">
-                            <span class="section-num">12</span>
-                            <h2>Contact Us</h2>
-                        </div>
-                        <div class="section-body">
-                            <p>For any questions regarding this Privacy Policy, please reach out to us through any of the following channels:</p>
-                            <div class="contact-detail-grid">
-                                <div class="contact-detail-item">
-                                    <i class="fa-solid fa-building"></i>
-                                    <div>
-                                        <h4>Academy</h4>
-                                        <p>Eduooz Academy</p>
-                                    </div>
-                                </div>
-                                <div class="contact-detail-item">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <div>
-                                        <h4>Location</h4>
-                                        <p>Thiruvananthapuram, Kerala, India</p>
-                                    </div>
-                                </div>
-                                <div class="contact-detail-item">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    <div>
-                                        <h4>Email</h4>
-                                        <p><a href="mailto:eduoozacademy@gmail.com">eduoozacademy@gmail.com</a></p>
-                                    </div>
-                                </div>
-                                <div class="contact-detail-item">
-                                    <i class="fa-solid fa-phone"></i>
-                                    <div>
-                                        <h4>Phone</h4>
-                                        <p><a href="tel:+918111850045">+91 81118 50045</a> / <a href="tel:+918111850054">+91 81118 50054</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <p style="margin-top: 20px;">We are committed to resolving any privacy concerns you may have. We will respond to all requests within 30 business days.</p>
-                        </div>
-                    </div>
+                   
 
                 </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREMIUM ENQUIRY FORM SECTION -->
+    <section class="enquiry-premium-section" id="contact">
+        <div class="container relative-z">
+            <div class="enquiry-glass-panel">
+                <div class="enquiry-grid">
+                    <div class="enquiry-info">
+                        <div class="section-label" style="margin-bottom: 20px;">
+                            <span class="label-dot"></span> Priority Support
+                        </div>
+                        <h2 class="section-title">Start your <br><span class="text-gradient-fluid">journey today.</span></h2>
+                        <p class="section-desc">Have questions about our syllabus, batches, or international placement? Drop us a line and our academic counselors will get back to you within 24 hours.</p>
+                        <div class="contact-methods">
+                            <div class="c-method">
+                                <div class="c-icon"><i class="fa-solid fa-phone"></i></div>
+                                <div>
+                                    <h5>Call Us Anytime</h5>
+                                    <p>+91 8111850054</p>
+                                </div>
+                            </div>
+                            <div class="c-method">
+                                <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
+                                <div>
+                                    <h5>Email Us</h5>
+                                    <p>eduoozinternationalacademy@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="enquiry-form-wrapper">
+                        <form class="glass-form" onsubmit="event.preventDefault(); alert('Form Submitted Successfully');">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <input type="text" id="name" required placeholder="Full Name">
+                                </div>
+                                <div class="input-group">
+                                    <input type="tel" id="phone" required placeholder="Phone Number">
+                                </div>
+                            </div>
+                            <div class="input-group select-wrapper">
+                                <select id="course" required>
+                                    <option value="" disabled selected>Select Course Category</option>
+                                    <option value="nursing">Nursing Coaching (AIIMS / RRB)</option>
+                                    <option value="pharma">Pharmacist Exams</option>
+                                    <option value="lab">Lab Technician Courses</option>
+                                    <option value="dha">International (DHA / HAAD)</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down select-icon"></i>
+                            </div>
+                            <div class="input-group">
+                                <textarea id="message" rows="4" required placeholder="How can we help you?"></textarea>
+                            </div>
+                            <button type="submit" class="btn-form-submit">
+                                Submit Enquiry <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -363,6 +380,7 @@
 
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="assets/js/components.js"></script>
+    <script src="assets/js/faq-enquiry.js"></script>
     <script src="assets/js/privacy-policy.js"></script>
 </body>
 </html>

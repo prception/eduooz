@@ -1,0 +1,572 @@
+/* =======================================================================
+   GLOBAL HEADING SYSTEM — Eduooz International Academy
+   Canonical typography, pill labels, gradient text, and spacing system.
+   Load this BEFORE any page-specific stylesheet.
+   ======================================================================= */
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --brand-dark:        #0a0514;
+  --brand-purple:      #5b21b6;
+  --brand-accent:      #39189d;
+  --brand-magenta:     #c026d3;
+  --brand-cyan:        #06b6d4;
+  --text-main:         #ffffff;
+  --text-muted:        #cbd5e1;
+  --bg-light:          #f8fafc;
+  --text-light-theme:  #0f172a;
+  --text-muted-light:  #475569;
+  --font-main:         "Plus Jakarta Sans", sans-serif;
+  --font-serif:        "Cormorant Garamond", serif;
+
+  /* Glass tokens */
+  --glass-bg:          rgba(255, 255, 255, 0.03);
+  --glass-border:      rgba(255, 255, 255, 0.12);
+  --glass-light-bg:    rgba(255, 255, 255, 0.60);
+  --glass-light-border:rgba(255, 255, 255, 0.90);
+}
+
+
+/* ============================================================
+   CSS RESET
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* ============================================================
+   LENIS SMOOTH SCROLL
+   ============================================================ */
+html.lenis,
+html.lenis body {
+  height: auto;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   SHARED ANIMATION KEYFRAMES
+   ============================================================ */
+@keyframes drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(10vw, 5vh) scale(1.1); }
+}
+
+
+/* ============================================================
+   BASE FONT FAMILY
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-main);
+}
+
+
+/* --- TYPOGRAPHY NORMALIZATION (homepage-aligned) --- */
+
+h2 {
+  letter-spacing: -1.5px;
+}
+
+h3 {
+  letter-spacing: -0.5px;
+}
+
+h4 {
+  letter-spacing: -0.3px;
+  font-size: 1rem;
+}
+
+p {
+  line-height: 1.6;
+  font-size: 0.88rem;
+}
+
+/* --- UTILITY --- */
+.text-center {
+  text-align: center;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================================
+   GRADIENT TEXT — DARK BACKGROUNDS
+   White → Cyan → Magenta, animated shimmer
+   ============================================================ */
+.text-gradient-fluid {
+  background: linear-gradient(
+    to right,
+    #ffffff,
+    var(--brand-cyan),
+    var(--brand-magenta)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: ghs-shine 5s linear infinite;
+  display: inline-block;
+}
+
+
+@keyframes ghs-shine {
+  to { background-position: 200% center; }
+}
+
+
+/* ============================================================
+   GRADIENT TEXT — LIGHT BACKGROUNDS
+   Purple → Magenta → Cyan, animated shimmer
+   ============================================================ */
+.text-gradient-fluid-light {
+  background: linear-gradient(
+    to right,
+    var(--brand-purple),
+    var(--brand-magenta),
+    var(--brand-cyan)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: ghs-shine 5s linear infinite;
+  display: inline-block;
+}
+
+
+/* ============================================================
+   GRADIENT TEXT — STATIC VARIANTS
+   ============================================================ */
+
+/* Purple → Magenta (section titles, light bg) */
+.gradient-text {
+  background: linear-gradient(135deg, var(--brand-purple), var(--brand-magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Cyan → Purple (section titles, dark bg) */
+.gradient-text-cyan {
+  background: linear-gradient(135deg, var(--brand-cyan), var(--brand-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+
+/* ============================================================
+   H1 PAGE TITLE — Canonical Class
+   Split design: plain text + gradient span inside
+   ============================================================ */
+.page-hero-title {
+  font-size: clamp(3.5rem, 5.5vw, 6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  font-family: var(--font-main);
+}
+
+.hero-title {
+  font-size: clamp(3.5rem, 4.8vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  font-weight: 400;
+}
+
+/* ============================================================
+   SHARED PAGE HERO SECTION — gallery, testimonials, legal pages
+   ============================================================ */
+.page-hero-section {
+  padding: 180px 0 100px 0;
+  background-color: transparent;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-title-white {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  color: var(--brand-purple);
+  margin-bottom: 20px;
+}
+
+.hero-subtitle-white {
+  font-size: 1.25rem;
+  color: var(--text-muted-light);
+  max-width: 1000px;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   GLOWING INDICATOR DOTS
+   ============================================================ */
+.glowing-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 10px #22d3ee, 0 0 20px rgba(34, 211, 238, 0.4);
+  flex-shrink: 0;
+  animation: ghs-pulse-dot 2.2s ease-in-out infinite;
+}
+
+.glowing-dot-cyan {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-cyan);
+  box-shadow: 0 0 8px var(--brand-cyan), 0 0 16px rgba(6, 182, 212, 0.5);
+  flex-shrink: 0;
+  animation: ghs-pulse-dot 2.2s ease-in-out infinite;
+}
+
+.glowing-dot-purple {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-purple);
+  box-shadow: 0 0 8px var(--brand-purple), 0 0 16px rgba(91, 33, 182, 0.5);
+  flex-shrink: 0;
+  animation: ghs-pulse-dot 2.2s ease-in-out infinite;
+}
+
+.glowing-dot-magenta {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-magenta);
+  box-shadow: 0 0 8px var(--brand-magenta), 0 0 16px rgba(192, 38, 211, 0.5);
+  flex-shrink: 0;
+  animation: ghs-pulse-dot 2.2s ease-in-out infinite;
+}
+
+@keyframes ghs-pulse-dot {
+  0%, 100% { opacity: 1;    transform: scale(1);    }
+  50%       { opacity: 0.5; transform: scale(0.78); }
+}
+
+
+/* ============================================================
+   PILL / SECTION LABELS
+   ============================================================ */
+
+/* Dark background pill */
+.frost-pill-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  margin-bottom: 20px;
+  font-family: var(--font-main);
+}
+
+/* Light background pill */
+.frost-pill-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #475569;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  margin-bottom: 20px;
+  font-family: var(--font-main);
+}
+
+/* Purple-accent hero pill (legal/about pages) */
+.frost-pill-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(91, 33, 182, 0.07);
+  border: 1px solid rgba(91, 33, 182, 0.18);
+  border-radius: 100px;
+  padding: 7px 18px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #6d28d9;
+  margin-bottom: 24px;
+  font-family: var(--font-main);
+}
+
+/* Dark glass pill — homepage hero style */
+.glass-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  font-family: var(--font-main);
+}
+.glass-pill-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.729);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(186, 162, 162, 0.218);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 2rem;
+  font-family: var(--font-main);
+}
+
+
+/* Light section label (light-theme sections) */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.50);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 50px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #475569;
+  margin-bottom: 14px;
+  font-family: var(--font-main);
+}
+
+.section-label .label-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-cyan);
+  animation: ghs-pulse-dot 2s infinite;
+  flex-shrink: 0;
+}
+.section-title .text-gradient {
+  background:  var(--brand-purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.section-desc{
+   max-width: 600px;
+  margin: 14px auto 0;
+  color: #64748b;
+  line-height: 1.7;
+  font-size: 1.125rem;
+  color: var(--text-muted-light);
+  font-weight: 500;
+
+}
+
+
+/* ============================================================
+   SECTION TITLES — H2
+   ============================================================ */
+
+/* Standard section h2 — light theme */
+.section-header h2,
+.section-header-vid h2 {
+  font-size: clamp(2.9rem, 4vw, 4.5rem);
+  font-weight: 800;
+  color: var(--text-light-theme);
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  font-family: var(--font-main);
+}
+
+.section-header p,
+.section-header-vid p {
+  font-size: 1.2rem;
+  color: var(--text-muted-light);
+  font-weight: 500;
+  line-height: 1.65;
+  max-width: 680px;
+}
+
+/* Utility class for section h2 — light theme */
+.section-title {
+  font-size: clamp(3rem, 4vw, 4.5rem);
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  font-family: var(--font-main);
+}
+
+/* Utility class for section h2 — dark theme */
+.section-title-dark {
+  font-size: clamp(2.9rem, 4vw, 4.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  font-family: var(--font-main);
+}
+
+
+/* ============================================================
+   SECTION INTRO PARAGRAPHS
+   ============================================================ */
+.section-intro {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: var(--text-muted-light);
+  font-weight: 500;
+  line-height: 1.65;
+  max-width: 680px;
+  font-family: var(--font-main);
+}
+
+.section-intro-dark {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: var(--text-muted);
+  font-weight: 400;
+  line-height: 1.65;
+  max-width: 680px;
+  font-family: var(--font-main);
+}
+
+
+/* ============================================================
+   PANEL / SUB-SECTION TITLES (H2 in scroll panels)
+   ============================================================ */
+.panel-title {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: var(--text-light-theme);
+  font-family: var(--font-main);
+}
+
+
+/* ============================================================
+   RESPONSIVE TYPOGRAPHY
+   ============================================================ */
+@media (max-width: 991px) {
+  .page-hero-title {
+    font-size: clamp(3rem, 7vw, 5rem);
+    letter-spacing: -1.5px;
+  }
+
+  .section-header h2,
+  .section-header-vid h2{
+    font-size: clamp(3rem, 4vw, 4.5rem);
+  }
+
+  .panel-title {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .page-hero-title {
+    font-size: clamp(2.6rem, 9vw, 3.8rem);
+    letter-spacing: -1px;
+  }
+
+  .section-header h2,
+  .section-header-vid h2{
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    letter-spacing: -0.5px;
+  }
+
+  .panel-title {
+    font-size: clamp(1.9rem, 7vw, 2.6rem);
+    letter-spacing: -0.5px;
+  }
+
+  .section-header p,
+  .section-header-vid p,
+  .section-intro,
+  .section-intro-dark {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .frost-pill-dark,
+  .frost-pill-light,
+  .frost-pill-hero,
+  .glass-pill,
+  .section-label {
+    font-size: 1rem;
+    padding: 6px 12px;
+    letter-spacing: 0.9px;
+  }
+
+  .page-hero-title {
+    letter-spacing: -0.5px;
+  }
+}

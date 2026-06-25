@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    ABOUT PAGE - GLOBAL VARIABLES & SETUP
    ============================================ */
 :root {
@@ -14,31 +14,6 @@
   --text-muted-light: #475569;
   --font-main: "Plus Jakarta Sans", sans-serif;
   /* --font-serif: 'Cormorant Garamond', serif; */
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html.lenis,
-html.lenis body {
-  height: auto;
-  width: 100%;
-  overflow-x: hidden;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
 }
 
 body {
@@ -127,16 +102,6 @@ body {
   top: 30%;
   left: 30%;
   animation-delay: -10s;
-}
-
-@keyframes drift {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  100% {
-    transform: translate(10vw, 5vh) scale(1.1);
-  }
 }
 
 /* --- HERO SECTION --- */
@@ -913,10 +878,9 @@ body {
   width: 100%;
   position: relative;
   z-index: 5;
+  margin-top: 40px;
 }
-.frost-pill-dark {
-  color: var(--brand-dark);
-}
+
 .wwh-pillar {
   flex: 1; /* Compressed State */
   position: relative;
@@ -2998,46 +2962,6 @@ body {
   pointer-events: none;
 }
 
-.section-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--brand-cyan, #06b6d4);
-  margin-bottom: 16px;
-  letter-spacing: 1px;
-}
-
-.section-label .label-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--brand-cyan, #06b6d4);
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
-.section-title {
-  font-size: clamp(2.9rem, 4vw, 4.5rem);
-  font-weight: 800;
-  color: #0f172a;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
-}
-
-.section-title .text-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--brand-cyan, #06b6d4),
-    var(--brand-purple, #7c3aed)
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 /* --- Batch Dots + Meet All Mentors CTA --- */
 .fac-dots-section {
   text-align: center;
@@ -3173,6 +3097,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-top: 30px;
 }
 
 /* Movement is fully JS-driven for drag compatibility */
@@ -3364,13 +3289,13 @@ body {
   align-items: center;
   gap: 12px;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #aebbf92f;
+  border: 1px solid rgb(255, 255, 255);
   padding: 8px 20px;
   border-radius: 50px;
   font-size: 0.9rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--brand-dark);
   margin-bottom: 1.5rem;
   backdrop-filter: blur(10px);
 }

@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --brand-dark: #0a0514;
   --brand-purple: #5b21b6;
   --brand-magenta: #c026d3;
@@ -11,31 +11,6 @@
   --text-muted-light: #475569;
   --font-main: "Plus Jakarta Sans", sans-serif;
   --font-serif: "Cormorant Garamond", serif;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html.lenis,
-html.lenis body {
-  height: auto;
-  width: 100%;
-  overflow-x: hidden;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
 }
 
 body {
@@ -229,7 +204,7 @@ body {
 }
 
 /* --- Left: Narrative Zone --- */
-.nexus-title {
+.hero-title {
   font-size: clamp(3.5rem, 6vw, 6rem);
   font-weight: 900;
   line-height: 1.1;
@@ -243,7 +218,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.nexus-subtitle {
+.hero-subtitle {
   font-size: 1.15rem;
   color: var(--text-muted);
   line-height: 1.6;
