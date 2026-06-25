@@ -10,11 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // FAQ accordion
+    // FAQ accordion — skip if already initialized by course-landing.js (dynamic render path)
     const faqWrapper = document.getElementById('faq-accordion');
     const faqItems = document.querySelectorAll('.faq-item');
 
-    if (faqWrapper && faqItems.length > 0) {
+    if (faqWrapper && faqItems.length > 0 && !faqWrapper.dataset.faqInitialized) {
+        faqWrapper.dataset.faqInitialized = 'true';
         faqItems.forEach(item => {
             const button = item.querySelector('.faq-question');
             if (!button) return;
