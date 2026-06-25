@@ -1,4 +1,4 @@
-/* =========================================
+﻿/* =========================================
    COURSES PAGE SPECIFIC STYLES
    ========================================= */
 
@@ -30,7 +30,7 @@
   width: 100%;
 }
 
-.hero-title-main {
+.hero-title {
   font-size: clamp(3.5rem, 6vw, 6rem);
   font-weight: 800;
   color: #fff;
@@ -1007,13 +1007,13 @@
     min-height: 80vh;
   }
 
-  .hero-title-main {
+  .hero-title {
     font-size: clamp(2.8rem, 5vw, 4rem);
   }
 }
 
 /* --- Extracted Inline Styles from courses.html --- */
-.hero-desc {
+.hero-subtitle {
   color: var(--text-muted);
   font-size: 1.2rem;
   max-width: 650px;
@@ -1292,6 +1292,5 @@
     border-radius: 18px;
   }
 }
-
 
 

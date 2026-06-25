@@ -1,4 +1,4 @@
-/* =========================================
+﻿/* =========================================
    FACULTIES PAGE — GLOBAL VARIABLES
    ========================================= */
 :root {
@@ -15,16 +15,9 @@
   --font-serif: 'Cormorant Garamond', serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html.lenis, html.lenis body { height: auto; width: 100%; overflow-x: hidden; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-stopped { overflow: hidden; }
-
 body {
   font-family: var(--font-main);
   color: var(--text-main);
-  background: var(--brand-dark);
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -124,12 +117,6 @@ body {
   color: #fff;
   margin-bottom: 24px;
 }
-.fac-gradient {
-  background: linear-gradient(135deg, #a78bfa, #06b6d4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
 
 .fac-hero-sub {
   font-size: 1.15rem;
@@ -163,7 +150,7 @@ body {
 .fac-carousel-section {
   position: relative;
   padding: 80px 0 110px;
-  background: var(--bg-light);
+  /* background: var(--bg-light); */
   z-index: 10;
   overflow: hidden;
 }
@@ -173,7 +160,7 @@ body {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, transparent, var(--brand-purple), var(--brand-cyan), transparent);
+  /* background: linear-gradient(90deg, transparent, var(--brand-purple), var(--brand-cyan), transparent); */
 }
 
 .fac-sec-header {
@@ -181,45 +168,6 @@ body {
   margin-bottom: 60px;
 }
 
-.fac-sec-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(91, 33, 182, 0.08);
-  border: 1px solid rgba(91, 33, 182, 0.18);
-  padding: 7px 20px;
-  border-radius: 50px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--brand-purple);
-  margin-bottom: 20px;
-}
-.fac-sec-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--brand-purple);
-  box-shadow: 0 0 8px rgba(91,33,182,0.6);
-}
-
-.fac-sec-title {
-  font-size: clamp(2.2rem, 4vw, 3.5rem);
-  font-weight: 800;
-  color: var(--text-light);
-  letter-spacing: -1.5px;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.fac-sec-sub {
-  font-size: 1.05rem;
-  color: var(--text-muted-light);
-  max-width: 580px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
 
 /* =========================================
    FACULTY GRID

@@ -91,6 +91,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 
+    <link rel="stylesheet" href="assets/css/global-heading-system.css" />
     <link rel="stylesheet" href="assets/css/header-footer.css" />
     <link rel="stylesheet" href="assets/css/testimonials.css" />
     <link rel="stylesheet" href="assets/css/faq-enquiry.css">
@@ -105,37 +106,16 @@
       <div class="blob magenta-blob"></div>
     </div>
 
-    <section
-      class="testimonials-hero text-center"
-      style="padding: 180px 0 100px 0; position: relative; z-index: 10"
-    >
-      <div class="container">
-        <div class="frost-pill-light mb-4 g-test-reveal mx-auto">
-          <span class="glowing-dot-purple"></span> The Eduooz Legacy
+    <section class="page-hero-section">
+      <div class="container relative-z text-center">
+        <div class="glass-pill-white g-test-reveal mx-auto">
+          <div class="glowing-dot"></div>
+          The Eduooz Legacy
         </div>
-        <h1
-          class="g-test-reveal"
-          style="
-            font-size: clamp(3.5rem, 6vw, 5.5rem);
-            font-weight: 900;
-            color: var(--brand-purple);
-            line-height: 1.1;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-          "
-        >
-          Voices of
-          <span class="text-italic-purple">Victory.</span>
+        <h1 class="hero-title-white g-test-reveal">
+          Voices of <span class="text-gradient-fluid">Victory.</span>
         </h1>
-        <p
-          class="g-test-reveal mx-auto"
-          style="
-            font-size: 1.15rem;
-            color: var(--text-muted-light);
-            max-width: 500px;
-            line-height: 1.6;
-          "
-        >
+        <p class="hero-subtitle-white mx-auto g-test-reveal">
           Don't just take our word for it. Hear from the thousands of healthcare
           professionals who have conquered their exams with us.
         </p>
@@ -768,10 +748,21 @@
     <section class="swipe-theater-section" id="video-testimonials">
       <div class="container relative-z">
         <div class="theater-header g-theater-reveal">
-          <div class="header-text">
-            <h2>The Success <span class="text-italic-cyan">Archive.</span></h2>
-            <p>Real stories. Real results. Swipe to explore.</p>
+          <div class="header-text"> 
+                <div class="section-label">
+                    <span class="label-dot"></span> Testimonials
+                </div>
+                
+                <h2 class="section-title">
+                    The Success 
+                    <span class="text-gradient">Archive.</span>
+                </h2>
+                
+                <p class="section-desc mx-auto">
+                    Real stories. Real results. Swipe to explore.
+                </p>
           </div>
+
 
           <div class="theater-nav-controls">
             <button class="nav-arrow" id="btn-prev">
@@ -1090,15 +1081,15 @@
         <div class="enquiry-glass-panel">
           <div class="enquiry-grid">
             <div class="enquiry-info">
-              <div class="frost-pill-light" style="margin-bottom: 20px">
-                <span class="glowing-dot-magenta"></span> Priority Support
+              <div class="section-label" style="margin-bottom: 20px">
+                <span class="label-dot"></span> Priority Support
               </div>
-              <h2 class="enquiry-title">
+              <h2 class="section-title">
                 Start your <br /><span class="text-gradient-fluid"
                   >journey today.</span
                 >
               </h2>
-              <p class="enquiry-subtitle">
+              <p class="section-desc">
                 Have questions about our syllabus, batches, or international
                 placement? Drop us a line and our academic counselors will get
                 back to you within 24 hours.

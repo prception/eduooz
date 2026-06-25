@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --brand-dark: #0a0514;
     --brand-purple: #5b21b6;
     --brand-magenta: #c026d3;
@@ -12,14 +12,6 @@
     --font-main: 'Plus Jakarta Sans', sans-serif;
     --font-serif: 'Cormorant Garamond', serif;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html.lenis, html.lenis body { height: auto; width: 100%; overflow-x: hidden; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
-.lenis.lenis-scrolling iframe { pointer-events: none; }
 
 body {
     font-family: var(--font-main);
@@ -39,7 +31,6 @@ body {
 .col-lg-8 { width: 66.666667%; padding: 0 15px; }
 .text-center { text-align: center; }
 .mx-auto { margin-left: auto; margin-right: auto; }
-
 
 @media (max-width: 768px) {
     .col-md-9, .col-lg-8 { width: 100%; }
@@ -93,6 +84,7 @@ body {
     box-shadow: 0 0 10px rgba(212, 212, 212, 0.3); border: 1px solid rgba(255,255,255,0.1);
     padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; color: #000000; backdrop-filter: blur(10px);
 }
+
 .glowing-dot-cyan { width: 8px; height: 8px; background: var(--brand-cyan); border-radius: 50%; box-shadow: 0 0 10px var(--brand-cyan); }
 
 .btn-dark-magnetic {
@@ -207,7 +199,6 @@ body {
 .author-details span { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
 .text-purple { color: var(--brand-purple); } .text-cyan { color: var(--brand-cyan); } .text-blue { color: #0ea5e9; } .text-magenta { color: var(--brand-magenta); } .text-dark { color: var(--text-muted-light); }
 
-
 /* Mobile Adjustments */
 @media (max-width: 1024px) {
     .review-card { width: 350px; padding: 30px; }
@@ -231,7 +222,6 @@ body {
 
 .theater-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; position: relative; z-index: 5; }
 .theater-header h2 { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 900; color: var(--brand-purple); letter-spacing: -1.5px; margin-bottom: 10px; }
-.text-italic-cyan { font-family: var(--font-serif); font-style: italic; color: var(--brand-cyan); }
 .theater-header p { font-size: 1.15rem; color: var(--text-muted-light); margin: 0; }
 
 /* Desktop Arrows */

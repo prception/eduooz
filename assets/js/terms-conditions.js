@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
 
     // 1. Lenis smooth scroll
     function initLenis() {
@@ -56,7 +56,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 3. Active TOC link tracking via IntersectionObserver
+    // 3. Sticky TOC â€” ScrollTrigger pin (Lenis breaks CSS position:sticky)
+    if (typeof ScrollTrigger !== 'undefined') {
+        const tocCard = document.querySelector('.toc-sticky-card');
+        const bodySection = document.querySelector('.legal-body-section');
+        if (tocCard && bodySection) {
+            gsap.matchMedia().add('(min-width: 861px)', () => {
+                ScrollTrigger.create({
+                    trigger: bodySection,
+                    start: 'top 90px',
+                    end: () => `+=${bodySection.offsetHeight - tocCard.offsetHeight - 90}`,
+                    pin: tocCard,
+                    pinSpacing: false,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                });
+            });
+        }
+    }
+
+    // 4. Active TOC link tracking via IntersectionObserver
     const sections = document.querySelectorAll('.legal-section[id]');
     const tocLinks = document.querySelectorAll('.toc-link');
 
@@ -74,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sections.forEach(s => observer.observe(s));
     }
 
-    // 4. Smooth scroll for TOC links
+    // 5. Smooth scroll for TOC links
     tocLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -88,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 5. Scroll-to-Top button
+    // 6. Scroll-to-Top button
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     if (scrollTopBtn) {
         window.addEventListener('scroll', () => {
@@ -104,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 6. Navbar light/dark mode on scroll
+    // 7. Navbar light/dark mode on scroll
     function initNavbar() {
         const navbar = document.getElementById("navbar");
         if (!navbar || typeof ScrollTrigger === 'undefined') return;
@@ -121,3 +140,4 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener('headerLoaded', initNavbar);
     }
 });
+
