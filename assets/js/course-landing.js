@@ -2280,7 +2280,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderEligibilityCards() {
     const track = document.getElementById("elig-col-track");
     const cfg = window.courseEligibility;
-    if (!track || !cfg || !cfg.qualification || !cfg.qualification.length) return;
+    if (!track || !cfg || !cfg.qualification || !cfg.qualification.length)
+      return;
 
     track.innerHTML = cfg.qualification
       .map(
@@ -2320,6 +2321,8 @@ document.addEventListener("DOMContentLoaded", () => {
         `,
       )
       .join("");
+
+    initAgeExplorer();
   }
 
   // --- 5. ELIGIBILITY CHECKER — dynamic form builder + validation engine ---
@@ -2350,7 +2353,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cfg.fields && cfg.fields.length) return cfg;
 
     const fields = [];
-    fields.push({ type: "text", id: "name", label: "Full Name", required: true });
+    fields.push({
+      type: "text",
+      id: "name",
+      label: "Full Name",
+      required: true,
+    });
 
     if (cfg.acceptedQualifications && cfg.acceptedQualifications.length) {
       const opts = cfg.acceptedQualifications.map((q) =>
@@ -2359,7 +2367,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cfg.showOtherQualification !== false) {
         opts.push({ value: "other", label: "Other / Not Listed" });
       }
-      fields.push({ type: "select", id: "qualification", label: "Qualification", required: true, options: opts });
+      fields.push({
+        type: "select",
+        id: "qualification",
+        label: "Qualification",
+        required: true,
+        options: opts,
+      });
     }
 
     const needsReg = cfg.registrationRequired || cfg.showRegistration;
@@ -2382,11 +2396,19 @@ document.addEventListener("DOMContentLoaded", () => {
         id: "category",
         label: "Caste / Category",
         required: true,
-        options: cfg.acceptedCategories.map((c) => ({ value: c.value, label: c.label })),
+        options: cfg.acceptedCategories.map((c) => ({
+          value: c.value,
+          label: c.label,
+        })),
       });
     }
 
-    fields.push({ type: "date", id: "dob", label: "Date of Birth", required: true });
+    fields.push({
+      type: "date",
+      id: "dob",
+      label: "Date of Birth",
+      required: true,
+    });
 
     (cfg.additionalFields || []).forEach((f) => {
       fields.push({ ...f, id: f.name || f.id });
@@ -2397,7 +2419,8 @@ document.addEventListener("DOMContentLoaded", () => {
       cfg.baseMaxAge ||
       cfg.maxAge ||
       (cfg.acceptedCategories
-        ? ((cfg.acceptedCategories.find((c) => c.value === "general") || {}).maxAge || null)
+        ? (cfg.acceptedCategories.find((c) => c.value === "general") || {})
+            .maxAge || null
         : null);
 
     const ageRelaxation = {};
@@ -2481,7 +2504,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Wire up showWhen conditional visibility — run once after form is built
   function initConditionalFields(form) {
     form.querySelectorAll("[data-show-when-field]").forEach((group) => {
-      const controlEl = form.querySelector(`[name="${group.dataset.showWhenField}"]`);
+      const controlEl = form.querySelector(
+        `[name="${group.dataset.showWhenField}"]`,
+      );
       if (!controlEl) return;
 
       function update() {
@@ -2501,23 +2526,33 @@ document.addEventListener("DOMContentLoaded", () => {
   function runEligibilityCheck(form, resultEl, cfg) {
     // Collect values from visible fields only
     const data = {};
-    form.querySelectorAll(".form-group:not(.ec-hidden) [name]").forEach((el) => {
-      data[el.name] = el.value.trim();
-    });
+    form
+      .querySelectorAll(".form-group:not(.ec-hidden) [name]")
+      .forEach((el) => {
+        data[el.name] = el.value.trim();
+      });
 
     // Required field check (visible fields only)
     const missing = (cfg.fields || [])
       .filter((f) => {
         if (!f.required) return false;
-        if (f.showWhen && data[f.showWhen.field] !== f.showWhen.value) return false;
+        if (f.showWhen && data[f.showWhen.field] !== f.showWhen.value)
+          return false;
         return !data[f.id];
       })
       .map((f) => f.label);
 
     if (missing.length) {
-      showResult(resultEl, "warning",
-        buildResultHTML("warning", "Incomplete Form",
-          `Please fill in: <strong>${missing.join(", ")}</strong>`, null));
+      showResult(
+        resultEl,
+        "warning",
+        buildResultHTML(
+          "warning",
+          "Incomplete Form",
+          `Please fill in: <strong>${missing.join(", ")}</strong>`,
+          null,
+        ),
+      );
       return;
     }
 
@@ -2533,8 +2568,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Age limit via relaxation engine: effectiveMax = baseMaxAge + relaxation[category]
     const category = data.category || "general";
-    const relaxation = cfg.ageRelaxation ? (cfg.ageRelaxation[category] ?? 0) : 0;
-    const effectiveMaxAge = cfg.baseMaxAge != null ? cfg.baseMaxAge + relaxation : null;
+    const relaxation = cfg.ageRelaxation
+      ? (cfg.ageRelaxation[category] ?? 0)
+      : 0;
+    const effectiveMaxAge =
+      cfg.baseMaxAge != null ? cfg.baseMaxAge + relaxation : null;
     const minAge = cfg.minAge || 18;
 
     // Resolve display labels from field definitions
@@ -2542,25 +2580,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const qualField = fields.find((f) => f.id === "qualification");
     const catField = fields.find((f) => f.id === "category");
     const qualLabel =
-      (qualField && (qualField.options || []).find((o) => o.value === data.qualification) || {}).label ||
-      data.qualification || "—";
+      (
+        (qualField &&
+          (qualField.options || []).find(
+            (o) => o.value === data.qualification,
+          )) ||
+        {}
+      ).label ||
+      data.qualification ||
+      "—";
     const catLabel =
-      (catField && (catField.options || []).find((o) => o.value === category) || {}).label ||
-      category;
+      (
+        (catField &&
+          (catField.options || []).find((o) => o.value === category)) ||
+        {}
+      ).label || category;
 
     const regFieldId = cfg.registrationFieldId || false;
-    const regField = regFieldId ? fields.find((f) => f.id === regFieldId) : null;
+    const regField = regFieldId
+      ? fields.find((f) => f.id === regFieldId)
+      : null;
     const summary = {
       qualification: qualLabel,
       age: age != null ? `${age} yrs` : "—",
-      ageLimit: effectiveMaxAge != null
-        ? `${minAge}–${effectiveMaxAge} yrs${relaxation ? ` (base ${cfg.baseMaxAge} + ${relaxation} relaxation)` : ""}`
-        : "—",
+      ageLimit:
+        effectiveMaxAge != null
+          ? `${minAge}–${effectiveMaxAge} yrs${relaxation ? ` (base ${cfg.baseMaxAge} + ${relaxation} relaxation)` : ""}`
+          : "—",
       registrationLabel: regField ? regField.label : "Registration",
       registration:
-        data[regFieldId] === "yes" ? "Active"
-        : data[regFieldId] === "no" ? "Not registered"
-        : "—",
+        data[regFieldId] === "yes"
+          ? "Active"
+          : data[regFieldId] === "no"
+            ? "Not registered"
+            : "—",
     };
 
     // --- Validation chain ---
@@ -2568,8 +2621,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let reason = null;
 
     // 1. Qualification
-    if (cfg.acceptedQualifications && cfg.acceptedQualifications.length &&
-        !cfg.acceptedQualifications.includes(data.qualification)) {
+    if (
+      cfg.acceptedQualifications &&
+      cfg.acceptedQualifications.length &&
+      !cfg.acceptedQualifications.includes(data.qualification)
+    ) {
       status = "notEligible";
       reason = `Your qualification (<strong>${qualLabel}</strong>) does not meet the minimum requirement for this examination.`;
     }
@@ -2587,7 +2643,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 4. Age – maximum (warning, not hard fail — notification may have relaxations)
-    if (!status && age != null && effectiveMaxAge != null && age > effectiveMaxAge) {
+    if (
+      !status &&
+      age != null &&
+      effectiveMaxAge != null &&
+      age > effectiveMaxAge
+    ) {
       status = "warning";
       reason = `Age limit for <strong>${catLabel}</strong> is <strong>${effectiveMaxAge} yrs</strong>. Your age is <strong>${age} yrs</strong>. Verify the official notification for any additional relaxations.`;
     }
@@ -2598,9 +2659,19 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
           const r = rule(data);
           if (!r) continue;
-          const s = r.status || (r.eligible === false ? "notEligible" : r.warn ? "warning" : null);
-          if (s === "notEligible") { status = "notEligible"; reason = r.reason; break; }
-          if (s === "warning")     { status = "warning";     reason = r.reason; break; }
+          const s =
+            r.status ||
+            (r.eligible === false ? "notEligible" : r.warn ? "warning" : null);
+          if (s === "notEligible") {
+            status = "notEligible";
+            reason = r.reason;
+            break;
+          }
+          if (s === "warning") {
+            status = "warning";
+            reason = r.reason;
+            break;
+          }
         } catch (e) {
           console.warn("[eligibility] custom rule error:", e);
         }
@@ -2611,8 +2682,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!status && typeof window.customEligibilityCheck === "function") {
       try {
         const r = window.customEligibilityCheck(data);
-        if (r && r.eligible === false) { status = "notEligible"; reason = r.reason; }
-        else if (r && (r.warn || r.status === "warning")) { status = "warning"; reason = r.reason; }
+        if (r && r.eligible === false) {
+          status = "notEligible";
+          reason = r.reason;
+        } else if (r && (r.warn || r.status === "warning")) {
+          status = "warning";
+          reason = r.reason;
+        }
       } catch (e) {
         console.warn("[eligibility] customEligibilityCheck error:", e);
       }
@@ -2623,16 +2699,24 @@ document.addEventListener("DOMContentLoaded", () => {
       reason = `You meet all the eligibility criteria for this examination. You are eligible to apply.`;
     }
 
-    showResult(resultEl,
+    showResult(
+      resultEl,
       status === "notEligible" ? "error" : status,
-      buildResultHTML(status, null, reason, summary));
+      buildResultHTML(status, null, reason, summary),
+    );
   }
 
   function buildResultHTML(status, titleOverride, reason, summary) {
     const meta = {
-      eligible:    { icon: "fa-solid fa-circle-check",        title: "Congratulations! You appear eligible." },
-      warning:     { icon: "fa-solid fa-triangle-exclamation", title: "Please Verify Official Notification" },
-      notEligible: { icon: "fa-solid fa-circle-xmark",        title: "Not Eligible" },
+      eligible: {
+        icon: "fa-solid fa-circle-check",
+        title: "Congratulations! You appear eligible.",
+      },
+      warning: {
+        icon: "fa-solid fa-triangle-exclamation",
+        title: "Please Verify Official Notification",
+      },
+      notEligible: { icon: "fa-solid fa-circle-xmark", title: "Not Eligible" },
     };
     const { icon, title } = meta[status] || meta.eligible;
 
@@ -3119,8 +3203,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (zoomLbl) zoomLbl.textContent = currentZoom + "%";
     }
-    if (zIn) zIn.addEventListener("click", function () { setZoom(currentZoom + 20); });
-    if (zOut) zOut.addEventListener("click", function () { setZoom(currentZoom - 20); });
+    if (zIn)
+      zIn.addEventListener("click", function () {
+        setZoom(currentZoom + 20);
+      });
+    if (zOut)
+      zOut.addEventListener("click", function () {
+        setZoom(currentZoom - 20);
+      });
 
     var fsBtn = document.getElementById("pex-fullscreen-btn");
     if (fsBtn) {
@@ -3144,14 +3234,27 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!pdfUrl) {
         if (skeleton) skeleton.classList.add("pex-hidden");
         if (lockedTitle) lockedTitle.textContent = title || "Paper Unavailable";
-        if (lockedSub) lockedSub.textContent = "Enroll to access and download this paper.";
+        if (lockedSub)
+          lockedSub.textContent = "Enroll to access and download this paper.";
         if (locked) locked.classList.add("pex-show");
-        if (iframe) { iframe.classList.remove("pex-loaded"); iframe.src = ""; }
-        if (dlBtn) { dlBtn.removeAttribute("href"); dlBtn.style.opacity = "0.38"; dlBtn.style.pointerEvents = "none"; }
+        if (iframe) {
+          iframe.classList.remove("pex-loaded");
+          iframe.src = "";
+        }
+        if (dlBtn) {
+          dlBtn.removeAttribute("href");
+          dlBtn.style.opacity = "0.38";
+          dlBtn.style.pointerEvents = "none";
+        }
         return;
       }
 
-      if (dlBtn) { dlBtn.href = pdfUrl; dlBtn.setAttribute("target", "_blank"); dlBtn.style.opacity = ""; dlBtn.style.pointerEvents = ""; }
+      if (dlBtn) {
+        dlBtn.href = pdfUrl;
+        dlBtn.setAttribute("target", "_blank");
+        dlBtn.style.opacity = "";
+        dlBtn.style.pointerEvents = "";
+      }
       if (locked) locked.classList.remove("pex-show");
       if (skeleton) skeleton.classList.remove("pex-hidden");
       if (iframe) {
@@ -3180,14 +3283,19 @@ document.addEventListener("DOMContentLoaded", () => {
       var yearEl = card.querySelector(".pex-year-badge");
       var titleEl = card.querySelector(".pex-card-title, h4");
       var year = card.dataset.year || (yearEl ? yearEl.textContent.trim() : "");
-      var title = card.dataset.title || (titleEl ? titleEl.textContent.trim() : "");
-      grid.querySelectorAll(".pex-paper-card").forEach(function (c) { c.classList.remove("pex-active"); });
+      var title =
+        card.dataset.title || (titleEl ? titleEl.textContent.trim() : "");
+      grid.querySelectorAll(".pex-paper-card").forEach(function (c) {
+        c.classList.remove("pex-active");
+      });
       card.classList.add("pex-active");
       loadPreview(getCardPdf(card), year, title);
     }
 
     grid.querySelectorAll(".pex-paper-card").forEach(function (card) {
-      card.addEventListener("click", function (e) { handleCardClick(card, e); });
+      card.addEventListener("click", function (e) {
+        handleCardClick(card, e);
+      });
     });
 
     function applyFilter(year, query) {
@@ -3195,10 +3303,16 @@ document.addEventListener("DOMContentLoaded", () => {
       grid.querySelectorAll(".pex-paper-card").forEach(function (card) {
         var yearEl = card.querySelector(".pex-year-badge");
         var titleEl = card.querySelector(".pex-card-title, h4");
-        var cardYear = card.dataset.year || (yearEl ? yearEl.textContent.trim() : "");
-        var title = (card.dataset.title || (titleEl ? titleEl.textContent.trim() : "")).toLowerCase();
+        var cardYear =
+          card.dataset.year || (yearEl ? yearEl.textContent.trim() : "");
+        var title = (
+          card.dataset.title || (titleEl ? titleEl.textContent.trim() : "")
+        ).toLowerCase();
         var yearMatch = year === "all" || cardYear === year;
-        var searchMatch = !query || title.indexOf(query) !== -1 || cardYear.toLowerCase().indexOf(query) !== -1;
+        var searchMatch =
+          !query ||
+          title.indexOf(query) !== -1 ||
+          cardYear.toLowerCase().indexOf(query) !== -1;
         var visible = yearMatch && searchMatch;
         card.style.display = visible ? "" : "none";
         if (visible) anyVisible = true;
@@ -3210,16 +3324,21 @@ document.addEventListener("DOMContentLoaded", () => {
       tabsEl.addEventListener("click", function (e) {
         var btn = e.target.closest(".pex-tab");
         if (!btn) return;
-        tabsEl.querySelectorAll(".pex-tab").forEach(function (t) { t.classList.remove("active"); });
+        tabsEl.querySelectorAll(".pex-tab").forEach(function (t) {
+          t.classList.remove("active");
+        });
         btn.classList.add("active");
-        applyFilter(btn.dataset.year || "all", searchEl ? searchEl.value.toLowerCase().trim() : "");
+        applyFilter(
+          btn.dataset.year || "all",
+          searchEl ? searchEl.value.toLowerCase().trim() : "",
+        );
       });
     }
 
     if (searchEl) {
       searchEl.addEventListener("input", function () {
         var activeTab = tabsEl ? tabsEl.querySelector(".pex-tab.active") : null;
-        var year = activeTab ? (activeTab.dataset.year || "all") : "all";
+        var year = activeTab ? activeTab.dataset.year || "all" : "all";
         applyFilter(year, searchEl.value.toLowerCase().trim());
       });
     }
@@ -3230,25 +3349,28 @@ document.addEventListener("DOMContentLoaded", () => {
     var cardGrid = document.querySelector(".qp-card-grid");
     if (!cardGrid) return;
 
-    var iframe      = document.getElementById("qp-iframe");
-    var skeleton    = document.getElementById("qp-skeleton");
-    var emptyState  = document.getElementById("qp-empty-state");
+    var iframe = document.getElementById("qp-iframe");
+    var skeleton = document.getElementById("qp-skeleton");
+    var emptyState = document.getElementById("qp-empty-state");
     var lockedState = document.getElementById("qp-locked-state");
     var lockedTitle = document.getElementById("qp-locked-title");
-    var infoYear    = document.getElementById("qp-info-year");
-    var infoTitle   = document.getElementById("qp-info-title");
-    var dlBtn       = document.getElementById("qp-download-btn");
-    var zoomLbl     = document.getElementById("qp-zoom-label");
-    var noResults   = document.getElementById("qp-no-results");
-    var tabsEl      = document.querySelector(".qp-year-tabs");
+    var infoYear = document.getElementById("qp-info-year");
+    var infoTitle = document.getElementById("qp-info-title");
+    var dlBtn = document.getElementById("qp-download-btn");
+    var zoomLbl = document.getElementById("qp-zoom-label");
+    var noResults = document.getElementById("qp-no-results");
+    var tabsEl = document.querySelector(".qp-year-tabs");
     var currentZoom = 100;
 
     /* ── Initial idle state ── */
     function resetToIdle() {
-      if (emptyState)  emptyState.classList.remove("qp-hidden");
+      if (emptyState) emptyState.classList.remove("qp-hidden");
       if (lockedState) lockedState.classList.remove("qp-show");
-      if (skeleton)    skeleton.classList.remove("qp-show");
-      if (iframe)      { iframe.classList.remove("qp-loaded"); iframe.src = ""; }
+      if (skeleton) skeleton.classList.remove("qp-show");
+      if (iframe) {
+        iframe.classList.remove("qp-loaded");
+        iframe.src = "";
+      }
     }
     resetToIdle();
 
@@ -3261,10 +3383,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (zoomLbl) zoomLbl.textContent = currentZoom + "%";
     }
-    var zIn  = document.getElementById("qp-zoom-in");
+    var zIn = document.getElementById("qp-zoom-in");
     var zOut = document.getElementById("qp-zoom-out");
-    if (zIn)  zIn.addEventListener("click",  function () { setZoom(currentZoom + 20); });
-    if (zOut) zOut.addEventListener("click", function () { setZoom(currentZoom - 20); });
+    if (zIn)
+      zIn.addEventListener("click", function () {
+        setZoom(currentZoom + 20);
+      });
+    if (zOut)
+      zOut.addEventListener("click", function () {
+        setZoom(currentZoom - 20);
+      });
 
     /* ── Fullscreen ── */
     var fsBtn = document.getElementById("qp-fullscreen-btn");
@@ -3284,23 +3412,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ── Load preview ── */
     function loadPreview(pdfUrl, year, title, downloadUrl) {
-      if (infoYear)  infoYear.textContent  = year  || "";
+      if (infoYear) infoYear.textContent = year || "";
       if (infoTitle) infoTitle.textContent = title || "";
 
       if (!pdfUrl) {
         /* No PDF — show Coming Soon state */
-        if (emptyState)  emptyState.classList.add("qp-hidden");
-        if (skeleton)    skeleton.classList.remove("qp-show");
+        if (emptyState) emptyState.classList.add("qp-hidden");
+        if (skeleton) skeleton.classList.remove("qp-show");
         if (lockedTitle) lockedTitle.textContent = "Coming Soon";
-        var lockedSub = lockedState ? lockedState.querySelector(".qp-state-sub") : null;
-        if (lockedSub)   lockedSub.textContent   = "This question paper will be available soon.";
+        var lockedSub = lockedState
+          ? lockedState.querySelector(".qp-state-sub")
+          : null;
+        if (lockedSub)
+          lockedSub.textContent = "This question paper will be available soon.";
         var lockedDlBtn = document.getElementById("qp-locked-dl-btn");
         if (lockedDlBtn) lockedDlBtn.style.display = "none";
         if (lockedState) lockedState.classList.add("qp-show");
-        if (iframe)      { iframe.classList.remove("qp-loaded"); iframe.src = ""; }
+        if (iframe) {
+          iframe.classList.remove("qp-loaded");
+          iframe.src = "";
+        }
         if (dlBtn) {
           dlBtn.removeAttribute("href");
-          dlBtn.style.opacity       = "0.38";
+          dlBtn.style.opacity = "0.38";
           dlBtn.style.pointerEvents = "none";
         }
         return;
@@ -3310,12 +3444,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (dlBtn) {
         dlBtn.href = downloadUrl || pdfUrl;
         dlBtn.setAttribute("target", "_blank");
-        dlBtn.style.opacity       = "";
+        dlBtn.style.opacity = "";
         dlBtn.style.pointerEvents = "";
       }
-      if (emptyState)  emptyState.classList.add("qp-hidden");
+      if (emptyState) emptyState.classList.add("qp-hidden");
       if (lockedState) lockedState.classList.remove("qp-show");
-      if (skeleton)    skeleton.classList.add("qp-show");
+      if (skeleton) skeleton.classList.add("qp-show");
       if (iframe) {
         iframe.classList.remove("qp-loaded");
         iframe.src = "";
@@ -3338,20 +3472,34 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       card.classList.add("qp-active");
       var activeBadge = card.querySelector(".qp-preview-badge");
-      if (activeBadge && card.dataset.pdf) activeBadge.textContent = "Previewing";
+      if (activeBadge && card.dataset.pdf)
+        activeBadge.textContent = "Previewing";
 
-      var pdfUrl      = card.dataset.pdf      || "";
-      var title       = card.dataset.title    || (card.querySelector(".qp-card-title") ? card.querySelector(".qp-card-title").textContent.trim() : "");
-      var year        = card.dataset.year     || (card.querySelector(".qp-card-year")  ? card.querySelector(".qp-card-year").textContent.trim()  : "");
+      var pdfUrl = card.dataset.pdf || "";
+      var title =
+        card.dataset.title ||
+        (card.querySelector(".qp-card-title")
+          ? card.querySelector(".qp-card-title").textContent.trim()
+          : "");
+      var year =
+        card.dataset.year ||
+        (card.querySelector(".qp-card-year")
+          ? card.querySelector(".qp-card-year").textContent.trim()
+          : "");
       var downloadUrl = card.dataset.download || pdfUrl;
 
       loadPreview(pdfUrl, year, title, downloadUrl);
     }
 
     cardGrid.querySelectorAll(".qp-card").forEach(function (card) {
-      card.addEventListener("click", function () { activateCard(card); });
+      card.addEventListener("click", function () {
+        activateCard(card);
+      });
       card.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activateCard(card); }
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activateCard(card);
+        }
       });
     });
 
@@ -3367,8 +3515,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function applyFilter(year) {
       var anyVisible = false;
       cardGrid.querySelectorAll(".qp-card").forEach(function (card) {
-        var cardYear  = card.dataset.year || (card.querySelector(".qp-card-year") ? card.querySelector(".qp-card-year").textContent.trim() : "");
-        var visible   = year === "all" || cardYear === year;
+        var cardYear =
+          card.dataset.year ||
+          (card.querySelector(".qp-card-year")
+            ? card.querySelector(".qp-card-year").textContent.trim()
+            : "");
+        var visible = year === "all" || cardYear === year;
         card.style.display = visible ? "" : "none";
         if (visible) anyVisible = true;
       });
@@ -3379,7 +3531,9 @@ document.addEventListener("DOMContentLoaded", () => {
       tabsEl.addEventListener("click", function (e) {
         var btn = e.target.closest(".qp-year-tab");
         if (!btn) return;
-        tabsEl.querySelectorAll(".qp-year-tab").forEach(function (t) { t.classList.remove("active"); });
+        tabsEl.querySelectorAll(".qp-year-tab").forEach(function (t) {
+          t.classList.remove("active");
+        });
         btn.classList.add("active");
         applyFilter(btn.dataset.year || "all");
       });
@@ -4162,26 +4316,30 @@ function initFacultyCarousel() {
 // --- FAQ ACCORDION ---
 function initFaqAccordion() {
   const container = document.getElementById("faq-accordion");
-  if (!container) return;
+  if (!container || container.dataset.faqInitialized === "true") return;
 
-  container.querySelectorAll(".faq-question").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const item = btn.closest(".faq-item");
-      if (!item) return;
-      const isActive = item.classList.contains("active");
+  container.dataset.faqInitialized = "true";
 
-      // Close all open items and remove wrapper dimming
-      container
-        .querySelectorAll(".faq-item.active")
-        .forEach((open) => open.classList.remove("active"));
-      container.classList.remove("has-active");
+  container.addEventListener("click", (event) => {
+    const btn = event.target.closest(".faq-question");
+    if (!btn) return;
 
-      // Open clicked item if it was closed
-      if (!isActive) {
-        item.classList.add("active");
-        container.classList.add("has-active");
-      }
-    });
+    const item = btn.closest(".faq-item");
+    if (!item) return;
+
+    const isActive = item.classList.contains("active");
+
+    // Close all open items and remove wrapper dimming
+    container
+      .querySelectorAll(".faq-item.active")
+      .forEach((open) => open.classList.remove("active"));
+    container.classList.remove("has-active");
+
+    // Open clicked item if it was closed
+    if (!isActive) {
+      item.classList.add("active");
+      container.classList.add("has-active");
+    }
   });
 }
 
@@ -4707,19 +4865,32 @@ function initSyllabusTabs() {
 // Only handles standalone instances (not in vcarousel)
 // ===========================================
 function initAgeExplorer() {
-  // Skip vcarousel-tracks — handled inside initVerticalCarousels()
-  const standalone = document.getElementById("age-explorer");
-  if (!standalone) return;
-  const cards = standalone.querySelectorAll(".age-explorer-card");
-  if (!cards.length) return;
+  const containers = [
+    document.getElementById("age-explorer"),
+    document.getElementById("age-col-track"),
+    document.getElementById("elig-scroll-scene"),
+  ].filter(Boolean);
 
-  cards.forEach((card) => {
-    const front = card.querySelector(".age-explorer-front");
-    if (!front) return;
-    front.addEventListener("click", () => {
-      const isExpanded = card.classList.contains("expanded");
-      cards.forEach((c) => c.classList.remove("expanded"));
-      if (!isExpanded) card.classList.add("expanded");
+  if (!containers.length) return;
+
+  containers.forEach((container) => {
+    const cards = Array.from(container.querySelectorAll(".age-explorer-card"));
+    if (!cards.length) return;
+
+    cards.forEach((card) => {
+      if (card.dataset.ageToggleBound === "true") return;
+
+      const toggleTarget = card.querySelector(".age-explorer-front") || card;
+      toggleTarget.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const isExpanded = card.classList.contains("expanded");
+        cards.forEach((c) => c.classList.remove("expanded"));
+        if (!isExpanded) card.classList.add("expanded");
+      });
+
+      card.dataset.ageToggleBound = "true";
     });
   });
 }
@@ -5069,10 +5240,7 @@ const facultyPool = [
     badge: "MSc Nursing (Orthopedic)",
     icon: '<i class="fa-solid fa-stethoscope"></i>',
     img: "/assets/images/mentors/VIDHU.JPG.jpeg",
-    quals: [
-      "MSc. Nursing (Orthopedic)",
-      "NCLEX RN Passed",
-    ],
+    quals: ["MSc. Nursing (Orthopedic)", "NCLEX RN Passed"],
   },
   // Batch 2
   {
@@ -5093,11 +5261,7 @@ const facultyPool = [
     badge: "MSc Microbiology | 2nd Rank Holder",
     icon: '<i class="fa-solid fa-microscope"></i>',
     img: "/assets/images/mentors/SREELEKSHMI.jpeg",
-    quals: [
-      "MSc Microbiology",
-      "2nd Rank Holder",
-      "Kerala PSC Rank Holder",
-    ],
+    quals: ["MSc Microbiology", "2nd Rank Holder", "Kerala PSC Rank Holder"],
   },
   {
     name: "Arathy Surendran",
@@ -5105,10 +5269,7 @@ const facultyPool = [
     badge: "MSc Nursing (Pediatrics) – KUHS",
     icon: '<i class="fa-solid fa-child"></i>',
     img: "/assets/images/mentors/ARATHY.JPG.jpeg",
-    quals: [
-      "MSc Nursing (Pediatrics) – KUHS",
-      "Kerala PSC Rank Holder",
-    ],
+    quals: ["MSc Nursing (Pediatrics) – KUHS", "Kerala PSC Rank Holder"],
   },
   // Batch 3
   {
@@ -5143,11 +5304,7 @@ const facultyPool = [
     badge: "German B1–B2 Certified | BSc Nursing",
     icon: '<i class="fa-solid fa-language"></i>',
     img: "/assets/images/mentors/JESNA.JPG.jpeg",
-    quals: [
-      "BSc Nursing",
-      "German A1-A2 Certified",
-      "German B1-B2 Certified",
-    ],
+    quals: ["BSc Nursing", "German A1-A2 Certified", "German B1-B2 Certified"],
   },
   // Batch 4
   {
@@ -5156,10 +5313,7 @@ const facultyPool = [
     badge: "MSc Nursing (Pediatric)",
     icon: '<i class="fa-solid fa-heart-pulse"></i>',
     img: "/assets/images/mentors/JEETHU.JPG.jpeg",
-    quals: [
-      "MSc Nursing (Pediatric)",
-      "Kerala PSC Rank Holder",
-    ],
+    quals: ["MSc Nursing (Pediatric)", "Kerala PSC Rank Holder"],
   },
   {
     name: "Shine Stephen",
@@ -5212,17 +5366,23 @@ const facultyDOMNodes = Array.from(activeWrappers).map((wrapper) => {
 
 function buildQualList(quals) {
   if (!quals || !quals.length) return "";
-  return '<ul class="fac-desc-list">' +
-    quals.map(function(q) { return "<li>" + q + "</li>"; }).join("") +
-    "</ul>";
+  return (
+    '<ul class="fac-desc-list">' +
+    quals
+      .map(function (q) {
+        return "<li>" + q + "</li>";
+      })
+      .join("") +
+    "</ul>"
+  );
 }
 
 function updateFacultyDots() {
   var dots = document.querySelectorAll(".fac-batch-dot");
   if (!dots.length) return;
   var start = currentFacultyBatch * 3;
-  var end   = Math.min(start + 3, 10);
-  dots.forEach(function(dot, i) {
+  var end = Math.min(start + 3, 10);
+  dots.forEach(function (dot, i) {
     dot.classList.toggle("fac-batch-dot-active", i >= start && i < end);
   });
 }
@@ -5248,8 +5408,8 @@ function initFacultyDots() {
   var ctaWrap = document.createElement("div");
   ctaWrap.innerHTML =
     '<a href="/faculties.html" class="btn-meet-mentors">' +
-      '<i class="fa-solid fa-users"></i> Meet All Mentors' +
-    '</a>';
+    '<i class="fa-solid fa-users"></i> Meet All Mentors' +
+    "</a>";
   section.appendChild(ctaWrap);
 
   grid.insertAdjacentElement("afterend", section);
@@ -5305,14 +5465,14 @@ facultyDOMNodes.forEach(bindTiltPhysics);
 // Initialize first batch description as qualification list on page load
 (function initFacultyDescriptions() {
   var initialBatch = facultyPool.slice(0, 3);
-  facultyDOMNodes.forEach(function(node, i) {
+  facultyDOMNodes.forEach(function (node, i) {
     var fac = initialBatch[i];
     if (fac && node.descContainer) {
       node.descContainer.innerHTML = buildQualList(fac.quals);
     }
   });
   initFacultyDots();
-}());
+})();
 
 // Pre-load all images so no pop-in happens during cycle
 facultyPool.forEach((fac) => {
@@ -5351,7 +5511,8 @@ function cycleFaculty() {
         if (node.badge) node.badge.textContent = fac.badge;
         if (node.name) node.name.textContent = fac.name;
         if (node.role) node.role.textContent = fac.role;
-        if (node.descContainer) node.descContainer.innerHTML = buildQualList(fac.quals);
+        if (node.descContainer)
+          node.descContainer.innerHTML = buildQualList(fac.quals);
       }
 
       node.cycleNode.classList.remove("cycling-out");
@@ -6242,7 +6403,13 @@ gsap.from(".g-test-reveal", {
     document
       .querySelectorAll("#elig-scroll-scene .age-explorer-card")
       .forEach(function (card) {
-        card.addEventListener("click", function () {
+        if (card.dataset.ageToggleBound === "true") return;
+
+        var trigger = card.querySelector(".age-explorer-front") || card;
+        trigger.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+
           var isOpen = card.classList.contains("expanded");
           document
             .querySelectorAll("#elig-scroll-scene .age-explorer-card.expanded")
@@ -6251,6 +6418,8 @@ gsap.from(".g-test-reveal", {
             });
           if (!isOpen) card.classList.add("expanded");
         });
+
+        card.dataset.ageToggleBound = "true";
       });
   }
 

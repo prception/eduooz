@@ -38,6 +38,12 @@
   margin-bottom: 1.5rem;
   color: #000000;
 }
+.text-italic-cyan {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--brand-purple);
+  font-weight: 600;
+}
 
 .faq-subtitle {
   font-size: 1.15rem;
