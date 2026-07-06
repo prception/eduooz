@@ -135,6 +135,37 @@
       qual: ["MSc Nursing (Pediatric)"],
       achievements: ["Kerala PSC Rank Holder"],
     },
+    {
+      name: "Reshma R",
+      accent: "cyan",
+      img: "assets/images/Mentors/RESHMA R.png",
+      imgAlt: "Reshma R – Paediatric Nursing Faculty",
+      icon: "fa-solid fa-baby",
+      qual: ["MSc Nursing (Paediatrics)"],
+      achievements: [
+        "Cleared AIIMS Raipur Nursing Officer Exam",
+        "RRB Nursing Officer",
+        "DHS/DME Nursing Officer",
+      ],
+    },
+    {
+      name: "Revathy B C",
+      accent: "cyan",
+      img: "assets/images/Mentors/REVATHY B C.jpeg",
+      imgAlt: "Revathy B C – Oncology Nursing Faculty",
+      icon: "fa-solid fa-ribbon",
+      qual: ["BSc Nursing", "Speciality in Oncology Nursing"],
+      achievements: [],
+    },
+    {
+      name: "Ashna Ashok",
+      accent: "cyan",
+      img: "assets/images/Mentors/ASHNA ASHOK.png",
+      imgAlt: "Ashna Ashok – OBG Nursing Faculty",
+      icon: "fa-solid fa-baby-carriage",
+      qual: ["BSc Nursing", "MSc Nursing (OBG)"],
+      achievements: [],
+    },
   ];
 
   /* =========================================
