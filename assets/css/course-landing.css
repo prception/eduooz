@@ -5104,13 +5104,18 @@ body {
   position: relative;
   z-index: 10;
   padding: 100px 0 80px;
-  
- background-image: radial-gradient(
-    circle at top,
-    color-mix(in srgb, var(--brand-purple) 7%, white),
-    color-mix(in srgb, var(--brand-cyan) 5%, white),
-    color-mix(in srgb, var(--brand-magenta) 7%, white)
-);
+ 
+  background:
+    linear-gradient(
+       115% 130% at -15% -20%,
+      rgba(178, 230, 241, 0.765) 0%,
+      rgba(93, 209, 230, 0.52) 24%,
+      rgba(176, 217, 224, 0.623) 44%,
+      rgba(249, 249, 249, 0.799) 60%,
+      rgba(249, 249, 249, 0.779) 74%,
+      transparent 88%
+    ),
+    #f5f6f6;
 }
 
 .snapshot-grid {
