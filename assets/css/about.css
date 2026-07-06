@@ -59,6 +59,12 @@ body {
   .col-lg-8 {
     width: 100%;
   }
+
+  
+.hero-glass-half {
+  width: 100%;
+  z-index: 6;
+}
 }
 
 .color-mesh {
@@ -121,7 +127,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 55%;
+  width: 50%;
   height: 100%;
   z-index: 2;
   backdrop-filter: blur(8px);
