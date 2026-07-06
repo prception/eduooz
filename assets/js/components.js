@@ -241,21 +241,60 @@
 
     if (!navbarToggler || !navLinks) return;
 
+    function closeOpenDropdowns() {
+      navLinks.querySelectorAll(".nav-item.dropdown.open").forEach((el) => {
+        el.classList.remove("open");
+        const trigger = el.querySelector(":scope > a");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
+      });
+    }
+
     navbarToggler.addEventListener("click", function () {
       this.classList.toggle("active");
       navLinks.classList.toggle("active");
       document.body.style.overflow = navLinks.classList.contains("active")
         ? "hidden"
         : "";
+
+      if (!navLinks.classList.contains("active")) closeOpenDropdowns();
+    });
+
+    // On mobile, dropdown triggers (About Us, Courses) toggle their submenu
+    // instead of navigating away immediately, since there's no hover on touch.
+    const dropdownTriggers = navLinks.querySelectorAll(".nav-item.dropdown > a");
+    dropdownTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", function (e) {
+        if (window.innerWidth > 1024) return; // desktop uses hover
+
+        const navItem = this.closest(".nav-item.dropdown");
+        const isOpen = navItem.classList.contains("open");
+        const tappedCaret = !!e.target.closest(".dropdown-caret");
+
+        if (isOpen && !tappedCaret) return; // already open: let the link navigate
+
+        e.preventDefault();
+
+        if (isOpen) {
+          navItem.classList.remove("open");
+          this.setAttribute("aria-expanded", "false");
+          return;
+        }
+
+        closeOpenDropdowns();
+        navItem.classList.add("open");
+        this.setAttribute("aria-expanded", "true");
+      });
     });
 
     // Close navbar when clicking a nav link
     const links = navLinks.querySelectorAll("a");
     links.forEach((link) => {
-      link.addEventListener("click", function () {
+      link.addEventListener("click", function (e) {
+        if (e.defaultPrevented) return; // dropdown toggle handled this click
         navbarToggler.classList.remove("active");
         navLinks.classList.remove("active");
         document.body.style.overflow = "";
+        closeOpenDropdowns();
       });
     });
   }

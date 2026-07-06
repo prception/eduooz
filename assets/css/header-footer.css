@@ -508,12 +508,18 @@
     -webkit-backdrop-filter: blur(20px);
     flex-direction: column;
     justify-content: center;
+    /* Falls back to top-aligned instead of clipping when an open dropdown
+       makes the content taller than the screen (unsupported browsers just
+       keep plain "center" from the declaration above). */
+    justify-content: safe center;
     align-items: center;
     gap: 40px;
     z-index: 1000;
     transform: translateX(-100%);
     transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 90px 20px 40px;
   }
 
   .nav-links.active {
@@ -2117,7 +2123,9 @@ body.chat-is-open .scroll-to-top {
     max-height: none;
   }
 
-  .nav-item.dropdown:hover .mega-menu {
+  /* Touch browsers can simulate :hover on tap, which fights with the
+     click-to-toggle handler below, so visibility is driven by .open only. */
+  .nav-item.dropdown.open .mega-menu {
     display: block;
   }
 
@@ -2135,8 +2143,19 @@ body.chat-is-open .scroll-to-top {
     padding: 4px 0 4px 12px;
   }
 
-  .nav-item.dropdown:hover .simple-menu {
+  .nav-item.dropdown.open .simple-menu {
     display: block;
+  }
+
+  .nav-item.dropdown.open .dropdown-caret {
+    transform: rotate(-180deg);
+  }
+
+  /* Desktop-only hover bridges; on mobile they can overlap the trigger row
+     and swallow taps meant for the dropdown link/caret. */
+  .simple-menu::before,
+  .mega-menu::before {
+    display: none;
   }
 
   .simple-menu-item {
