@@ -5104,6 +5104,13 @@ body {
   position: relative;
   z-index: 10;
   padding: 100px 0 80px;
+  
+ background-image: radial-gradient(
+    circle at top,
+    color-mix(in srgb, var(--brand-purple) 7%, white),
+    color-mix(in srgb, var(--brand-cyan) 5%, white),
+    color-mix(in srgb, var(--brand-magenta) 7%, white)
+);
 }
 
 .snapshot-grid {
@@ -5111,10 +5118,12 @@ body {
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   margin-top: 40px;
+  
 }
 
 .snapshot-card {
   background: rgba(255, 255, 255, 0.6);
+ 
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -6287,7 +6296,6 @@ body {
   );
   border-radius: 999px;
   margin: 0 64px;
-
 }
 
 .syllabus-tabs-nav::-webkit-scrollbar-thumb {
@@ -11404,11 +11412,80 @@ a.pex-paper-card {
   }
 }
 
+.snapshot-dots {
+  display: none;
+}
+
 @media (max-width: 480px) {
   .snapshot-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: visible;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
     margin-top: 32px;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .snapshot-grid::-webkit-scrollbar {
+    display: none;
+    height: 8px;
+  }
+
+  .snapshot-card {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    scroll-snap-align: start;
+    align-items: stretch;
+  }
+
+  .snapshot-card .snap-icon {
+    margin: 0 auto 16px;
+  }
+
+  .snapshot-card .snap-label,
+  .snapshot-card .snap-value {
+    width: 100%;
+  }
+
+  .snapshot-card .snap-value {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .snapshot-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 0 4px;
+  }
+
+  .snapshot-dots button {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(15, 23, 42, 0.22);
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .snapshot-dots button.active {
+    background-color: var(--brand-cyan);
+    transform: scale(1.1);
+    opacity: 1;
   }
 }
 
@@ -11642,13 +11719,13 @@ a.pex-paper-card {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--brand-cyan), var(--brand-purple));
+  /* background: linear-gradient(90deg, var(--brand-cyan), var(--brand-purple)); */
   opacity: 0.6;
   transition: opacity 0.3s ease;
 }
 
 .age-explorer-card::before {
-  background: linear-gradient(90deg, #c026d3, #a21caf);
+  background: linear-gradient(90deg, var(--brand-cyan));
 }
 
 .age-explorer-card:hover {
@@ -11688,31 +11765,6 @@ a.pex-paper-card {
   color: var(--brand-cyan);
 }
 
-.age-explorer-card:nth-child(2) .age-explorer-icon {
-  background: rgba(91, 33, 182, 0.08);
-  color: var(--brand-cyan);
-}
-.age-explorer-card:nth-child(3) .age-explorer-icon {
-  background: rgba(192, 38, 211, 0.08);
-  color: var(--brand-magenta);
-}
-.age-explorer-card:nth-child(4) .age-explorer-icon {
-  background: rgba(234, 88, 12, 0.08);
-  color: #ea580c;
-}
-.age-explorer-card:nth-child(5) .age-explorer-icon {
-  background: rgba(16, 185, 129, 0.08);
-  color: #10b981;
-}
-.age-explorer-card:nth-child(6) .age-explorer-icon {
-  background: rgba(99, 102, 241, 0.08);
-  color: #6366f1;
-}
-.age-explorer-card:nth-child(7) .age-explorer-icon {
-  background: rgba(245, 158, 11, 0.08);
-  color: #f59e0b;
-}
-
 .age-explorer-info {
   flex: 1;
 }
@@ -11749,7 +11801,7 @@ a.pex-paper-card {
 
 .age-explorer-card.expanded .age-explorer-toggle {
   transform: rotate(180deg);
-  background: var(--brand-cyan);
+  background: var(--brand-purple);
   color: #fff;
 }
 
@@ -13237,6 +13289,11 @@ a.pex-paper-card {
   /* Snapshot grid: ensure cards wrap cleanly */
   .snapshot-grid {
     overflow: hidden;
+  }
+
+  .exam-snapshot-section .snapshot-grid {
+    overflow-x: auto;
+    overflow-y: visible;
   }
 
   /* Ensure review cards don't force horizontal scroll */

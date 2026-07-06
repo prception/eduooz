@@ -60,11 +60,10 @@ body {
     width: 100%;
   }
 
-  
-.hero-glass-half {
-  width: 100%;
-  z-index: 6;
-}
+  .hero-glass-half {
+    width: 100%;
+    z-index: 6;
+  }
 }
 
 .color-mesh {
@@ -139,6 +138,44 @@ body {
     rgba(255, 255, 255, 0.03) 100%
   );
   pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .about-hero {
+    padding-bottom: 6rem;
+  }
+
+  .about-hero #cinematic-canvas {
+    filter: blur(14px);
+    -webkit-filter: blur(14px);
+    transform: scale(1.02);
+    
+  }
+
+  .about-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+  }
+
+  .theme-blend-zone {
+    z-index: 1;
+  }
+
+  .who-horizon-section {
+    z-index: 40;
+    position: relative;
+    margin-top: 0;
+    padding-top: 2.5rem;
+    scroll-margin-top: 110px;
+  }
+
+  #who-we-are {
+    scroll-margin-top: 110px;
+  }
 }
 
 .gradient-mesh-bg {

@@ -2020,21 +2020,138 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- 1. RENDER EXAM SNAPSHOT ---
   function renderSnapshot() {
-    const grid = document.getElementById("snapshot-grid");
-    if (!grid || !CONFIG.snapshot) return;
+    const grids = Array.from(
+      document.querySelectorAll(".exam-snapshot-section .snapshot-grid"),
+    );
+    if (!grids.length) return;
 
-    const items = CONFIG.snapshot;
-    grid.innerHTML = items
-      .map(
-        (item) => `
-            <div class="snapshot-card g-exam-reveal">
+    grids.forEach((grid) => {
+      const cards = Array.from(grid.querySelectorAll(".snapshot-card"));
+
+      if (!cards.length && CONFIG.snapshot) {
+        const items = CONFIG.snapshot;
+        grid.innerHTML = items
+          .map(
+            (item) => `
+              <div class="snapshot-card g-exam-reveal">
                 <div class="snap-icon"><i class="${item.icon}"></i></div>
                 <div class="snap-label">${item.label}</div>
                 <div class="snap-value">${item.link ? `<a href="${item.link}" target="_blank">${item.value}</a>` : item.value}</div>
-            </div>
-        `,
-      )
-      .join("");
+              </div>
+            `,
+          )
+          .join("");
+      }
+
+      initSnapshotCarousel(grid);
+    });
+
+    function initSnapshotCarousel(grid) {
+      const cards = Array.from(grid.querySelectorAll(".snapshot-card"));
+      if (!cards.length) return;
+
+      const existingPager = grid.parentNode.querySelector(".snapshot-dots");
+      const dotsEl = existingPager || document.createElement("div");
+      dotsEl.className = "snapshot-dots";
+
+      if (!existingPager) {
+        grid.parentNode.insertBefore(dotsEl, grid.nextSibling);
+      } else {
+        dotsEl.innerHTML = "";
+      }
+
+      function setActiveDot(index) {
+        dotsEl.querySelectorAll("button").forEach((btn, i) => {
+          btn.classList.toggle("active", i === index);
+        });
+      }
+
+      function scrollToCard(index) {
+        const card = cards[index];
+        if (!card) return;
+        card.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest",
+        });
+      }
+
+      cards.forEach((card, index) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.setAttribute("aria-label", `Go to snapshot ${index + 1}`);
+        dot.addEventListener("click", () => scrollToCard(index));
+        dotsEl.appendChild(dot);
+      });
+
+      function updateActiveDot() {
+        if (!window.matchMedia("(max-width: 480px)").matches) {
+          dotsEl
+            .querySelectorAll("button")
+            .forEach((btn) => btn.classList.remove("active"));
+          return;
+        }
+
+        const gridRect = grid.getBoundingClientRect();
+        const center = gridRect.left + gridRect.width / 2;
+        let bestIndex = 0;
+        let bestDistance = Infinity;
+
+        cards.forEach((card, index) => {
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.left + rect.width / 2;
+          const distance = Math.abs(cardCenter - center);
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            bestIndex = index;
+          }
+        });
+
+        setActiveDot(bestIndex);
+      }
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            let bestEntry = null;
+            let bestRatio = 0;
+
+            entries.forEach((entry) => {
+              if (entry.intersectionRatio > bestRatio) {
+                bestRatio = entry.intersectionRatio;
+                bestEntry = entry;
+              }
+            });
+
+            if (bestEntry) {
+              const index = cards.indexOf(bestEntry.target);
+              if (index >= 0) setActiveDot(index);
+            }
+          },
+          {
+            root: grid,
+            threshold: [0.4, 0.5, 0.6, 0.75],
+          },
+        );
+
+        cards.forEach((card) => observer.observe(card));
+      } else {
+        let scrollTimer = null;
+        grid.addEventListener("scroll", () => {
+          if (scrollTimer) clearTimeout(scrollTimer);
+          scrollTimer = window.setTimeout(updateActiveDot, 50);
+        });
+      }
+
+      if (!("IntersectionObserver" in window)) {
+        grid.addEventListener("scroll", () =>
+          requestAnimationFrame(updateActiveDot),
+        );
+      }
+
+      window.addEventListener("resize", updateActiveDot);
+      updateActiveDot();
+    }
   }
 
   // --- 2. RENDER ABOUT SECTION (Video Carousel + Stat Counters) ---
@@ -5316,6 +5433,36 @@ const facultyPool = [
     quals: ["MSc Nursing (Pediatric)", "Kerala PSC Rank Holder"],
   },
   {
+    name: "Reshma R",
+    role: "AIIMS Raipur & RRB Nursing Officer Rank Holder",
+    badge: "MSc Nursing (Paediatrics)",
+    icon: '<i class="fa-solid fa-baby"></i>',
+    img: "/assets/images/Mentors/RESHMA R.png",
+    quals: [
+      "MSc Nursing (Paediatrics)",
+      "Cleared AIIMS Raipur Nursing Officer Exam",
+      "RRB Nursing Officer",
+      "DHS/DME Nursing Officer",
+    ],
+  },
+  {
+    name: "Revathy B C",
+    role: "Oncology Nursing Specialist",
+    badge: "BSc Nursing (Oncology Nursing)",
+    icon: '<i class="fa-solid fa-ribbon"></i>',
+    img: "/assets/images/Mentors/REVATHY B C.jpeg",
+    quals: ["BSc Nursing", "Speciality in Oncology Nursing"],
+  },
+  // Batch 5
+  {
+    name: "Ashna Ashok",
+    role: "OBG Nursing Specialist",
+    badge: "MSc Nursing (OBG)",
+    icon: '<i class="fa-solid fa-baby-carriage"></i>',
+    img: "/assets/images/Mentors/ASHNA ASHOK.png",
+    quals: ["BSc Nursing", "MSc Nursing (OBG)"],
+  },
+  {
     name: "Shine Stephen",
     role: "Former AIIMS Faculty | UGC NET | MHA | PGDHSR",
     badge: "Assistant Professor | PGIMER MSc (N) | PhD Scholar",
@@ -5381,7 +5528,7 @@ function updateFacultyDots() {
   var dots = document.querySelectorAll(".fac-batch-dot");
   if (!dots.length) return;
   var start = currentFacultyBatch * 3;
-  var end = Math.min(start + 3, 10);
+  var end = Math.min(start + 3, 13);
   dots.forEach(function (dot, i) {
     dot.classList.toggle("fac-batch-dot-active", i >= start && i < end);
   });
@@ -5394,10 +5541,10 @@ function initFacultyDots() {
   var section = document.createElement("div");
   section.className = "fac-dots-section";
 
-  // 10 dots — one per unique faculty member
+  // 13 dots — one per unique faculty member
   var dotsEl = document.createElement("div");
   dotsEl.className = "fac-batch-dots";
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 13; i++) {
     var dot = document.createElement("span");
     dot.className = "fac-batch-dot" + (i < 3 ? " fac-batch-dot-active" : "");
     dotsEl.appendChild(dot);

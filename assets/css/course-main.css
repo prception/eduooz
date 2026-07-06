@@ -15,7 +15,7 @@
 
 body {
   font-family: var(--font-main);
-  color: var(--text-main);
+  /* color: var(--text-main); */
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -611,7 +611,6 @@ body {
 .atmospheric-course-section {
   position: relative;
   padding: 150px 0 200px 0;
-  /* background-color: transparent; */
   z-index: 10;
   overflow: hidden;
 }
@@ -639,11 +638,11 @@ body {
   opacity: 1;
 }
 #bg-default {
-  background: radial-gradient(
+  /* background: radial-gradient(
     circle at center,
     rgba(255, 255, 255, 0.6) 0%,
     rgba(250, 250, 252, 0.2) 100%
-  );
+  ); */
 }
 .ambient-layer img {
   width: 100%;
@@ -659,7 +658,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.6);
+  /* background: rgba(255, 255, 255, 0.6); */
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
 }
@@ -1011,6 +1010,9 @@ body {
 @media (max-width: 1024px) {
   .atmospheric-course-section {
     padding: 120px 0;
+    /* Ambient background layer is disabled below, so this gradient is
+       no longer diluted by the frost overlay — keep it gentler here. */
+    background: linear-gradient(180deg, #ffffff 0%, #f7fbfc 50%, #f8f6fb 100%);
   }
   .monolith-grid {
     grid-template-columns: 1fr;
@@ -1061,5 +1063,100 @@ body {
   .trajectory-tab {
     padding: 9px 16px;
     font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .nexus-hero-section {
+    padding: 80px 0 80px;
+  }
+
+  .nexus-grid {
+    gap: 25px;
+  }
+
+  .nexus-breadcrumbs {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+
+  .nexus-breadcrumbs a,
+  .nexus-breadcrumbs .current-path,
+  .nexus-breadcrumbs .divider {
+    font-size: 0.78rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .nexus-cta-group {
+    gap: 16px;
+  }
+
+  .nexus-hologram-zone {
+    height: 280px;
+  }
+
+  .main-hologram-img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .nexus-trust-bar,
+  .trust-marquee {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .trust-track {
+    min-width: 100%;
+    width: auto;
+  }
+
+  .trajectory-tabs {
+    gap: 4px;
+    margin-bottom: 30px;
+    justify-content: center;
+  }
+
+  .trajectory-tab {
+    padding: 9px 14px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+
+  .trajectory-section-heading {
+    padding-left: 0;
+  }
+
+  .trajectory-section-heading::before {
+    left: 0;
+  }
+
+  .monolith-grid {
+    padding: 0 10px;
+  }
+
+  .monolith-card {
+    padding: 22px;
+  }
+
+  .mono-name {
+    font-size: 1.6rem;
+  }
+
+  .mono-desc {
+    font-size: 0.9rem;
   }
 }

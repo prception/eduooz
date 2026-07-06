@@ -73,8 +73,13 @@
 
         if (containerId === "header-container") {
           highlightActiveNav();
-          initMobileNavbar();
+          // initMegaMenu must attach its sidebar-item click handler before
+          // initMobileNavbar's "close on link click" handler (registration
+          // order = firing order for listeners on the same element), so the
+          // category-switch preventDefault() lands before the closer checks
+          // e.defaultPrevented.
           initMegaMenu();
+          initMobileNavbar();
           window.dispatchEvent(new Event("headerLoaded"));
         }
 
@@ -216,6 +221,14 @@
           e.preventDefault();
           activateCategory(this.getAttribute("data-category"));
         }
+      });
+
+      // On mobile there's no hover preview, so tapping a category tab
+      // switches the panel instead of navigating straight to its page.
+      item.addEventListener("click", function (e) {
+        if (window.innerWidth > 1024) return; // desktop: let the link navigate
+        e.preventDefault();
+        activateCategory(this.getAttribute("data-category"));
       });
     });
 

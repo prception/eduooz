@@ -2087,6 +2087,42 @@ document.addEventListener("DOMContentLoaded", () => {
             ],
         },
         {
+            name: "Reshma R",
+            role: "AIIMS Raipur & RRB Nursing Officer Rank Holder",
+            badge: "MSc Nursing (Paediatrics)",
+            icon: '<i class="fa-solid fa-baby"></i>',
+            img: "assets/images/Mentors/RESHMA R.png",
+            quals: [
+                "MSc Nursing (Paediatrics)",
+                "Cleared AIIMS Raipur Nursing Officer Exam",
+                "RRB Nursing Officer",
+                "DHS/DME Nursing Officer",
+            ],
+        },
+        {
+            name: "Revathy B C",
+            role: "Oncology Nursing Specialist",
+            badge: "BSc Nursing (Oncology Nursing)",
+            icon: '<i class="fa-solid fa-ribbon"></i>',
+            img: "assets/images/Mentors/REVATHY B C.jpeg",
+            quals: [
+                "BSc Nursing",
+                "Speciality in Oncology Nursing",
+            ],
+        },
+        // Batch 5
+        {
+            name: "Ashna Ashok",
+            role: "OBG Nursing Specialist",
+            badge: "MSc Nursing (OBG)",
+            icon: '<i class="fa-solid fa-baby-carriage"></i>',
+            img: "assets/images/Mentors/ASHNA ASHOK.png",
+            quals: [
+                "BSc Nursing",
+                "MSc Nursing (OBG)",
+            ],
+        },
+        {
             name: "Shine Stephen",
             role: "Former AIIMS Faculty | UGC NET | MHA | PGDHSR",
             badge: "Assistant Professor | PGIMER MSc (N) | PhD Scholar",
