@@ -112,16 +112,16 @@
 
         // Eligibility checker rules (used by interactive tool)
         eligibilityRules: {
-          qualifications: ["d-pharm", "b-pharm", "pharm-d"],
+          qualifications: ["b-pharm", "m-pharm", "d-pharm", "pharm-d"],
           registrationRequired: true,
           minAge: 18,
           ageLimit: {
-            general: 30,
-            obc: 33,
-            sc: 35,
-            st: 35,
-            pwd: 40,
-            "ex-servicemen": 35,
+            general: 40,
+            obc: 43,
+            sc: 45,
+            st: 45,
+            pwd: 50,
+            "ex-servicemen": 45,
           },
         },
 
@@ -184,31 +184,31 @@
             icon: "fa-solid fa-graduation-cap",
             title: "Educational Qualification",
             description:
-              "Diploma in Pharmacy (D.Pharm) or Bachelor of Pharmacy (B.Pharm) from a PCI-recognized institution. Pharm.D qualification is also accepted as per the official notification.",
+              "Candidates typically require a Bachelor's Degree in Pharmacy (B.Pharm) or a Master's Degree in Pharmaceutical Chemistry from a recognized university. Candidates must satisfy the exact post-specific qualification requirements mentioned in the official AIIMS CRE notification.",
           },
           {
             icon: "fa-solid fa-id-card",
-            title: "Registration Requirement",
+            title: "Registration",
             description:
-              "Must hold valid and active registration as a Pharmacist with the State Pharmacy Council or Pharmacy Council of India (PCI). Registration must be valid on the date of appointment.",
+              "Valid registration with the Pharmacy Council of India, where applicable, is required. Any additional professional registration requirements depend on the specific Pharmacist post and participating AIIMS institution.",
           },
           {
             icon: "fa-solid fa-briefcase",
-            title: "Experience",
+            title: "Method of Appointment",
             description:
-              "No prior experience is generally required for direct-recruitment Pharmacist posts. Relevant hospital or dispensing experience may be preferred where specified in the notification.",
+              "Selection is made through Direct Recruitment conducted by AIIMS via the Common Recruitment Examination (CRE).",
           },
           {
             icon: "fa-solid fa-calendar-check",
             title: "Age Limit",
             description:
-              "Minimum 18 years and maximum 30 years for General category (as on the last date of application). Age relaxation applicable for reserved categories as per Government of India norms.",
+              "Candidates should generally fall within the age range specified in the official notification, typically 18 to 40 years. Age relaxation applies to eligible reserved categories as per Government of India and AIIMS recruitment rules.",
           },
           {
             icon: "fa-solid fa-flag",
             title: "Nationality",
             description:
-              "Must be an Indian citizen. OCI/PIO card holders are not eligible for this recruitment. Candidates must fulfill domicile requirements for specific AIIMS institutes if applicable.",
+              "Must be an Indian citizen and fulfil any additional eligibility conditions specified in the official AIIMS CRE notification.",
           },
           {
             icon: "fa-solid fa-heart-pulse",
@@ -221,51 +221,51 @@
           {
             icon: "fa-solid fa-user",
             category: "General Category",
-            maxAge: "30 years",
+            maxAge: "40 years",
             description:
-              "No age relaxation. Upper age limit is 30 years as on the last date of online application submission.",
+              "No age relaxation. Candidates should generally fall within 18 to 40 years of age as on the cut-off date specified in the notification.",
           },
           {
             icon: "fa-solid fa-people-group",
-            category: "SC / ST",
-            maxAge: "35 years",
+            category: "Scheduled Caste (SC) / Scheduled Tribe (ST)",
+            maxAge: "45 years",
             description:
-              "+5 years relaxation over General category. Applicable to candidates belonging to Scheduled Caste / Scheduled Tribe communities.",
+              "5 years relaxation over the General category. Applicable to candidates belonging to Scheduled Caste / Scheduled Tribe communities.",
           },
           {
             icon: "fa-solid fa-shield-halved",
-            category: "OBC (Non-Creamy Layer)",
-            maxAge: "33 years",
+            category: "Other Backward Classes (OBC, Non-Creamy Layer)",
+            maxAge: "43 years",
             description:
-              "+3 years relaxation over General category. Must possess valid Non-Creamy Layer certificate issued by competent authority.",
+              "3 years relaxation over the General category. Must possess a valid Non-Creamy Layer certificate issued by a competent authority.",
           },
           {
             icon: "fa-solid fa-wheelchair",
             category: "Persons with Benchmark Disabilities (PwBD)",
-            maxAge: "40 years",
+            maxAge: "50 years",
             description:
-              "+10 years relaxation over General category. Must have minimum 40% disability certified by designated medical board.",
+              "10 years relaxation over the General category, as per Government of India and AIIMS recruitment rules.",
+          },
+          {
+            icon: "fa-solid fa-scale-balanced",
+            category: "Other Reserved / Special Categories, if applicable",
+            maxAge: "43 years",
+            description:
+              "3 years relaxation over the General category, as applicable to other reserved or special categories specified in the official notification.",
+          },
+          {
+            icon: "fa-solid fa-circle-info",
+            category: "Other Eligible Category Shown in Notification",
+            maxAge: "43 years",
+            description:
+              "3 years relaxation over the General category, as per the specific category shown in the official AIIMS CRE notification.",
           },
           {
             icon: "fa-solid fa-medal",
             category: "Ex-Servicemen / Defence Candidates",
-            maxAge: "35 years",
+            maxAge: "45 years",
             description:
-              "+5 years relaxation (after deducting military service period). Applicable to discharged defence personnel and dependents.",
-          },
-          {
-            icon: "fa-solid fa-person-dress",
-            category: "Widows / Divorced Women",
-            maxAge: "35 years",
-            description:
-              "+5 years relaxation applicable to widows and judicially divorced women who have not remarried.",
-          },
-          {
-            icon: "fa-solid fa-scale-balanced",
-            category: "Other Reserved Categories",
-            maxAge: "Varies",
-            description:
-              "Departmental candidates and other special categories as per AIIMS notification. Refer to official advertisement for specific relaxations.",
+              "Relaxation equal to the period of service rendered in defence, subject to a maximum of 5 years.",
           },
         ],
       };
@@ -273,21 +273,22 @@
       // ========== ELIGIBILITY CHECKER CONFIGURATION ==========
       window.eligibilityCheckerConfig = {
         minAge: 18,
-        maxAge: 30,
+        maxAge: 40,
         acceptedQualifications: [
           { value: "d-pharm", label: "D.Pharm (Diploma)" },
           { value: "b-pharm", label: "B.Pharm" },
+          { value: "m-pharm", label: "M.Pharm (Pharmaceutical Chemistry)" },
           { value: "pharm-d", label: "Pharm.D" },
         ],
         registrationRequired: true,
         registrationLabel: "Pharmacy Council Registration",
         acceptedCategories: [
-          { value: "general", label: "General / UR", maxAge: 30 },
-          { value: "obc", label: "OBC (Non-Creamy Layer)", maxAge: 33 },
-          { value: "sc", label: "SC", maxAge: 35 },
-          { value: "st", label: "ST", maxAge: 35 },
-          { value: "pwd", label: "PwBD", maxAge: 40 },
-          { value: "ex-servicemen", label: "Ex-Servicemen", maxAge: 35 },
+          { value: "general", label: "General / UR", maxAge: 40 },
+          { value: "obc", label: "OBC (Non-Creamy Layer)", maxAge: 43 },
+          { value: "sc", label: "SC", maxAge: 45 },
+          { value: "st", label: "ST", maxAge: 45 },
+          { value: "pwd", label: "PwBD", maxAge: 50 },
+          { value: "ex-servicemen", label: "Ex-Servicemen", maxAge: 45 },
         ],
         additionalFields: [],
         additionalRules: {
@@ -333,10 +334,14 @@
             </h1>
 
             <p class="course-description">
-              Expert coaching for the AIIMS CRE Pharmacist Examination.
-              Master all core pharmacy subjects, conquer the CBT format, and
-              secure your Pharmacist posting at India's premier medical
-              institutes.
+              Eduooz International Academy offers expert coaching for the
+              AIIMS CRE Pharmacist Examination, helping aspirants prepare
+              with confidence through structured classes, updated study
+              materials, mock tests, and exam-oriented guidance. Our
+              comprehensive training program is designed to strengthen
+              subject knowledge and maximize your chances of securing a
+              Pharmacist position in AIIMS and other central government
+              healthcare institutions.
             </p>
 
             <div class="course-cta-group">
@@ -552,27 +557,26 @@
             </div>
             <div class="snap-label">Conducted By</div>
             <div class="snap-value">
-              All India Institute of Medical Sciences (AIIMS)  Central
-              Government
+              All India Institute of Medical Sciences (AIIMS)
             </div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-file-lines"></i></div>
-            <div class="snap-label">Name of Examination</div>
+            <div class="snap-label">Name of Organization</div>
             <div class="snap-value">
-              Common Recruitment Examination (CRE) for Pharmacist
+              AIIMS Recruitment Cell
             </div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-mortar-pestle"></i></div>
-            <div class="snap-label">Course / Post</div>
+            <div class="snap-label">Name of Post</div>
             <div class="snap-value">Pharmacist</div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-award"></i></div>
-            <div class="snap-label">Admission Type</div>
+            <div class="snap-label">Method of Appointment</div>
             <div class="snap-value">
-              Merit-Based Recruitment through Centralized CBT Exam
+              Direct Recruitment
             </div>
           </div>
           <div class="snapshot-card">
@@ -581,30 +585,29 @@
             </div>
             <div class="snap-label">Eligibility Qualification</div>
             <div class="snap-value">
-              D.Pharm / B.Pharm from a PCI-recognized institution; Pharmacy
-              Council Registration
+              B.Pharm / M.Pharm (Pharmaceutical Chemistry) from a recognized
+              university; Pharmacy Council Registration
             </div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-id-card"></i></div>
             <div class="snap-label">Registration Requirement</div>
             <div class="snap-value">
-              Valid State Pharmacy Council / Pharmacy Council of India
-              Registration
+              Valid Pharmacy Council of India Registration, where applicable
             </div>
           </div>
           <div class="snapshot-card">
-            <div class="snap-icon"><i class="fa-solid fa-briefcase"></i></div>
-            <div class="snap-label">Duration / Job Type</div>
+            <div class="snap-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+            <div class="snap-label">Scale of Pay</div>
             <div class="snap-value">
-              Permanent / Contractual as per AIIMS notification
+              ₹35,400 to ₹1,12,400 per month, Level 7 as per 7th CPC
             </div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-laptop"></i></div>
-            <div class="snap-label">Mode of Application</div>
+            <div class="snap-label">Mode of Apply</div>
             <div class="snap-value">
-              Online Application through official AIIMS CRE portal
+              Online through AIIMS Official Website
             </div>
           </div>
           <div class="snapshot-card">
@@ -616,16 +619,15 @@
             </div>
           </div>
           <div class="snapshot-card">
-            <div class="snap-icon"><i class="fa-solid fa-hospital"></i></div>
-            <div class="snap-label">Participating Institutions</div>
-            <div class="snap-value">All AIIMS Institutions across India</div>
+            <div class="snap-icon"><i class="fa-solid fa-users"></i></div>
+            <div class="snap-label">Number of Vacancies</div>
+            <div class="snap-value">As per official notification</div>
           </div>
           <div class="snapshot-card">
             <div class="snap-icon"><i class="fa-solid fa-globe"></i></div>
             <div class="snap-label">Official Website</div>
             <div class="snap-value">
-              <a href="https://www.aiims.edu" target="_blank" rel="noopener">www.aiims.edu</a> /
-              AIIMS CRE Portal
+              <a href="https://www.aiims.edu" target="_blank" rel="noopener">AIIMS Official Website</a>
             </div>
           </div>
         </div>
@@ -697,8 +699,8 @@
                 <span class="aev-stat-lbl">AIIMS Institutes</span>
               </div>
               <div class="aev-stat">
-                <span class="aev-stat-num" data-target="5" data-prefix="Level "
-                  >5</span
+                <span class="aev-stat-num" data-target="7" data-prefix="Level "
+                  >7</span
                 >
                 <span class="aev-stat-lbl">Pay Matrix</span>
               </div>
@@ -717,12 +719,14 @@
               What is <span class="text-gradient">AIIMS CRE Pharmacist?</span>
             </h3>
             <p class="aev-desc">
-              The centralized recruitment gateway for Pharmacist posts across
-              all AIIMS institutes. The CRE (Common Recruitment Examination)
-              for Pharmacists is conducted by AIIMS to hire pharmacists for
-              its various institutes across India  a high-responsibility
-              role within a premier, multi-departmental tertiary care
-              environment.
+              The CRE (Common Recruitment Examination) for Pharmacists is a
+              centralized recruitment process conducted by the All India
+              Institute of Medical Sciences (AIIMS) to hire pharmacists for
+              its various institutes across India. The role of a Pharmacist
+              at AIIMS (recruited via the CRE) is a high-responsibility
+              position within a premier national-level healthcare setting.
+              Unlike smaller clinics, an AIIMS pharmacist works in a
+              complex, multi-departmental tertiary care environment.
             </p>
 
             <div class="aev-badges">
@@ -759,7 +763,7 @@
                 </div>
                 <div>
                   <strong>Government Job Security</strong
-                  ><span>Level 5 Pay Matrix + Pension</span>
+                  ><span>Level 7 Pay Matrix + Pension</span>
                 </div>
               </div>
               <div class="aev-badge">
@@ -777,7 +781,7 @@
                 </div>
                 <div>
                   <strong>Attractive Salary</strong
-                  ><span>₹29,200 – ₹92,300 / month</span>
+                  ><span>₹35,400 – ₹1,12,400 / month</span>
                 </div>
               </div>
             </div>
@@ -1324,7 +1328,7 @@
         <!-- Step Counter -->
         <div class="journey-step-counter" id="journey-counter">
           Step <span id="journey-current">1</span> of
-          <span id="journey-total">7</span>
+          <span id="journey-total">6</span>
         </div>
 
         <!-- Desktop: Horizontal Journey Roadmap -->
@@ -1345,42 +1349,35 @@
               <div class="milestone-icon">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </div>
-              <div class="milestone-label">Verification</div>
+              <div class="milestone-label">Screening</div>
             </div>
             <div class="journey-milestone" data-step="2">
               <div class="milestone-number">03</div>
               <div class="milestone-icon">
-                <i class="fa-solid fa-ticket"></i>
+                <i class="fa-solid fa-laptop-code"></i>
               </div>
-              <div class="milestone-label">Admit Card</div>
+              <div class="milestone-label">Written Test</div>
             </div>
             <div class="journey-milestone" data-step="3">
               <div class="milestone-number">04</div>
               <div class="milestone-icon">
-                <i class="fa-solid fa-laptop-code"></i>
+                <i class="fa-solid fa-ticket"></i>
               </div>
-              <div class="milestone-label">CBT Exam</div>
+              <div class="milestone-label">Confirmation</div>
             </div>
             <div class="journey-milestone" data-step="4">
               <div class="milestone-number">05</div>
               <div class="milestone-icon">
-                <i class="fa-solid fa-ranking-star"></i>
+                <i class="fa-solid fa-file-shield"></i>
               </div>
-              <div class="milestone-label">Merit List</div>
+              <div class="milestone-label">Certificate Verification</div>
             </div>
             <div class="journey-milestone" data-step="5">
               <div class="milestone-number">06</div>
               <div class="milestone-icon">
-                <i class="fa-solid fa-file-shield"></i>
-              </div>
-              <div class="milestone-label">Counselling</div>
-            </div>
-            <div class="journey-milestone" data-step="6">
-              <div class="milestone-number">07</div>
-              <div class="milestone-icon">
                 <i class="fa-solid fa-handshake"></i>
               </div>
-              <div class="milestone-label">Appointment</div>
+              <div class="milestone-label">Final Selection</div>
             </div>
           </div>
         </div>
@@ -1390,79 +1387,68 @@
           <div class="journey-card active" data-step="0">
             <div class="journey-card-head">
               <span class="jc-num">01</span>
-              <h4>Online Application Submission</h4>
+              <h4>Application Submission</h4>
             </div>
             <p>
-              Candidates must complete the online application through the
-              official AIIMS CRE portal during the registration period.
-              Personal, academic, and professional details must be submitted
-              accurately.
+              Candidates must register and submit their applications
+              through the specified AIIMS CRE online recruitment portal.
             </p>
           </div>
           <div class="journey-card" data-step="1">
             <div class="journey-card-head">
               <span class="jc-num">02</span>
-              <h4>Application Verification / Scrutiny</h4>
+              <h4>Screening of Applications</h4>
             </div>
             <p>
-              Submitted applications are reviewed to verify eligibility
-              criteria, educational qualifications, Pharmacy Council
-              registration, and other required details.
+              Submitted applications are screened to verify eligibility
+              based on educational qualifications, age, registration
+              requirements, and other specified criteria.
             </p>
           </div>
           <div class="journey-card" data-step="2">
             <div class="journey-card-head">
               <span class="jc-num">03</span>
-              <h4>Admit Card / Hall Ticket Download</h4>
+              <h4>Written / OMR / Online Test</h4>
             </div>
             <p>
-              Eligible candidates can download their AIIMS CRE Pharmacist
-              Admit Card from the official portal before the examination
-              date.
+              A written, OMR-based, or online test may be conducted to
+              assess general knowledge and subject-specific knowledge
+              relevant to the Pharmacist post.
             </p>
           </div>
           <div class="journey-card" data-step="3">
             <div class="journey-card-head">
               <span class="jc-num">04</span>
-              <h4>Computer-Based Test (CBT)</h4>
+              <h4>Confirmation for Exam</h4>
             </div>
             <p>
-              Candidates appear for the online CBT examination conducted by
-              AIIMS. The test evaluates pharmacy knowledge, clinical
-              understanding, aptitude, and professional competency.
+              Candidates may need to confirm their intention to appear for
+              the examination through the portal and download their
+              admission tickets or admit cards.
             </p>
           </div>
           <div class="journey-card" data-step="4">
             <div class="journey-card-head">
               <span class="jc-num">05</span>
-              <h4>Result / Merit List Publication</h4>
+              <h4>Certificate Verification</h4>
             </div>
             <p>
-              Based on examination performance and eligibility criteria, AIIMS
-              publishes the merit list and examination results.
+              Eligible candidates shortlisted from the examination may be
+              called for certificate verification to validate educational
+              qualifications, professional registration, category claims,
+              and other documents.
             </p>
           </div>
           <div class="journey-card" data-step="5">
             <div class="journey-card-head">
               <span class="jc-num">06</span>
-              <h4>Document Verification & Counselling</h4>
+              <h4>Final Selection</h4>
             </div>
             <p>
-              Shortlisted candidates are called for document verification.
-              Educational certificates, Pharmacy Council registration
-              certificates, category certificates, and supporting documents
-              are verified.
-            </p>
-          </div>
-          <div class="journey-card" data-step="6">
-            <div class="journey-card-head">
-              <span class="jc-num">07</span>
-              <h4>Final Appointment & Posting</h4>
-            </div>
-            <p>
-              Selected candidates are appointed as Pharmacists in AIIMS
-              institutions across India according to merit rank, reservation
-              norms, and available vacancies.
+              Final selection is based on examination performance and
+              compliance with all eligibility criteria, reservation rules,
+              document requirements, and other conditions prescribed under
+              the AIIMS CRE recruitment process.
             </p>
           </div>
         </div>
@@ -1723,7 +1709,7 @@
           <div
             class="mts-wrapper"
             id="mts-wrapper"
-            data-question-bank="nursing-central"
+            data-question-bank="pharmacy-central"
           >
             <!-- SCREEN 1: WELCOME -->
             <div class="mts-screen mts-welcome-screen" id="mts-welcome">
