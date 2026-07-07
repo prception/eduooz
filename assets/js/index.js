@@ -1980,7 +1980,7 @@ document.addEventListener("DOMContentLoaded", () => {
             role: "Distinction Holder | Kerala & Central Exam Ranker",
             badge: "M.Pharm Pharmacology | GPAT Rank Holder",
             icon: '<i class="fa-solid fa-award"></i>',
-            img: "assets/images/Mentors/NAYANA.jpeg",
+            img: "assets/images/Mentors/optimized/nayana-shaji.jpg",
             quals: [
                 "M.Pharm Pharmacology",
                 "Distinction Holder",
@@ -1993,7 +1993,7 @@ document.addEventListener("DOMContentLoaded", () => {
             role: "NCLEX RN Passed",
             badge: "MSc Nursing (Orthopedic)",
             icon: '<i class="fa-solid fa-stethoscope"></i>',
-            img: "assets/images/Mentors/VIDHU.JPG.jpeg",
+            img: "assets/images/Mentors/optimized/vidhu-r-vijayan.jpg",
             quals: [
                 "MSc. Nursing (Orthopedic)",
                 "NCLEX RN Passed",
@@ -2005,7 +2005,7 @@ document.addEventListener("DOMContentLoaded", () => {
             role: "Kerala PSC Rank Holder",
             badge: "MSc Molecular Biology | Distinction Holder",
             icon: '<i class="fa-solid fa-flask"></i>',
-            img: "assets/images/Mentors/HONEY.JPG.jpeg",
+            img: "assets/images/Mentors/optimized/honey-mol-pv.jpg",
             quals: [
                 "MSc Molecular Biology",
                 "Distinction Holder",
@@ -2017,7 +2017,7 @@ document.addEventListener("DOMContentLoaded", () => {
             role: "Kerala PSC Rank Holder",
             badge: "MSc Microbiology | 2nd Rank Holder",
             icon: '<i class="fa-solid fa-microscope"></i>',
-            img: "assets/images/Mentors/SREELEKSHMI.jpeg",
+            img: "assets/images/Mentors/optimized/sreelakshmi-em.jpg",
             quals: [
                 "MSc Microbiology",
                 "2nd Rank Holder",
@@ -2029,7 +2029,7 @@ document.addEventListener("DOMContentLoaded", () => {
             role: "Kerala PSC Rank Holder",
             badge: "MSc Nursing (Pediatrics) – KUHS",
             icon: '<i class="fa-solid fa-child"></i>',
-            img: "assets/images/Mentors/ARATHY.JPG.jpeg",
+            img: "assets/images/Mentors/optimized/arathy-surendran.jpg",
             quals: [
                 "MSc Nursing (Pediatrics) – KUHS",
                 "Kerala PSC Rank Holder",
@@ -2041,7 +2041,7 @@ document.addEventListener("DOMContentLoaded", () => {
             role: "GPAT Kerala Rank Holder | Research Conclave Winner",
             badge: "M.Pharm Pharmaceutical Chemistry | GPAT Kerala Rank Holder",
             icon: '<i class="fa-solid fa-flask-vial"></i>',
-            img: "assets/images/Mentors/SAI KIRAN T C.jpeg",
+            img: "assets/images/Mentors/optimized/sai-kiran-tc.jpg",
             quals: [
                 "Senior Pharmacy Faculty",
                 "M.Pharm – Pharmaceutical Chemistry",
@@ -2067,7 +2067,7 @@ document.addEventListener("DOMContentLoaded", () => {
             role: "German A1–B2 Qualified | Nursing Background",
             badge: "German B1–B2 Certified | BSc Nursing",
             icon: '<i class="fa-solid fa-language"></i>',
-            img: "assets/images/Mentors/JESNA.JPG.jpeg",
+            img: "assets/images/Mentors/optimized/jesna-prasad.jpg",
             quals: [
                 "BSc Nursing",
                 "German A1-A2 Certified",
@@ -2080,7 +2080,7 @@ document.addEventListener("DOMContentLoaded", () => {
             role: "Kerala PSC Rank Holder",
             badge: "MSc Nursing (Pediatric)",
             icon: '<i class="fa-solid fa-heart-pulse"></i>',
-            img: "assets/images/Mentors/JEETHU.JPG.jpeg",
+            img: "assets/images/Mentors/optimized/jeethu-paul.jpg",
             quals: [
                 "MSc Nursing (Pediatric)",
                 "Kerala PSC Rank Holder",
@@ -2104,7 +2104,7 @@ document.addEventListener("DOMContentLoaded", () => {
             role: "Oncology Nursing Specialist",
             badge: "BSc Nursing (Oncology Nursing)",
             icon: '<i class="fa-solid fa-ribbon"></i>',
-            img: "assets/images/Mentors/REVATHY B C.jpeg",
+            img: "assets/images/Mentors/optimized/revathy-bc.jpg",
             quals: [
                 "BSc Nursing",
                 "Speciality in Oncology Nursing",
@@ -2140,7 +2140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             role: "Distinction Holder | Kerala & Central Exam Ranker",
             badge: "M.Pharm Pharmacology | GPAT Rank Holder",
             icon: '<i class="fa-solid fa-award"></i>',
-            img: "assets/images/Mentors/NAYANA.jpeg",
+            img: "assets/images/Mentors/optimized/nayana-shaji.jpg",
             quals: [
                 "M.Pharm Pharmacology",
                 "Distinction Holder",

@@ -1,0 +1,24 @@
+# Eduooz International Academy
+
+> Eduooz International Academy is a healthcare exam coaching academy based in Trivandrum, Kerala, India. It prepares candidates for Nursing, Pharmacy, and Lab Technology (MLT) recruitment exams conducted by Kerala PSC, central government bodies (AIIMS, RRB, DSSSB, ESIC, JIPMER, and others), and GCC nursing/pharmacy licensing exams (DHA, HAAD, Prometric, Pearson VUE) in the UAE, Saudi Arabia, Oman, Qatar, Kuwait, and Bahrain.
+
+## Core pages
+
+- [Home](https://www.eduooz.com/): Overview of Eduooz's coaching programs and academy.
+- [About Us](https://www.eduooz.com/about.html): Background on the academy.
+- [Courses](https://www.eduooz.com/courses.html): Full list of exam coaching programs.
+- [Nursing Coaching](https://www.eduooz.com/courses/nursing.html): Nursing exam coaching for Kerala, central, and GCC exams.
+- [Pharmacy Coaching](https://www.eduooz.com/courses/pharmacy.html): Pharmacy exam coaching for Kerala, central, and GCC exams.
+- [Lab Technology Coaching](https://www.eduooz.com/courses/lab-tech.html): Lab Technician (MLT) exam coaching for Kerala and central exams.
+- [Faculty](https://www.eduooz.com/faculties.html): Faculty and mentor profiles.
+- [Placements](https://www.eduooz.com/placements.html): Student placement outcomes.
+- [Testimonials](https://www.eduooz.com/testimonials.html): Student testimonials.
+- [Gallery](https://www.eduooz.com/gallery.html): Photos from the academy.
+- [Blogs](https://www.eduooz.com/blogs.html): Articles and exam updates.
+- [Publications](https://www.eduooz.com/publications.html): Academic publications and study resources.
+- [Contact](https://www.eduooz.com/contact.html): Contact details and location (Trivandrum, Kerala).
+
+## Notes
+
+- Primary location: 2nd floor, Terminal Plaza, Bypass road, Chakkai, Trivandrum, Kerala, India.
+- This file is for AI assistants and language models summarizing the site; it is not a sitemap. See /sitemap.xml for the full list of indexable pages.

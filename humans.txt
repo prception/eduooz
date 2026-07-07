@@ -1,0 +1,11 @@
+/* TEAM */
+
+Eduooz International Academy
+Healthcare exam coaching academy — Nursing, Pharmacy, and Lab Technology
+Location: Trivandrum, Kerala, India
+Site: https://www.eduooz.com
+
+/* SITE */
+
+Language: English
+Doctype: HTML5
