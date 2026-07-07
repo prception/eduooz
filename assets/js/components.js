@@ -85,6 +85,7 @@
 
         if (containerId === "footer-container") {
           initScrollToTop();
+          initSocialDropdown();
           window.dispatchEvent(new Event("footerLoaded"));
         }
 
@@ -126,6 +127,151 @@
       window.scrollTo({
         top: 0,
         behavior: "smooth",
+      });
+    });
+  }
+
+  /**
+   * Initialize the per-platform (Facebook/YouTube/Instagram) social icon
+   * panels in the footer, each listing that platform's profile/page/channel
+   * links. Opens on hover or keyboard focus (desktop), with a short close
+   * delay so moving the cursor from the button up into the panel doesn't
+   * lose the hover state. Click is kept as a tap-to-toggle fallback for
+   * touch devices. Panels reposition horizontally (via a --dd-shift custom
+   * property) so they never overflow the viewport edge.
+   */
+  function initSocialDropdown() {
+    const wraps = document.querySelectorAll(".social-dropdown-wrap");
+    if (!wraps.length) return;
+
+    const closeTimers = new WeakMap();
+
+    function clearCloseTimer(wrap) {
+      const timer = closeTimers.get(wrap);
+      if (timer) {
+        clearTimeout(timer);
+        closeTimers.delete(wrap);
+      }
+    }
+
+    function closeDropdown(wrap) {
+      clearCloseTimer(wrap);
+      wrap.classList.remove("open");
+      const trigger = wrap.querySelector(".social-dropdown-trigger");
+      if (trigger) trigger.setAttribute("aria-expanded", "false");
+    }
+
+    function closeAll(except) {
+      wraps.forEach((wrap) => {
+        if (wrap !== except) closeDropdown(wrap);
+      });
+    }
+
+    function repositionMenu(wrap) {
+      const menu = wrap.querySelector(".social-dropdown-menu");
+      if (!menu) return;
+      const margin = 10;
+      const menuWidth = menu.offsetWidth;
+      const wrapRect = wrap.getBoundingClientRect();
+      const wrapCenter = wrapRect.left + wrapRect.width / 2;
+      const halfMenu = menuWidth / 2;
+      const leftEdge = wrapCenter - halfMenu;
+      const rightEdge = wrapCenter + halfMenu;
+      let shift = 0;
+      if (leftEdge < margin) {
+        shift = margin - leftEdge;
+      } else if (rightEdge > window.innerWidth - margin) {
+        shift = window.innerWidth - margin - rightEdge;
+      }
+      wrap.style.setProperty("--dd-shift", shift + "px");
+    }
+
+    function openDropdown(wrap) {
+      clearCloseTimer(wrap);
+      closeAll(wrap);
+      repositionMenu(wrap);
+      wrap.classList.add("open");
+      const trigger = wrap.querySelector(".social-dropdown-trigger");
+      if (trigger) trigger.setAttribute("aria-expanded", "true");
+    }
+
+    // True on desktops with a real mouse: hover/mouseleave already manage
+    // the open state there, and a mouse always fires "mouseenter" (opening
+    // the panel) before "click", so letting click also toggle would just
+    // immediately re-close whatever hover opened. Touch devices have no
+    // hover, so click is their only way to open/close (tap-to-toggle).
+    const isTouchOnly = !window.matchMedia("(hover: hover) and (pointer: fine)")
+      .matches;
+
+    // Tracks whether a wrap was already open the instant a pointer press
+    // landed on it, captured before the browser's own focus() call (which
+    // fires before "click") can flip that state via the focusin handler.
+    const pointerOpenState = new WeakMap();
+
+    wraps.forEach((wrap) => {
+      const trigger = wrap.querySelector(".social-dropdown-trigger");
+      if (!trigger) return;
+
+      wrap.addEventListener("mouseenter", () => openDropdown(wrap));
+      wrap.addEventListener("mouseleave", () => {
+        const timer = setTimeout(() => closeDropdown(wrap), 200);
+        closeTimers.set(wrap, timer);
+      });
+
+      wrap.addEventListener("focusin", () => openDropdown(wrap));
+      wrap.addEventListener("focusout", () => {
+        // relatedTarget isn't reliably populated across browsers for
+        // Tab-driven focus changes, so re-check on the next tick instead,
+        // once document.activeElement has definitely settled.
+        setTimeout(() => {
+          if (!wrap.contains(document.activeElement)) closeDropdown(wrap);
+        }, 0);
+      });
+
+      trigger.addEventListener("pointerdown", () => {
+        pointerOpenState.set(wrap, wrap.classList.contains("open"));
+      });
+
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (!isTouchOnly) return; // desktop: hover/mouseleave already handle it
+
+        const wasOpenBeforeInteraction = pointerOpenState.get(wrap) || false;
+        pointerOpenState.delete(wrap);
+        if (wasOpenBeforeInteraction) {
+          closeDropdown(wrap);
+        } else {
+          openDropdown(wrap);
+        }
+      });
+
+      wrap.querySelectorAll(".social-dropdown-menu a").forEach((link) => {
+        link.addEventListener("click", () => closeDropdown(wrap));
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      wraps.forEach((wrap) => {
+        if (!wrap.contains(e.target)) closeDropdown(wrap);
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeAll();
+        const activeWrap = Array.from(wraps).find((wrap) =>
+          wrap.contains(document.activeElement),
+        );
+        if (activeWrap) {
+          const trigger = activeWrap.querySelector(".social-dropdown-trigger");
+          if (trigger) trigger.focus();
+        }
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      wraps.forEach((wrap) => {
+        if (wrap.classList.contains("open")) repositionMenu(wrap);
       });
     });
   }

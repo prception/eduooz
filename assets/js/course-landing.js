@@ -2165,28 +2165,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!track) return;
 
-    var videos = [
-      {
-        id: "d5xoc5zvWyQ",
-        title: "NORCET 11 — All You Need to Know",
-        tag: "Latest",
-      },
-      {
-        id: "qEBQcfAy5e4",
-        title: "NORCET 10 — Nursing Officer Exam Details",
-        tag: "Popular",
-      },
-      {
-        id: "h9NjqU6IyzE",
-        title: "Best NORCET Preparation Strategy",
-        tag: "Strategy",
-      },
-      {
-        id: "u6EAh2w3bPo",
-        title: "NORCET 9 — Must-Know Exam Questions",
-        tag: "MCQs",
-      },
-    ];
+    // This section is shared by every course landing page (nursing AND
+    // pharmacy). Pick videos that actually match the subject instead of
+    // always showing the NORCET (nursing officer exam) set.
+    var isPharmacyPage = /\/pharmacy\//.test(window.location.pathname);
+
+    function extractYouTubeId(url) {
+      var match = url.match(/(?:youtu\.be\/|[?&]v=)([a-zA-Z0-9_-]{6,})/);
+      return match ? match[1] : "";
+    }
+
+    var videos = isPharmacyPage
+      ? [
+          {
+            id: extractYouTubeId(pharmacistPlaylist[0].url),
+            title: pharmacistPlaylist[0].title,
+            tag: "Latest",
+          },
+          {
+            id: extractYouTubeId(pharmacistPlaylist[1].url),
+            title: pharmacistPlaylist[1].title,
+            tag: "Popular",
+          },
+          {
+            id: extractYouTubeId(pharmacistPlaylist[2].url),
+            title: pharmacistPlaylist[2].title,
+            tag: "Strategy",
+          },
+          {
+            id: extractYouTubeId(pharmacistPlaylist[3].url),
+            title: pharmacistPlaylist[3].title,
+            tag: "Trending",
+          },
+        ]
+      : [
+          {
+            id: "d5xoc5zvWyQ",
+            title: "NORCET 11 — All You Need to Know",
+            tag: "Latest",
+          },
+          {
+            id: "qEBQcfAy5e4",
+            title: "NORCET 10 — Nursing Officer Exam Details",
+            tag: "Popular",
+          },
+          {
+            id: "h9NjqU6IyzE",
+            title: "Best NORCET Preparation Strategy",
+            tag: "Strategy",
+          },
+          {
+            id: "u6EAh2w3bPo",
+            title: "NORCET 9 — Must-Know Exam Questions",
+            tag: "MCQs",
+          },
+        ];
 
     var current = 0;
     var isHovered = false;
@@ -3683,29 +3716,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   }
 
-  // --- 12. RENDER STUDY MATERIALS ---
-  function renderMaterials() {
-    const grid = document.getElementById("materials-grid");
-    if (!grid || !CONFIG.studyMaterials) return;
-
-    grid.innerHTML = CONFIG.studyMaterials
-      .map(
-        (mat) => `
-            <div class="material-card g-exam-reveal">
-                <div class="mat-icon"><i class="${mat.icon}"></i></div>
-                <div class="mat-content">
-                    <h4>${mat.title}</h4>
-                    <p>${mat.description}</p>
-                    <a href="${mat.url || "#"}" class="btn-download-mat">
-                        <i class="fa-solid fa-download"></i> Download
-                    </a>
-                </div>
-            </div>
-        `,
-      )
-      .join("");
-  }
-
   // --- 13. RENDER RELATED RESOURCES ---
   function renderResources() {
     const container = document.getElementById("resources-pills");
@@ -4051,7 +4061,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderWhyEduooz,
     renderPapers,
     renderPracticeTests,
-    renderMaterials,
     renderResources,
     renderFAQ,
     initFaqAccordion,
@@ -5328,7 +5337,7 @@ const facultyPool = [
     role: "Former AIIMS Faculty | UGC NET | MHA | PGDHSR",
     badge: "Assistant Professor | PGIMER MSc (N) | PhD Scholar",
     icon: '<i class="fa-solid fa-trophy"></i>',
-    img: "/assets/images/mentors/SHINE.png",
+    img: "/assets/images/Mentors/SHINE.png",
     quals: [
       "Asst. Professor – Govt. Nursing College (on leave)",
       "Former Faculty, College of Nursing AIIMS",
@@ -5343,7 +5352,7 @@ const facultyPool = [
     role: "Distinction Holder | Kerala & Central Exam Ranker",
     badge: "M.Pharm Pharmacology | GPAT Rank Holder",
     icon: '<i class="fa-solid fa-award"></i>',
-    img: "/assets/images/mentors/NAYANA.jpeg",
+    img: "/assets/images/Mentors/optimized/nayana-shaji.jpg",
     quals: [
       "M.Pharm Pharmacology",
       "Distinction Holder",
@@ -5356,7 +5365,7 @@ const facultyPool = [
     role: "NCLEX RN Passed",
     badge: "MSc Nursing (Orthopedic)",
     icon: '<i class="fa-solid fa-stethoscope"></i>',
-    img: "/assets/images/mentors/VIDHU.JPG.jpeg",
+    img: "/assets/images/Mentors/optimized/vidhu-r-vijayan.jpg",
     quals: ["MSc. Nursing (Orthopedic)", "NCLEX RN Passed"],
   },
   // Batch 2
@@ -5365,7 +5374,7 @@ const facultyPool = [
     role: "Kerala PSC Rank Holder",
     badge: "MSc Molecular Biology | Distinction Holder",
     icon: '<i class="fa-solid fa-flask"></i>',
-    img: "/assets/images/mentors/HONEY.JPG.jpeg",
+    img: "/assets/images/Mentors/optimized/honey-mol-pv.jpg",
     quals: [
       "MSc Molecular Biology",
       "Distinction Holder",
@@ -5377,7 +5386,7 @@ const facultyPool = [
     role: "Kerala PSC Rank Holder",
     badge: "MSc Microbiology | 2nd Rank Holder",
     icon: '<i class="fa-solid fa-microscope"></i>',
-    img: "/assets/images/mentors/SREELEKSHMI.jpeg",
+    img: "/assets/images/Mentors/optimized/sreelakshmi-em.jpg",
     quals: ["MSc Microbiology", "2nd Rank Holder", "Kerala PSC Rank Holder"],
   },
   {
@@ -5385,7 +5394,7 @@ const facultyPool = [
     role: "Kerala PSC Rank Holder",
     badge: "MSc Nursing (Pediatrics) – KUHS",
     icon: '<i class="fa-solid fa-child"></i>',
-    img: "/assets/images/mentors/ARATHY.JPG.jpeg",
+    img: "/assets/images/Mentors/optimized/arathy-surendran.jpg",
     quals: ["MSc Nursing (Pediatrics) – KUHS", "Kerala PSC Rank Holder"],
   },
   // Batch 3
@@ -5394,7 +5403,7 @@ const facultyPool = [
     role: "GPAT Kerala Rank Holder | Research Conclave Winner",
     badge: "M.Pharm Pharmaceutical Chemistry | GPAT Kerala Rank Holder",
     icon: '<i class="fa-solid fa-flask-vial"></i>',
-    img: "/assets/images/Mentors/SAI KIRAN T C.jpeg",
+    img: "/assets/images/Mentors/optimized/sai-kiran-tc.jpg",
     quals: [
       "Senior Pharmacy Faculty",
       "M.Pharm – Pharmaceutical Chemistry",
@@ -5408,7 +5417,7 @@ const facultyPool = [
     role: "International Scholar | MSc Pharmacology (UK) – Commendation",
     badge: "Doctor of Pharmacy | MSc Pharmacology (UK)",
     icon: '<i class="fa-solid fa-graduation-cap"></i>',
-    img: "/assets/images/mentors/MANJIMA.jpeg",
+    img: "/assets/images/Mentors/MANJIMA.jpeg",
     quals: [
       "Doctor of Pharmacy",
       "MSc Pharmacology (UK) – Commendation",
@@ -5420,7 +5429,7 @@ const facultyPool = [
     role: "German A1–B2 Qualified | Nursing Background",
     badge: "German B1–B2 Certified | BSc Nursing",
     icon: '<i class="fa-solid fa-language"></i>',
-    img: "/assets/images/mentors/JESNA.JPG.jpeg",
+    img: "/assets/images/Mentors/optimized/jesna-prasad.jpg",
     quals: ["BSc Nursing", "German A1-A2 Certified", "German B1-B2 Certified"],
   },
   // Batch 4
@@ -5429,7 +5438,7 @@ const facultyPool = [
     role: "Kerala PSC Rank Holder",
     badge: "MSc Nursing (Pediatric)",
     icon: '<i class="fa-solid fa-heart-pulse"></i>',
-    img: "/assets/images/mentors/JEETHU.JPG.jpeg",
+    img: "/assets/images/Mentors/optimized/jeethu-paul.jpg",
     quals: ["MSc Nursing (Pediatric)", "Kerala PSC Rank Holder"],
   },
   {
@@ -5450,7 +5459,7 @@ const facultyPool = [
     role: "Oncology Nursing Specialist",
     badge: "BSc Nursing (Oncology Nursing)",
     icon: '<i class="fa-solid fa-ribbon"></i>',
-    img: "/assets/images/Mentors/REVATHY B C.jpeg",
+    img: "/assets/images/Mentors/optimized/revathy-bc.jpg",
     quals: ["BSc Nursing", "Speciality in Oncology Nursing"],
   },
   // Batch 5
@@ -5467,7 +5476,7 @@ const facultyPool = [
     role: "Former AIIMS Faculty | UGC NET | MHA | PGDHSR",
     badge: "Assistant Professor | PGIMER MSc (N) | PhD Scholar",
     icon: '<i class="fa-solid fa-trophy"></i>',
-    img: "/assets/images/mentors/SHINE.png",
+    img: "/assets/images/Mentors/SHINE.png",
     quals: [
       "Asst. Professor – Govt. Nursing College (on leave)",
       "Former Faculty, College of Nursing AIIMS",
@@ -5482,7 +5491,7 @@ const facultyPool = [
     role: "Distinction Holder | Kerala & Central Exam Ranker",
     badge: "M.Pharm Pharmacology | GPAT Rank Holder",
     icon: '<i class="fa-solid fa-award"></i>',
-    img: "/assets/images/mentors/NAYANA.jpeg",
+    img: "/assets/images/Mentors/optimized/nayana-shaji.jpg",
     quals: [
       "M.Pharm Pharmacology",
       "Distinction Holder",

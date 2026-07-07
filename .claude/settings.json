@@ -20,7 +20,16 @@
       "PowerShell(Start-Sleep -Seconds 3; Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait\\('%{F4}'\\))",
       "PowerShell(Get-Process | Where-Object { $_.MainWindowHandle -ne 0 } | Select-Object Name, MainWindowTitle | Format-Table -AutoSize)",
       "PowerShell(\\(Get-Content \"d:\\\\Eduooz\\\\eduooz\\\\courses\\\\nursing\\\\kerala\\\\treatment-organiser.html\" -Raw\\).Length)",
-      "PowerShell(Remove-Item \"d:\\\\Eduooz\\\\eduooz\\\\scripts\\\\reorder_sections.py\" -Confirm:$false)"
+      "PowerShell(Remove-Item \"d:\\\\Eduooz\\\\eduooz\\\\scripts\\\\reorder_sections.py\" -Confirm:$false)",
+      "PowerShell(python \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--Eduooz-eduooz\\\\7ea6366e-6c7e-4df4-86c0-8a280f237bc0\\\\scratchpad\\\\final_check.py\")",
+      "PowerShell(python \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--Eduooz-eduooz\\\\3468931c-62fb-421b-910e-61ca5708536e\\\\scratchpad\\\\audit_aev_yt.py\")",
+      "PowerShell(python -m http.server 8791)",
+      "PowerShell(chromium-cli --session eduooz-footer)",
+      "PowerShell(Get-Command node -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Command msedge -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Command chrome -ErrorAction SilentlyContinue)",
+      "PowerShell(Test-Path \"$env:ProgramFiles\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe\"; Test-Path \"${env:ProgramFiles\\(x86\\)}\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe\"; Test-Path \"$env:ProgramFiles\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe\")",
+      "PowerShell(python \"C:\\\\Users\\\\acer\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--Eduooz-eduooz\\\\3468931c-62fb-421b-910e-61ca5708536e\\\\scratchpad\\\\audit_aev_yt2.py\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\acer\\AppData\\Local\\Temp"
