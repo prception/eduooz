@@ -19,6 +19,108 @@
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
     <script src="../../../assets/js/course-landing.js" defer></script>
     <script src="../../../assets/js/google-reviews.js" defer></script>
+
+    <script>
+      // ========== EXAM CONFIGURATION DHS MLT ==========
+      window.EXAM_CONFIG = {
+        examName: "DHS MLT",
+        fullName: "DHS Medical Laboratory Technician (MLT) Exam",
+        examSlug: "dhs-lab-technician",
+      };
+
+      // ========== ELIGIBILITY & AGE RELAXATION CONTENT ==========
+      window.courseEligibility = {
+        qualification: [
+          {
+            icon: "fa-solid fa-graduation-cap",
+            title: "Educational Qualification",
+            description:
+              "Candidates typically must possess a Diploma in Medical Laboratory Technology (DMLT) or B.Sc Medical Laboratory Technology (B.Sc MLT) from a recognized institution. The qualification must satisfy the requirements prescribed in the relevant Kerala PSC / DHS recruitment notification.",
+          },
+          {
+            icon: "fa-solid fa-id-card",
+            title: "Registration Requirement",
+            description:
+              "Valid registration with the Kerala Paramedical Council or another recognized competent authority may be mandatory depending on the post. Registration should remain valid at the time of application and appointment, where required.",
+          },
+          {
+            icon: "fa-solid fa-briefcase-medical",
+            title: "Clinical / Professional Experience",
+            description:
+              "Relevant experience in medical laboratories, hospitals, diagnostic centers, or healthcare institutions may be preferred or required for specific posts. Candidates should have practical knowledge of laboratory procedures, specimen handling, diagnostic techniques, equipment use, and laboratory safety.",
+          },
+          {
+            icon: "fa-solid fa-calendar-check",
+            title: "Age Limit and Relaxation",
+            description:
+              "The age limit is prescribed in the specific Kerala PSC / DHS recruitment notification. Eligible reserved categories receive age relaxation according to applicable Kerala Government and Kerala PSC rules.",
+          },
+          {
+            icon: "fa-solid fa-flag",
+            title: "Nationality Requirement",
+            description:
+              "Candidates must satisfy the nationality and eligibility requirements specified by Kerala PSC. Indian citizenship requirements apply as prescribed in the recruitment rules.",
+          },
+          {
+            icon: "fa-solid fa-heart-pulse",
+            title: "Medical Fitness",
+            description:
+              "Candidates must be medically and physically fit to perform the duties of a Medical Laboratory Technician. Medical fitness verification may be required during the appointment process.",
+          },
+        ],
+        ageRules: [
+          {
+            icon: "fa-solid fa-user",
+            category: "General Category",
+            maxAge: "As per notification",
+            description:
+              "Must remain within the upper age limit specified in the official Kerala PSC / DHS notification.",
+          },
+          {
+            icon: "fa-solid fa-people-group",
+            category: "SC / ST",
+            maxAge: "As per KPSC rules",
+            description:
+              "Age relaxation as per applicable Government of Kerala and Kerala PSC rules.",
+          },
+          {
+            icon: "fa-solid fa-shield-halved",
+            category: "OBC / Other Backward Classes",
+            maxAge: "As per KPSC rules",
+            description:
+              "Age relaxation according to applicable Kerala Government reservation rules.",
+          },
+          {
+            icon: "fa-solid fa-wheelchair",
+            category: "Persons with Benchmark Disabilities (PwBD)",
+            maxAge: "As per KPSC rules",
+            description:
+              "Age relaxation as prescribed under Government of Kerala and Kerala PSC rules.",
+          },
+          {
+            icon: "fa-solid fa-medal",
+            category: "Ex-Servicemen / Defence Candidates",
+            maxAge: "As per service period",
+            description:
+              "Relaxation according to Kerala PSC and Government rules, based on eligible service period.",
+          },
+          {
+            icon: "fa-solid fa-heart",
+            category: "Widows / Eligible Special Categories",
+            maxAge: "As per notification",
+            description:
+              "Relaxation where provided under the relevant Kerala PSC notification and reservation rules.",
+          },
+          {
+            icon: "fa-solid fa-circle-info",
+            category: "Other Eligible Reserved Categories",
+            maxAge: "As per GoK rules",
+            description:
+              "Age relaxation and benefits according to Government of Kerala rules and the specific DHS recruitment notification.",
+          },
+        ],
+      };
+    </script>
   </head>
   <body>
     <div id="header-container"></div>
@@ -101,6 +203,417 @@
       </div>
     </section>
 
+    <!-- EXAM OVERVIEW -->
+    <section class="exam-snapshot-section" id="exam-overview">
+      <div class="container">
+        <div class="text-center">
+          <div class="section-label">
+            <span class="label-dot"></span> Quick Exam Overview
+          </div>
+          <h2 class="section-title">
+            DHS MLT Exam <span class="text-gradient">Overview.</span>
+          </h2>
+        </div>
+
+        <div class="snapshot-grid">
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-building-columns"></i></div>
+            <div class="snap-label">Conducted By</div>
+            <div class="snap-value">Kerala Public Service Commission (Kerala PSC), Department of Health Services (DHS), Kerala</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-file-lines"></i></div>
+            <div class="snap-label">Name of Examination</div>
+            <div class="snap-value">DHS Medical Laboratory Technician (MLT) Exam</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-vial"></i></div>
+            <div class="snap-label">Course / Post</div>
+            <div class="snap-value">Medical Laboratory Technician (MLT) / Laboratory Technician Grade II</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-award"></i></div>
+            <div class="snap-label">Recruitment Type</div>
+            <div class="snap-value">Merit-Based Recruitment through Written Examination</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="snap-label">Eligibility Qualification</div>
+            <div class="snap-value">Diploma in Medical Laboratory Technology (DMLT), B.Sc Medical Laboratory Technology (B.Sc MLT), or a recognized equivalent qualification as prescribed for the post</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-id-card"></i></div>
+            <div class="snap-label">Registration Requirement</div>
+            <div class="snap-value">Valid professional registration with the Kerala Paramedical Council or other recognized authority, where applicable</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <div class="snap-label">Duration / Job Type</div>
+            <div class="snap-value">Government healthcare service post under DHS recruitment rules</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-laptop"></i></div>
+            <div class="snap-label">Mode of Application</div>
+            <div class="snap-value">Online through the official Kerala PSC portal</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-list-check"></i></div>
+            <div class="snap-label">Selection Process</div>
+            <div class="snap-value">Written Examination, Document Verification, Medical Fitness Examination, Final Appointment</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-hospital"></i></div>
+            <div class="snap-label">Participating Institutions</div>
+            <div class="snap-value">Government hospitals, laboratories, and healthcare institutions under the Department of Health Services, Kerala</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-globe"></i></div>
+            <div class="snap-label">Official Website</div>
+            <div class="snap-value"><a href="https://www.keralapsc.gov.in" target="_blank" rel="noopener">Kerala PSC Official Website</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT THE EXAM -->
+    <section class="about-exam-section" id="about-exam">
+      <div class="aev-ambient">
+        <div class="aev-blob aev-blob-1"></div>
+        <div class="aev-blob aev-blob-2"></div>
+      </div>
+      <div class="container">
+        <div class="text-center">
+          <div class="section-label">
+            <span class="label-dot"></span> About This Exam
+          </div>
+          <h2 class="section-title">
+            DHS MLT EXAM <span class="text-gradient">Coaching.</span>
+          </h2>
+        </div>
+
+        <div class="aev-grid" style="grid-template-columns: 1fr; max-width: 860px; margin-left: auto; margin-right: auto;">
+          <div class="aev-content-col g-exam-reveal">
+            <h3 class="aev-heading">
+              About the <span class="text-gradient">KERALA PSC DHS MLT EXAM</span>
+            </h3>
+            <p class="aev-desc">
+              Kerala PSC DHS MLT Exam is a government recruitment examination
+              conducted by the Kerala Public Service Commission (KPSC) for
+              the selection of qualified candidates for Medical Laboratory
+              Technician (MLT) posts under the Department of Health Services
+              (DHS), Kerala. The exam provides opportunities for eligible
+              candidates to build a career in government healthcare
+              institutions across Kerala.
+            </p>
+            <p class="aev-desc">
+              The Kerala DHS MLT Exam evaluates candidates' knowledge and
+              skills in medical laboratory technology, including areas such
+              as clinical pathology, microbiology, biochemistry, hematology,
+              and laboratory procedures.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ELIGIBILITY & AGE RELAXATION -->
+    <div class="elig-scroll-scene" id="elig-scroll-scene">
+      <section class="elig-age-split-section" id="eligibility">
+        <div class="container elig-sticky-container">
+          <div class="text-center elig-section-head">
+            <div class="section-label">
+              <span class="label-dot"></span> Who Can Apply &amp; Age Criteria
+            </div>
+            <h2 class="section-title">
+              Eligibility &amp; Age <span class="text-gradient">Requirements.</span>
+            </h2>
+          </div>
+
+          <div class="elig-age-split-grid">
+            <div class="split-particles">
+              <span class="sp"></span><span class="sp"></span
+              ><span class="sp"></span><span class="sp"></span>
+            </div>
+
+            <div class="split-column" id="elig-carousel-col">
+              <div class="eligibility-explorer-icon">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3 class="split-col-heading">Eligibility Criteria</h3>
+              </div>
+              <div class="elig-col-pane" id="elig-col-pane">
+                <div class="elig-col-track" id="elig-col-track"></div>
+              </div>
+            </div>
+
+            <div class="split-divider">
+              <div class="divider-glow"></div>
+            </div>
+
+            <div class="split-column" id="age-carousel-col">
+              <div class="age-explorer-icon">
+                <i class="fa-solid fa-user-check"></i>
+                <h3 class="split-col-heading">Age Relaxation</h3>
+              </div>
+              <div class="elig-col-pane" id="age-col-pane">
+                <div class="elig-col-track" id="age-col-track"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- HOW TO PREPARE -->
+    <section class="prepare-section" id="preparation">
+      <div class="container">
+        <div class="text-center">
+          <div class="section-label">
+            <span class="label-dot"></span> Success Roadmap
+          </div>
+          <h2 class="section-title">
+            How To <span class="text-gradient">Prepare.</span>
+          </h2>
+        </div>
+        <div class="prepare-timeline" id="prepare-timeline">
+          <div class="prepare-step g-exam-reveal" data-step="01" tabindex="0" aria-expanded="false">
+            <div class="prepare-step-header">
+              <h4>Understand the Exam Pattern and Syllabus</h4>
+              <div class="prepare-step-meta">
+                <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+            </div>
+            <div class="prepare-step-body">
+              <div class="prepare-step-body-inner">
+                <p>
+                  Begin your preparation by thoroughly reviewing the syllabus
+                  and understanding the exam format. This helps you
+                  prioritize your study topics effectively.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="prepare-step g-exam-reveal" data-step="02" tabindex="0" aria-expanded="false">
+            <div class="prepare-step-header">
+              <h4>Focus on Core Nursing Subjects</h4>
+              <div class="prepare-step-meta">
+                <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+            </div>
+            <div class="prepare-step-body">
+              <div class="prepare-step-body-inner">
+                <p>
+                  Pay special attention to critical areas like Fundamentals
+                  of Nursing, Medical-Surgical Nursing, and Community Health
+                  Nursing. Eduooz Academy's structured lessons ensure you
+                  gain a strong foundation in these subjects.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="prepare-step g-exam-reveal" data-step="03" tabindex="0" aria-expanded="false">
+            <div class="prepare-step-header">
+              <h4>Practice with Mock Tests and Previous Question Papers</h4>
+              <div class="prepare-step-meta">
+                <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+            </div>
+            <div class="prepare-step-body">
+              <div class="prepare-step-body-inner">
+                <p>
+                  Mock tests help you become familiar with the question
+                  pattern and improve your time management skills.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="prepare-step g-exam-reveal" data-step="04" tabindex="0" aria-expanded="false">
+            <div class="prepare-step-header">
+              <h4>Review Regularly and Reinforce Key Concepts</h4>
+              <div class="prepare-step-meta">
+                <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+            </div>
+            <div class="prepare-step-body">
+              <div class="prepare-step-body-inner">
+                <p>
+                  Set aside dedicated time each week for revision. Access to
+                  Eduooz Academy's recorded sessions allows you to revisit
+                  challenging topics and clarify doubts.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="prepare-step g-exam-reveal" data-step="05" tabindex="0" aria-expanded="false">
+            <div class="prepare-step-header">
+              <h4>Get Expert Guidance and Mentorship</h4>
+              <div class="prepare-step-meta">
+                <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+            </div>
+            <div class="prepare-step-body">
+              <div class="prepare-step-body-inner">
+                <p>
+                  Take advantage of our experienced faculty's personalized
+                  support to address your weaknesses, strengthen your
+                  preparation, and boost your confidence for the exam.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXAM PROCESS -->
+    <section class="process-section journey-timeline-section" id="exam-process">
+      <div class="container">
+        <div class="text-center">
+          <div class="section-label">
+            <span class="label-dot"></span> Your Recruitment Journey
+          </div>
+          <h2 class="section-title">
+            DHS MLT Exam <span class="text-gradient">Process.</span>
+          </h2>
+        </div>
+
+        <div class="journey-step-counter" id="journey-counter">
+          Step <span id="journey-current">1</span> of
+          <span id="journey-total">7</span>
+        </div>
+
+        <div class="journey-roadmap" id="journey-roadmap">
+          <div class="journey-progress-line">
+            <div class="journey-progress-fill" id="journey-progress-fill"></div>
+          </div>
+          <div class="journey-milestones">
+            <div class="journey-milestone active" data-step="0">
+              <div class="milestone-number">01</div>
+              <div class="milestone-icon"><i class="fa-solid fa-file-pen"></i></div>
+              <div class="milestone-label">Application</div>
+            </div>
+            <div class="journey-milestone" data-step="1">
+              <div class="milestone-number">02</div>
+              <div class="milestone-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+              <div class="milestone-label">Verification</div>
+            </div>
+            <div class="journey-milestone" data-step="2">
+              <div class="milestone-number">03</div>
+              <div class="milestone-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+              <div class="milestone-label">Written Exam</div>
+            </div>
+            <div class="journey-milestone" data-step="3">
+              <div class="milestone-number">04</div>
+              <div class="milestone-icon"><i class="fa-solid fa-list-ol"></i></div>
+              <div class="milestone-label">Rank List</div>
+            </div>
+            <div class="journey-milestone" data-step="4">
+              <div class="milestone-number">05</div>
+              <div class="milestone-icon"><i class="fa-solid fa-file-shield"></i></div>
+              <div class="milestone-label">Certificate Verification</div>
+            </div>
+            <div class="journey-milestone" data-step="5">
+              <div class="milestone-number">06</div>
+              <div class="milestone-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+              <div class="milestone-label">Medical Fitness</div>
+            </div>
+            <div class="journey-milestone" data-step="6">
+              <div class="milestone-number">07</div>
+              <div class="milestone-icon"><i class="fa-solid fa-handshake"></i></div>
+              <div class="milestone-label">Final Appointment</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="journey-detail-cards" id="journey-details">
+          <div class="journey-card active" data-step="0">
+            <div class="journey-card-head">
+              <span class="jc-num">01</span>
+              <h4>Online Application Submission</h4>
+            </div>
+            <p>
+              Candidates apply through the official Kerala PSC portal by
+              providing personal, educational, professional, and other
+              required details.
+            </p>
+          </div>
+          <div class="journey-card" data-step="1">
+            <div class="journey-card-head">
+              <span class="jc-num">02</span>
+              <h4>Application Verification</h4>
+            </div>
+            <p>
+              Submitted applications are checked against eligibility
+              criteria, qualifications, age requirements, registration
+              conditions, and other rules in the DHS notification.
+            </p>
+          </div>
+          <div class="journey-card" data-step="2">
+            <div class="journey-card-head">
+              <span class="jc-num">03</span>
+              <h4>Written Examination</h4>
+            </div>
+            <p>
+              Eligible candidates appear for the Kerala PSC written
+              examination covering Medical Laboratory Technology subjects
+              and other areas specified in the official syllabus.
+            </p>
+          </div>
+          <div class="journey-card" data-step="3">
+            <div class="journey-card-head">
+              <span class="jc-num">04</span>
+              <h4>Shortlisting and Rank List Preparation</h4>
+            </div>
+            <p>
+              Candidates are shortlisted based on examination performance
+              and applicable Kerala PSC ranking criteria.
+            </p>
+          </div>
+          <div class="journey-card" data-step="4">
+            <div class="journey-card-head">
+              <span class="jc-num">05</span>
+              <h4>Certificate Verification</h4>
+            </div>
+            <p>
+              Shortlisted candidates must produce original certificates for
+              verification of educational qualifications, professional
+              registration, identity, category claims, and other required
+              credentials.
+            </p>
+          </div>
+          <div class="journey-card" data-step="5">
+            <div class="journey-card-head">
+              <span class="jc-num">06</span>
+              <h4>Medical Fitness Verification</h4>
+            </div>
+            <p>
+              Selected candidates may undergo medical fitness assessment
+              according to applicable government healthcare service
+              requirements.
+            </p>
+          </div>
+          <div class="journey-card" data-step="6">
+            <div class="journey-card-head">
+              <span class="jc-num">07</span>
+              <h4>Final Appointment</h4>
+            </div>
+            <p>
+              Final selection and appointment are completed based on rank
+              list position, eligibility, certificate verification, medical
+              fitness, reservation rules, and DHS recruitment conditions.
+            </p>
+          </div>
+        </div>
+
+        <div class="journey-nav">
+          <button class="journey-btn journey-prev" id="journey-prev">
+            <i class="fa-solid fa-arrow-left"></i> Previous Step
+          </button>
+          <button class="journey-btn journey-next" id="journey-next">
+            Next Step <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
 
     <!-- GOOGLE REVIEWS SECTION -->
     <section class="greview-section" id="reviews" data-page-type="lab-tech">

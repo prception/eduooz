@@ -105,14 +105,6 @@
         const doneTitle      = document.getElementById('mts-done-title');
         const doneStats      = document.getElementById('mts-done-stats');
         const doneNextBtn    = document.getElementById('mts-next-section-btn');
-        const scAnswered     = document.getElementById('sc-answered');
-        const scCorrect      = document.getElementById('sc-correct');
-        const scWrong        = document.getElementById('sc-wrong');
-        const scScore        = document.getElementById('sc-score');
-        const scAccuracy     = document.getElementById('sc-accuracy');
-        const scAccFill      = document.getElementById('sc-acc-fill');
-        const scoreSection   = document.getElementById('mts-score-section');
-        const sectionsMini   = document.getElementById('mts-sections-mini');
 
         // One-time static text patches (elements never re-rendered by JS)
         const secScoresHeading = document.getElementById('mts-section-scores');
@@ -129,6 +121,24 @@
             [screenExam, screenResults].forEach(s => { if (s) s.classList.add('mts-hidden'); });
             const target = { exam: screenExam, results: screenResults }[name];
             if (target) target.classList.remove('mts-hidden');
+        }
+
+        // ── Per-category score — aggregated across every topic/section
+        //    answered so far in that category (independent per category). ──
+        function categoryAggregate(catIdx) {
+            const cState = categoryStates[catIdx];
+            if (!cState) return { answered: 0, correct: 0, wrong: 0 };
+            let answered = 0, correct = 0, wrong = 0;
+            cState.answers.forEach(topicAnswers => {
+                topicAnswers.forEach(sectionAnswers => {
+                    sectionAnswers.forEach(a => {
+                        if (a === null) return;
+                        answered++;
+                        if (a.correct) correct++; else wrong++;
+                    });
+                });
+            });
+            return { answered, correct, wrong };
         }
 
         // ── Category + Topic Nav (left panel, accordion) ─────────────
@@ -225,56 +235,27 @@
             });
         }
 
-        // ── Score panel (scoped to the current section) ───────────────
-        function updateScorePanel() {
-            const t = state.currentTopic;
-            const s = curCursor().section;
-            const ans = state.answers[t][s];
-            const answered = ans.filter(a => a !== null).length;
-            const correct  = ans.filter(a => a && a.correct).length;
-            const wrong    = answered - correct;
-            const acc      = answered > 0 ? Math.round(correct / answered * 100) : 0;
-
-            if (scAnswered) scAnswered.textContent = answered;
-            if (scCorrect)  scCorrect.textContent  = correct;
-            if (scWrong)    scWrong.textContent     = wrong;
-            if (scScore)    scScore.textContent     = correct;
-            if (scAccuracy) scAccuracy.textContent  = acc + '%';
-            if (scAccFill)  scAccFill.style.width   = acc + '%';
-            if (scoreSection) scoreSection.textContent = 'Section ' + (s + 1);
-
-            if (sectionsMini) {
-                const sections = curTopic().sections;
-                sectionsMini.innerHTML = sections.map((sec, i) => {
-                    const secAns = state.answers[t][i];
-                    const answered = secAns.filter(a => a !== null).length;
-                    const allDone = answered === sec.questions.length;
-                    const isCurrent = i === s;
-                    const correctCount = secAns.filter(a => a && a.correct).length;
-
-                    let cls = 'mts-mini-section';
-                    if (isCurrent)    { cls += ' mts-mini-active'; }
-                    else if (allDone) { cls += ' mts-mini-done'; }
-
-                    let right = '';
-                    if (isCurrent) {
-                        right = `${answered}/${sec.questions.length}`;
-                    } else if (answered > 0) {
-                        right = `<span class="mts-mini-score">${correctCount}✓ &nbsp;${answered}/${sec.questions.length}</span>`;
-                    } else {
-                        right = '<span style="opacity:0.4;font-size:0.72rem">Not started</span>';
-                    }
-                    return `<div class="${cls}" data-jump-sec="${i}"><span>Section ${i + 1}</span>${right}</div>`;
-                }).join('');
-                sectionsMini.querySelectorAll('[data-jump-sec]').forEach(row => {
-                    row.addEventListener('click', () => {
-                        const cur = curCursor();
-                        cur.section  = parseInt(row.dataset.jumpSec);
-                        cur.question = 0;
-                        renderQuestion();
-                    });
-                });
+        // ── Category score summary — right side of the section tabs row,
+        //    scoped to the currently active category. Created once and
+        //    appended as a sibling of #mts-tabs-scroll (never wiped by
+        //    buildTabs(), which only touches #mts-tabs-scroll itself). ──
+        function updateCatScoreRow() {
+            const bar = document.querySelector('.mts-section-tabs-bar');
+            if (!bar) return;
+            let row = document.getElementById('mts-cat-topscore');
+            if (!row) {
+                row = document.createElement('div');
+                row.id = 'mts-cat-topscore';
+                row.className = 'mts-cat-topscore';
+                bar.appendChild(row);
             }
+            const agg = categoryAggregate(activeCategory);
+            row.innerHTML = `
+                <span class="mts-cat-topscore-item mts-cat-topscore-answered"><span>Answered</span><strong>${agg.answered}</strong></span>
+                <span class="mts-cat-topscore-item mts-cat-topscore-correct"><span>Correct</span><strong>${agg.correct}</strong></span>
+                <span class="mts-cat-topscore-item mts-cat-topscore-wrong"><span>Wrong</span><strong>${agg.wrong}</strong></span>
+                <span class="mts-cat-topscore-item mts-cat-topscore-total"><span>Score</span><strong>${agg.correct}</strong></span>
+            `;
         }
 
         // ── Render question ────────────────────────────────────────
@@ -339,7 +320,7 @@
 
             buildCatNav();
             buildTabs();
-            updateScorePanel();
+            updateCatScoreRow();
         }
 
         // ── Show feedback ──────────────────────────────────────────

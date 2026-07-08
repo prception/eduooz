@@ -19,6 +19,108 @@
     <link rel="stylesheet" href="../../../assets/css/course-landing.css" />
     <script src="../../../assets/js/course-landing.js" defer></script>
     <script src="../../../assets/js/google-reviews.js" defer></script>
+
+    <script>
+      // ========== EXAM CONFIGURATION RRB MLT ==========
+      window.EXAM_CONFIG = {
+        examName: "RRB MLT",
+        fullName: "RRB Medical Laboratory Technician / Laboratory Assistant Grade II Recruitment Exam",
+        examSlug: "rrb-lab-technician",
+      };
+
+      // ========== ELIGIBILITY & AGE RELAXATION CONTENT ==========
+      window.courseEligibility = {
+        qualification: [
+          {
+            icon: "fa-solid fa-graduation-cap",
+            title: "Educational Qualification",
+            description:
+              "Candidates typically must have 12th (10+2) with Science subjects and a Diploma in Medical Laboratory Technology (DMLT) or an equivalent recognized MLT qualification. Candidates with B.Sc Medical Laboratory Technology (B.Sc MLT) may also be eligible depending on the exact RRB post and recruitment notification. The qualification must be obtained from a recognized institution.",
+          },
+          {
+            icon: "fa-solid fa-id-card",
+            title: "Registration Requirement",
+            description:
+              "Valid registration with a recognized Paramedical Council or competent authority may be required where applicable. Candidates must produce educational certificates, registration records, and other required documents during verification.",
+          },
+          {
+            icon: "fa-solid fa-briefcase-medical",
+            title: "Clinical / Professional Experience",
+            description:
+              "Previous laboratory experience may be preferred or required depending on the specific recruitment notification. Candidates should have practical knowledge of laboratory procedures, sample handling, diagnostic techniques, and laboratory safety practices.",
+          },
+          {
+            icon: "fa-solid fa-calendar-check",
+            title: "Age Limit and Relaxation",
+            description:
+              "The age limit is determined by the official RRB Paramedical recruitment notification and the specific post. Age relaxation applies to eligible reserved categories according to Government of India and railway recruitment rules.",
+          },
+          {
+            icon: "fa-solid fa-flag",
+            title: "Nationality Requirement",
+            description:
+              "Candidates must generally be Indian citizens and satisfy the eligibility conditions specified by the Railway Recruitment Board.",
+          },
+          {
+            icon: "fa-solid fa-heart-pulse",
+            title: "Medical Fitness",
+            description:
+              "Candidates must meet the prescribed Railway medical fitness standards for the relevant laboratory post. A medical examination is conducted as part of the recruitment process.",
+          },
+        ],
+        ageRules: [
+          {
+            icon: "fa-solid fa-user",
+            category: "General Category",
+            maxAge: "18–42 years",
+            description:
+              "Must remain within the upper age limit specified in the official RRB Paramedical / MLT recruitment notification.",
+          },
+          {
+            icon: "fa-solid fa-people-group",
+            category: "SC / ST",
+            maxAge: "47 years",
+            description:
+              "+5 years relaxation as per Government of India and railway recruitment rules.",
+          },
+          {
+            icon: "fa-solid fa-shield-halved",
+            category: "OBC / Other Backward Classes",
+            maxAge: "45 years",
+            description:
+              "+3 years relaxation as per applicable Government of India reservation rules.",
+          },
+          {
+            icon: "fa-solid fa-wheelchair",
+            category: "PwBD",
+            maxAge: "52 years",
+            description:
+              "+10 years relaxation as prescribed under Railway Recruitment Board and Government of India rules.",
+          },
+          {
+            icon: "fa-solid fa-medal",
+            category: "Ex-Servicemen",
+            maxAge: "47 years",
+            description:
+              "Relaxation according to RRB rules, based on eligible military service.",
+          },
+          {
+            icon: "fa-solid fa-heart",
+            category: "Widows",
+            maxAge: "Varies",
+            description:
+              "Relaxation where provided under the applicable RRB notification and Government rules.",
+          },
+          {
+            icon: "fa-solid fa-circle-info",
+            category: "Other Eligible Reserved Categories",
+            maxAge: "Varies",
+            description:
+              "Relaxation and benefits as prescribed under Government of India rules and the relevant RRB recruitment notification.",
+          },
+        ],
+      };
+    </script>
   </head>
   <body>
     <div id="header-container"></div>
@@ -101,6 +203,416 @@
       </div>
     </section>
 
+    <!-- EXAM OVERVIEW -->
+    <section class="exam-snapshot-section" id="exam-overview">
+      <div class="container">
+        <div class="text-center">
+          <div class="section-label">
+            <span class="label-dot"></span> Quick Exam Overview
+          </div>
+          <h2 class="section-title">
+            RRB MLT Exam <span class="text-gradient">Overview.</span>
+          </h2>
+        </div>
+
+        <div class="snapshot-grid">
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-building-columns"></i></div>
+            <div class="snap-label">Conducted By</div>
+            <div class="snap-value">Railway Recruitment Boards (RRBs), Indian Railways</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-file-lines"></i></div>
+            <div class="snap-label">Name of Examination</div>
+            <div class="snap-value">RRB Medical Laboratory Technician / Laboratory Assistant Grade II Recruitment Exam</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-vial"></i></div>
+            <div class="snap-label">Course / Post</div>
+            <div class="snap-value">Medical Laboratory Technician (MLT) / Laboratory Assistant Grade II</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-award"></i></div>
+            <div class="snap-label">Recruitment Type</div>
+            <div class="snap-value">Direct Recruitment through Computer-Based Test (CBT)</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="snap-label">Eligibility Qualification</div>
+            <div class="snap-value">10+2 Science with Diploma in Medical Laboratory Technology (DMLT), B.Sc Medical Laboratory Technology, or relevant qualification as prescribed for the post</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-id-card"></i></div>
+            <div class="snap-label">Registration Requirement</div>
+            <div class="snap-value">Valid registration with a recognized Paramedical Council / authority, where applicable</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <div class="snap-label">Duration / Job Type</div>
+            <div class="snap-value">Railway healthcare service post under applicable RRB recruitment rules</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-laptop"></i></div>
+            <div class="snap-label">Mode of Application</div>
+            <div class="snap-value">Online through the official Railway Recruitment Board portal</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-list-check"></i></div>
+            <div class="snap-label">Selection Process</div>
+            <div class="snap-value">Computer-Based Test (CBT), Document Verification, Medical Examination, Final Appointment</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-hospital"></i></div>
+            <div class="snap-label">Participating Institutions</div>
+            <div class="snap-value">Railway hospitals, medical laboratories, and healthcare facilities under Indian Railways</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snap-icon"><i class="fa-solid fa-globe"></i></div>
+            <div class="snap-label">Official Website</div>
+            <div class="snap-value"><a href="https://indianrailways.gov.in" target="_blank" rel="noopener">Railway Recruitment Boards Official Portal</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT THE EXAM -->
+    <section class="about-exam-section" id="about-exam">
+      <div class="aev-ambient">
+        <div class="aev-blob aev-blob-1"></div>
+        <div class="aev-blob aev-blob-2"></div>
+      </div>
+      <div class="container">
+        <div class="text-center">
+          <div class="section-label">
+            <span class="label-dot"></span> About This Exam
+          </div>
+          <h2 class="section-title">
+            RRB MLT EXAM <span class="text-gradient">Coaching.</span>
+          </h2>
+        </div>
+
+        <div class="aev-grid" style="grid-template-columns: 1fr; max-width: 860px; margin-left: auto; margin-right: auto;">
+          <div class="aev-content-col g-exam-reveal">
+            <h3 class="aev-heading">
+              About the <span class="text-gradient">RRB MLT EXAM</span>
+            </h3>
+            <p class="aev-desc">
+              RRB MLT Exam is a government recruitment examination conducted
+              by the Railway Recruitment Boards (RRBs) for the selection of
+              eligible candidates for Medical Laboratory Technician (MLT)
+              posts under Indian Railways healthcare services. The
+              examination provides an opportunity for qualified laboratory
+              professionals to work in railway hospitals, medical
+              laboratories, and healthcare facilities.
+            </p>
+            <p class="aev-desc">
+              The RRB MLT Exam evaluates candidates' knowledge and skills in
+              Medical Laboratory Technology, including clinical pathology,
+              microbiology, biochemistry, hematology, laboratory procedures,
+              and diagnostic techniques.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ELIGIBILITY & AGE RELAXATION -->
+    <div class="elig-scroll-scene" id="elig-scroll-scene">
+      <section class="elig-age-split-section" id="eligibility">
+        <div class="container elig-sticky-container">
+          <div class="text-center elig-section-head">
+            <div class="section-label">
+              <span class="label-dot"></span> Who Can Apply &amp; Age Criteria
+            </div>
+            <h2 class="section-title">
+              Eligibility &amp; Age <span class="text-gradient">Requirements.</span>
+            </h2>
+          </div>
+
+          <div class="elig-age-split-grid">
+            <div class="split-particles">
+              <span class="sp"></span><span class="sp"></span
+              ><span class="sp"></span><span class="sp"></span>
+            </div>
+
+            <div class="split-column" id="elig-carousel-col">
+              <div class="eligibility-explorer-icon">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3 class="split-col-heading">Eligibility Criteria</h3>
+              </div>
+              <div class="elig-col-pane" id="elig-col-pane">
+                <div class="elig-col-track" id="elig-col-track"></div>
+              </div>
+            </div>
+
+            <div class="split-divider">
+              <div class="divider-glow"></div>
+            </div>
+
+            <div class="split-column" id="age-carousel-col">
+              <div class="age-explorer-icon">
+                <i class="fa-solid fa-user-check"></i>
+                <h3 class="split-col-heading">Age Relaxation</h3>
+              </div>
+              <div class="elig-col-pane" id="age-col-pane">
+                <div class="elig-col-track" id="age-col-track"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- HOW TO PREPARE -->
+    <section class="prepare-section" id="preparation">
+      <div class="container">
+        <div class="text-center">
+          <div class="section-label">
+            <span class="label-dot"></span> Success Roadmap
+          </div>
+          <h2 class="section-title">
+            How To <span class="text-gradient">Prepare.</span>
+          </h2>
+        </div>
+        <div class="prepare-timeline" id="prepare-timeline">
+          <div class="prepare-step g-exam-reveal" data-step="01" tabindex="0" aria-expanded="false">
+            <div class="prepare-step-header">
+              <h4>Understand the Exam Pattern and Syllabus</h4>
+              <div class="prepare-step-meta">
+                <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+            </div>
+            <div class="prepare-step-body">
+              <div class="prepare-step-body-inner">
+                <p>
+                  Begin your preparation by thoroughly reviewing the syllabus
+                  and understanding the exam format. This helps you
+                  prioritize your study topics effectively.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="prepare-step g-exam-reveal" data-step="02" tabindex="0" aria-expanded="false">
+            <div class="prepare-step-header">
+              <h4>Focus on Core Nursing Subjects</h4>
+              <div class="prepare-step-meta">
+                <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+            </div>
+            <div class="prepare-step-body">
+              <div class="prepare-step-body-inner">
+                <p>
+                  Pay special attention to critical areas like Fundamentals
+                  of Nursing, Medical-Surgical Nursing, and Community Health
+                  Nursing. Eduooz Academy's structured lessons ensure you
+                  gain a strong foundation in these subjects.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="prepare-step g-exam-reveal" data-step="03" tabindex="0" aria-expanded="false">
+            <div class="prepare-step-header">
+              <h4>Practice with Mock Tests and Previous Question Papers</h4>
+              <div class="prepare-step-meta">
+                <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+            </div>
+            <div class="prepare-step-body">
+              <div class="prepare-step-body-inner">
+                <p>
+                  Mock tests help you become familiar with the question
+                  pattern and improve your time management skills.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="prepare-step g-exam-reveal" data-step="04" tabindex="0" aria-expanded="false">
+            <div class="prepare-step-header">
+              <h4>Review Regularly and Reinforce Key Concepts</h4>
+              <div class="prepare-step-meta">
+                <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+            </div>
+            <div class="prepare-step-body">
+              <div class="prepare-step-body-inner">
+                <p>
+                  Set aside dedicated time each week for revision. Access to
+                  Eduooz Academy's recorded sessions allows you to revisit
+                  challenging topics and clarify doubts.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="prepare-step g-exam-reveal" data-step="05" tabindex="0" aria-expanded="false">
+            <div class="prepare-step-header">
+              <h4>Get Expert Guidance and Mentorship</h4>
+              <div class="prepare-step-meta">
+                <span class="prepare-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+            </div>
+            <div class="prepare-step-body">
+              <div class="prepare-step-body-inner">
+                <p>
+                  Take advantage of our experienced faculty's personalized
+                  support to address your weaknesses, strengthen your
+                  preparation, and boost your confidence for the exam.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXAM PROCESS -->
+    <section class="process-section journey-timeline-section" id="exam-process">
+      <div class="container">
+        <div class="text-center">
+          <div class="section-label">
+            <span class="label-dot"></span> Your Recruitment Journey
+          </div>
+          <h2 class="section-title">
+            RRB MLT Exam <span class="text-gradient">Process.</span>
+          </h2>
+        </div>
+
+        <div class="journey-step-counter" id="journey-counter">
+          Step <span id="journey-current">1</span> of
+          <span id="journey-total">7</span>
+        </div>
+
+        <div class="journey-roadmap" id="journey-roadmap">
+          <div class="journey-progress-line">
+            <div class="journey-progress-fill" id="journey-progress-fill"></div>
+          </div>
+          <div class="journey-milestones">
+            <div class="journey-milestone active" data-step="0">
+              <div class="milestone-number">01</div>
+              <div class="milestone-icon"><i class="fa-solid fa-file-pen"></i></div>
+              <div class="milestone-label">Application</div>
+            </div>
+            <div class="journey-milestone" data-step="1">
+              <div class="milestone-number">02</div>
+              <div class="milestone-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+              <div class="milestone-label">Verification</div>
+            </div>
+            <div class="journey-milestone" data-step="2">
+              <div class="milestone-number">03</div>
+              <div class="milestone-icon"><i class="fa-solid fa-laptop-code"></i></div>
+              <div class="milestone-label">CBT</div>
+            </div>
+            <div class="journey-milestone" data-step="3">
+              <div class="milestone-number">04</div>
+              <div class="milestone-icon"><i class="fa-solid fa-list-ol"></i></div>
+              <div class="milestone-label">Merit List</div>
+            </div>
+            <div class="journey-milestone" data-step="4">
+              <div class="milestone-number">05</div>
+              <div class="milestone-icon"><i class="fa-solid fa-file-shield"></i></div>
+              <div class="milestone-label">Document Verification</div>
+            </div>
+            <div class="journey-milestone" data-step="5">
+              <div class="milestone-number">06</div>
+              <div class="milestone-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+              <div class="milestone-label">Medical Fitness</div>
+            </div>
+            <div class="journey-milestone" data-step="6">
+              <div class="milestone-number">07</div>
+              <div class="milestone-icon"><i class="fa-solid fa-handshake"></i></div>
+              <div class="milestone-label">Final Appointment</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="journey-detail-cards" id="journey-details">
+          <div class="journey-card active" data-step="0">
+            <div class="journey-card-head">
+              <span class="jc-num">01</span>
+              <h4>Online Application Submission</h4>
+            </div>
+            <p>
+              Candidates submit their applications through the official
+              Railway Recruitment Board portal with personal, educational,
+              and required details.
+            </p>
+          </div>
+          <div class="journey-card" data-step="1">
+            <div class="journey-card-head">
+              <span class="jc-num">02</span>
+              <h4>Application Verification</h4>
+            </div>
+            <p>
+              Applications are checked against eligibility criteria,
+              educational qualifications, age requirements, and other
+              conditions stated in the RRB notification.
+            </p>
+          </div>
+          <div class="journey-card" data-step="2">
+            <div class="journey-card-head">
+              <span class="jc-num">03</span>
+              <h4>Computer-Based Test (CBT)</h4>
+            </div>
+            <p>
+              Eligible candidates appear for the RRB Computer-Based Test. The
+              exam may cover General Awareness, Professional Ability, General
+              Arithmetic, General Intelligence and Reasoning, and
+              subject-specific Medical Laboratory Technology topics.
+            </p>
+          </div>
+          <div class="journey-card" data-step="3">
+            <div class="journey-card-head">
+              <span class="jc-num">04</span>
+              <h4>Shortlisting and Merit List Preparation</h4>
+            </div>
+            <p>
+              Candidates are shortlisted based on CBT performance and the
+              selection criteria prescribed in the recruitment notification.
+            </p>
+          </div>
+          <div class="journey-card" data-step="4">
+            <div class="journey-card-head">
+              <span class="jc-num">05</span>
+              <h4>Document Verification</h4>
+            </div>
+            <p>
+              Shortlisted candidates must produce original documents for
+              verification of educational qualifications, registration,
+              identity, category claims, and other required credentials.
+            </p>
+          </div>
+          <div class="journey-card" data-step="5">
+            <div class="journey-card-head">
+              <span class="jc-num">06</span>
+              <h4>Medical Fitness Examination</h4>
+            </div>
+            <p>
+              Selected candidates undergo a medical examination according to
+              the medical fitness standards prescribed by Indian Railways.
+            </p>
+          </div>
+          <div class="journey-card" data-step="6">
+            <div class="journey-card-head">
+              <span class="jc-num">07</span>
+              <h4>Final Appointment</h4>
+            </div>
+            <p>
+              Final selection is completed based on CBT performance, document
+              verification, medical fitness, eligibility compliance, and
+              applicable RRB recruitment rules.
+            </p>
+          </div>
+        </div>
+
+        <div class="journey-nav">
+          <button class="journey-btn journey-prev" id="journey-prev">
+            <i class="fa-solid fa-arrow-left"></i> Previous Step
+          </button>
+          <button class="journey-btn journey-next" id="journey-next">
+            Next Step <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
 
     <!-- GOOGLE REVIEWS SECTION -->
     <section class="greview-section" id="reviews" data-page-type="lab-tech">
