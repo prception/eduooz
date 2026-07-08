@@ -9391,7 +9391,10 @@ a.pex-paper-card {
 /* --- FREE PRACTICE TESTS --- */
 .practice-section {
   position: relative;
-  z-index: 10;
+  /* Above the sticky quick-nav widget (z-index 999) — the mock test
+     panel now sits close to the viewport edge and would otherwise be
+     covered by it. */
+  z-index: 1000;
   padding: 80px 0;
 }
 
@@ -9495,8 +9498,11 @@ a.pex-paper-card {
   margin-top: 40px;
   /* Full-bleed: break out of .container's max-width/padding entirely so
      the exam interface spans the viewport with a flat 10px gutter,
-     regardless of screen size. */
+     regardless of screen size. z-index above the sticky quick-nav
+     widget (999) since the panel now sits close enough to the edge
+     to otherwise be covered by it. */
   position: relative;
+  z-index: 1000;
   left: 50%;
   width: 100vw;
   margin-left: -50vw;
