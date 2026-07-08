@@ -433,7 +433,7 @@ body {
 @media (max-width: 600px) {
   .fac-hero { padding: 130px 0 60px; }
   .fac-hero-title { letter-spacing: -1.5px; }
-  .fac-carousel-section { padding: 60px 0 80px; }
+  .fac-carousel-section { padding: 40px 0 40px; }
   .fac-sec-title { letter-spacing: -1px; }
   .fac-grid { grid-template-columns: 1fr; gap: 18px; }
   .fpc-card { height: 380px; border-radius: 18px; }

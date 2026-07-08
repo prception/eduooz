@@ -202,6 +202,58 @@
                     renderQuestion();
                 });
             });
+
+            buildMobileTopicNav();
+        }
+
+        // ── Mobile-only topic row — a flat horizontal strip of the active
+        //    category's topics (mobile hides the desktop accordion instead
+        //    of nesting topics under one category button, since that reads
+        //    as a long broken layout on narrow screens). Hidden via CSS on
+        //    desktop/tablet; same switch-topic logic as the desktop list. ──
+        function buildMobileTopicNav() {
+            const leftNav = document.getElementById('mts-left-nav');
+            if (!leftNav) return;
+            let wrap = document.getElementById('mts-mobile-topics');
+            if (!wrap) {
+                wrap = document.createElement('div');
+                wrap.id = 'mts-mobile-topics';
+                wrap.className = 'mts-mobile-topics';
+                wrap.innerHTML = `
+                    <div class="mts-left-nav-title mts-mobile-topics-title">
+                        <i class="fa-solid fa-book-open"></i> Topics
+                    </div>
+                    <div class="mts-mobile-topics-row" id="mts-mobile-topics-row"></div>
+                `;
+                leftNav.appendChild(wrap);
+            }
+            const row = document.getElementById('mts-mobile-topics-row');
+            if (!row) return;
+            const cState  = categoryStates[activeCategory];
+            const topics  = topicsFor(activeCategory);
+            const topicIdx = cState ? cState.currentTopic : 0;
+            row.innerHTML = topics.map((topic, t) => {
+                const total = topic.sections.reduce((n, s) => n + s.questions.length, 0);
+                const answered = cState ? cState.answers[t].reduce((n, secAns) => n + secAns.filter(a => a !== null).length, 0) : 0;
+                const isActive = t === topicIdx;
+                const isDone = total > 0 && answered === total;
+                let cls = 'mts-mobile-topic-pill';
+                if (isActive) cls += ' mts-mobile-topic-pill-active';
+                if (isDone)   cls += ' mts-mobile-topic-pill-done';
+                const badge = isDone ? '<i class="fa-solid fa-check"></i>' : (t + 1);
+                const score = answered > 0 ? `<span class="mts-mobile-topic-pill-score">${answered}/${total}</span>` : '';
+                return `<button class="${cls}" data-topic-idx="${t}">
+                    <span class="mts-mobile-topic-pill-badge">${badge}</span>
+                    <span class="mts-mobile-topic-pill-name">${topic.name}</span>
+                    ${score}
+                </button>`;
+            }).join('');
+            row.querySelectorAll('.mts-mobile-topic-pill').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    state.currentTopic = parseInt(btn.dataset.topicIdx);
+                    renderQuestion();
+                });
+            });
         }
 
         // ── Section tabs (within the active topic) ────────────────────
@@ -235,26 +287,28 @@
             });
         }
 
-        // ── Category score summary — right side of the section tabs row,
+        // ── Category score summary — sits inside the Question Progress box,
+        //    between the question counter and the Topic/Section badge,
         //    scoped to the currently active category. Created once and
-        //    appended as a sibling of #mts-tabs-scroll (never wiped by
-        //    buildTabs(), which only touches #mts-tabs-scroll itself). ──
+        //    inserted as a sibling of #mts-q-counter / #mts-section-badge
+        //    inside .mts-q-progress-info (never wiped by other renders,
+        //    which don't touch that container's children directly). ──
         function updateCatScoreRow() {
-            const bar = document.querySelector('.mts-section-tabs-bar');
-            if (!bar) return;
+            const container = document.querySelector('.mts-q-progress-info');
+            if (!container) return;
             let row = document.getElementById('mts-cat-topscore');
             if (!row) {
                 row = document.createElement('div');
                 row.id = 'mts-cat-topscore';
                 row.className = 'mts-cat-topscore';
-                bar.appendChild(row);
+                if (sectionBadge) container.insertBefore(row, sectionBadge);
+                else container.appendChild(row);
             }
             const agg = categoryAggregate(activeCategory);
             row.innerHTML = `
                 <span class="mts-cat-topscore-item mts-cat-topscore-answered"><span>Answered</span><strong>${agg.answered}</strong></span>
                 <span class="mts-cat-topscore-item mts-cat-topscore-correct"><span>Correct</span><strong>${agg.correct}</strong></span>
                 <span class="mts-cat-topscore-item mts-cat-topscore-wrong"><span>Wrong</span><strong>${agg.wrong}</strong></span>
-                <span class="mts-cat-topscore-item mts-cat-topscore-total"><span>Score</span><strong>${agg.correct}</strong></span>
             `;
         }
 
@@ -712,19 +766,19 @@
 // =============================================================
 // question-bank.js — Question repository loader
 // Reads data-question-bank from #mts-wrapper, fetches the
-// matching file from /components/question-banks/, parses
+// matching file from /components/mock-test-questions/, parses
 // the question data, sets window.EXAM_QUESTION_BANK, then
 // calls window.PracticeTest.init() to start the engine.
 //
 // To add a new exam type:
-//   1. Create /components/question-banks/<key>.html
+//   1. Create /components/mock-test-questions/<key>.html
 //   2. Add data-question-bank="<key>" to #mts-wrapper
 //   No other changes required.
 // =============================================================
 (function () {
     function resolveUrl(bankKey) {
         var origin = window.location.origin;
-        return origin + '/components/question-banks/' + bankKey + '.html';
+        return origin + '/components/mock-test-questions/' + bankKey + '.html';
     }
 
     function loadQuestionBank() {

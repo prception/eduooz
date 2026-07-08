@@ -4845,7 +4845,9 @@ function initReviewCarousel() {
 
   function getVisible() {
     const w = window.innerWidth;
-    if (w <= 480) return 1;
+    // 767px matches the CSS mobile breakpoint that hides the arrow
+    // buttons for this carousel — one full-width card on mobile.
+    if (w <= 767) return 1;
     if (w <= 768) return 2;
     return 3;
   }

@@ -140,11 +140,8 @@ body {
   pointer-events: none;
 }
 
-@media (max-width: 767px) {
-  .about-hero {
-    padding-bottom: 6rem;
-  }
 
+@media (max-width: 767px) {
   .about-hero #cinematic-canvas {
     filter: blur(14px);
     -webkit-filter: blur(14px);
@@ -255,13 +252,26 @@ body {
   /* Let clicks pass through the gradient */
 }
 
+@media (max-width: 767px) {
+  .theme-blend-zone {
+    padding: 120px 0 40px 0;
+  }
+}
+
 .about-hero {
   position: relative;
   min-height: 75vh; /* Increased from 50vh for immersive feel */
   display: flex;
   overflow: hidden;
   background: rgba(94, 43, 196, 0.9);
-  padding-top: 160px; /* Accounts for header */
+  padding-top: 160px;
+}
+
+@media (max-width: 767px) {
+  .about-hero {
+    padding-top: 100px;
+    padding-bottom: 6rem;
+  }
 }
 
 .about-hero .container {
@@ -840,6 +850,12 @@ body {
   padding: 80px 0;
   z-index: 10;
   overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .wwh-premium-section {
+    padding: 40px 0;
+  }
 }
 
 /* The Light Refraction Engine */
@@ -3103,7 +3119,7 @@ body {
 }
 @media (max-width: 768px) {
   .fac-showcase-section {
-    padding: 72px 0;
+    padding: 40px 0;
   }
   .fac-showcase-section .alumni-card-wrapper:nth-child(2) {
     margin-top: 0;

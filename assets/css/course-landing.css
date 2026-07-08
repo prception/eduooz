@@ -296,6 +296,27 @@ body {
   transform: translateY(-3px);
   box-shadow: 0 20px 40px rgba(91, 33, 182, 0.4);
 }
+/* Purchase Now (WhatsApp) CTA — same shape as .btn-liquid-purple, green fill */
+.btn-liquid-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25d366;
+  color: #fff;
+  padding: 18px 40px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  box-shadow: 0 15px 35px rgba(37, 211, 102, 0.25);
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+.btn-liquid-green:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(37, 211, 102, 0.45);
+}
 .btn-glass-outline {
   display: inline-flex;
   align-items: center;
@@ -1862,7 +1883,7 @@ body {
 
 @media (max-width: 720px) {
   .testimonials-section {
-    padding: 84px 0;
+    padding: 40px 0;
   }
 
   .testimonials-header {
@@ -4410,7 +4431,7 @@ body {
 
 @media (max-width: 768px) {
   .cta-terminal-section {
-    padding: 40px 0px 90px 0px;
+    padding: 40px 0px 48px 0px;
   }
   .faq-elite-section {
   padding: 50px 0;
@@ -6742,6 +6763,12 @@ body {
     border-radius: 36px;
     box-sizing: border-box;
   }
+  /* Shorten the horizontal scroll indicator so it reads as a small
+     progress mark instead of a long bar spanning the tab row. */
+  .syllabus-tabs-nav::-webkit-scrollbar-thumb {
+    width: 44px;
+    min-width: 44px;
+  }
   .syl-tab {
     padding: 10px 16px;
     font-size: 0.95rem;
@@ -7776,7 +7803,7 @@ body {
 
 @media (max-width: 768px) {
   .fac-showcase-section {
-    padding: 72px 0;
+    padding: 40px 0;
   }
   .fac-car-arrow {
     width: 38px;
@@ -8091,7 +8118,7 @@ body {
 /* --- GOOGLE REVIEWS TRUST WALL --- */
 .greview-section {
   padding: 80px 0 100px;
-  background: #fff;
+  background: transparent;
   position: relative;
 }
 
@@ -8280,7 +8307,7 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.07);
   border-radius: 20px;
   padding: 24px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  box-shadow: none;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -8293,15 +8320,19 @@ body {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #4285f4, #34a853, #fbbc04, #ea4335);
+  background: linear-gradient(
+    90deg,
+    #4285f4 0%,
+    #4285f4 25%,
+    #ea4335 25%,
+    #ea4335 50%,
+    #fbbc05 50%,
+    #fbbc05 75%,
+    #34a853 75%,
+    #34a853 100%
+  );
   opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.greview-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-  border-color: rgba(6, 182, 212, 0.14);
+  transition: opacity 0.25s ease;
 }
 
 .greview-card:hover::before {
@@ -9391,10 +9422,10 @@ a.pex-paper-card {
 /* --- FREE PRACTICE TESTS --- */
 .practice-section {
   position: relative;
-  /* Above the sticky quick-nav widget (z-index 999) — the mock test
-     panel now sits close to the viewport edge and would otherwise be
-     covered by it. */
-  z-index: 1000;
+  /* Above the sticky quick-nav widget and the floating scroll-to-top
+     button (both z-index 999) — content in this section otherwise
+     gets visually covered by them. */
+  z-index: 1;
   padding: 80px 0;
 }
 
@@ -9708,6 +9739,12 @@ a.pex-paper-card {
   color: #059669;
 }
 
+/* ── Mobile-only topic row (hidden on desktop/tablet, where topics stay
+   in the accordion) — see @media (max-width: 900px) below for display. ── */
+.mts-mobile-topics {
+  display: none;
+}
+
 .mts-left-nav-divider {
   height: 1px;
   background: rgba(0, 0, 0, 0.07);
@@ -9726,7 +9763,7 @@ a.pex-paper-card {
   padding: 16px 10px;
   align-self: start;
   position: sticky;
-  top: 20px;
+  top: 100px;
   min-width: 0;
 }
 .mts-left-nav-title {
@@ -10297,14 +10334,14 @@ a.pex-paper-card {
   transform: none;
 }
 
-/* ── Category Score — compact summary on the right of the section tabs
-   row, scoped to whichever category is currently active. ── */
+/* ── Category Score — compact summary inside the Question Progress box,
+   between the question counter and the Topic/Section badge, scoped to
+   whichever category is currently active. ── */
 .mts-cat-topscore {
   display: flex;
   align-items: center;
   gap: 16px;
   flex-shrink: 0;
-  margin-left: auto;
 }
 .mts-cat-topscore-item {
   display: flex;
@@ -10327,9 +10364,6 @@ a.pex-paper-card {
 }
 .mts-cat-topscore-wrong strong {
   color: #dc2626;
-}
-.mts-cat-topscore-total strong {
-  color: #7c3aed;
 }
 
 /* ── Results Screen ── */
@@ -10687,7 +10721,10 @@ a.pex-paper-card {
   }
 }
 
-/* ── Tablet: left nav collapses to horizontal pill strip ── */
+/* ── Mobile/Tablet: category + topic accordion becomes two separate
+   horizontal scroll strips instead of a vertical tree — an accordion
+   that pushes content down reads as broken on narrow screens. Desktop
+   accordion behavior (above 900px) is untouched. ── */
 @media (max-width: 900px) {
   .mts-exam-body {
     grid-template-columns: 1fr;
@@ -10695,34 +10732,149 @@ a.pex-paper-card {
   }
   .mts-left-nav {
     position: static;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     padding: 10px 12px;
-    gap: 0;
   }
   .mts-left-nav-title {
     width: 100%;
     padding-bottom: 8px;
-    margin-bottom: 6px;
+    margin-bottom: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
   }
-  /* Category rows stack full-width so each one's topic accordion has
-     room to expand inline — a horizontal pill row can't fit that. */
+  /* Categories: single horizontal scroll row, no wrap */
   .mts-left-nav #mts-cat-nav {
-    flex-direction: column;
-    gap: 4px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .mts-left-nav #mts-cat-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .mts-left-cat-group {
+    width: auto;
+    flex: 0 0 auto;
   }
   .mts-left-cat {
-    width: 100%;
+    width: auto;
+    flex: 0 0 auto;
+    white-space: nowrap;
     font-size: 0.85rem;
-    padding: 8px 12px;
+    padding: 8px 14px;
   }
   /* Reset icon vertical offset — looks wrong in horizontal pill layout */
   .mts-left-cat i {
     margin-top: 0;
     font-size: 1.1rem;
   }
+  /* No accordion arrow or nested topic tree on mobile — topics move to
+     their own horizontal row (.mts-mobile-topics) below instead. */
+  .mts-left-cat i.mts-cat-topic-toggle {
+    display: none;
+  }
+  .mts-cat-topics {
+    display: none !important;
+  }
+
+  /* Topics: single horizontal scroll row for the active category */
+  .mts-mobile-topics {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .mts-mobile-topics-title {
+    padding-bottom: 6px;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  }
+  .mts-mobile-topics-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .mts-mobile-topics-row::-webkit-scrollbar {
+    display: none;
+  }
+  .mts-mobile-topic-pill {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    padding: 7px 12px 7px 7px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 30px;
+    background: rgba(248, 250, 252, 0.9);
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .mts-mobile-topic-pill-badge {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+    background: rgba(0, 0, 0, 0.06);
+    color: #94a3b8;
+  }
+  .mts-mobile-topic-pill-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #475569;
+  }
+  .mts-mobile-topic-pill-score {
+    font-size: 0.66rem;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.05);
+    color: #94a3b8;
+    padding: 2px 7px;
+    border-radius: 6px;
+  }
+  .mts-mobile-topic-pill-active {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.35);
+  }
+  .mts-mobile-topic-pill-active .mts-mobile-topic-pill-badge {
+    background: #06b6d4;
+    color: #fff;
+  }
+  .mts-mobile-topic-pill-active .mts-mobile-topic-pill-name {
+    color: #0e7490;
+  }
+  .mts-mobile-topic-pill-active .mts-mobile-topic-pill-score {
+    background: rgba(6, 182, 212, 0.15);
+    color: #0891b2;
+  }
+  .mts-mobile-topic-pill-done .mts-mobile-topic-pill-badge {
+    background: #10b981;
+    color: #fff;
+  }
+  .mts-mobile-topic-pill-done .mts-mobile-topic-pill-name {
+    color: #059669;
+  }
+  .mts-mobile-topic-pill-done .mts-mobile-topic-pill-score {
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+  }
+
   /* Compact section tabs for tablet */
   .mts-tab {
     padding: 8px 14px;
@@ -10743,15 +10895,29 @@ a.pex-paper-card {
   .mts-tab i {
     font-size: 0.8rem;
   }
-  /* Score summary drops to its own full-width row below the (still
-     horizontally scrollable) section tabs, evenly spaced. */
-  .mts-section-tabs-bar {
-    flex-direction: column;
-    align-items: stretch;
+  /* Question panel */
+  .mts-q-header {
+    padding: 12px 16px;
+  }
+  /* Question progress row: let it wrap so the score summary drops to
+     its own full-width line below the counter + topic/section badge,
+     instead of forcing everything onto one cramped line. */
+  .mts-q-progress-info {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .mts-q-counter {
+    order: 1;
+    font-size: 0.9rem;
+  }
+  .mts-section-badge {
+    order: 2;
+    font-size: 0.8rem;
+    padding: 3px 9px;
   }
   .mts-cat-topscore {
-    width: 100%;
-    margin-left: 0;
+    order: 3;
+    flex: 1 1 100%;
     justify-content: space-between;
     gap: 8px;
   }
@@ -10761,17 +10927,6 @@ a.pex-paper-card {
   }
   .mts-cat-topscore-item strong {
     font-size: 0.84rem;
-  }
-  /* Question panel */
-  .mts-q-header {
-    padding: 12px 16px;
-  }
-  .mts-q-counter {
-    font-size: 0.9rem;
-  }
-  .mts-section-badge {
-    font-size: 0.8rem;
-    padding: 3px 9px;
   }
   .mts-question-card {
     padding: 22px 18px;
@@ -12293,10 +12448,14 @@ a.pex-paper-card {
 /* Horizontal scroll timeline (mobile) */
 @media (max-width: 768px) {
   .journey-roadmap {
-    padding: 0 4px 12px;
+    /* No horizontal padding: keeps the absolutely-positioned progress
+       line in the same coordinate space as the milestones row below,
+       so both scroll in sync (see .journey-progress-line comment). */
+    padding: 0 0 12px;
     overflow-x: auto;
     overflow-y: visible;
     -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }
@@ -12306,25 +12465,49 @@ a.pex-paper-card {
   }
 
   .journey-milestones {
-    min-width: max-content;
-    gap: 0;
-    padding: 0 8px;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    min-width: 100%;
+    gap: 8px;
+    padding: 0;
   }
 
+  /* Exactly 3 steps visible per screen; rest reachable via horizontal scroll */
   .journey-milestone {
-    min-width: 100px;
+    flex: 0 0 calc((100% - 16px) / 3);
+    min-width: 0;
+    max-width: calc((100% - 16px) / 3);
     scroll-snap-align: center;
   }
 
   .milestone-icon {
-    width: 58px;
-    height: 58px;
-    font-size: 1.2rem;
+    width: 60px;
+    height: 60px;
+    font-size: 1.4rem;
   }
 
+  .milestone-label {
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+    min-height: 2.6em;
+    padding: 0 2px;
+  }
+
+  /* Line must span center-of-first-icon to center-of-last-icon across
+     ALL 7 milestones (not just the 3 visible ones), and live in the
+     same % coordinate space as .journey-milestone above, so it scrolls
+     in sync with the row and .journey-progress-fill's JS-driven width
+     percentage lines up with the actual active icon at any scroll
+     position. Derived from the 3-per-screen sizing formula above:
+     itemWidth = (100% - 16px) / 3; line spans 7 items + 6 gaps minus
+     one item width (half hangs off each end at the first/last icon). */
   .journey-progress-line {
-    left: 50px;
-    right: 50px;
+    left: calc((100% - 16px) / 6);
+    right: auto;
+    width: calc(200% + 16px);
   }
 
   .journey-card {
@@ -12363,6 +12546,12 @@ a.pex-paper-card {
   .resources-section,
   .journey-timeline-section {
     padding: 64px 0 52px;
+  }
+
+  /* Desktop's margin-bottom (50px) otherwise carries over on mobile,
+     stacking on top of the next section's own top padding */
+  .materials-section {
+    margin-bottom: 0;
   }
 
   /* Section titles */
@@ -12839,6 +13028,9 @@ a.pex-paper-card {
 
 /* ── 7. GOOGLE REVIEWS & TRUST WALL: Center all elements ───── */
 @media (max-width: 767px) {
+  .greview-section {
+    padding: 40px 0 40px;
+  }
   .greview-section .text-center {
     text-align: left;
   }
@@ -12858,6 +13050,15 @@ a.pex-paper-card {
   }
   .greview-carousel-wrap {
     justify-content: center;
+  }
+  /* Arrows hidden on mobile — cards move via touch swipe (already wired
+     in initReviewCarousel's touchstart/touchend handlers below). Hiding
+     these flex items lets the viewport reclaim their width, so the
+     single visible card (see getVisible() in course-landing.js) spans
+     the same left/right padding as the rest of the page — no separate
+     margin needed. Desktop arrows are untouched above this breakpoint. */
+  .greview-arrow {
+    display: none;
   }
 }
 
@@ -15198,7 +15399,7 @@ body.qp-modal-open {
 }
 @media (max-width: 768px) {
   .pas-section {
-    padding: 64px 0 80px;
+    padding: 40px 0 40px;
   }
   .pas-two-col {
     grid-template-columns: 1fr;
