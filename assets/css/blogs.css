@@ -965,6 +965,16 @@ body {
   }
 }
 
+/* --- Mobile-only spacing (does not affect tablet/desktop above) --- */
+@media (max-width: 768px) {
+  .blog-kinetic-hero {
+    padding: 100px 0 48px 0;
+  }
+  .blog-cinematic-feed {
+    padding: 40px 0 40px 0;
+  }
+}
+
 /* =========================================
    3. EDITORIAL ARCHIVE GRID (OLDER BLOGS)
    ========================================= */
@@ -972,6 +982,12 @@ body {
   padding: 0 0 150px 0;
   position: relative;
   z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .blog-archive-section {
+    padding: 0 0 40px 0;
+  }
 }
 
 /* Section Header with flanking lines */

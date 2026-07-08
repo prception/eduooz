@@ -277,33 +277,52 @@ body {
 
 @media (max-width: 991px) {
     .contact-main-section {
-        padding: 60px 0;
+        padding: 40px 0;
     }
     .contact-heading {
         font-size: 2.2rem;
+        order: 1;
+        width: 100%;
     }
     .custom-form .form-row {
         flex-direction: column;
         gap: 0;
     }
+
+    /* Flatten the column wrappers so the intro text, form, and info items
+       can be reordered as one flex sequence on mobile */
+    .contact-main-section .row {
+        margin: 0;
+    }
+    .contact-main-section .col-lg-5,
+    .contact-main-section .col-lg-7 {
+        display: contents;
+    }
     .contact-info-block {
-        padding-right: 0;
-        margin-bottom: 50px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        display: contents;
         text-align: center;
     }
+    .contact-desc {
+        order: 2;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
     .contact-item {
+        order: 4;
         text-align: left;
         width: 100%;
         max-width: 320px;
         margin-right: auto;
         margin-left: auto;
     }
+    .contact-item:last-child {
+        margin-bottom: 50px;
+    }
     .form-container {
+        order: 3;
         padding-left: 0;
-        margin: 0 auto -140px auto; /* Centered with overlap */
+        margin: 0 auto 40px auto; /* Centered, with small gap below */
         max-width: 650px; /* Constrain width and center */
         width: 100%;
     }
@@ -427,8 +446,8 @@ body {
     .contact-item .icon-circle { width: 55px; height: 55px; font-size: 1.4rem; margin-bottom: 5px; }
     .contact-item-text h4 { font-size: 1.15rem; }
     
-    .form-container { 
-        margin: 0 auto -60px auto; 
+    .form-container {
+        margin: 0 auto 30px auto;
         max-width: 100%;
     }
     .contact-form-card { padding: 35px 25px; border-radius: 16px; text-align: left; }

@@ -246,6 +246,12 @@
   background: transparent;
 }
 
+@media (max-width: 768px) {
+  .enquiry-premium-section {
+    padding: 40px 0;
+  }
+}
+
 .enquiry-glass-panel {
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -283,6 +289,11 @@
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
+}
+
+.enquiry-info,
+.enquiry-form-wrapper {
+  min-width: 0;
 }
 
 .enquiry-title {
@@ -363,6 +374,7 @@
 
 .input-group {
   position: relative;
+  min-width: 0;
 }
 
 .glass-form input,
@@ -464,16 +476,23 @@
   }
   .glass-form {
     padding: 30px 20px;
+    margin: 0 auto;
+  }
+  .btn-form-submit {
+    align-self: center;
   }
 }
 
 @media (max-width: 768px) {
   .enquiry-subtitle {
     font-size: 1rem;
-    text-align: justify;
+    text-align: left;
   }
   .c-method h5 {
     text-align: justify;
+  }
+  .enquiry-glass-panel::before {
+    display: none;
   }
 }
 

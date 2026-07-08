@@ -137,6 +137,12 @@
   color: var(--text-light-theme);
 }
 
+@media (max-width: 768px) {
+  .featured-courses-section {
+    padding: 48px 0 48px 0;
+  }
+}
+
 /* Force dark text for readability in light section */
 .featured-courses-section .section-header h2,
 .featured-courses-section .section-header p {
@@ -277,6 +283,12 @@
   background: var(--brand-dark);
   position: relative;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 40px 0 40px;
+  }
 }
 
 .testimonials-mesh-bg {
@@ -699,6 +711,12 @@
   padding: 120px 0;
   background: var(--bg-light);
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .video-carousel-section {
+    padding: 40px 0;
+  }
 }
 
 .video-carousel-section .section-header h2,

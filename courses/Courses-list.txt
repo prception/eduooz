@@ -88,7 +88,9 @@ Saudi Pearson VUE Licensing Exam
 1.Kerala PSC Exams (MLT)
 
 DHS
-IMS/Homeo/Ayurveda/Oil Palm
+IMS Homeo
+IMS Ayurveda
+IMS Oil Palm
 JLA
 
 
@@ -116,7 +118,7 @@ practice Test question and answer updation
 
 How to Add the Next Exam Type
 
-Create components/question-banks/<key>.html — copy nursing-central.html, replace the question array
+Create components/mock-test-questions/<key>.html — copy nursing-central.html, replace the question array
 On the course page: add data-question-bank="<key>" to #mts-wrapper and the same two script tags
 No changes to practice-test.js, course-landing.js, or any CSS
 

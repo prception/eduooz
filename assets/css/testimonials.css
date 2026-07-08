@@ -106,6 +106,12 @@ body {
     z-index: 10;
 }
 
+@media (max-width: 768px) {
+    .testimonial-marquee-section {
+        padding: 0 0 40px 0;
+    }
+}
+
 /* Gradients on the edges to fade out the scrolling text */
 .testimonial-marquee-section::before,
 .testimonial-marquee-section::after {
@@ -212,6 +218,12 @@ body {
     padding: 150px 0;
     z-index: 10;
     overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .swipe-theater-section {
+        padding: 40px 0;
+    }
 }
 
 /* Ambient Background */
