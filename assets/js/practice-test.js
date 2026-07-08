@@ -2,6 +2,14 @@
 // practice-test.js — Reusable FREE PRACTICE TESTS engine
 // Reads question data from window.EXAM_QUESTION_BANK
 // Initialized by the question-bank loader below after the bank is fetched
+//
+// Hierarchy: Category (5) -> Topic (5) -> Section (5) -> Question (25)
+// Target content: 5 Categories x 5 Topics x 5 Sections x 25 Questions
+// = 3,125 questions. Real per-topic content isn't supplied yet, so each
+// topic temporarily reuses the category's existing 5 sections (25 Q each,
+// order shuffled per topic instance) — swap in real content by adding a
+// `topics` array to a category in the question-bank data file; this
+// generator only runs when a category has no `topics` field of its own.
 // =============================================================
 (function () {
     function init() {
@@ -14,33 +22,66 @@
             return;
         }
 
-        // ── State ──────────────────────────────────────────────────
-        let SECTIONS = [];
-        let state = {};
-
-        function resetState(catIdx) {
-            const singleCat = (catIdx !== undefined && catIdx !== null && catIdx >= 0);
-            if (singleCat) {
-                const cat = CATEGORIES[catIdx];
-                SECTIONS = cat.sections.map(sec => ({ ...sec, icon: cat.icon, color: cat.color }));
-            } else {
-                SECTIONS = CATEGORIES.flatMap(cat =>
-                    cat.sections.map(sec => ({ ...sec, icon: cat.icon, color: cat.color }))
-                );
+        function shuffled(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
             }
-            state = {
-                currentSection:  0,
-                currentQuestion: 0,
-                selectedCategory: singleCat ? catIdx : null,
-                sectionStates:   SECTIONS.map(() => 'active'),
-                answers:        SECTIONS.map(sec => Array(sec.questions.length).fill(null)),
-                sectionResults: SECTIONS.map(() => null),
-                chartInstances: {}
+            return a;
+        }
+
+        // ── Topics (temporary: category's existing 5 sections, reused by
+        //    every topic with question order shuffled per topic) — cached
+        //    once per category so the shuffle stays stable during the session.
+        const topicsCache = {}; // catIdx -> topics array
+        function topicsFor(catIdx) {
+            if (topicsCache[catIdx]) return topicsCache[catIdx];
+            const cat = CATEGORIES[catIdx];
+            const topics = cat.topics || Array.from({ length: 5 }, (_, t) => ({
+                name: 'Topic ' + (t + 1),
+                sections: cat.sections.map(sec => ({
+                    name: sec.name,
+                    questions: shuffled(sec.questions)
+                }))
+            }));
+            topicsCache[catIdx] = topics;
+            return topics;
+        }
+
+        // ── Per-category state — progress persists across category switches;
+        //    each topic remembers its own last-visited section/question so
+        //    returning to a category or topic resumes exactly where it left off.
+        const categoryStates = {}; // catIdx -> state
+
+        function freshCategoryState(catIdx) {
+            const topics = topicsFor(catIdx);
+            return {
+                currentTopic: 0,
+                topicCursor:  topics.map(() => ({ section: 0, question: 0 })),
+                answers:        topics.map(t => t.sections.map(s => Array(s.questions.length).fill(null))),
+                sectionResults: topics.map(t => t.sections.map(() => null))
             };
         }
 
+        let activeCategory = 0;
+        let TOPICS = topicsFor(activeCategory);
+        let state  = (categoryStates[activeCategory] = freshCategoryState(activeCategory));
+        let chartInstances = {};
+
+        function switchToCategory(catIdx) {
+            activeCategory = catIdx;
+            TOPICS = topicsFor(catIdx);
+            if (!categoryStates[catIdx]) categoryStates[catIdx] = freshCategoryState(catIdx);
+            state = categoryStates[catIdx];
+        }
+
+        // Shorthand accessors for the current position within the active category
+        function curCursor()  { return state.topicCursor[state.currentTopic]; }
+        function curTopic()   { return TOPICS[state.currentTopic]; }
+        function curSection() { return curTopic().sections[curCursor().section]; }
+
         // ── DOM refs ───────────────────────────────────────────────
-        const screenWelcome  = document.getElementById('mts-welcome');
         const screenExam     = document.getElementById('mts-exam');
         const screenResults  = document.getElementById('mts-results');
         const tabsScroll     = document.getElementById('mts-tabs-scroll');
@@ -59,10 +100,11 @@
         const prevBtn        = document.getElementById('mts-prev-btn');
         const nextBtn        = document.getElementById('mts-next-btn');
         const navCenter      = document.getElementById('mts-nav-center');
-        const sectionDone    = document.getElementById('mts-section-done');
+        const questionCard   = document.getElementById('mts-question-card');
+        const doneScreen     = document.getElementById('mts-section-done');
         const doneTitle      = document.getElementById('mts-done-title');
         const doneStats      = document.getElementById('mts-done-stats');
-        const nextSectionBtn = document.getElementById('mts-next-section-btn');
+        const doneNextBtn    = document.getElementById('mts-next-section-btn');
         const scAnswered     = document.getElementById('sc-answered');
         const scCorrect      = document.getElementById('sc-correct');
         const scWrong        = document.getElementById('sc-wrong');
@@ -72,46 +114,96 @@
         const scoreSection   = document.getElementById('mts-score-section');
         const sectionsMini   = document.getElementById('mts-sections-mini');
 
+        // One-time static text patches (elements never re-rendered by JS)
+        const secScoresHeading = document.getElementById('mts-section-scores');
+        if (secScoresHeading && secScoresHeading.previousElementSibling) {
+            secScoresHeading.previousElementSibling.innerHTML = '<i class="fa-solid fa-chart-bar"></i> Topic-wise Score';
+        }
+        const barChartCanvas = document.getElementById('mts-bar-chart');
+        if (barChartCanvas) barChartCanvas.setAttribute('aria-label', 'Topic-wise score bar chart');
+
         // ── Utility ────────────────────────────────────────────────
         function show(el)  { if (el) el.classList.remove('mts-hidden'); }
         function hide(el)  { if (el) el.classList.add('mts-hidden');    }
         function showScreen(name) {
-            [screenWelcome, screenExam, screenResults].forEach(s => { if (s) s.classList.add('mts-hidden'); });
-            const target = { welcome: screenWelcome, exam: screenExam, results: screenResults }[name];
+            [screenExam, screenResults].forEach(s => { if (s) s.classList.add('mts-hidden'); });
+            const target = { exam: screenExam, results: screenResults }[name];
             if (target) target.classList.remove('mts-hidden');
         }
 
-        let pendingCatIdx = null;
-
-        // ── Category Nav (left panel) ───────────────────────────────
+        // ── Category + Topic Nav (left panel, accordion) ─────────────
+        // Only the active category's topic panel is expanded; switching
+        // category is non-destructive — each category keeps its own progress.
         function buildCatNav() {
             const catNav = document.getElementById('mts-cat-nav');
             if (!catNav) return;
             catNav.innerHTML = CATEGORIES.map((cat, i) => {
-                const isActive = i === state.selectedCategory;
-                return `<button class="mts-left-cat${isActive ? ' mts-left-cat-active' : ''}" data-cat-idx="${i}" style="--cat-col:${cat.color}">
-                    <i class="fa-solid ${cat.icon}"></i>
-                    <span>${cat.name}</span>
-                </button>`;
+                const isActive = i === activeCategory;
+                const cState   = categoryStates[i];
+                const topics   = topicsFor(i);
+                const topicIdx = cState ? cState.currentTopic : 0;
+                const topicsHtml = topics.map((topic, t) => {
+                    const total = topic.sections.reduce((n, s) => n + s.questions.length, 0);
+                    const answered = cState ? cState.answers[t].reduce((n, secAns) => n + secAns.filter(a => a !== null).length, 0) : 0;
+                    const isTopicActive = isActive && t === topicIdx;
+                    const isDone = total > 0 && answered === total;
+                    const pct = total > 0 ? Math.round(answered / total * 100) : 0;
+                    let cls = 'mts-topic-item';
+                    if (isTopicActive) cls += ' mts-topic-item-active';
+                    if (isDone)        cls += ' mts-topic-item-done';
+                    const badge = isDone ? '<i class="fa-solid fa-check"></i>' : (t + 1);
+                    const score = answered > 0 ? `<span class="mts-topic-item-score">${answered}/${total}</span>` : '';
+                    return `<button class="${cls}" data-cat-idx="${i}" data-topic-idx="${t}">
+                        <span class="mts-topic-item-badge">${badge}</span>
+                        <span class="mts-topic-item-body">
+                            <span class="mts-topic-item-name">${topic.name}</span>
+                            <span class="mts-topic-item-bar"><span class="mts-topic-item-bar-fill" style="width:${pct}%"></span></span>
+                        </span>
+                        ${score}
+                    </button>`;
+                }).join('');
+                return `<div class="mts-left-cat-group">
+                    <button class="mts-left-cat${isActive ? ' mts-left-cat-active' : ''}" data-cat-idx="${i}" style="--cat-col:${cat.color}">
+                        <i class="fa-solid ${cat.icon}"></i>
+                        <span>${cat.name}</span>
+                        <i class="fa-solid fa-chevron-down mts-cat-topic-toggle${isActive ? ' mts-cat-topic-toggle-open' : ''}"></i>
+                    </button>
+                    <div class="mts-cat-topics${isActive ? '' : ' mts-hidden'}">${topicsHtml}</div>
+                </div>`;
             }).join('');
+
             catNav.querySelectorAll('.mts-left-cat').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const idx = parseInt(btn.dataset.catIdx);
-                    if (idx === state.selectedCategory) return;
-                    pendingCatIdx = idx;
-                    openCatConfirm();
+                    if (idx !== activeCategory) switchToCategory(idx);
+                    showScreen('exam');
+                    renderQuestion();
+                });
+            });
+
+            catNav.querySelectorAll('.mts-topic-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const catIdx   = parseInt(item.dataset.catIdx);
+                    const topicIdx = parseInt(item.dataset.topicIdx);
+                    if (catIdx !== activeCategory) switchToCategory(catIdx);
+                    state.currentTopic = topicIdx; // that topic's own cursor resumes automatically
+                    showScreen('exam');
+                    renderQuestion();
                 });
             });
         }
 
-        // ── Tabs ───────────────────────────────────────────────────
+        // ── Section tabs (within the active topic) ────────────────────
         function buildTabs() {
             if (!tabsScroll) return;
-            tabsScroll.innerHTML = SECTIONS.map((sec, i) => {
-                const ans = state.answers[i];
+            const t = state.currentTopic;
+            const sections = curTopic().sections;
+            tabsScroll.innerHTML = sections.map((sec, i) => {
+                const ans = state.answers[t][i];
                 const answered = ans.filter(a => a !== null).length;
                 const allDone = answered === sec.questions.length;
-                const isCurrent = i === state.currentSection;
+                const isCurrent = i === curCursor().section;
 
                 let cls = 'mts-tab';
                 let icon = '';
@@ -125,17 +217,19 @@
             }).join('');
             tabsScroll.querySelectorAll('.mts-tab').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    state.currentSection  = parseInt(btn.dataset.sec);
-                    state.currentQuestion = 0;
+                    const cur = curCursor();
+                    cur.section  = parseInt(btn.dataset.sec);
+                    cur.question = 0;
                     renderQuestion();
                 });
             });
         }
 
-        // ── Score panel ────────────────────────────────────────────
+        // ── Score panel (scoped to the current section) ───────────────
         function updateScorePanel() {
-            const sec = state.currentSection;
-            const ans = state.answers[sec];
+            const t = state.currentTopic;
+            const s = curCursor().section;
+            const ans = state.answers[t][s];
             const answered = ans.filter(a => a !== null).length;
             const correct  = ans.filter(a => a && a.correct).length;
             const wrong    = answered - correct;
@@ -147,15 +241,16 @@
             if (scScore)    scScore.textContent     = correct;
             if (scAccuracy) scAccuracy.textContent  = acc + '%';
             if (scAccFill)  scAccFill.style.width   = acc + '%';
-            if (scoreSection) scoreSection.textContent = 'Section ' + (sec + 1);
+            if (scoreSection) scoreSection.textContent = 'Section ' + (s + 1);
 
             if (sectionsMini) {
-                sectionsMini.innerHTML = SECTIONS.map((s, i) => {
-                    const ans = state.answers[i];
-                    const answered = ans.filter(a => a !== null).length;
-                    const allDone = answered === s.questions.length;
-                    const isCurrent = i === sec;
-                    const correctCount = ans.filter(a => a && a.correct).length;
+                const sections = curTopic().sections;
+                sectionsMini.innerHTML = sections.map((sec, i) => {
+                    const secAns = state.answers[t][i];
+                    const answered = secAns.filter(a => a !== null).length;
+                    const allDone = answered === sec.questions.length;
+                    const isCurrent = i === s;
+                    const correctCount = secAns.filter(a => a && a.correct).length;
 
                     let cls = 'mts-mini-section';
                     if (isCurrent)    { cls += ' mts-mini-active'; }
@@ -163,9 +258,9 @@
 
                     let right = '';
                     if (isCurrent) {
-                        right = `${answered}/${s.questions.length}`;
+                        right = `${answered}/${sec.questions.length}`;
                     } else if (answered > 0) {
-                        right = `<span class="mts-mini-score">${correctCount}✓ &nbsp;${answered}/${s.questions.length}</span>`;
+                        right = `<span class="mts-mini-score">${correctCount}✓ &nbsp;${answered}/${sec.questions.length}</span>`;
                     } else {
                         right = '<span style="opacity:0.4;font-size:0.72rem">Not started</span>';
                     }
@@ -173,8 +268,9 @@
                 }).join('');
                 sectionsMini.querySelectorAll('[data-jump-sec]').forEach(row => {
                     row.addEventListener('click', () => {
-                        state.currentSection  = parseInt(row.dataset.jumpSec);
-                        state.currentQuestion = 0;
+                        const cur = curCursor();
+                        cur.section  = parseInt(row.dataset.jumpSec);
+                        cur.question = 0;
                         renderQuestion();
                     });
                 });
@@ -183,20 +279,25 @@
 
         // ── Render question ────────────────────────────────────────
         function renderQuestion() {
-            const sec = state.currentSection;
-            const qi  = state.currentQuestion;
-            const q   = SECTIONS[sec].questions[qi];
-            const existing = state.answers[sec][qi];
+            const t   = state.currentTopic;
+            const cur = curCursor();
+            const s   = cur.section;
+            const qi  = cur.question;
+            const sec = curSection();
+            const q   = sec.questions[qi];
+            const existing = state.answers[t][s][qi];
             const answered = existing !== null;
 
-            show(document.getElementById('mts-question-card'));
-            hide(sectionDone);
+            show(questionCard);
+            hide(doneScreen);
+            hide(feedbackCard);
+            hide(navBar);
 
             if (qNum)     qNum.textContent      = `Q${qi + 1}.`;
             if (qText)    qText.textContent     = q.q;
-            if (qCounter) qCounter.textContent  = `Question ${qi + 1} of ${SECTIONS[sec].questions.length}`;
-            if (sectionBadge) sectionBadge.textContent = 'Section ' + (sec + 1);
-            if (progressFill) progressFill.style.width = ((qi + (answered ? 1 : 0)) / SECTIONS[sec].questions.length * 100) + '%';
+            if (qCounter) qCounter.textContent  = `Question ${qi + 1} of ${sec.questions.length}`;
+            if (sectionBadge) sectionBadge.textContent = `Topic ${t + 1} · Section ${s + 1}`;
+            if (progressFill) progressFill.style.width = ((qi + (answered ? 1 : 0)) / sec.questions.length * 100) + '%';
 
             // Build options
             if (optionsWrap) {
@@ -229,14 +330,11 @@
                 if (answered) hide(submitBtn); else show(submitBtn);
             }
 
-            // Feedback
+            // Feedback: Correct/Incorrect, correct answer, explanation — then allow moving on
             if (answered) {
-                showFeedback(sec, qi, existing.selected);
+                showFeedback(t, s, qi, existing.selected);
                 show(navBar);
-                updateNavButtons(sec, qi);
-            } else {
-                hide(feedbackCard);
-                hide(navBar);
+                updateNavButtons(t, s, qi);
             }
 
             buildCatNav();
@@ -245,8 +343,8 @@
         }
 
         // ── Show feedback ──────────────────────────────────────────
-        function showFeedback(sec, qi, selected) {
-            const q = SECTIONS[sec].questions[qi];
+        function showFeedback(t, s, qi, selected) {
+            const q = TOPICS[t].sections[s].questions[qi];
             const isCorrect = selected === q.ans;
 
             show(feedbackCard);
@@ -268,16 +366,28 @@
         }
 
         // ── Nav buttons ────────────────────────────────────────────
-        function updateNavButtons(sec, qi) {
+        function updateNavButtons(t, s, qi) {
             if (prevBtn) prevBtn.style.visibility = qi > 0 ? 'visible' : 'hidden';
+            const sec = TOPICS[t].sections[s];
+            const isLastQuestion = qi >= sec.questions.length - 1;
+            const isLastSection  = s >= TOPICS[t].sections.length - 1;
+            const isLastTopic    = t >= TOPICS.length - 1;
             if (nextBtn) {
-                nextBtn.innerHTML = 'Next <i class="fa-solid fa-chevron-right"></i>';
+                if (isLastQuestion) {
+                    nextBtn.innerHTML = (isLastSection && isLastTopic)
+                        ? 'View Results <i class="fa-solid fa-flag-checkered"></i>'
+                        : isLastSection
+                            ? 'Finish Topic <i class="fa-solid fa-check"></i>'
+                            : 'Finish Section <i class="fa-solid fa-check"></i>';
+                } else {
+                    nextBtn.innerHTML = 'Next <i class="fa-solid fa-chevron-right"></i>';
+                }
                 nextBtn.className = 'mts-nav-btn mts-btn-cyan';
-                nextBtn.disabled = (qi >= SECTIONS[sec].questions.length - 1);
+                nextBtn.disabled = false;
             }
             if (navCenter) {
-                const secAns = state.answers[sec].filter(a => a !== null).length;
-                navCenter.textContent = `${secAns} / ${SECTIONS[sec].questions.length} answered`;
+                const sAns = state.answers[t][s].filter(a => a !== null).length;
+                navCenter.textContent = `${sAns} / ${sec.questions.length} answered`;
             }
         }
 
@@ -285,42 +395,108 @@
         function submitAnswer() {
             const selected = optionsWrap ? optionsWrap.querySelector('.mts-opt-selected') : null;
             if (!selected) return;
-            const sec = state.currentSection;
-            const qi  = state.currentQuestion;
+            const t   = state.currentTopic;
+            const cur = curCursor();
+            const s   = cur.section;
+            const qi  = cur.question;
             const selectedIdx = parseInt(selected.dataset.idx);
-            const isCorrect   = selectedIdx === SECTIONS[sec].questions[qi].ans;
+            const isCorrect   = selectedIdx === TOPICS[t].sections[s].questions[qi].ans;
 
-            state.answers[sec][qi] = { selected: selectedIdx, correct: isCorrect };
+            state.answers[t][s][qi] = { selected: selectedIdx, correct: isCorrect };
             hide(submitBtn);
             renderQuestion();
         }
 
-        // ── Complete section (saves results; no longer blocks navigation) ─────
-        function completeSection() {
-            const sec = state.currentSection;
-            const ans = state.answers[sec];
+        // ── Complete a section (saves its result) ─────────────────────
+        function completeSection(t, s) {
+            const ans = state.answers[t][s];
             const correct = ans.filter(a => a && a.correct).length;
             const wrong   = ans.filter(a => a && !a.correct).length;
-            state.sectionResults[sec] = { correct, wrong, score: correct };
-            buildCatNav();
-            buildTabs();
-            updateScorePanel();
+            state.sectionResults[t][s] = { correct, wrong, score: correct };
         }
 
-        // ── Results screen ─────────────────────────────────────────
+        function topicAggregate(t) {
+            const results = state.sectionResults[t].filter(Boolean);
+            return {
+                correct: results.reduce((n, r) => n + r.correct, 0),
+                wrong:   results.reduce((n, r) => n + r.wrong, 0),
+                total:   TOPICS[t].sections.reduce((n, sec) => n + sec.questions.length, 0)
+            };
+        }
+
+        // ── "Done" screen — reused for both section-complete (advance to
+        //    the next section within this topic) and topic-complete
+        //    (advance to the next topic) transitions. ─────────────────
+        function showSectionDone(t, s) {
+            hide(questionCard);
+            hide(feedbackCard);
+            hide(navBar);
+            show(doneScreen);
+
+            const r = state.sectionResults[t][s] || { correct: 0, wrong: 0 };
+            const total = TOPICS[t].sections[s].questions.length;
+            const pct = total > 0 ? Math.round(r.correct / total * 100) : 0;
+
+            if (doneTitle) doneTitle.textContent = `Section ${s + 1} Completed!`;
+            if (doneStats) {
+                doneStats.innerHTML = `
+                    <div class="mts-done-stat"><strong>${r.correct}</strong><span>Correct</span></div>
+                    <div class="mts-done-stat"><strong>${r.wrong}</strong><span>Wrong</span></div>
+                    <div class="mts-done-stat"><strong>${pct}%</strong><span>Accuracy</span></div>
+                `;
+            }
+            if (doneNextBtn) {
+                doneNextBtn.innerHTML = `Go to Section ${s + 2} <i class="fa-solid fa-arrow-right"></i>`;
+                doneNextBtn.onclick = () => {
+                    const cur = curCursor();
+                    cur.section  = s + 1;
+                    cur.question = 0;
+                    renderQuestion();
+                };
+            }
+        }
+
+        function showTopicDone(t) {
+            hide(questionCard);
+            hide(feedbackCard);
+            hide(navBar);
+            show(doneScreen);
+
+            const agg = topicAggregate(t);
+            const pct = agg.total > 0 ? Math.round(agg.correct / agg.total * 100) : 0;
+
+            if (doneTitle) doneTitle.textContent = `Topic ${t + 1} Completed!`;
+            if (doneStats) {
+                doneStats.innerHTML = `
+                    <div class="mts-done-stat"><strong>${agg.correct}</strong><span>Correct</span></div>
+                    <div class="mts-done-stat"><strong>${agg.wrong}</strong><span>Wrong</span></div>
+                    <div class="mts-done-stat"><strong>${pct}%</strong><span>Accuracy</span></div>
+                `;
+            }
+            if (doneNextBtn) {
+                doneNextBtn.innerHTML = `Go to Topic ${t + 2} <i class="fa-solid fa-arrow-right"></i>`;
+                doneNextBtn.onclick = () => {
+                    state.currentTopic = t + 1;
+                    renderQuestion();
+                };
+            }
+        }
+
+        // ── Results screen — scoped to the active category, aggregated
+        //    per topic (each topic sums its 5 sections). ───────────────
         function showResults() {
             showScreen('results');
 
-            // Compute results from answers (all attempted sections)
-            const attempted = SECTIONS.map((sec, i) => {
-                const ans = state.answers[i];
-                const answered = ans.filter(a => a !== null).length;
+            const attempted = TOPICS.map((topic, i) => {
+                const answered = state.answers[i].reduce((n, secAns) => n + secAns.filter(a => a !== null).length, 0);
                 if (answered === 0) return null;
-                const correct = ans.filter(a => a && a.correct).length;
+                const correct = state.answers[i].reduce((n, secAns) => n + secAns.filter(a => a && a.correct).length, 0);
                 const wrong   = answered - correct;
                 return { i, r: { correct, wrong, score: correct } };
             }).filter(Boolean);
-            const totalQs    = attempted.reduce((sum, {i}) => sum + SECTIONS[i].questions.length, 0);
+            const topicTotal = i => TOPICS[i].sections.reduce((n, sec) => n + sec.questions.length, 0);
+
+            const totalQs    = attempted.reduce((sum, {i}) => sum + topicTotal(i), 0);
             const totCorrect = attempted.reduce((s, {r}) => s + r.correct, 0);
             const totWrong   = attempted.reduce((s, {r}) => s + r.wrong, 0);
             const totalScore = totCorrect;
@@ -330,15 +506,16 @@
             const subEl = document.getElementById('mts-results-sub');
             if (subEl) subEl.textContent = `Score: ${totalScore}/${totalQs} · ${pct}% · ${passed ? '✅ PASS' : '❌ NEEDS IMPROVEMENT'}`;
 
-            // Section scores — only attempted sections
+            // Topic scores — only attempted topics
             const secScoresEl = document.getElementById('mts-section-scores');
             if (secScoresEl) {
                 secScoresEl.innerHTML = attempted.map(({i, r}) => {
-                    const pctW = Math.round(r.correct / SECTIONS[i].questions.length * 100);
+                    const total = topicTotal(i);
+                    const pctW = Math.round(r.correct / total * 100);
                     return `<div class="mts-sec-score-row">
-                        <span class="mts-sec-score-label">${SECTIONS[i].name}</span>
+                        <span class="mts-sec-score-label">Topic ${i + 1}</span>
                         <div class="mts-sec-score-bar-wrap"><div class="mts-sec-score-bar" style="width:0%" data-target="${pctW}"></div></div>
-                        <span class="mts-sec-score-val">${r.correct}/${SECTIONS[i].questions.length}</span>
+                        <span class="mts-sec-score-val">${r.correct}/${total}</span>
                     </div>`;
                 }).join('');
                 setTimeout(() => {
@@ -366,8 +543,8 @@
                     ['Total Correct', totCorrect, `of ${totalQs}`],
                     ['Total Wrong', totWrong, `of ${totalQs}`],
                     ...(scores.length > 1 ? [
-                        ['Strongest', SECTIONS[best.i].name, `${best.correct}/${SECTIONS[best.i].questions.length}`],
-                        ['Weakest',   SECTIONS[worst.i].name, `${worst.correct}/${SECTIONS[worst.i].questions.length}`]
+                        ['Strongest', `Topic ${best.i + 1}`, `${best.correct}/${topicTotal(best.i)}`],
+                        ['Weakest',   `Topic ${worst.i + 1}`, `${worst.correct}/${topicTotal(worst.i)}`]
                     ] : []),
                     ['Status', passed ? 'PASS' : 'FAIL', '']
                 ].map(([lbl, val, sub]) =>
@@ -380,7 +557,7 @@
             }
 
             // Charts
-            buildCharts(totCorrect, totWrong, scores, totalQs);
+            buildCharts(totCorrect, totWrong, scores, totalQs, topicTotal);
 
             // Question review
             buildReviewList('all');
@@ -395,16 +572,16 @@
         }
 
         // ── Charts ─────────────────────────────────────────────────
-        function buildCharts(totCorrect, totWrong, scores, totalQs) {
+        function buildCharts(totCorrect, totWrong, scores, totalQs, topicTotal) {
             if (typeof Chart === 'undefined') return;
 
-            Object.values(state.chartInstances).forEach(c => { try { c.destroy(); } catch(e) {} });
-            state.chartInstances = {};
+            Object.values(chartInstances).forEach(c => { try { c.destroy(); } catch(e) {} });
+            chartInstances = {};
 
             // Donut
             const donutCtx = document.getElementById('mts-donut-chart');
             if (donutCtx) {
-                state.chartInstances.donut = new Chart(donutCtx, {
+                chartInstances.donut = new Chart(donutCtx, {
                     type: 'doughnut',
                     data: {
                         labels: ['Correct', 'Wrong'],
@@ -431,11 +608,11 @@
             // Bar
             const barCtx = document.getElementById('mts-bar-chart');
             if (barCtx) {
-                const maxQs = Math.max(...scores.map(s => SECTIONS[s.i].questions.length));
-                state.chartInstances.bar = new Chart(barCtx, {
+                const maxQs = Math.max(...scores.map(s => topicTotal(s.i)));
+                chartInstances.bar = new Chart(barCtx, {
                     type: 'bar',
                     data: {
-                        labels: scores.map(s => SECTIONS[s.i].name.split(' ')[0]),
+                        labels: scores.map(s => `Topic ${s.i + 1}`),
                         datasets: [{
                             data: scores.map(s => s.correct),
                             backgroundColor: scores.map((s, i) => ['#06b6d4','#3b82f6','#7c3aed','#14b8a6','#f59e0b'][i]),
@@ -443,7 +620,7 @@
                         }]
                     },
                     options: {
-                        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` Score: ${ctx.raw}/${SECTIONS[scores[ctx.dataIndex].i].questions.length}` } } },
+                        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` Score: ${ctx.raw}/${topicTotal(scores[ctx.dataIndex].i)}` } } },
                         scales: {
                             y: { min: 0, max: maxQs, ticks: { stepSize: Math.ceil(maxQs / 5), font: { size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
                             x: { ticks: { font: { size: 11 } }, grid: { display: false } }
@@ -459,19 +636,21 @@
             const listEl = document.getElementById('mts-review-list');
             if (!listEl) return;
             let items = [];
-            SECTIONS.forEach((sec, si) => {
-                sec.questions.forEach((q, qi) => {
-                    const ans = state.answers[si][qi];
-                    if (!ans) return;
-                    const isCorrect = ans.correct;
-                    if (filter === 'correct' && !isCorrect) return;
-                    if (filter === 'wrong'   && isCorrect)  return;
-                    items.push({ si, qi, q, ans, isCorrect });
+            TOPICS.forEach((topic, ti) => {
+                topic.sections.forEach((sec, si) => {
+                    sec.questions.forEach((q, qi) => {
+                        const ans = state.answers[ti][si][qi];
+                        if (!ans) return;
+                        const isCorrect = ans.correct;
+                        if (filter === 'correct' && !isCorrect) return;
+                        if (filter === 'wrong'   && isCorrect)  return;
+                        items.push({ ti, si, qi, q, ans, isCorrect });
+                    });
                 });
             });
-            listEl.innerHTML = items.map(({ si, qi, q, ans, isCorrect }) => `
+            listEl.innerHTML = items.map(({ ti, si, qi, q, ans, isCorrect }) => `
                 <div class="mts-review-item ${isCorrect ? 'mts-rev-correct' : 'mts-rev-wrong'}">
-                    <div class="mts-review-q">S${si+1} Q${qi+1}: ${q.q}</div>
+                    <div class="mts-review-q">T${ti+1}.S${si+1} Q${qi+1}: ${q.q}</div>
                     <div class="mts-review-answers">
                         <div class="mts-review-row">
                             <span class="mts-review-row-label">Your Ans</span>
@@ -484,123 +663,67 @@
             ).join('') || '<div style="padding:20px;text-align:center;color:#94a3b8;font-size:0.85rem;">No questions to show.</div>';
         }
 
-        // ── Retest ─────────────────────────────────────────────────
+        // ── Retest — resets ONLY the active category's progress ──────
+        //    (a full multi-category reset is intentionally not wired up here)
         function retest() {
-            if (screenResults) screenResults.classList.add('mts-hidden');
-            if (screenExam)    screenExam.classList.add('mts-hidden');
-            if (screenWelcome) screenWelcome.classList.remove('mts-hidden');
-        }
-
-        // ── Category selection (welcome screen) ────────────────────
-        let selectedCatIdx = 0;
-        const catGrid = document.getElementById('mts-cat-grid');
-        if (catGrid) {
-            catGrid.querySelectorAll('.mts-cat-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    catGrid.querySelectorAll('.mts-cat-card').forEach(c => c.classList.remove('mts-cat-active'));
-                    card.classList.add('mts-cat-active');
-                    selectedCatIdx = parseInt(card.dataset.cat);
-                });
-            });
+            categoryStates[activeCategory] = freshCategoryState(activeCategory);
+            state = categoryStates[activeCategory];
+            showScreen('exam');
+            renderQuestion();
         }
 
         // ── Wire events ────────────────────────────────────────────
-        const startBtn = document.getElementById('mts-start-btn');
-        if (startBtn) startBtn.addEventListener('click', () => {
-            resetState(selectedCatIdx);
-            showScreen('exam');
-            renderQuestion();
-        });
-
         if (submitBtn) submitBtn.addEventListener('click', submitAnswer);
 
         if (prevBtn) prevBtn.addEventListener('click', () => {
-            if (state.currentQuestion > 0) {
-                state.currentQuestion--;
+            const cur = curCursor();
+            if (cur.question > 0) {
+                cur.question--;
                 renderQuestion();
             }
         });
 
         if (nextBtn) nextBtn.addEventListener('click', () => {
-            if (state.currentQuestion < SECTIONS[state.currentSection].questions.length - 1) {
-                state.currentQuestion++;
-                renderQuestion();
-            }
-        });
+            const t   = state.currentTopic;
+            const cur = curCursor();
+            const s   = cur.section;
+            const sec = TOPICS[t].sections[s];
+            const isLastQuestion = cur.question >= sec.questions.length - 1;
 
-        if (nextSectionBtn) nextSectionBtn.addEventListener('click', () => {
-            const next = state.currentSection + 1;
-            if (next >= SECTIONS.length) {
-                showResults();
+            if (!isLastQuestion) {
+                cur.question++;
+                renderQuestion();
+                return;
+            }
+
+            // Last question of the section answered — complete it, then advance
+            completeSection(t, s);
+            const isLastSection = s >= TOPICS[t].sections.length - 1;
+            const isLastTopic   = t >= TOPICS.length - 1;
+
+            if (!isLastSection) {
+                showSectionDone(t, s);
+            } else if (!isLastTopic) {
+                showTopicDone(t);
             } else {
-                state.currentSection  = next;
-                state.currentQuestion = 0;
-                renderQuestion();
+                showResults();
             }
         });
 
-        const retestBtn  = document.getElementById('mts-retest-btn');
+        const retestBtn = document.getElementById('mts-retest-btn');
         if (retestBtn) retestBtn.addEventListener('click', retest);
-
-        // Exit button — show confirm modal
-        const exitBtn         = document.getElementById('mts-exit-btn');
-        const exitModal       = document.getElementById('mts-exit-modal');
-        const exitCancelBtn   = document.getElementById('mts-exit-cancel-btn');
-        const exitConfirmBtn  = document.getElementById('mts-exit-confirm-btn');
-
-        function openExitModal()  { if (exitModal) exitModal.classList.remove('mts-hidden'); }
-        function closeExitModal() { if (exitModal) exitModal.classList.add('mts-hidden'); }
-
-        if (exitBtn)        exitBtn.addEventListener('click', openExitModal);
-        if (exitCancelBtn)  exitCancelBtn.addEventListener('click', closeExitModal);
-        if (exitConfirmBtn) exitConfirmBtn.addEventListener('click', () => {
-            closeExitModal();
-            retest();
-        });
-        // Close on backdrop click
-        if (exitModal) exitModal.addEventListener('click', (e) => {
-            if (e.target === exitModal) closeExitModal();
-        });
-
-        // ── Category switch confirmation (from left nav) ────────────
-        const catConfirmModal = document.getElementById('mts-cat-confirm-modal');
-        const catCancelBtn    = document.getElementById('mts-cat-cancel-btn');
-        const catConfirmBtn   = document.getElementById('mts-cat-confirm-btn');
-
-        function openCatConfirm()  { if (catConfirmModal) catConfirmModal.classList.remove('mts-hidden'); }
-        function closeCatConfirm() { if (catConfirmModal) catConfirmModal.classList.add('mts-hidden'); }
-
-        if (catCancelBtn) catCancelBtn.addEventListener('click', () => { pendingCatIdx = null; closeCatConfirm(); });
-        if (catConfirmBtn) catConfirmBtn.addEventListener('click', () => {
-            if (pendingCatIdx !== null) {
-                selectedCatIdx = pendingCatIdx;
-                const idx = pendingCatIdx;
-                pendingCatIdx = null;
-                closeCatConfirm();
-                resetState(idx);
-                showScreen('exam');
-                renderQuestion();
-            }
-        });
-        if (catConfirmModal) catConfirmModal.addEventListener('click', e => {
-            if (e.target === catConfirmModal) { pendingCatIdx = null; closeCatConfirm(); }
-        });
 
         // Init: disable submit until option selected
         if (submitBtn) submitBtn.disabled = true;
+
+        // ── Boot straight into Cardiology (category 1), Topic 1, Section 1,
+        //    Question 1 — its panel expanded, no click required.
+        showScreen('exam');
+        renderQuestion();
     }
 
     window.PracticeTest = { init };
 })();
-
-
-
-
-
-
-
-
-
 
 
 

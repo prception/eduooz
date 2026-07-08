@@ -42,6 +42,7 @@
 
 .logo-footer img {
   height: 170px;
+  width: auto;
   /* filter: brightness(15); */
 }
 
@@ -868,6 +869,19 @@
   .float-plus {
     width: 35px;
     height: 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  .luxury-footer-inner {
+    padding-top: 10px;
+  }
+  .footer-cta-zone {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+  }
+  .footer-cta-title {
+    margin-bottom: 28px;
   }
 }
 

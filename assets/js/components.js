@@ -40,7 +40,7 @@
     header: basePath + "components/header.html",
     footer: basePath + "components/footer.html",
     chat: basePath + "components/chat.html",
-    enquiryForm: basePath + "components/enquiry-form.html",
+    enquiryForm: basePath + "components/lead-enquiry-form.html",
   };
 
   /**
