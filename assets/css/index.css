@@ -33,7 +33,7 @@ body {
   background-color: var(--bg-light);
   /* Changed to light to support fixed light mesh */
   color: var(--text-main);
-  overflow-x: hidden;
+  overflow-x: clip;
   min-height: 100vh;
 }
 

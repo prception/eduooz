@@ -31,29 +31,33 @@
 
                 <!-- Right: Form -->
                 <div class="enquiry-form-wrapper">
-                    <form class="glass-form" onsubmit="event.preventDefault(); alert('Form Submitted Successfully');">
+                    <form class="glass-form lead-form">
                         <div class="form-row">
                             <div class="input-group">
-                                <input type="text" id="enquiry-name" required placeholder="Full Name">
+                                <input type="text" id="enquiry-name" name="name" required placeholder="Full Name">
                             </div>
                             <div class="input-group">
-                                <input type="tel" id="enquiry-phone" required placeholder="Phone Number">
+                                <input type="tel" id="enquiry-phone" name="phone" required placeholder="Phone Number">
                             </div>
                         </div>
 
+                        <div class="input-group">
+                            <input type="email" id="enquiry-email" name="email" placeholder="Email Address">
+                        </div>
+
                         <div class="input-group select-wrapper">
-                            <select id="enquiry-course" required>
+                            <select id="enquiry-course" name="course" required>
                                 <option value="" disabled selected>Select Course Category</option>
-                                <option value="nursing">Nursing Coaching (AIIMS / RRB)</option>
-                                <option value="pharma">Pharmacist Exams</option>
-                                <option value="lab">Lab Technician Courses</option>
-                                <option value="dha">International (DHA / HAAD)</option>
+                                <option value="nursing">Nursing Coaching</option>
+                                <option value="pharmacy">Pharmacist Exams</option>
+                                <option value="mlt">Lab Technician Courses</option>
+                                <option value="german">German Languages</option>
                             </select>
                             <i class="fa-solid fa-chevron-down select-icon"></i>
                         </div>
 
                         <div class="input-group">
-                            <textarea id="enquiry-message" rows="4" required placeholder="How can we help you?"></textarea>
+                            <textarea id="enquiry-message" name="message" rows="4" placeholder="How can we help you?"></textarea>
                         </div>
 
                         <button type="submit" class="btn-form-submit">

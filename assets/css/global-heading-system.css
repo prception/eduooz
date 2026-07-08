@@ -46,7 +46,7 @@ html.lenis,
 html.lenis body {
   height: auto;
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .lenis.lenis-smooth {

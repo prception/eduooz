@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,6 +17,10 @@
     <meta property="og:description" content="Reach out to Eduooz International Academy for nursing, pharmacy, or lab technology exam coaching. Located in Trivandrum, Kerala. Call: +91 8111850054." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://www.eduooz.com/assets/images/eduooz-log.png" />
+    <meta property="og:image:alt" content="Eduooz International Academy logo" />
+    <meta property="og:image:width" content="1080" />
+    <meta property="og:image:height" content="1080" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:url" content="https://www.eduooz.com/contact.html" />
     <meta property="og:site_name" content="Eduooz International Academy" />
 
@@ -25,6 +29,7 @@
     <meta name="twitter:title" content="Contact Us | Eduooz International Academy" />
     <meta name="twitter:description" content="Reach out to Eduooz International Academy for nursing, pharmacy, or lab technology exam coaching. Located in Trivandrum, Kerala. Call: +91 8111850054." />
     <meta name="twitter:image" content="https://www.eduooz.com/assets/images/eduooz-log.png" />
+    <meta name="twitter:image:alt" content="Eduooz International Academy logo" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -33,7 +38,7 @@
       "@type": "LocalBusiness",
       "name": "Eduooz International Academy",
       "url": "https://www.eduooz.com/",
-      "image": "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=1200",
+      "image": "https://www.eduooz.com/assets/images/eduooz-log.png",
       "description": "Premier healthcare exam coaching academy in Trivandrum, Kerala. Coaching for nursing, pharmacy, and lab technology government recruitment and GCC licensing exams.",
       "address": {
         "@type": "PostalAddress",
@@ -135,7 +140,7 @@
                             <div class="form-container g-reveal">
                                 <div class="contact-form-card">
                                     <h3>Your Details</h3>
-                                    <form action="#" class="custom-form" onsubmit="event.preventDefault(); alert('Thank you! Your message has been submitted successfully.'); this.reset();">
+                                    <form id="contactForm" class="custom-form">
                                         <div class="form-row">
                                             <div class="form-group">
                                                 <label for="name">Name <span class="required">*</span></label>
@@ -148,12 +153,12 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group">
-                                                <label for="phone">Phone Number <span class="required">*</span></label>
-                                                <input type="text" id="phone" name="phone" autocomplete="tel" placeholder="Your Phone Number" required>
+                                                <label for="phone">Phone Number</label>
+                                                <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="Your Phone Number">
                                             </div>
                                             <div class="form-group">
-                                                <label for="subject">Subject <span class="required">*</span></label>
-                                                <input type="text" id="subject" name="subject" placeholder="Message Subject" required>
+                                                <label for="subject">Subject</label>
+                                                <input type="text" id="subject" name="subject" placeholder="Message Subject">
                                             </div>
                                         </div>
 
@@ -163,7 +168,7 @@
                                             <textarea id="message" name="message" rows="3" placeholder="Your Message"
                                                 required></textarea>
                                         </div>
-                                        <button type="submit" class="btn-submit magnetic-btn">SUBMIT</button>
+                                        <button type="submit" class="btn-submit magnetic-btn">Send Message</button>
                                     </form>
                                 </div>
                             </div>
@@ -200,6 +205,7 @@
 
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="assets/js/components.js"></script>
+    <script src="assets/js/forms.js"></script>
     <script src="assets/js/contact-bg.js"></script>
 
 </body>

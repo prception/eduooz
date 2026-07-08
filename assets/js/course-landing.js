@@ -2167,34 +2167,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // This section is shared by every course landing page (nursing AND
     // pharmacy). Pick videos that actually match the subject instead of
-    // always showing the NORCET (nursing officer exam) set.
+    // always showing the NORCET (nursing officer exam) set. (Kept
+    // self-contained here rather than referencing the nursing/pharmacist
+    // playlists defined in courses.js — those live in a separate
+    // DOMContentLoaded closure and aren't in scope for this one.)
     var isPharmacyPage = /\/pharmacy\//.test(window.location.pathname);
-
-    function extractYouTubeId(url) {
-      var match = url.match(/(?:youtu\.be\/|[?&]v=)([a-zA-Z0-9_-]{6,})/);
-      return match ? match[1] : "";
-    }
 
     var videos = isPharmacyPage
       ? [
           {
-            id: extractYouTubeId(pharmacistPlaylist[0].url),
-            title: pharmacistPlaylist[0].title,
+            id: "Gab0IJ_-8tQ",
+            title: "Paracetamol Pharmacology in 5 Minutes",
             tag: "Latest",
           },
           {
-            id: extractYouTubeId(pharmacistPlaylist[1].url),
-            title: pharmacistPlaylist[1].title,
+            id: "vcEzTp2HEF4",
+            title: "Phenytoin Pharmacology in 5 Minutes",
             tag: "Popular",
           },
           {
-            id: extractYouTubeId(pharmacistPlaylist[2].url),
-            title: pharmacistPlaylist[2].title,
+            id: "dg9FUWQShk0",
+            title: "RRB Pharmacist 2025 — Online Coaching",
             tag: "Strategy",
           },
           {
-            id: extractYouTubeId(pharmacistPlaylist[3].url),
-            title: pharmacistPlaylist[3].title,
+            id: "iElZRUtCE14",
+            title: "Pharmacist Exam Strategy",
             tag: "Trending",
           },
         ]
@@ -3510,13 +3508,306 @@ document.addEventListener("DOMContentLoaded", () => {
     var zoomLbl = document.getElementById("qp-zoom-label");
     var noResults = document.getElementById("qp-no-results");
     var tabsEl = document.querySelector(".qp-year-tabs");
+    var toolbarActions = document.querySelector(".qp-toolbar-actions");
+    var frameWrap = document.querySelector(".qp-frame-wrap");
     var currentZoom = 100;
+
+    /* ── Subscription-gate state ── */
+    var SUB_STORAGE_KEY = "previousPaperSubscribed";
+    var isSubscribed = sessionStorage.getItem(SUB_STORAGE_KEY) === "true";
+    var selectedPaper = null; /* { pdfUrl, downloadUrl, title, year } */
+    var lastFocusedEl = null;
+
+    /* ── Mobile inline preview placement ──
+       Reuses the existing single-column card-grid breakpoint (768px) —
+       the same breakpoint that already turns .qp-card-grid into one
+       column — as the desktop/mobile boundary for this feature. */
+    var explorerEl = document.querySelector(".qp-explorer");
+    var libraryPanel = document.querySelector(".qp-library-panel");
+    var previewPanel = document.querySelector(".qp-preview-panel");
+    var MOBILE_MQ = window.matchMedia("(max-width: 768px)");
+
+    function isMobileLayout() {
+      return MOBILE_MQ.matches;
+    }
+
+    function placePreviewForDesktop() {
+      if (!previewPanel || !libraryPanel || !explorerEl) return;
+      if (
+        previewPanel.parentElement !== explorerEl ||
+        previewPanel.nextElementSibling !== libraryPanel
+      ) {
+        libraryPanel.insertAdjacentElement("beforebegin", previewPanel);
+      }
+    }
+
+    function detachPreviewPanel() {
+      if (previewPanel && previewPanel.parentNode) previewPanel.remove();
+    }
+
+    function placePreviewAfterCard(card) {
+      if (!previewPanel || !card) return;
+      if (card.nextElementSibling !== previewPanel) {
+        card.insertAdjacentElement("afterend", previewPanel);
+      }
+      requestAnimationFrame(function () {
+        if (previewPanel.isConnected)
+          previewPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    }
+
+    function syncPreviewPlacement() {
+      if (!isMobileLayout()) {
+        placePreviewForDesktop();
+        return;
+      }
+      var activeCard = cardGrid.querySelector(".qp-card.qp-active");
+      if (selectedPaper && activeCard && activeCard.style.display !== "none") {
+        placePreviewAfterCard(activeCard);
+      } else {
+        detachPreviewPanel();
+      }
+    }
+
+    if (typeof MOBILE_MQ.addEventListener === "function") {
+      MOBILE_MQ.addEventListener("change", syncPreviewPlacement);
+    } else if (typeof MOBILE_MQ.addListener === "function") {
+      MOBILE_MQ.addListener(syncPreviewPlacement); /* legacy Safari fallback */
+    }
+
+    /* ── Build subscription lock overlay (blur + Subscribe/Download) ── */
+    var subLock = null,
+      subBtn = null,
+      subDlBtn = null;
+    if (frameWrap && !document.getElementById("qp-sub-lock")) {
+      frameWrap.insertAdjacentHTML(
+        "beforeend",
+        '<div class="qp-sub-lock" id="qp-sub-lock">' +
+          '<div class="qp-sub-lock-inner">' +
+          '<div class="qp-sub-lock-icon"><i class="fa-solid fa-lock"></i></div>' +
+          '<p class="qp-sub-lock-title">Subscribe to unlock this paper</p>' +
+          '<p class="qp-sub-lock-sub">This paper is selected and ready — subscribe to view and download the full PDF.</p>' +
+          '<div class="qp-sub-lock-actions">' +
+          '<button type="button" class="qp-sub-btn" id="qp-sub-btn"><i class="fa-solid fa-envelope-open-text"></i> Subscribe</button>' +
+          '<button type="button" class="qp-sub-dl-btn" id="qp-sub-dl-btn" aria-disabled="true"><i class="fa-solid fa-download"></i> Download</button>' +
+          "</div>" +
+          "</div>" +
+          "</div>",
+      );
+    }
+    if (frameWrap) {
+      subLock = document.getElementById("qp-sub-lock");
+      subBtn = document.getElementById("qp-sub-btn");
+      subDlBtn = document.getElementById("qp-sub-dl-btn");
+    }
+
+    /* ── Build toolbar "Subscribed" status badge ── */
+    var subscribedBadge = null;
+    if (toolbarActions && dlBtn && !document.getElementById("qp-tbtn-subscribed")) {
+      dlBtn.insertAdjacentHTML(
+        "beforebegin",
+        '<span class="qp-tbtn-subscribed" id="qp-tbtn-subscribed" title="Subscribed">' +
+          '<i class="fa-solid fa-circle-check"></i> Subscribed</span>',
+      );
+    }
+    if (toolbarActions) subscribedBadge = document.getElementById("qp-tbtn-subscribed");
+    if (subscribedBadge && isSubscribed) subscribedBadge.classList.add("qp-show");
+
+    /* ── Build lead-enquiry subscribe modal (reuses .glass-form/.lead-form) ── */
+    var leadModalOverlay = document.getElementById("qp-lead-modal-overlay");
+    if (!leadModalOverlay) {
+      document.body.insertAdjacentHTML(
+        "beforeend",
+        '<div class="qp-lead-modal-overlay" id="qp-lead-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="qp-lead-modal-title">' +
+          '<div class="qp-lead-modal-content">' +
+          '<button type="button" class="qp-lead-modal-close" id="qp-lead-modal-close" aria-label="Close subscribe form"><i class="fa-solid fa-xmark"></i></button>' +
+          '<div class="qp-lead-modal-header">' +
+          '<span class="qp-lead-modal-eyebrow"><i class="fa-solid fa-lock"></i> Unlock Full Access</span>' +
+          '<h3 class="qp-lead-modal-title" id="qp-lead-modal-title">Subscribe to view &amp; download</h3>' +
+          "<p class=\"qp-lead-modal-sub\">Share your details and we'll unlock the full question paper preview and download instantly.</p>" +
+          "</div>" +
+          '<form class="glass-form lead-form" id="qp-lead-modal-form">' +
+          '<div class="form-row">' +
+          '<div class="input-group"><input type="text" name="name" required placeholder="Full Name"></div>' +
+          '<div class="input-group"><input type="tel" name="phone" required placeholder="Phone Number"></div>' +
+          "</div>" +
+          '<div class="input-group"><input type="email" name="email" placeholder="Email Address"></div>' +
+          '<div class="input-group select-wrapper">' +
+          '<select name="course" required>' +
+          '<option value="" disabled selected>Select Course Category</option>' +
+          '<option value="nursing">Nursing Coaching</option>' +
+          '<option value="pharmacy">Pharmacist Exams</option>' +
+          '<option value="mlt">Lab Technician Courses</option>' +
+          '<option value="german">German Languages</option>' +
+          "</select>" +
+          '<i class="fa-solid fa-chevron-down select-icon"></i>' +
+          "</div>" +
+          '<div class="input-group"><textarea name="message" rows="3" placeholder="How can we help you?"></textarea></div>' +
+          '<input type="hidden" name="source" value="Previous Year Question Paper">' +
+          '<input type="hidden" name="paperTitle" value="">' +
+          '<input type="hidden" name="paperYear" value="">' +
+          '<button type="submit" class="btn-form-submit">Submit &amp; Unlock <i class="fa-solid fa-unlock" style="margin-left:8px;"></i></button>' +
+          "</form>" +
+          "</div>" +
+          "</div>",
+      );
+      leadModalOverlay = document.getElementById("qp-lead-modal-overlay");
+    }
+    var leadModalContent = leadModalOverlay
+      ? leadModalOverlay.querySelector(".qp-lead-modal-content")
+      : null;
+    var leadModalForm = document.getElementById("qp-lead-modal-form");
+    var leadModalClose = document.getElementById("qp-lead-modal-close");
+
+    function onModalKeydown(e) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeLeadModal();
+        return;
+      }
+      if (e.key === "Tab" && leadModalContent) {
+        var focusables = leadModalContent.querySelectorAll(
+          "input, select, textarea, button:not([disabled])",
+        );
+        if (!focusables.length) return;
+        var first = focusables[0],
+          last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    function openLeadModal() {
+      if (!leadModalOverlay) return;
+      lastFocusedEl = document.activeElement;
+      if (leadModalForm) {
+        if (leadModalForm.elements["paperTitle"])
+          leadModalForm.elements["paperTitle"].value = selectedPaper
+            ? selectedPaper.title
+            : "";
+        if (leadModalForm.elements["paperYear"])
+          leadModalForm.elements["paperYear"].value = selectedPaper
+            ? selectedPaper.year
+            : "";
+      }
+      leadModalOverlay.classList.add("qp-active");
+      document.body.classList.add("qp-modal-open");
+      document.addEventListener("keydown", onModalKeydown);
+      var firstField = leadModalForm
+        ? leadModalForm.querySelector("input, select, textarea")
+        : null;
+      if (firstField) firstField.focus();
+    }
+
+    function closeLeadModal() {
+      if (!leadModalOverlay) return;
+      leadModalOverlay.classList.remove("qp-active");
+      document.body.classList.remove("qp-modal-open");
+      document.removeEventListener("keydown", onModalKeydown);
+      if (lastFocusedEl && typeof lastFocusedEl.focus === "function")
+        lastFocusedEl.focus();
+    }
+
+    if (leadModalClose) leadModalClose.addEventListener("click", closeLeadModal);
+    if (leadModalOverlay) {
+      leadModalOverlay.addEventListener("click", function (e) {
+        if (e.target === leadModalOverlay) closeLeadModal();
+      });
+    }
+    if (subBtn) subBtn.addEventListener("click", openLeadModal);
+
+    /* ── Filename helper for real downloads ── */
+    function makeDownloadFilename(title) {
+      var base = (title || "question-paper")
+        .trim()
+        .replace(/[^\w-]+/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+      return (base || "question-paper") + ".pdf";
+    }
+
+    /* ── Reflect current subscription state onto the preview/toolbar ── */
+    function applyAccessState() {
+      if (subscribedBadge) subscribedBadge.classList.toggle("qp-show", isSubscribed);
+
+      if (!selectedPaper || !selectedPaper.pdfUrl) {
+        if (subLock) subLock.classList.remove("qp-show");
+        return;
+      }
+
+      if (isSubscribed) {
+        if (subLock) subLock.classList.remove("qp-show");
+        if (dlBtn) {
+          dlBtn.href = selectedPaper.downloadUrl;
+          dlBtn.setAttribute("download", makeDownloadFilename(selectedPaper.title));
+          dlBtn.removeAttribute("target");
+          dlBtn.removeAttribute("aria-disabled");
+          dlBtn.style.opacity = "";
+          dlBtn.style.pointerEvents = "";
+        }
+      } else {
+        if (subLock) subLock.classList.add("qp-show");
+        if (dlBtn) {
+          dlBtn.setAttribute("href", "#");
+          dlBtn.setAttribute("aria-disabled", "true");
+          dlBtn.removeAttribute("download");
+          dlBtn.style.opacity = "";
+          dlBtn.style.pointerEvents = "";
+        }
+      }
+    }
+
+    function unlockSubscription() {
+      isSubscribed = true;
+      sessionStorage.setItem(SUB_STORAGE_KEY, "true");
+      applyAccessState();
+    }
+
+    if (leadModalForm) {
+      leadModalForm.addEventListener("leadFormSuccess", function () {
+        closeLeadModal();
+        unlockSubscription();
+      });
+      leadModalForm.addEventListener("leadFormError", function () {
+        /* keep modal open, PDF stays locked — forms.js already surfaced the error */
+      });
+    }
+
+    if (subDlBtn) {
+      subDlBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (!isSubscribed) {
+          openLeadModal();
+          return;
+        }
+        if (dlBtn) dlBtn.click();
+      });
+    }
+
+    if (dlBtn) {
+      dlBtn.addEventListener("click", function (e) {
+        if (!selectedPaper || !selectedPaper.pdfUrl) {
+          e.preventDefault();
+          return;
+        }
+        if (!isSubscribed) {
+          e.preventDefault();
+          openLeadModal();
+        }
+      });
+    }
 
     /* ── Initial idle state ── */
     function resetToIdle() {
       if (emptyState) emptyState.classList.remove("qp-hidden");
       if (lockedState) lockedState.classList.remove("qp-show");
       if (skeleton) skeleton.classList.remove("qp-show");
+      if (subLock) subLock.classList.remove("qp-show");
       if (iframe) {
         iframe.classList.remove("qp-loaded");
         iframe.src = "";
@@ -3566,9 +3857,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (infoTitle) infoTitle.textContent = title || "";
 
       if (!pdfUrl) {
+        selectedPaper = null;
         /* No PDF — show Coming Soon state */
         if (emptyState) emptyState.classList.add("qp-hidden");
         if (skeleton) skeleton.classList.remove("qp-show");
+        if (subLock) subLock.classList.remove("qp-show");
         if (lockedTitle) lockedTitle.textContent = "Coming Soon";
         var lockedSub = lockedState
           ? lockedState.querySelector(".qp-state-sub")
@@ -3591,12 +3884,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       /* Has PDF — load in iframe */
-      if (dlBtn) {
-        dlBtn.href = downloadUrl || pdfUrl;
-        dlBtn.setAttribute("target", "_blank");
-        dlBtn.style.opacity = "";
-        dlBtn.style.pointerEvents = "";
-      }
+      selectedPaper = {
+        pdfUrl: pdfUrl,
+        year: year,
+        title: title,
+        downloadUrl: downloadUrl || pdfUrl,
+      };
       if (emptyState) emptyState.classList.add("qp-hidden");
       if (lockedState) lockedState.classList.remove("qp-show");
       if (skeleton) skeleton.classList.add("qp-show");
@@ -3608,9 +3901,13 @@ document.addEventListener("DOMContentLoaded", () => {
             if (skeleton) skeleton.classList.remove("qp-show");
             iframe.classList.add("qp-loaded");
           };
+          iframe.onerror = function () {
+            if (skeleton) skeleton.classList.remove("qp-show");
+          };
           iframe.src = pdfUrl;
         }, 100);
       }
+      applyAccessState();
     }
 
     /* ── Card click ── */
@@ -3639,6 +3936,8 @@ document.addEventListener("DOMContentLoaded", () => {
       var downloadUrl = card.dataset.download || pdfUrl;
 
       loadPreview(pdfUrl, year, title, downloadUrl);
+
+      if (isMobileLayout()) placePreviewAfterCard(card);
     }
 
     cardGrid.querySelectorAll(".qp-card").forEach(function (card) {
@@ -3675,6 +3974,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (visible) anyVisible = true;
       });
       if (noResults) noResults.classList.toggle("qp-show", !anyVisible);
+
+      if (isMobileLayout() && selectedPaper) {
+        var activeCard = cardGrid.querySelector(".qp-card.qp-active");
+        if (!activeCard || activeCard.style.display === "none") {
+          detachPreviewPanel();
+        }
+      }
     }
 
     if (tabsEl) {
@@ -3688,6 +3994,13 @@ document.addEventListener("DOMContentLoaded", () => {
         applyFilter(btn.dataset.year || "all");
       });
     }
+
+    /* Everything above must finish wiring while the preview panel is
+       still attached to the document (so document.getElementById lookups
+       inside it resolve). Only now, at the very end, detach it for the
+       mobile idle state — moving/detaching it never re-runs any of the
+       setup above. */
+    if (isMobileLayout()) detachPreviewPanel();
   }
 
   // --- 11. RENDER PRACTICE TESTS ---
